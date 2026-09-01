@@ -1,7 +1,8 @@
 /**
  * SAT READING SKILLS ACADEMY - Execution Engine
  * Handles stage flow, think-aloud progressive reveals, trap lab drills,
- * hint ladders, timer countdowns, answer checking, and ESL gloss rendering.
+ * hint ladders, timer countdowns, answer checking, structured deep explanations,
+ * and ESL gloss rendering.
  */
 
 const Engine = (function() {
@@ -121,9 +122,72 @@ const Engine = (function() {
   }
 
   /**
-   * Stage 1: The Skill ("What & Why")
+   * Stage 1: The Skill ("What & Why" + Golden Rules + Pacing Breakdown)
    */
   function renderStage1Skill(container, skillData, moduleId) {
+    let goldenRulesHTML = "";
+    if (skillData.goldenRules && skillData.goldenRules.length > 0) {
+      let cards = "";
+      skillData.goldenRules.forEach((rule, idx) => {
+        cards += `
+          <div class="golden-rule-card">
+            <div class="rule-number-pill">${idx + 1}</div>
+            <div class="rule-card-body">
+              <h4>${rule.title}</h4>
+              <p>${rule.description}</p>
+            </div>
+          </div>
+        `;
+      });
+      goldenRulesHTML = `
+        <div class="golden-rules-section">
+          <div class="section-subtitle-pill"><span>🏆</span> Core Golden Rules for Answering</div>
+          <div class="golden-rules-grid">
+            ${cards}
+          </div>
+        </div>
+      `;
+    }
+
+    let pacingHTML = "";
+    if (skillData.pacingStrategy) {
+      const steps = skillData.pacingStrategy.steps || [];
+      pacingHTML = `
+        <div class="pacing-timeline-box">
+          <div class="pacing-header">
+            <h3><span>⏱️</span> 90-Second Exam Pacing Protocol</h3>
+            <span class="pacing-total">Target: ~75–90s Total</span>
+          </div>
+          <div class="pacing-steps-row">
+            ${steps.map(s => `
+              <div class="pacing-step">
+                <span class="pacing-time">${s.seconds}s</span>
+                <div class="pacing-action">${s.action}</div>
+                <span class="pacing-subtext">${s.detail}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    let pitfallsHTML = "";
+    if (skillData.commonPitfalls && skillData.commonPitfalls.length > 0) {
+      pitfallsHTML = `
+        <div class="pitfalls-section">
+          <div class="section-subtitle-pill" style="color: var(--status-error);"><span>⚠️</span> Common Cognitive Pitfalls & Misconceptions</div>
+          <div class="pitfalls-grid">
+            ${skillData.commonPitfalls.map(p => `
+              <div class="pitfall-card">
+                <h4><span>🚨</span> ${p.name}</h4>
+                <p>${p.explanation}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
     container.innerHTML = `
       <div class="stage-card skill-stage-card animate-fade-in">
         <div class="stage-card-header">
@@ -159,6 +223,10 @@ const Engine = (function() {
           </div>
         </div>
 
+        ${goldenRulesHTML}
+        ${pacingHTML}
+        ${pitfallsHTML}
+
         ${skillData.eslNote ? `
           <div class="esl-scaffold-banner">
             <span class="esl-badge">ESL / Academic English Scaffold</span>
@@ -178,7 +246,7 @@ const Engine = (function() {
   }
 
   /**
-   * Stage 2: The Method ("The Steps")
+   * Stage 2: The Method ("The Steps" + Blueprint Formula & Verification Checklist)
    */
   function renderStage2Method(container, methodData, moduleId) {
     let stepsHTML = "";
@@ -198,6 +266,39 @@ const Engine = (function() {
       `;
     });
 
+    let formulaHTML = "";
+    if (methodData.examFormula) {
+      formulaHTML = `
+        <div class="strategy-heuristic-banner" style="margin-bottom: 1.5rem;">
+          <span class="heuristic-icon">📐</span>
+          <div class="heuristic-content">
+            <div class="heuristic-title">The College Board Construction Formula</div>
+            <p class="heuristic-text">${methodData.examFormula}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    let checklistHTML = "";
+    if (methodData.checklist && methodData.checklist.length > 0) {
+      checklistHTML = `
+        <div class="golden-rules-section">
+          <div class="section-subtitle-pill"><span>📋</span> Pre-Submission Verification Checklist</div>
+          <div class="golden-rules-grid">
+            ${methodData.checklist.map((item, idx) => `
+              <div class="golden-rule-card">
+                <div class="rule-number-pill" style="background-color: var(--status-mastered); color: #fff;">✓</div>
+                <div class="rule-card-body">
+                  <h4>Check ${idx + 1}</h4>
+                  <p>${item}</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
     container.innerHTML = `
       <div class="stage-card method-stage-card animate-fade-in">
         <div class="stage-card-header">
@@ -206,9 +307,13 @@ const Engine = (function() {
           <p class="stage-subtitle">${methodData.summary}</p>
         </div>
 
+        ${formulaHTML}
+
         <div class="method-steps-container">
           ${stepsHTML}
         </div>
+
+        ${checklistHTML}
 
         <div class="method-tip-banner">
           <span class="tip-icon">💡</span>
@@ -225,6 +330,81 @@ const Engine = (function() {
     `;
 
     StorageManager.markStageComplete(moduleId, 2);
+  }
+
+  /**
+   * Helper: Renders structured or string explanations cleanly
+   */
+  function renderStructuredExplanation(explanation, item, isCorrect) {
+    if (!explanation) return "";
+
+    if (typeof explanation === "object") {
+      let breakdownHTML = "";
+      if (explanation.choiceBreakdown) {
+        breakdownHTML = `
+          <div class="expl-section choice-autopsy">
+            <h4><span>🔍</span> Option-by-Option Breakdown & Trap Autopsy</h4>
+            <div class="autopsy-list">
+              ${["A", "B", "C", "D"].map(letter => {
+                const text = explanation.choiceBreakdown[letter];
+                if (!text) return "";
+                const isChoiceCorrect = letter === item.answer;
+                const trapName = item.trapTypes ? item.trapTypes[letter] : null;
+                const trapInfo = trapName ? TRAP_TAXONOMY[trapName] : null;
+                return `
+                  <div class="autopsy-item ${isChoiceCorrect ? 'autopsy-correct' : 'autopsy-wrong'}">
+                    <div class="autopsy-header">
+                      <span class="autopsy-letter">${letter})</span>
+                      ${isChoiceCorrect ? `
+                        <span class="autopsy-trap-badge" style="background-color: var(--status-mastered-bg); color: var(--status-mastered);">✓ Correct Answer (Logically Forced)</span>
+                      ` : (trapInfo ? `
+                        <span class="autopsy-trap-badge ${trapInfo.badgeClass}">${trapInfo.icon} Trap: ${trapName}</span>
+                      ` : '')}
+                    </div>
+                    <div class="autopsy-text">${text}</div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="structured-explanation-card animate-fade-in">
+          <div class="expl-section correct-bridge">
+            <h4><span>🌟</span> Why Choice ${item.answer} is 100% Defensible</h4>
+            <p>${explanation.correctBridge || ""}</p>
+          </div>
+
+          ${explanation.keyTakeaway ? `
+            <div class="expl-section strategy-takeaway">
+              <h4><span>💡</span> Core Metacognitive Takeaway & Exam Heuristic</h4>
+              <p>${explanation.keyTakeaway}</p>
+            </div>
+          ` : ""}
+
+          ${breakdownHTML}
+        </div>
+      `;
+    }
+
+    return `
+      <div class="feedback-reveal-card animate-fade-in">
+        <div class="feedback-title ${isCorrect ? 'correct' : 'incorrect'}">
+          <span>${isCorrect ? '✓ Correct!' : '✕ Incorrect'}</span>
+        </div>
+        <p class="explanation-text">${explanation}</p>
+        ${item.trapTypes ? `
+          <div class="trap-breakdown-box">
+            <h5>Distractor Trap Breakdown:</h5>
+            <ul>
+              ${Object.entries(item.trapTypes).map(([opt, trap]) => `<li><strong>${opt}:</strong> ${trap} — ${TRAP_TAXONOMY[trap]?.description}</li>`).join('')}
+            </ul>
+          </div>
+        ` : ''}
+      </div>
+    `;
   }
 
   /**
@@ -289,6 +469,16 @@ const Engine = (function() {
           </div>
         </div>
 
+        ${item.strategyHeuristic ? `
+          <div class="strategy-heuristic-banner">
+            <span class="heuristic-icon">💡</span>
+            <div class="heuristic-content">
+              <div class="heuristic-title">Strategy & Pattern Heuristic</div>
+              <p class="heuristic-text">${item.strategyHeuristic}</p>
+            </div>
+          </div>
+        ` : ""}
+
         <div class="sat-split-layout">
           <!-- Left Column: Passage -->
           <div class="sat-passage-pane">
@@ -336,13 +526,8 @@ const Engine = (function() {
               </div>
             </div>
 
-            <!-- Full Explanation (revealed when all thoughts shown) -->
-            ${!hasMoreThoughts ? `
-              <div class="full-explanation-card animate-fade-in">
-                <h4>Comprehensive Takeaway</h4>
-                <p>${item.explanation}</p>
-              </div>
-            ` : ""}
+            <!-- Full Structured Explanation (revealed when all thoughts shown) -->
+            ${!hasMoreThoughts ? renderStructuredExplanation(item.explanation, item, true) : ""}
           </div>
         </div>
 
@@ -479,7 +664,7 @@ const Engine = (function() {
   }
 
   /**
-   * Stage 5: Guided Practice ("We Do" with 3-level Hint Ladder)
+   * Stage 5: Guided Practice ("We Do" with 3-level Hint Ladder & Structured Explanations)
    */
   function renderStage5GuidedPractice(container, items, moduleId, itemIdx) {
     const item = items[itemIdx] || items[0];
@@ -555,6 +740,16 @@ const Engine = (function() {
           </div>
         </div>
 
+        ${item.strategyHeuristic ? `
+          <div class="strategy-heuristic-banner">
+            <span class="heuristic-icon">💡</span>
+            <div class="heuristic-content">
+              <div class="heuristic-title">Strategy & Pattern Heuristic</div>
+              <p class="heuristic-text">${item.strategyHeuristic}</p>
+            </div>
+          </div>
+        ` : ""}
+
         <div class="sat-split-layout">
           <!-- Left: Passage -->
           <div class="sat-passage-pane">
@@ -593,20 +788,7 @@ const Engine = (function() {
                   Submit Answer <kbd>Enter</kbd>
                 </button>
               </div>
-            ` : `
-              <div class="feedback-reveal-card animate-fade-in">
-                <div class="feedback-title ${(existingRecord?.isCorrect || selectedChoiceKey === item.answer) ? 'correct' : 'incorrect'}">
-                  <span>${(existingRecord?.isCorrect || selectedChoiceKey === item.answer) ? '✓ Correct!' : '✕ Incorrect'}</span>
-                </div>
-                <p class="explanation-text">${item.explanation}</p>
-                <div class="trap-breakdown-box">
-                  <h5>Distractor Trap Breakdown:</h5>
-                  <ul>
-                    ${Object.entries(item.trapTypes).map(([opt, trap]) => `<li><strong>${opt}:</strong> ${trap} — ${TRAP_TAXONOMY[trap]?.description}</li>`).join('')}
-                  </ul>
-                </div>
-              </div>
-            `}
+            ` : renderStructuredExplanation(item.explanation, item, (existingRecord?.isCorrect || selectedChoiceKey === item.answer))}
           </div>
         </div>
 
@@ -651,7 +833,7 @@ const Engine = (function() {
   }
 
   /**
-   * Stage 6: Independent Practice ("You Do" with 90s Timer & Self-Audit)
+   * Stage 6: Independent Practice ("You Do" with 90s Timer, Structured Explanations & Self-Audit)
    */
   function renderStage6IndependentPractice(container, items, rubricData, moduleId, itemIdx) {
     const totalItems = items.length;
@@ -714,6 +896,16 @@ const Engine = (function() {
           </div>
         </div>
 
+        ${item.strategyHeuristic ? `
+          <div class="strategy-heuristic-banner">
+            <span class="heuristic-icon">💡</span>
+            <div class="heuristic-content">
+              <div class="heuristic-title">Strategy & Pattern Heuristic</div>
+              <p class="heuristic-text">${item.strategyHeuristic}</p>
+            </div>
+          </div>
+        ` : ""}
+
         <div class="sat-split-layout">
           <!-- Left: Passage -->
           <div class="sat-passage-pane">
@@ -740,20 +932,7 @@ const Engine = (function() {
                   Confirm Answer <kbd>Enter</kbd>
                 </button>
               </div>
-            ` : `
-              <div class="feedback-reveal-card animate-fade-in">
-                <div class="feedback-title ${(existingRecord?.isCorrect || selectedChoiceKey === item.answer) ? 'correct' : 'incorrect'}">
-                  <span>${(existingRecord?.isCorrect || selectedChoiceKey === item.answer) ? '✓ Correct!' : '✕ Incorrect'}</span>
-                </div>
-                <p class="explanation-text">${item.explanation}</p>
-                <div class="trap-breakdown-box">
-                  <h5>Distractor Analysis:</h5>
-                  <ul>
-                    ${Object.entries(item.trapTypes).map(([opt, trap]) => `<li><strong>${opt}:</strong> ${trap} — ${TRAP_TAXONOMY[trap]?.description}</li>`).join('')}
-                  </ul>
-                </div>
-              </div>
-            `}
+            ` : renderStructuredExplanation(item.explanation, item, (existingRecord?.isCorrect || selectedChoiceKey === item.answer))}
           </div>
         </div>
 
@@ -903,7 +1082,6 @@ const Engine = (function() {
 
     let processed = text;
     Object.entries(glosses).forEach(([word, def]) => {
-      // Case-insensitive regex with boundary
       const escaped = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
       const regex = new RegExp(`\\b(${escaped})\\b`, 'gi');
       processed = processed.replace(regex, (match) => {

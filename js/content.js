@@ -1,7 +1,7 @@
 /**
- * SAT READING SKILLS ACADEMY - Content Repository
- * Contains curriculum data, instructional methods, worked examples, trap lab drills,
- * guided practice items with hint ladders, and independent timed practice items across all 7 modules.
+ * SAT READING SKILLS ACADEMY - Enhanced Content Repository
+ * Enriched with Metacognitive Heuristics, Multi-Part Structured Explanations,
+ * Golden Rules, 90-Second Pacing Protocols, Distractor Autopsies, and Expanded ESL Glosses.
  */
 
 const ACADEMY_CONTENT = {
@@ -21,17 +21,54 @@ const ACADEMY_CONTENT = {
       whatItTests: "The Digital SAT Reading section is not a test of speed-reading or personal interpretation. It is a standardized logic test dressed up as a reading comprehension exam. Every question has exactly one 100% indisputably defensible answer and three objectively flawed distractors.",
       frequency: "Foundational to ALL 27-29 reading questions per module on test day.",
       recognitionTest: "Whenever you read ANY passage on the Digital SAT, look for: (1) Main claim vs. supporting data, (2) Pivot transitions (however, yet, nonetheless), (3) Nuance qualifiers (some, may, partially vs. always, completely).",
-      eslNote: "For non-native English speakers: The test makers love using modest, cautious academic phrasing (e.g., 'suggests a correlation', 'is consistent with') as correct answers, while using dramatic, absolute language as traps."
+      goldenRules: [
+        {
+          title: "The Literal Truth Rule",
+          description: "If an option cannot be proven by 3–5 exact words in the text, it is wrong. Never infer outside the four corners of the passage."
+        },
+        {
+          title: "The Pivot Priority Principle",
+          description: "Authors spend 80% of their words setting up context and 20% delivering their true thesis immediately after pivot words (however, yet, nonetheless)."
+        },
+        {
+          title: "The Modesty Preference",
+          description: "Academic authors qualify their claims (e.g., 'suggests a correlation', 'may indicate'). The SAT rewards cautious, modest language."
+        },
+        {
+          title: "The 100% Correct Mandate",
+          description: "An answer that is 99% true and 1% inaccurate is 100% wrong. One single extreme word invalidates the entire choice."
+        }
+      ],
+      pacingStrategy: {
+        steps: [
+          { seconds: "20", action: "Anchor & Skim", detail: "Identify topic noun + locate pivot transitions" },
+          { seconds: "15", action: "Form Prediction", detail: "Draft your own simple 3-word answer before peeking" },
+          { seconds: "35", action: "Eliminate Traps", detail: "Cross out Extreme, Opposite, and Out-of-Scope options" },
+          { seconds: "15", action: "Verify Anchor", detail: "Confirm your chosen answer directly matches passage text" }
+        ]
+      },
+      commonPitfalls: [
+        {
+          name: "The 'Sounds Intelligent' Trap",
+          explanation: "Picking a choice because it uses impressive academic vocabulary or states a true real-world scientific fact that was never mentioned in the text."
+        },
+        {
+          name: "The Confirmation Bias Leap",
+          explanation: "Connecting two unrelated sentences in the passage using your own outside common sense rather than what the text explicitly states."
+        }
+      ],
+      eslNote: "For non-native English speakers: Look out for 'qualifier words' (partially, tends to, plausible). Traps rely on bold absolute words (invariably, completely, impossible) that sound convincing in everyday speech but fail formal logic."
     },
     stage2_method: {
       name: "The ACTIVE Framework",
       summary: "5 core cognitive moves every top 1% SAT reader makes automatically.",
+      examFormula: "Passage = [Traditional View / Context] + [Pivot Transition (However/Yet)] + [Author's Qualified Stance] + [Supporting Data]",
       steps: [
         {
           num: 1,
           title: "Anchor the Core Topic",
-          rule: "Identify the noun/subject the author is discussing in the first 10 words.",
-          expertMove: "I ask: 'Who or what is this text about?' and ignore extraneous background adjectives."
+          rule: "Identify the primary subject noun within the first 10 words.",
+          expertMove: "I ask: 'Who or what is this text about?' and strip away distracting introductory clauses."
         },
         {
           num: 2,
@@ -57,6 +94,12 @@ const ACADEMY_CONTENT = {
           rule: "Eliminate choices with words like 'all', 'never', 'wholly impossible', or 'uniquely'.",
           expertMove: "I treat absolute statements as guilty until proven innocent by explicit passage text."
         }
+      ],
+      checklist: [
+        "Did I locate the pivot word (however, yet, conversely)?",
+        "Does my answer match the author's polarity (+/-)?",
+        "Did I eliminate any choices with extreme words (all, never, exclusively)?",
+        "Can I point to 3 specific words in the text that justify my selection?"
       ]
     },
     stage3_workedExamples: [
@@ -65,6 +108,7 @@ const ACADEMY_CONTENT = {
         type: "foundation",
         stage: "worked-example",
         difficulty: "Medium",
+        strategyHeuristic: "When a passage opens with 'Many scientists assumed X. However, recent findings Y...', the main structure is always a transition from an established belief to a new challenging discovery.",
         passage: "Many paleontologists long assumed that tyrannosaurids were solitary hunters that rarely tolerated rivals in their territory. However, the recent discovery of multiple *Albertosaurus* fossils preserved together in a single quarry in Alberta, Canada, has challenged this orthodoxy. Because the individuals were buried simultaneously in a single geological event, researchers suggest that these apex predators may have engaged in cooperative pack hunting to bring down large ceratopsian prey.",
         question: "Which choice best describes the main shift in the passage?",
         choices: [
@@ -75,22 +119,33 @@ const ACADEMY_CONTENT = {
         ],
         answer: "B",
         thinkAloud: [
-          "Step 1 (Scan for Anchor & Pivot): The passage starts with 'Many paleontologists long assumed...' and hits a massive pivot word: 'However'.",
-          "Step 2 (Deconstruct the Shift): Before 'however' = old assumption (solitary hunters). After 'however' = new fossil quarry suggesting pack hunting.",
-          "Step 3 (Predict the Answer): The text goes from old belief -> new evidence questioning it. Let's inspect choice B.",
-          "Step 4 (Eliminate Traps): Choice A is 'Out of Scope' (no modern predators mentioned). Choice C is 'Too Extreme' ('proves conclusively', 'all tyrannosaurids'). Choice D is 'Out of Scope' (no mammalian carnivores). Choice B is 100% supported."
+          "Step 1 (Scan the Anchor & Opening Frame): Sentence 1 opens with 'Many paleontologists long assumed...' This signals a past belief, not an immutable fact.",
+          "Step 2 (Catch the Major Structural Pivot): Sentence 2 hits the pivot: 'However, the recent discovery... has challenged this orthodoxy.' The text is pivoting from old belief to new challenge.",
+          "Step 3 (Analyze the Supporting Evidence): Sentence 3 explains the new discovery: multiple fossils buried together in one event, suggesting pack hunting.",
+          "Step 4 (Formulate Independent Prediction): The passage moves from [an old scientific assumption] to [new fossil evidence that challenges it].",
+          "Step 5 (Evaluate Choices Against Prediction): Choice B is a direct, 1-to-1 match for my prediction.",
+          "Step 6 (Distractor Autopsy): Choice A introduces 'modern predators' (Out of Scope). Choice C uses extreme words 'proves conclusively' and 'all tyrannosaurids' (Too Extreme). Choice D mentions 'mammalian carnivores' (Out of Scope)."
         ],
         trapTypes: {
           A: "Out of Scope",
           C: "Too Extreme",
           D: "Out of Scope"
         },
-        explanation: "Choice B accurately captures the two-part structure signaled by the pivot word 'However': the first sentence introduces a long-held assumption, and the remainder introduces new quarry findings that challenge it. Choice C contains the extreme words 'proves conclusively' and 'all', whereas the text only says researchers 'suggest' they 'may have' hunted cooperatively.",
+        explanation: {
+          correctBridge: "Choice B accurately captures the two-part rhetorical blueprint signaled by 'However': the first sentence introduces a traditional assumption ('long assumed'), and the subsequent sentences present quarry findings that challenge that belief ('challenged this orthodoxy').",
+          choiceBreakdown: {
+            A: "Out of Scope Trap: The text never mentions modern predators mimicking dinosaur behavior; it focuses strictly on prehistoric Albertosaurus fossils.",
+            B: "Correct Answer: Perfectly maps the structural shift from a traditional assumption to new challenging evidence.",
+            C: "Too Extreme Trap: The passage states researchers 'suggest' they 'may have' hunted in packs; it does not 'prove conclusively' that 'all' tyrannosaurids did so.",
+            D: "Out of Scope Trap: Modern mammalian carnivores (such as lions or wolves) are never mentioned or compared in the text."
+          },
+          keyTakeaway: "On Digital SAT structural questions, look for structural marker words like 'assumed' followed by 'however'. The correct answer will always reflect a shift from prior belief to new evidence."
+        },
         glosses: {
-          "solitary": "living or hunting alone; not in a group",
-          "orthodoxy": "a traditionally accepted belief or established theory",
-          "apex predators": "animals at the top of the food chain with no natural predators",
-          "ceratopsian": "a group of horned, herbivorous dinosaurs (like Triceratops)"
+          "solitary": "(adj.) living, hunting, or existing alone rather than in a social group",
+          "orthodoxy": "(noun) a traditionally accepted belief, theory, or standard practice",
+          "apex predators": "(noun phrase) carnivores at the top of a food chain upon which no other creatures prey",
+          "ceratopsian": "(noun) a group of beaked, horned herbivorous dinosaurs"
         }
       },
       {
@@ -98,6 +153,7 @@ const ACADEMY_CONTENT = {
         type: "foundation",
         stage: "worked-example",
         difficulty: "Hard",
+        strategyHeuristic: "On perspective questions involving multiple scholars, always separate the subject of the question stem (e.g., Higginbotham) from other voices (e.g., modern critics).",
         passage: "Historian Evelyn Brooks Higginbotham coined the term 'politics of respectability' to describe how early twentieth-century African American women navigated racial subjugation. By adhering strictly to middle-class behavioral norms, temperance, and educational attainment, these activists sought to counter prevailing racist stereotypes and claim moral citizenship. While critics today argue that this strategy conceded too much ground to bourgeois ideals, Higginbotham contends that within the oppressive constraints of the Jim Crow era, respectability politics served as an indispensable, subversive shield.",
         question: "Based on the text, how would Higginbotham most likely characterize respectability politics as practiced in the early 20th century?",
         choices: [
@@ -108,22 +164,34 @@ const ACADEMY_CONTENT = {
         ],
         answer: "C",
         thinkAloud: [
-          "Step 1 (Identify Subject & Viewpoint): The question asks for Higginbotham's view specifically, NOT modern critics.",
-          "Step 2 (Locate Stance in Passage): The last sentence states: 'Higginbotham contends that within the oppressive constraints... it served as an indispensable, subversive shield.'",
-          "Step 3 (Formulate Prediction): She sees it as necessary ('indispensable') and protective ('shield') under difficult conditions ('oppressive constraints').",
-          "Step 4 (Test Choices & Traps): Choice A matches the critics' view, not Higginbotham's (Opposite/Half Right trap). Choice B uses extreme language 'infallible' and 'complete legal parity' (Too Extreme trap). Choice D has zero textual backing (Out of Scope trap). Choice C uses 'pragmatic and protective' which perfectly matches 'indispensable, subversive shield'."
+          "Step 1 (Isolate the Question Subject): The stem asks specifically for Higginbotham's viewpoint, NOT the viewpoint of 'critics today'.",
+          "Step 2 (Locate Higginbotham's Stance in the Text): The final clause states: 'Higginbotham contends that within the oppressive constraints... it served as an indispensable, subversive shield.'",
+          "Step 3 (Decode Tone & Nuance): Higginbotham's view is positive/defensive (+). She sees it as necessary ('indispensable') and protective ('shield') given the severe limitations ('oppressive constraints').",
+          "Step 4 (Formulate Prediction): Higginbotham views it as a necessary, protective strategy tailored to a hostile, oppressive era.",
+          "Step 5 (Match with Choices): Choice C uses 'pragmatic and protective tactic adapted to an exceptionally restrictive historical environment'—a precise match for 'indispensable shield' within 'oppressive constraints'.",
+          "Step 6 (Eliminate Wrong Choices): Choice A is the viewpoint of modern critics (Opposite/Attribution trap). Choice B uses extreme words 'infallible' and 'complete legal parity' (Too Extreme trap). Choice D claims it was 'universally rejected' (Out of Scope/Extreme trap)."
         ],
         trapTypes: {
           A: "Opposite",
           B: "Too Extreme",
           D: "Out of Scope"
         },
-        explanation: "Choice C accurately reflects Higginbotham's perspective: she views the strategy as an 'indispensable, subversive shield' within 'oppressive constraints', which translates to a pragmatic, protective strategy suited to its environment. Choice A is the viewpoint of modern critics, not Higginbotham.",
+        explanation: {
+          correctBridge: "Choice C directly mirrors Higginbotham's claim in the final sentence: she argues that under 'oppressive constraints', respectability politics was an 'indispensable, subversive shield'—which translates directly to a pragmatic, protective tactic adapted to a restrictive environment.",
+          choiceBreakdown: {
+            A: "Opposite / Wrong Attribution Trap: This summarizes the viewpoint of modern critics ('conceded too much ground'), which Higginbotham explicitly pushes back against.",
+            B: "Too Extreme Trap: 'Infallible' (flawless) and 'achieved complete legal parity' are gross exaggerations not supported by the text.",
+            C: "Correct Answer: Accurately captures Higginbotham's nuanced assessment of the strategy as a protective shield within severe constraints.",
+            D: "Out of Scope / Extreme Trap: The passage never mentions working-class reception or claims the movement was 'universally rejected'."
+          },
+          keyTakeaway: "When a passage presents a debate ('While critics argue X, scholar Y contends Z'), verify who the question is asking about. Distractors frequently quote the wrong debater."
+        },
         glosses: {
-          "subjugation": "the act of bringing someone under domination or control",
-          "temperance": "abstinence from alcoholic drink; self-restraint",
-          "bourgeois": "characteristic of the middle class; conforming to conventional standards",
-          "subversive": "intended to undermine or challenge an established system"
+          "subjugation": "(noun) the act of bringing someone or a group under complete domination or control",
+          "temperance": "(noun) abstinence from alcohol; moderation and self-restraint",
+          "bourgeois": "(adj.) characteristic of the middle class; conforming to conventional social standards",
+          "subversive": "(adj.) seeking or intended to disrupt or undermine an established political system",
+          "pragmatic": "(adj.) dealing with things sensibly and realistically based on practical conditions"
         }
       }
     ],
@@ -167,6 +235,7 @@ const ACADEMY_CONTENT = {
         type: "foundation",
         stage: "guided",
         difficulty: "Easy",
+        strategyHeuristic: "Look for contrast frame markers like 'While traditional X... recent Y demonstrates Z'. The author's main point resides in the Y/Z clause.",
         passage: "While traditional economic models assume that consumers always behave like rational utility-maximizers, behavioral economists have repeatedly demonstrated that cognitive biases routinely distort decision-making. For instance, the 'endowment effect' causes individuals to value an item substantially more merely because they own it, regardless of its objective market worth.",
         question: "Which choice best summarizes the author's primary argument?",
         choices: [
@@ -186,11 +255,20 @@ const ACADEMY_CONTENT = {
           C: "Too Extreme",
           D: "Out of Scope"
         },
-        explanation: "Choice B accurately captures the contrast: behavioral economics shows that cognitive biases distort decisions, refuting the assumption of pure rationality. Choice A is the opposite of the author's point. Choice C uses the extreme word 'only'. Choice D is out of scope.",
+        explanation: {
+          correctBridge: "Choice B accurately states the core argument: behavioral economics proves that cognitive biases distort human choices, directly overturning the assumption of pure economic rationality.",
+          choiceBreakdown: {
+            A: "Opposite Trap: The passage argues the exact reverse—traditional models fail because cognitive biases distort rational behavior.",
+            B: "Correct Answer: Captures the main contrast between assumed rationality and actual psychological distortion.",
+            C: "Too Extreme Trap: The word 'only' is an absolute distractor; the endowment effect is given as one 'instance' among many biases.",
+            D: "Out of Scope Trap: The author explains a psychological phenomenon; no legal policy or purchasing ban is proposed."
+          },
+          keyTakeaway: "On main argument questions, avoid choices with extreme qualifiers ('only', 'perfectly', 'never') unless the passage uses equally extreme language."
+        },
         glosses: {
-          "utility-maximizers": "individuals who make choices to get the greatest possible personal satisfaction or profit",
-          "cognitive biases": "systematic patterns of deviation from norm or rationality in judgment",
-          "endowment effect": "the tendency of people to overvalue things merely because they own them"
+          "utility-maximizers": "(noun) consumers who seek the greatest possible satisfaction or value from their purchases",
+          "cognitive biases": "(noun) systematic errors in thinking that affect decisions and judgments",
+          "endowment effect": "(noun) the psychological tendency to overvalue things simply because one owns them"
         }
       },
       {
@@ -198,6 +276,7 @@ const ACADEMY_CONTENT = {
         type: "foundation",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "Pay close attention to concluding sentences introduced by cause-and-effect transitions like 'Consequently' or 'As a result'.",
         passage: "For decades, architectural preservationists in Chicago fought to protect mid-century modernist buildings, arguing that their clean lines and steel frames represented a vital chapter in urban heritage. Recently, however, civic planners have pointed out that many of these structures are remarkably energy-inefficient, with single-pane glass facades that require exorbitant heating and cooling costs. Consequently, a growing consensus favors retrofitting these landmarks with sustainable materials rather than preserving them in an unmodified state.",
         question: "Based on the text, what resolution has emerged regarding mid-century modernist buildings in Chicago?",
         choices: [
@@ -217,11 +296,20 @@ const ACADEMY_CONTENT = {
           B: "Opposite",
           D: "Out of Scope"
         },
-        explanation: "Choice C matches the final sentence: the emerging consensus is 'retrofitting these landmarks with sustainable materials' rather than leaving them unmodified. Choice A ('completely demolished') is too extreme and unsupported. Choice B ignores the 'rather than' clause. Choice D is out of scope.",
+        explanation: {
+          correctBridge: "Choice C matches the final sentence: the emerging consensus is 'retrofitting these landmarks with sustainable materials' rather than leaving them unmodified, balancing historic preservation with energy upgrades.",
+          choiceBreakdown: {
+            A: "Too Extreme Trap: 'Completely demolished' is an extreme distortion; the text advocates for 'retrofitting' existing buildings.",
+            B: "Opposite Trap: The passage explicitly rejects preserving them 'in an unmodified state'.",
+            C: "Correct Answer: Faithfully translates 'retrofitting with sustainable materials' as eco-friendly upgrades.",
+            D: "Out of Scope Trap: Selling buildings to private collectors is completely fabricated outside the passage."
+          },
+          keyTakeaway: "When a passage presents a tension between two values (heritage vs. energy efficiency), look for the compromise solution introduced at the conclusion."
+        },
         glosses: {
-          "preservationists": "people who advocate for the protection and maintenance of historic buildings or environments",
-          "exorbitant": "unreasonably or excessively high in price or cost",
-          "retrofitting": "adding new technology or features to older systems to improve efficiency"
+          "preservationists": "(noun) people who advocate for protecting historic buildings and sites",
+          "exorbitant": "(adj.) unreasonably high; excessive in cost",
+          "retrofitting": "(verb/noun) adding new technologies or features to older existing structures"
         }
       },
       {
@@ -229,6 +317,7 @@ const ACADEMY_CONTENT = {
         type: "foundation",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "When a sentence contains a 'not merely X, but Y' construction, the correct answer will synthesize BOTH elements.",
         passage: "In 18th-century Europe, botanical gardens shifted from serving primarily as medicinal herb collections for apothecaries to becoming vast repositories of imperial botany. European explorers returned from the Pacific and the Americas with thousands of exotic specimens. Naturalists like Joseph Banks organized these specimens systematically according to Linnaean taxonomy, seeking not merely to catalog nature, but to identify commercially lucrative cash crops—such as tea, rubber, and breadfruit—that could be transplanted across colonial territories.",
         question: "According to the passage, what motivated the 18th-century transformation of European botanical gardens?",
         choices: [
@@ -248,12 +337,21 @@ const ACADEMY_CONTENT = {
           B: "Opposite",
           D: "Out of Scope"
         },
-        explanation: "Choice C synthesizes the author's two points: organizing specimens by Linnaean taxonomy (scientific classification) and identifying lucrative cash crops for transplantation (colonial economic value). Choice B contradicts the text. Choices A and D make claims not found in the passage.",
+        explanation: {
+          correctBridge: "Choice C synthesizes both motives explicitly stated in the final sentence: systematic Linnaean organization ('scientific classification') and identifying lucrative cash crops for transplantation ('economic pursuit').",
+          choiceBreakdown: {
+            A: "Out of Scope Trap: The text never mentions artistic floral exhibitions.",
+            B: "Opposite Trap: The passage emphasizes 'exotic specimens' brought from the Pacific and Americas, not domestic European species.",
+            C: "Correct Answer: Accurately combines the dual scientific and commercial goals highlighted in the text.",
+            D: "Out of Scope Trap: No legal mandate closing apothecary dispensaries is mentioned."
+          },
+          keyTakeaway: "Dual-purpose passages ('not merely X, but Y') require an answer that includes both components rather than favoring one in isolation."
+        },
         glosses: {
-          "apothecaries": "historical health professionals who formulated and dispensed remedies and medicines",
-          "repositories": "places where things are stored or preserved in large quantities",
-          "Linnaean taxonomy": "the standardized biological system for naming and categorizing organisms",
-          "lucrative": "producing a great deal of profit"
+          "apothecaries": "(noun) historical medical practitioners who prepared and sold remedies",
+          "repositories": "(noun) central storage places where items are collected and preserved",
+          "Linnaean taxonomy": "(noun) the formal biological naming and classification system",
+          "lucrative": "(adj.) producing great financial gain or profit"
         }
       },
       {
@@ -261,6 +359,7 @@ const ACADEMY_CONTENT = {
         type: "foundation",
         stage: "guided",
         difficulty: "Hard",
+        strategyHeuristic: "Identify the cause of discrepancy when scientific data contradicts an initial fear or expectation.",
         passage: "Many marine ecologists hypothesized that marine protected areas (MPAs) with strict 'no-take' fishing bans would invariably lead to economic hardship for local artisanal fishing communities. However, empirical studies in the Mediterranean show that the resulting 'spillover effect'—wherein adult fish and larvae emigrate from the protected reserve into adjacent fishing grounds—frequently boosts catches in surrounding waters within five years, compensating for the initial restriction.",
         question: "Which choice best describes the relationship between the ecologists' initial hypothesis and the empirical findings?",
         choices: [
@@ -280,11 +379,20 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Opposite"
         },
-        explanation: "Choice B is correct. The initial hypothesis assumed MPAs would bring economic hardship, but researchers found that fish migrate outside the reserve and boost catches ('spillover effect'), meaning the hypothesis failed to anticipate this positive compensation. Choice A, C, and D all contradict the findings reported in the text.",
+        explanation: {
+          correctBridge: "Choice B accurately reflects the contrast: the initial hypothesis predicted economic hardship from fishing bans, but empirical data proved that the 'spillover effect' boosted fish catches outside the reserve, compensating for the bans.",
+          choiceBreakdown: {
+            A: "Opposite Trap: The empirical findings contradicted the hypothesis rather than proving it accurate.",
+            B: "Correct Answer: Precisely identifies that the initial hypothesis failed to foresee the positive spillover effect.",
+            C: "Opposite Trap: Communities did not collapse; catches were boosted within five years.",
+            D: "Opposite Trap: The reserve had a direct positive impact on outside populations via the spillover effect."
+          },
+          keyTakeaway: "When empirical findings overturn a theoretical model, look for answer choices that focus on the unmodeled mechanism (here: the spillover effect)."
+        },
         glosses: {
-          "artisanal": "small-scale, traditional fishing practiced by local individuals or communities",
-          "empirical": "based on, concerned with, or verifiable by observation or experience rather than pure theory",
-          "compensating": "making up for a loss, disadvantage, or initial setback"
+          "artisanal": "(adj.) small-scale, traditional, non-industrial practices",
+          "empirical": "(adj.) based on verifiable observation or experimentation rather than pure theory",
+          "compensating": "(verb) counterbalancing or making up for an initial loss or setback"
         }
       }
     ],
@@ -294,6 +402,7 @@ const ACADEMY_CONTENT = {
         type: "foundation",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Distinguish between the contrasting movements in literary/historical passages by tracking what each movement rejected.",
         passage: "During the Gilded Age, American literary realism arose as a deliberate repudiation of 19th-century romantic idealism. Whereas romantic novelists depicted morally pure protagonists triumphing over melodramatic villainy, realist authors such as William Dean Howells and Henry James focused on ordinary middle-class characters confronting everyday ethical dilemmas, social stratification, and psychological ambiguity.",
         question: "According to the passage, how did American literary realism primarily differ from romantic idealism?",
         choices: [
@@ -308,11 +417,20 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Out of Scope"
         },
-        explanation: "Choice A directly reflects the contrast presented in the text: romanticism used morally pure protagonists, whereas realism emphasized ordinary characters dealing with ethical dilemmas and social stratification. Choice B is absurdly extreme ('eliminated dialogue and plot'). Choice C describes romanticism, not realism. Choice D is unsupported.",
+        explanation: {
+          correctBridge: "Choice A directly translates the contrast in the second sentence: romanticism used morally pure heroes triumphing over villains, whereas realism focused on ordinary characters facing ethical dilemmas and social stratification.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately reflects the textual distinction between ordinary, morally complex characters and idealized heroes.",
+            B: "Too Extreme Trap: Realist authors did not 'eliminate dialogue and plot' to present statistical tables.",
+            C: "Opposite Trap: Celebrating romantic knights is characteristic of romantic idealism, not literary realism.",
+            D: "Out of Scope Trap: Supporting corporate monopolies is never mentioned."
+          },
+          keyTakeaway: "On contrast-based detail questions, verify that the answer choice attributes the correct characteristics to the target subject (realism vs. romanticism)."
+        },
         glosses: {
-          "repudiation": "rejection of a proposal or idea; refusal to accept",
-          "melodramatic": "characteristic of melodrama, especially in being exaggerated, sensationalized, or overemotional",
-          "stratification": "the arrangement or classification of something into different social groups or layers"
+          "repudiation": "(noun) rejection of a proposal, idea, or authority",
+          "melodramatic": "(adj.) sensationalized, exaggerated, or overemotional",
+          "stratification": "(noun) the arrangement of society into distinct social or economic classes"
         }
       },
       {
@@ -320,6 +438,7 @@ const ACADEMY_CONTENT = {
         type: "foundation",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "On function-of-a-sentence questions, identify the rhetorical role (challenging an old paradigm) rather than merely restating factual biology.",
         passage: "In neuroscience, the long-standing 'neurocentric' paradigm posited that information processing in the brain is exclusively conducted by neurons, with glial cells serving merely as structural scaffold and metabolic glue. Yet, recent optogenetic research indicates that astrocytes—a subtype of glial cell—can modulate synaptic transmission and directly influence memory consolidation by releasing gliotransmitters into the synaptic cleft.",
         question: "Which choice best describes the function of the second sentence in the text as a whole?",
         choices: [
@@ -334,12 +453,21 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Out of Scope"
         },
-        explanation: "Choice B captures the rhetorical function of the sentence introduced by 'Yet': it brings in new optogenetic findings showing that astrocytes actively modulate synaptic transmission, challenging the old view that glial cells are 'merely structural scaffold'. Choice A is extreme ('play no meaningful role'). Choice C claims the theories are identical. Choice D is out of scope.",
+        explanation: {
+          correctBridge: "Choice B accurately states the function of sentence 2: introduced by 'Yet', it presents recent optogenetic findings (astrocytes modulating synaptic transmission) to challenge the traditional view that glia are merely passive metabolic glue.",
+          choiceBreakdown: {
+            A: "Too Extreme Trap: The passage never claims neurons play 'no meaningful role'; it shows glia also play an active role.",
+            B: "Correct Answer: Identifies the rhetorical move: presenting evidence that challenges the old passive view of glia.",
+            C: "Opposite Trap: The two views are contrasting, not identical.",
+            D: "Out of Scope Trap: The text discusses neuroscience discoveries, not clinical hazards of optogenetics."
+          },
+          keyTakeaway: "A sentence starting with 'Yet' or 'However' following an old paradigm almost always functions to introduce evidence challenging that paradigm."
+        },
         glosses: {
-          "neurocentric": "centered entirely around neurons to the exclusion of other brain cells",
-          "posited": "assumed as a fact; put forward as a basis of argument",
-          "modulate": "exert a modifying or controlling influence on",
-          "synaptic cleft": "the minute space between two communicating nerve cells"
+          "neurocentric": "(adj.) focused exclusively on neurons to the neglect of other brain components",
+          "posited": "(verb) put forward as a basis of argument or established theory",
+          "modulate": "(verb) exert a controlling or modifying influence on a process",
+          "synaptic cleft": "(noun) the microscopic gap between communicating neurons"
         }
       },
       {
@@ -347,6 +475,7 @@ const ACADEMY_CONTENT = {
         type: "foundation",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "When asked why a historical forecast failed, look for the unexpected destination where surplus economic gains were redirected.",
         passage: "In 1930, British economist John Maynard Keynes famously predicted that technological advancement and capital accumulation would reduce the standard workweek to fifteen hours by the early twenty-first century. However, sociological data from OECD countries indicate that while productivity per worker has skyrocketed over five-fold since 1950, average annual hours worked have declined only marginally, as societal gains have been channeled into higher consumer consumption and expanding bureaucratic service sectors.",
         question: "Based on the text, why did Keynes's prediction fail to materialize?",
         choices: [
@@ -361,12 +490,21 @@ const ACADEMY_CONTENT = {
           C: "Too Extreme",
           D: "Too Extreme"
         },
-        explanation: "Choice B directly reflects the explanation given in the final clause: productivity skyrocketed, but gains were channeled into 'higher consumer consumption and expanding bureaucratic service sectors' rather than reducing work hours to 15 hours. Choice A contradicts the text ('skyrocketed over five-fold'). Choices C and D are extreme fabrications.",
+        explanation: {
+          correctBridge: "Choice B directly reflects the explanation given in the final clause: productivity rose over five-fold, but those gains were absorbed by 'higher consumer consumption and expanding bureaucratic service sectors' rather than leisure time reduction.",
+          choiceBreakdown: {
+            A: "Opposite Trap: The text states productivity 'skyrocketed over five-fold', refuting any technological decline.",
+            B: "Correct Answer: Perfectly restates the mechanism that prevented the 15-hour workweek from happening.",
+            C: "Too Extreme Trap: No laws mandating 60-hour workweeks or banning part-time jobs are mentioned.",
+            D: "Too Extreme Trap: Collapse of trade markets is an unsupported exaggeration."
+          },
+          keyTakeaway: "On 'why did X happen' questions, find the causal connector ('as', 'because', 'due to') in the final clause of the text."
+        },
         glosses: {
-          "capital accumulation": "the growth of wealth through investments and profit reinvestment",
-          "OECD": "Organization for Economic Co-operation and Development (developed nations)",
-          "marginally": "to only a limited, slight extent",
-          "materialize": "become actual fact; happen"
+          "capital accumulation": "(noun) the growth of wealth through reinvested savings and capital investment",
+          "OECD": "(noun) Organization for Economic Co-operation and Development (group of developed economies)",
+          "marginally": "(adv.) to only a slight, minimal extent",
+          "materialize": "(verb) to become actual fact; to come into real existence"
         }
       },
       {
@@ -374,6 +512,7 @@ const ACADEMY_CONTENT = {
         type: "foundation",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Look for the cooperative biological mechanism that disproved an old competitive assumption.",
         passage: "Soil microbiologists traditionally classified subterranean fungal networks simply as nutrient competitors with plant roots. However, isotopic tracing experiments have revealed that mycorrhizal networks actively facilitate resource-sharing between trees of different species. When a mature birch tree experiences full sunlight, it can transfer surplus carbon compounds via underground fungal filaments to neighboring shaded fir saplings, enhancing forest-wide resilience.",
         question: "The passage suggests that mycorrhizal fungal networks:",
         choices: [
@@ -388,12 +527,21 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Too Extreme"
         },
-        explanation: "Choice A summarizes the author's key point: the networks 'facilitate resource-sharing' and transfer carbon from sunny birch trees to shaded fir saplings across species boundaries. Choices B, C, and D are extreme, negative claims that directly contradict the cooperative role described.",
+        explanation: {
+          correctBridge: "Choice A summarizes the author's primary discovery: mycorrhizal networks 'facilitate resource-sharing' and transfer carbon from sunny birch trees to shaded fir saplings across species lines.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately identifies the fungal network as an underground conduit for resource sharing.",
+            B: "Too Extreme / Opposite Trap: Fungi do not destroy birch trees; they enhance forest resilience.",
+            C: "Opposite Trap: Fungi facilitate nutrient delivery to shaded saplings, rather than preventing it.",
+            D: "Too Extreme Trap: Fungi actively connect multiple tree species simultaneously."
+          },
+          keyTakeaway: "Scientific passages about ecological symbiosis reward choices emphasizing cooperative transfer and mutual resilience."
+        },
         glosses: {
-          "subterranean": "existing, occurring, or done under the earth's surface",
-          "isotopic tracing": "a technique using non-radioactive or radioactive isotopes to track chemical pathways",
-          "mycorrhizal": "relating to a symbiotic association between a fungus and the roots of a plant",
-          "conduit": "a channel for conveying water or other fluid, or transmitting resources"
+          "subterranean": "(adj.) existing or operating beneath the surface of the earth",
+          "isotopic tracing": "(noun) a technique tracking chemical pathways using identifiable isotopes",
+          "mycorrhizal": "(adj.) relating to the symbiotic association between fungi and plant root systems",
+          "conduit": "(noun) a channel or pipeline through which resources or signals pass"
         }
       }
     ],
@@ -423,11 +571,48 @@ const ACADEMY_CONTENT = {
       whatItTests: "Words in Context tests your ability to determine the precise meaning of high-utility academic vocabulary based on the rhetorical and syntactic clues in a passage. Crucially, the SAT rarely tests obscure dictionary words; instead, it tests common words used in subtle, secondary, or discipline-specific senses.",
       frequency: "4 to 6 questions per module (approx. 18% of the entire Reading & Writing section).",
       recognitionTest: "The question stem almost always reads: 'As used in the text, what does the word [X] most nearly mean?' or 'Which choice completes the text with the most logical and precise word or phrase?'",
-      eslNote: "The #1 trap for ESL learners is picking the word's most famous definition (e.g., 'table' meaning furniture rather than 'to postpone a discussion', or 'qualify' meaning to meet requirements rather than 'to limit a claim')."
+      goldenRules: [
+        {
+          title: "The Blind Prediction Rule",
+          description: "Cover the four choices immediately. If you look at options before predicting, your brain will rationalize incorrect dictionary definitions."
+        },
+        {
+          title: "The Contrast Equation",
+          description: "Look for contrast hinges ('not X but Y', 'rather than', 'although'). The blank is frequently the exact antonym of a stated clue."
+        },
+        {
+          title: "The Secondary Meaning Trap",
+          description: "Common words like 'qualify' (limit), 'table' (postpone), 'compromise' (endanger), and 'champion' (advocate) are tested in their academic senses."
+        },
+        {
+          title: "The Tone Matching Check",
+          description: "Determine whether the blank requires a positive (+), negative (-), or neutral (~) charge before narrowing options."
+        }
+      ],
+      pacingStrategy: {
+        steps: [
+          { seconds: "15", action: "Blank & Context", detail: "Read sentence and replace target word with a mental [BLANK]" },
+          { seconds: "15", action: "Clue Hunt", detail: "Find the synonym, antonym, or definition already in the text" },
+          { seconds: "20", action: "Predict Word", detail: "Draft a 4th-grade simple synonym (e.g., 'worsen', 'limit', 'praise')" },
+          { seconds: "25", action: "Match & Eliminate", detail: "Pick choice matching your prediction; veto wrong-meaning traps" }
+        ]
+      },
+      commonPitfalls: [
+        {
+          name: "The Primary Definition Reflex",
+          explanation: "Selecting the most common dictionary definition of a word (e.g., assuming 'couch' means a sofa rather than 'to express in words')."
+        },
+        {
+          name: "The Sound-Alike Association",
+          explanation: "Confusing words that look or sound similar (e.g., confusing 'deprecate' with 'depreciate' or 'lucid' with 'lurid')."
+        }
+      ],
+      eslNote: "The #1 trap for ESL learners is picking the word's most famous definition. Always substitute your chosen word back into the full sentence to ensure grammatical and semantic fit."
     },
     stage2_method: {
       name: "The BLANK Method",
       summary: "A 4-step disciplined protocol that prevents your brain from being hijacked by attractive distractor choices.",
+      examFormula: "Sentence Clue + Contrast Marker (Rather than / But) = Required Blank Polarity",
       steps: [
         {
           num: 1,
@@ -453,6 +638,12 @@ const ACADEMY_CONTENT = {
           rule: "Compare each choice to your prediction, watching for 'Wrong Meaning' and 'Too Extreme' traps.",
           expertMove: "If choice A matches my prediction and fits the tone, I confirm why B, C, and D fail before moving on."
         }
+      ],
+      checklist: [
+        "Did I predict a simple synonym before looking at the choices?",
+        "Does the chosen word match the positive/negative tone of the sentence?",
+        "Did I check if the word has a secondary academic definition?",
+        "Did I read the full sentence with my chosen word inserted?"
       ]
     },
     stage3_workedExamples: [
@@ -461,6 +652,7 @@ const ACADEMY_CONTENT = {
         type: "words-in-context",
         stage: "worked-example",
         difficulty: "Medium",
+        strategyHeuristic: "The syntax 'would not X but would instead [BLANK] it' creates a mandatory opposite relationship. The blank must mean the reverse of alleviate.",
         passage: "In his 1958 essay on urban design, Lewis Mumford argued that suburban highway expansion would not alleviate traffic congestion but would instead _______ it. By making distant commutes easier, new expressways inevitably generate additional automobile journeys, quickly overwhelming the very lanes built to absorb them.",
         question: "Which choice completes the text with the most logical and precise word or phrase?",
         choices: [
@@ -471,22 +663,33 @@ const ACADEMY_CONTENT = {
         ],
         answer: "A",
         thinkAloud: [
-          "Step 1 (Blank & Context Clue): Notice the contrast frame: 'would not alleviate traffic congestion but would instead [BLANK] it.'",
-          "Step 2 (Decode Polarity & Evidence): 'Alleviate' means make better/reduce. The phrase 'not alleviate... but instead' means the blank MUST mean the opposite of alleviate: make worse, intensify, or increase.",
-          "Step 3 (Predict Simple Word): Prediction: 'worsen' or 'increase'. Sentence 2 confirms this: 'inevitably generate additional automobile journeys, quickly overwhelming the very lanes...'",
-          "Step 4 (Test Choices): A) 'compound' in academic English means to make a problem worse or multiply it (Exact Match!). B) 'alleviate' is an Opposite trap. C) 'fabricate' means invent from scratch (Out of Scope). D) 'stabilize' means keep the same (Opposite of worsening). Choose A."
+          "Step 1 (Blank the Word & Analyze Sentence Frame): The sentence structure is 'would not alleviate traffic... but would instead [BLANK] it.'",
+          "Step 2 (Analyze Rhetorical Contrast): 'Alleviate' means reduce/make better. 'Not alleviate... but instead' forces the blank to be the semantic opposite: make worse or multiply.",
+          "Step 3 (Gather Textual Corroboration): Sentence 2 explains: 'inevitably generate additional automobile journeys, quickly overwhelming the very lanes...' This confirms the problem increases.",
+          "Step 4 (Form Simple Prediction): Prediction = 'worsen', 'increase', or 'multiply'.",
+          "Step 5 (Evaluate Choices): Choice A ('compound') means to make a bad situation worse or multiply it. Exact match.",
+          "Step 6 (Eliminate Traps): Choice B ('alleviate') is an Opposite trap. Choice C ('fabricate' = forge/invent) is Out of Scope. Choice D ('stabilize' = keep steady) fails to capture worsening."
         ],
         trapTypes: {
           B: "Opposite",
           C: "Out of Scope",
           D: "Opposite"
         },
-        explanation: "Choice A is correct. 'Compound' means to make an existing problem or difficulty worse, which perfectly fits the passage's argument that building highways generates even more traffic and overwhelms capacity. Choice B is the opposite of what the author claims. Choice C means to invent or manufacture, and Choice D means to make stable.",
+        explanation: {
+          correctBridge: "Choice A is correct because 'compound' means to intensify, multiply, or make an existing problem worse. This perfectly fits Mumford's argument that new highways generate even more traffic and overwhelm road capacity.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately means to worsen or multiply a dilemma, directly matching 'generate additional journeys' and 'overwhelming lanes'.",
+            B: "Opposite Trap: 'Alleviate' means reduce or soothe, which directly contradicts the author's argument.",
+            C: "Out of Scope Trap: 'Fabricate' means to manufacture or forge from scratch, which does not apply to traffic congestion.",
+            D: "Opposite Trap: 'Stabilize' means to keep at a constant level, whereas the text describes an escalating increase in cars."
+          },
+          keyTakeaway: "In 'not X but instead Y' frames, Y must be the antonym of X. If X is alleviate (reduce), Y must be compound (worsen)."
+        },
         glosses: {
-          "alleviate": "make suffering, deficiency, or a problem less severe",
-          "compound": "(verb) to make something bad worse by adding to it; to intensify",
-          "inevitably": "certain to happen; unavoidably",
-          "overwhelming": "completely overpowering or submerging"
+          "alleviate": "(verb) make pain, suffering, or a deficiency less severe",
+          "compound": "(verb) to make something bad worse by adding to it; to multiply an existing problem",
+          "inevitably": "(adv.) as is certain to happen; unavoidably",
+          "overwhelming": "(verb/adj.) overpowering completely; submerging with excessive force"
         }
       },
       {
@@ -494,6 +697,7 @@ const ACADEMY_CONTENT = {
         type: "words-in-context",
         stage: "worked-example",
         difficulty: "Hard",
+        strategyHeuristic: "Look for academic secondary meanings: 'qualify' on the SAT almost always means 'to limit, moderate, or place boundaries on a claim'.",
         passage: "Although Dr. Aris Thorne recognized that the archaeological artifacts recovered from the coastal cave were genuine, he sought to _______ the lead investigator's bolder claim that the site represented an unrecorded pre-Columbian civilization. Thorne noted that similar toolkits had been discovered across the region without indicating any organized urban hierarchy.",
         question: "Which choice completes the text with the most logical and precise word or phrase?",
         choices: [
@@ -504,22 +708,33 @@ const ACADEMY_CONTENT = {
         ],
         answer: "B",
         thinkAloud: [
-          "Step 1 (Blank & Context): The sentence begins with 'Although Dr. Thorne recognized that the artifacts were genuine, he sought to [BLANK] the bolder claim...'",
-          "Step 2 (Analyze the Pivot & Clues): 'Although' signals a concession. Thorne accepts the artifacts are real, BUT he objects to the excessive 'bolder claim' about an entire civilization. He brings up counter-evidence.",
-          "Step 3 (Predict Simple Word): Thorne wants to 'limit', 'temper', or 'put boundaries on' the bold claim without calling the artifacts fake.",
-          "Step 4 (Test Choices): A) 'endorse' means support fully (Opposite trap). B) 'qualify' has a secondary academic meaning: 'to limit or restrict the scope of a statement' (Perfect Match!). C) 'fabricate' means invent falsely. D) 'eradicate' is Too Extreme (destroy completely). Choose B."
+          "Step 1 (Analyze Concession & Syntax): 'Although Dr. Thorne recognized that artifacts were genuine, he sought to [BLANK] the bolder claim...'",
+          "Step 2 (Trace the Evidence): Thorne does NOT call the artifacts fake, but he argues they do not prove an entire 'civilization' because similar tools exist without urban hierarchy.",
+          "Step 3 (Formulate Prediction): Thorne wants to 'limit', 'temper', or 'set boundaries on' the bold interpretation.",
+          "Step 4 (Test Choices Against Secondary Meanings): Choice A ('endorse' = support) is an Opposite trap. Choice B ('qualify') has an essential academic secondary definition: 'to limit or restrict the scope of an assertion'. Perfect match.",
+          "Step 5 (Eliminate Extreme Traps): Choice C ('fabricate' = forge) is Out of Scope. Choice D ('eradicate' = wipe out/destroy) is far Too Extreme.",
+          "Step 6 (Verify Full Sentence): '...he sought to qualify the lead investigator's bolder claim...' Perfectly matches his moderated stance."
         ],
         trapTypes: {
           A: "Opposite",
           C: "Out of Scope",
           D: "Too Extreme"
         },
-        explanation: "Choice B is correct. In academic context, 'qualify' means to moderate, limit, or make a claim less absolute. Dr. Thorne accepts the artifacts are real but wants to restrict the bold interpretation. Choice A ('endorse') means full approval. Choice D ('eradicate') is far too extreme.",
+        explanation: {
+          correctBridge: "Choice B is correct. In academic rhetoric, 'qualify' means to moderate, limit, or place conditions on an overly broad claim. Thorne accepts the physical tools but restricts the sweeping claim of a lost civilization.",
+          choiceBreakdown: {
+            A: "Opposite Trap: 'Endorse' means to fully support or approve, which contradicts Thorne's skepticism.",
+            B: "Correct Answer: Accurately utilizes the secondary academic definition of qualify (to place limits on a claim).",
+            C: "Out of Scope Trap: 'Fabricate' implies making up falsehoods, but Thorne accepts the artifacts are genuine.",
+            D: "Too Extreme Trap: 'Eradicate' means to completely destroy or exterminate, which is excessively violent and inappropriate."
+          },
+          keyTakeaway: "Be alert to words with secondary meanings: 'qualify' (to limit), 'reserve' (to withhold), 'table' (to postpone), 'compromise' (to endanger)."
+        },
         glosses: {
-          "qualify": "(secondary meaning) to limit, modify, or place conditions on a statement or claim",
-          "pre-Columbian": "relating to the history and cultures of the Americas before the arrival of Columbus in 1492",
-          "hierarchy": "a system in which members of an organization or society are ranked according to relative status",
-          "eradicate": "destroy completely; put an end to"
+          "qualify": "(verb - secondary meaning) to limit, modify, or restrict the scope of a statement",
+          "pre-Columbian": "(adj.) referring to the Americas before the arrival of Columbus in 1492",
+          "hierarchy": "(noun) an organized system of ranking or social authority",
+          "eradicate": "(verb) destroy completely; put an end to entirely"
         }
       }
     ],
@@ -563,6 +778,7 @@ const ACADEMY_CONTENT = {
         type: "words-in-context",
         stage: "guided",
         difficulty: "Easy",
+        strategyHeuristic: "Look for temporal markers like 'until X happened' to signal that the action was delayed or postponed.",
         passage: "Because the mountain pass was notoriously hazardous during winter blizzards, local guides advised travelers to _______ their journeys until the spring thaw made the trails passable.",
         question: "Which choice completes the text with the most logical and precise word or phrase?",
         choices: [
@@ -582,11 +798,20 @@ const ACADEMY_CONTENT = {
           C: "Out of Scope",
           D: "Too Extreme"
         },
-        explanation: "Choice B is correct. 'Defer' means to put off or postpone to a later time, matching the phrase 'until the spring thaw'. Choice A is the opposite. Choice D is too extreme ('terminate' implies canceling permanently).",
+        explanation: {
+          correctBridge: "Choice B is correct. 'Defer' means to put off or postpone an action to a later time, which matches the condition 'until the spring thaw made the trails passable'.",
+          choiceBreakdown: {
+            A: "Opposite Trap: 'Accelerate' means to speed up, which would send travelers into dangerous blizzards.",
+            B: "Correct Answer: Accurately means to postpone or delay until safer spring weather.",
+            C: "Out of Scope Trap: 'Celebrate' has no contextual relevance to hazardous travel timing.",
+            D: "Too Extreme Trap: 'Terminate' means to permanently cancel forever, ignoring the 'until spring' qualification."
+          },
+          keyTakeaway: "Distinguish between permanent cancellation ('terminate') and temporary postponement ('defer'). Clues like 'until' require postponement."
+        },
         glosses: {
-          "notoriously": "used to emphasize that a quality or fact, typically a bad one, is well known",
-          "defer": "put off (an action or event) to a later time; postpone",
-          "passable": "clear of obstacles and able to be traveled along"
+          "notoriously": "(adv.) widely and unfavorably known",
+          "defer": "(verb) put off or postpone to a future time",
+          "passable": "(adj.) clear of barriers and able to be traveled along"
         }
       },
       {
@@ -594,6 +819,7 @@ const ACADEMY_CONTENT = {
         type: "words-in-context",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "When a semicolon is followed by an explanatory sentence, the second sentence literally defines the blank.",
         passage: "The diplomat was renowned for her _______ demeanor during tense international negotiations; even when foreign ministers engaged in heated accusations, she remained entirely calm and composed, refusing to be drawn into emotional disputes.",
         question: "Which choice completes the text with the most logical and precise word or phrase?",
         choices: [
@@ -613,11 +839,20 @@ const ACADEMY_CONTENT = {
           B: "Opposite",
           D: "Opposite"
         },
-        explanation: "Choice C is correct. 'Unflappable' means having or showing calmness in a crisis, which directly matches 'entirely calm and composed'. Choices A, B, and D all describe agitated or aggressive behavior.",
+        explanation: {
+          correctBridge: "Choice C is correct. 'Unflappable' means demonstrating marked calmness and composure in a crisis, which directly mirrors the clause 'remained entirely calm and composed, refusing to be drawn into emotional disputes'.",
+          choiceBreakdown: {
+            A: "Opposite Trap: 'Volatile' means unpredictable and explosive, the exact opposite of composed.",
+            B: "Opposite Trap: 'Impassioned' means filled with intense emotion, contradicting 'calm and composed'.",
+            C: "Correct Answer: Perfectly defines a person who cannot be rattled or agitated by conflict.",
+            D: "Opposite Trap: 'Combative' means eager to argue or fight, contradicting 'refusing to be drawn into disputes'."
+          },
+          keyTakeaway: "A semicolon (;) acts like an equals sign (=). The clause after the semicolon defines the adjective needed before it."
+        },
         glosses: {
-          "unflappable": "having or showing marked calmness in a crisis; not easily upset",
-          "volatile": "liable to change rapidly and unpredictably, especially for the worse",
-          "combative": "ready or eager to fight; pugnacious"
+          "unflappable": "(adj.) having or showing remarkable calmness in a crisis",
+          "volatile": "(adj.) liable to change rapidly and unpredictably, especially for the worse",
+          "combative": "(adj.) ready or eager to fight; aggressively contentious"
         }
       },
       {
@@ -625,6 +860,7 @@ const ACADEMY_CONTENT = {
         type: "words-in-context",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "Look for the concession contrast: 'while prose was lucid (clear)... structure was [BLANK]', followed by 'jumped erratically without progression'.",
         passage: "In his review of the new biography, the literary critic noted that while the author's prose was undeniably lucid, the book's narrative structure was surprisingly _______; chapters jumped erratically across decades without clear chronological or thematic progression.",
         question: "Which choice completes the text with the most logical and precise word or phrase?",
         choices: [
@@ -644,11 +880,20 @@ const ACADEMY_CONTENT = {
           C: "Out of Scope",
           D: "Wrong Meaning"
         },
-        explanation: "Choice A is correct. 'Disjointed' means lacking a coherent sequence or connection, directly mirroring 'jumped erratically across decades without clear... progression'. Choice B is the opposite.",
+        explanation: {
+          correctBridge: "Choice A is correct. 'Disjointed' means lacking coherent sequence, connection, or orderly flow, perfectly capturing 'jumped erratically across decades without clear chronological or thematic progression'.",
+          choiceBreakdown: {
+            A: "Correct Answer: Directly matches the erratic, disconnected narrative timeline described.",
+            B: "Opposite Trap: 'Cohesive' means unified and flowing smoothly, which is the exact opposite of erratic jumping.",
+            C: "Out of Scope Trap: 'Pristine' means in its original, untouched condition.",
+            D: "Wrong Meaning Trap: 'Monotonous' means unvarying and repetitively boring, which does not mean chronologically disordered."
+          },
+          keyTakeaway: "Match the specific descriptor: erratic jumping across time indicates lack of structure ('disjointed'), not repetitiveness ('monotonous')."
+        },
         glosses: {
-          "lucid": "expressed clearly; easy to understand",
-          "disjointed": "lacking a coherent sequence or connection",
-          "erratically": "in a manner that is not even or regular in pattern; unpredictably"
+          "lucid": "(adj.) expressed clearly; easy to understand",
+          "disjointed": "(adj.) lacking a coherent sequence, connection, or unity",
+          "erratically": "(adv.) in an irregular, unpredictable manner"
         }
       },
       {
@@ -656,6 +901,7 @@ const ACADEMY_CONTENT = {
         type: "words-in-context",
         stage: "guided",
         difficulty: "Hard",
+        strategyHeuristic: "The contrast 'Unlike predecessors who viewed X as mere Y, Hurston recognized X was [BLANK]' demands a strong positive value word.",
         passage: "Unlike her predecessors, who treated traditional folkloric tales as mere children's entertainment, anthropologist Zora Neale Hurston recognized that these oral narratives were _______ historical repositories that documented the resilience, humor, and linguistic ingenuity of Southern African American communities.",
         question: "Which choice completes the text with the most logical and precise word or phrase?",
         choices: [
@@ -675,12 +921,21 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Opposite"
         },
-        explanation: "Choice B is correct. 'Vital' means indispensable or of essential importance, contrasting with 'mere children's entertainment' and aligning with the deep cultural assets listed. Choices A, C, and D are all negative descriptors.",
+        explanation: {
+          correctBridge: "Choice B is correct. 'Vital' means of fundamental importance and essential value. This contrasts with 'mere children's entertainment' and aligns with documenting resilience, humor, and linguistic ingenuity.",
+          choiceBreakdown: {
+            A: "Opposite Trap: 'Peripheral' means minor or secondary, aligning with the predecessors rather than Hurston.",
+            B: "Correct Answer: Accurately conveys the indispensable cultural importance recognized by Hurston.",
+            C: "Opposite Trap: 'Obsolete' means no longer useful or outdated.",
+            D: "Opposite Trap: 'Superficial' means shallow or lacking depth, contradicting Hurston's deep appreciation."
+          },
+          keyTakeaway: "On contrast questions starting with 'Unlike X, Y recognized...', the blank will invert X's dismissive stance with a word of genuine significance."
+        },
         glosses: {
-          "folkloric": "relating to traditional customs, tales, sayings, or art forms preserved among a people",
-          "peripheral": "of secondary or minor importance; on the edge",
-          "ingenuity": "the quality of being clever, original, and inventive",
-          "obsolete": "no longer produced or used; out of date"
+          "folkloric": "(adj.) relating to traditional customs, tales, and cultural oral history",
+          "peripheral": "(adj.) of secondary or minor importance; on the margins",
+          "ingenuity": "(noun) the quality of being clever, inventive, and original",
+          "obsolete": "(adj.) no longer produced or used; out of date"
         }
       }
     ],
@@ -690,6 +945,7 @@ const ACADEMY_CONTENT = {
         type: "words-in-context",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Look for the contrast between the feared outcome (job elimination) and the actual outcome (spending less time on routines and more on complex inquiries).",
         passage: "Although many economists predicted that the introduction of automated kiosks would immediately eliminate service-sector jobs, recent employment surveys suggest that the machines have actually _______ worker productivity, allowing employees to spend less time on routine transactions and more time resolving complex customer inquiries.",
         question: "Which choice completes the text with the most logical and precise word or phrase?",
         choices: [
@@ -704,11 +960,20 @@ const ACADEMY_CONTENT = {
           C: "Out of Scope",
           D: "Opposite"
         },
-        explanation: "Choice A is correct. 'Augmented' means increased or made greater. The passage contrasts the fear of job elimination with the reality that machines allowed employees to spend more time on complex inquiries, enhancing productivity. Choices B and D ('undermined', 'impeded') mean reduced or harmed.",
+        explanation: {
+          correctBridge: "Choice A is correct. 'Augmented' means made greater or enhanced. The text contrasts the predicted elimination of jobs with the reality that kiosks enabled workers to focus on higher-value customer inquiries, thus increasing productivity.",
+          choiceBreakdown: {
+            A: "Correct Answer: Directly matches increasing/enhancing worker efficiency and focus.",
+            B: "Opposite Trap: 'Undermined' means weakened or damaged, contradicting the positive outcome.",
+            C: "Out of Scope Trap: 'Fabricated' means forged or manufactured falsely.",
+            D: "Opposite Trap: 'Impeded' means obstructed or slowed down."
+          },
+          keyTakeaway: "When a sentence starts with 'Although economists predicted disaster...', the main clause after the comma will describe a positive or enhanced outcome ('augmented')."
+        },
         glosses: {
-          "augmented": "having been made greater in size or value; increased",
-          "undermined": "lessened the effectiveness, power, or ability of",
-          "impeded": "delayed or prevented (someone or something) by obstructing them"
+          "augmented": "(verb) made greater in size, value, or productivity; increased",
+          "undermined": "(verb) lessened the effectiveness, power, or stability of",
+          "impeded": "(verb) delayed or obstructed the progress of"
         }
       },
       {
@@ -716,6 +981,7 @@ const ACADEMY_CONTENT = {
         type: "words-in-context",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "Identify the defining phrase: 'without falsifiable empirical predictions, it remains a purely mathematical conjecture'.",
         passage: "In theoretical physics, string theory is often criticized because its foundational mathematical formulations require eleven dimensions, making experimental verification extraordinarily difficult. Consequently, several prominent physicists have labeled the theory _______, arguing that without falsifiable empirical predictions, it remains a purely mathematical conjecture rather than true physical science.",
         question: "Which choice completes the text with the most logical and precise word or phrase?",
         choices: [
@@ -730,12 +996,21 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Wrong Meaning"
         },
-        explanation: "Choice A is correct. 'Speculative' means based on conjecture rather than knowledge or evidence, matching 'purely mathematical conjecture' and 'without falsifiable empirical predictions'. Choice B ('irrefutable') means impossible to deny. Choice C ('tangible') means concrete/touchable. Choice D ('pedestrian') means dull or ordinary.",
+        explanation: {
+          correctBridge: "Choice A is correct. 'Speculative' means based on theoretical conjecture rather than empirical proof. This directly mirrors 'without falsifiable empirical predictions' and 'purely mathematical conjecture'.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately describes an unproven theory resting on conjecture without empirical testing.",
+            B: "Opposite Trap: 'Irrefutable' means impossible to disprove, which is the exact opposite of an unverified theory.",
+            C: "Opposite Trap: 'Tangible' means concrete and touchable.",
+            D: "Wrong Meaning Trap: 'Pedestrian' means ordinary or dull, which does not mean experimentally unverified."
+          },
+          keyTakeaway: "Match exact technical synonyms: 'conjecture without empirical proof' = 'speculative'."
+        },
         glosses: {
-          "conjecture": "an opinion or conclusion formed on the basis of incomplete information",
-          "falsifiable": "able to be proven false through empirical observation or testing",
-          "speculative": "engaged in, expressing, or based on conjecture rather than knowledge",
-          "irrefutable": "impossible to deny or disprove"
+          "conjecture": "(noun) an opinion or conclusion formed on incomplete evidence",
+          "falsifiable": "(adj.) capable of being tested and proven false by experiment",
+          "speculative": "(adj.) based on conjecture rather than direct empirical knowledge",
+          "irrefutable": "(adj.) impossible to deny, disprove, or dispute"
         }
       },
       {
@@ -743,6 +1018,7 @@ const ACADEMY_CONTENT = {
         type: "words-in-context",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "'Far from being a passive observer...' forces the blank to describe tireless, active energy.",
         passage: "Far from being a passive observer during the constitutional convention of 1787, James Madison was an _______ advocate for a strong national legislature, drafting the foundational Virginia Plan and authoring numerous essays to persuade skeptical delegates.",
         question: "Which choice completes the text with the most logical and precise word or phrase?",
         choices: [
@@ -757,11 +1033,20 @@ const ACADEMY_CONTENT = {
           C: "Out of Scope",
           D: "Opposite"
         },
-        explanation: "Choice B is correct. 'Indefatigable' means persisting tirelessly. The sentence contrasts 'Far from being a passive observer' with Madison's active drafting and essay writing. Choice A ('apathetic') means uncaring. Choice D ('impartial') means neutral, whereas Madison took a strong, active stance.",
+        explanation: {
+          correctBridge: "Choice B is correct. 'Indefatigable' means persisting tirelessly without fatigue. This directly contrasts with 'passive observer' and aligns with Madison drafting plans and writing numerous persuasive essays.",
+          choiceBreakdown: {
+            A: "Opposite Trap: 'Apathetic' means showing no enthusiasm or concern.",
+            B: "Correct Answer: Accurately reflects Madison's tireless, energetic advocacy.",
+            C: "Out of Scope Trap: 'Ambiguous' means open to multiple interpretations.",
+            D: "Opposite Trap: 'Impartial' means neutral, whereas Madison was an active partisan advocate."
+          },
+          keyTakeaway: "'Far from being passive' requires a word denoting tireless vigor ('indefatigable')."
+        },
         glosses: {
-          "indefatigable": "(of a person or their efforts) persisting tirelessly",
-          "apathetic": "showing or feeling no interest, enthusiasm, or concern",
-          "impartial": "treating all rivals or disputants equally; fair and just"
+          "indefatigable": "(adj.) persisting tirelessly without losing energy or enthusiasm",
+          "apathetic": "(adj.) showing or feeling no interest or concern",
+          "impartial": "(adj.) treating rivals equally; neutral and unbiased"
         }
       },
       {
@@ -769,6 +1054,7 @@ const ACADEMY_CONTENT = {
         type: "words-in-context",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "The contrast 'not meant to [BLANK] the historic hall, but rather to complement it' requires a word meaning to overshadow or diminish.",
         passage: "The curator was careful to emphasize that the museum's new wing was not meant to _______ the historic 19th-century main hall, but rather to complement its classical stonework with minimalist glass and light.",
         question: "Which choice completes the text with the most logical and precise word or phrase?",
         choices: [
@@ -783,11 +1069,20 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Wrong Meaning"
         },
-        explanation: "Choice A is correct. 'Eclipse' means to overshadow, surpass, or diminish the prominence of something else. The text contrasts 'not meant to eclipse' with 'rather to complement'. Choice C ('preserve') contradicts the contrast frame. Choice D ('duplicate') is negated by the mention of contrasting materials (minimalist glass vs. classical stonework).",
+        explanation: {
+          correctBridge: "Choice A is correct. 'Eclipse' (used figuratively as a verb) means to overshadow, diminish the prominence of, or surpass. The curator states the new wing will not overshadow the original hall, but rather enhance it.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately means to overshadow or diminish the visual importance of the historic hall.",
+            B: "Out of Scope Trap: 'Celebrate' does not fit the contrast frame with complement.",
+            C: "Opposite Trap: The curator certainly wanted to preserve the hall.",
+            D: "Wrong Meaning Trap: 'Duplicate' is contradicted by the mention of contrasting materials (minimalist glass vs. stone)."
+          },
+          keyTakeaway: "Words like 'eclipse' are often tested in their secondary, metaphorical sense (to overshadow)."
+        },
         glosses: {
-          "eclipse": "(verb) to obscure, overshadow, or surpass in importance or prominence",
-          "complement": "add to in a way that enhances or improves; to fit well together",
-          "minimalist": "deliberately simple, clean, and uncluttered in style"
+          "eclipse": "(verb - metaphorical) to overshadow, obscure, or surpass in importance",
+          "complement": "(verb) to add to in a way that enhances or completes",
+          "minimalist": "(adj.) deliberately simple, uncluttered, and stripped of excess"
         }
       }
     ],
@@ -817,11 +1112,48 @@ const ACADEMY_CONTENT = {
       whatItTests: "This question type tests your understanding of rhetorical architecture. You must determine either: (1) The overall function/purpose of the entire passage, (2) The structural relationship between two paragraphs or two sentences, or (3) The specific rhetorical role of an underlined sentence.",
       frequency: "3 to 4 questions per module.",
       recognitionTest: "Common question stems include: 'Which choice best describes the overall structure of the text?', 'Which choice best states the main purpose of the text?', or 'Which choice best describes the function of the underlined portion?'",
-      eslNote: "Answer choices for this type are written with active rhetorical verbs: 'introduces', 'critiques', 'reconciles', 'qualifies', 'provides an analogy'. Learn to evaluate whether the VERB accurately describes the author's action."
+      goldenRules: [
+        {
+          title: "The Verb-First Elimination Rule",
+          description: "Read the first active verb of each answer choice (e.g., 'critiques', 'introduces', 'reconciles'). If the author did not perform that action, eliminate immediately."
+        },
+        {
+          title: "Function Over Content",
+          description: "Don't get distracted by what the topic is (e.g., dinosaurs, poetry). Focus on what the sentence DOES (e.g., provides counter-evidence, defines a term)."
+        },
+        {
+          title: "The Part-to-Whole Test",
+          description: "Underlined sentences usually serve as: (1) an opening hook, (2) a transition pivot, (3) supporting evidence, or (4) a concluding takeaway."
+        },
+        {
+          title: "The Detail Trap Veto",
+          description: "An option that accurately summarizes sentence 3 is NOT the main purpose of the entire text; it is merely an illustrative detail."
+        }
+      ],
+      pacingStrategy: {
+        steps: [
+          { seconds: "20", action: "Chunk the Text", detail: "Divide text into Part 1 (Sentence 1) and Part 2 (Sentence 2–3)" },
+          { seconds: "15", action: "Assign Action Verbs", detail: "Tag each chunk with an action: [Claims X] -> [Refutes with Y]" },
+          { seconds: "30", action: "Match Choice Verbs", detail: "Check verbs in choices against your chunk tags" },
+          { seconds: "15", action: "Confirm Purpose", detail: "Ensure the choice covers the whole text, not just one detail" }
+        ]
+      },
+      commonPitfalls: [
+        {
+          name: "The Content Summary Fallacy",
+          explanation: "Picking a choice that describes what the passage is about rather than how the argument is structured."
+        },
+        {
+          name: "The False Resolution Error",
+          explanation: "Choosing an option that claims the author 'settled a debate' when the author merely presented two competing views without resolving them."
+        }
+      ],
+      eslNote: "Learn the specific rhetorical verbs used on the SAT: 'qualify' (limit), 'substantiate' (provide evidence for), 'reconcile' (bring two opposing views together), 'delineate' (describe in detail)."
     },
     stage2_method: {
       name: "The Blueprint Technique",
       summary: "Map the passage into functional blocks rather than getting lost in the factual details.",
+      examFormula: "Text Structure = Chunk 1 [Action Verb 1] + Transition Joint + Chunk 2 [Action Verb 2]",
       steps: [
         {
           num: 1,
@@ -847,6 +1179,12 @@ const ACADEMY_CONTENT = {
           rule: "Beware of 'Half Right' traps that describe a true sub-point rather than the passage's overall mission.",
           expertMove: "A supporting example is not the overall purpose; it is merely evidence for the purpose."
         }
+      ],
+      checklist: [
+        "Did I check if the opening verb matches the author's action (e.g., introduces vs. refutes)?",
+        "Does the option capture both halves of a two-part passage?",
+        "If it's an underlined sentence, did I check how it connects to the sentences before and after it?",
+        "Did I eliminate options that merely restate a single detail?"
       ]
     },
     stage3_workedExamples: [
@@ -855,6 +1193,7 @@ const ACADEMY_CONTENT = {
         type: "text-structure-purpose",
         stage: "worked-example",
         difficulty: "Medium",
+        strategyHeuristic: "Map the 3-part chronological flow: [Hypothesis proposed] -> [Initial scientific rejection] -> [Subsequent discovery that validated it].",
         passage: "In 1912, Alfred Wegener proposed the theory of continental drift, hypothesizing that Earth's landmasses were once joined in a supercontinent he named Pangaea. At the time, prominent geologists overwhelmingly dismissed Wegener's ideas because he could not propose a convincing physical mechanism capable of propelling entire continents across solid oceanic crust. Decades later, however, the mapping of the mid-Atlantic ridge and the discovery of seafloor spreading provided the missing geophysical mechanism, transforming Wegener's once-ridiculed hypothesis into the bedrock of modern plate tectonics.",
         question: "Which choice best describes the overall structure of the text?",
         choices: [
@@ -865,22 +1204,33 @@ const ACADEMY_CONTENT = {
         ],
         answer: "A",
         thinkAloud: [
-          "Step 1 (Chunk the Text): Chunk 1 = Wegener proposes continental drift (Sentence 1). Chunk 2 = Geologists dismiss it due to lack of mechanism (Sentence 2). Chunk 3 = 'Decades later, however...' seafloor spreading provides the mechanism and validates it (Sentence 3).",
+          "Step 1 (Chunk the Text): Sentence 1 = Wegener proposes continental drift (Introduction). Sentence 2 = Geologists dismiss it for lack of mechanism (Rejection). Sentence 3 = 'Decades later, however...' seafloor spreading validates it (Validation).",
           "Step 2 (Assign Action Verbs): [Introduces hypothesis] -> [Explains initial rejection] -> [Describes later validation].",
-          "Step 3 (Match with Choices): Look at Choice A: 'introduces a scientific hypothesis' (Chunk 1), 'explains why it was initially rejected' (Chunk 2), 'describes the later discoveries that validated it' (Chunk 3). It is a 1-to-1 blueprint match.",
-          "Step 4 (Eliminate Traps): Choice B is 'Opposite' (says neither is supported). Choice C is 'Half Right / Too Narrow' (focuses on seabed mapping technology). Choice D is 'Opposite' (says plate tectonics is outdated). Choose A."
+          "Step 3 (Compare Verbs in Choices): Choice A: 'introduces a hypothesis... explains why initially rejected... describes later discoveries that validated it'. Perfect 3-part blueprint match.",
+          "Step 4 (Eliminate Choice B): Choice B says 'neither is supported' (Opposite trap).",
+          "Step 5 (Eliminate Choice C): Choice C focuses on 'technological inventions' (Half Right / Detail trap).",
+          "Step 6 (Eliminate Choice D): Choice D claims plate tectonics is 'outdated' (Opposite trap)."
         ],
         trapTypes: {
           B: "Opposite",
           C: "Half Right",
           D: "Opposite"
         },
-        explanation: "Choice A is correct because it matches the chronological and rhetorical progression: introduction of Wegener's idea -> explanation of initial rejection due to missing mechanism -> description of how seafloor spreading later validated it. Choices B and D misstate the conclusion, and Choice C focuses narrowly on a single detail.",
+        explanation: {
+          correctBridge: "Choice A is correct because it matches the exact 3-step rhetorical blueprint: introducing Wegener's continental drift hypothesis -> detailing why peers rejected it -> explaining how seafloor spreading later validated it.",
+          choiceBreakdown: {
+            A: "Correct Answer: 1-to-1 structural mapping of the passage's chronological and logical development.",
+            B: "Opposite Trap: The passage concludes that Wegener's theory was validated, not that neither theory was supported.",
+            C: "Half Right / Detail Trap: Seabed mapping is a supporting detail used to explain validation, not the overarching structure.",
+            D: "Opposite Trap: Plate tectonics is presented as the foundational bedrock of modern science, not outdated."
+          },
+          keyTakeaway: "On 3-sentence historical science passages, look for the standard arc: Hypothesis -> Rejection -> Late Vindication."
+        },
         glosses: {
-          "continental drift": "the gradual movement of the continents across the earth's surface through geological time",
-          "orthodoxy": "authorized or generally accepted theory or practice",
-          "bedrock": "the fundamental principles or foundation on which something is based",
-          "geophysical": "relating to the physics of the earth and its environment"
+          "continental drift": "(noun) the geological theory that continents shift positions across the earth's surface",
+          "orthodoxy": "(noun) authorized or generally accepted theory",
+          "bedrock": "(noun) fundamental principles or foundation",
+          "geophysical": "(adj.) relating to the physics of the earth"
         }
       },
       {
@@ -888,6 +1238,7 @@ const ACADEMY_CONTENT = {
         type: "text-structure-purpose",
         stage: "worked-example",
         difficulty: "Hard",
+        strategyHeuristic: "When a sentence starts with 'Yet this reading overlooks...', its function is to introduce the author's counter-claim against a prevailing interpretation.",
         passage: "Many literary historians have characterized Mary Shelley's *Frankenstein* (1818) exclusively as a cautionary tale warning against unfettered scientific hubris. <u>Yet this narrow reading overlooks Shelley's intense engagement with contemporary socio-political philosophy.</u> Throughout the novel, the creature's monstrous descent is driven not by inherently evil biology, but by the relentless social ostracization, cruelty, and emotional abandonment he experiences at the hands of human society.",
         question: "Which choice best describes the function of the underlined sentence in the text as a whole?",
         choices: [
@@ -898,22 +1249,32 @@ const ACADEMY_CONTENT = {
         ],
         answer: "B",
         thinkAloud: [
-          "Step 1 (Analyze the Surrounding Context): Sentence 1 states the common critical view ('exclusively as a cautionary tale...'). The underlined sentence pivots: 'Yet this narrow reading overlooks...'. Sentence 3 explains the overlooked sociological theme.",
-          "Step 2 (Determine Rhetorical Function): The underlined sentence acts as the thesis pivot—it challenges the common view and asserts that a deeper socio-political layer exists.",
-          "Step 3 (Evaluate Action Verbs): We need a choice that says 'challenges a common interpretation' or 'introduces a counter-claim'.",
-          "Step 4 (Filter Choices): Choice B says: 'introduces the author's primary counter-claim against a prevailing critical interpretation.' (Exact match). Choice A is Out of Scope (no analogy). Choice C is Out of Scope (no statistics/popularity). Choice D is an Opposite trap. Select B."
+          "Step 1 (Analyze Context Surrounding Underlined Sentence): Sentence 1 outlines the conventional critical view ('cautionary tale against scientific hubris'). Sentence 3 explains the sociological theme.",
+          "Step 2 (Examine the Underlined Sentence Itself): 'Yet this narrow reading overlooks Shelley's intense engagement with contemporary socio-political philosophy.'",
+          "Step 3 (Determine Rhetorical Function): The sentence acts as the thesis pivot—it rejects the narrow traditional view and asserts a broader sociological counter-claim.",
+          "Step 4 (Test Choice B): Choice B: 'introduces the author's primary counter-claim against a prevailing critical interpretation.' Exact match.",
+          "Step 5 (Eliminate Distractors): Choice A is Out of Scope (no analogy). Choice C is Out of Scope (no statistics on popularity). Choice D is an Opposite trap (it rejects the exclusive scientific ambition reading)."
         ],
         trapTypes: {
           A: "Out of Scope",
           C: "Out of Scope",
           D: "Opposite"
         },
-        explanation: "Choice B accurately states the function of the underlined sentence: by opening with 'Yet this narrow reading overlooks...', the author directly pushes back against the prevailing critical interpretation mentioned in sentence 1 and introduces the counter-claim developed in the rest of the passage.",
+        explanation: {
+          correctBridge: "Choice B accurately states the function: by opening with 'Yet this narrow reading overlooks...', the underlined sentence directly challenges the prevailing critical interpretation from sentence 1 and introduces the author's counter-claim that is elaborated in the rest of the text.",
+          choiceBreakdown: {
+            A: "Out of Scope Trap: The text draws no comparison or analogy to scientific instruments.",
+            B: "Correct Answer: Accurately identifies the rhetorical role as introducing a counter-claim against a dominant reading.",
+            C: "Out of Scope Trap: The text discusses literary interpretation, not reader popularity statistics.",
+            D: "Opposite Trap: The sentence argues against viewing the novel exclusively as a warning about scientific ambition."
+          },
+          keyTakeaway: "Underlined sentences containing 'Yet this overlooks X' serve as the thesis pivot of the passage."
+        },
         glosses: {
-          "unfettered": "not restrained or restricted; uncontrolled",
-          "hubris": "excessive pride or dangerous self-confidence",
-          "ostracization": "exclusion or banishment from a society or group",
-          "counter-claim": "a claim made to rebut, challenge, or oppose a previous assertion"
+          "unfettered": "(adj.) unrestrained, unrestricted, or uncontrolled",
+          "hubris": "(noun) excessive pride or dangerous overconfidence",
+          "ostracization": "(noun) exclusion or banishment from a community or society",
+          "counter-claim": "(noun) an argument presented to oppose or refute a previous assertion"
         }
       }
     ],
@@ -957,6 +1318,7 @@ const ACADEMY_CONTENT = {
         type: "text-structure-purpose",
         stage: "guided",
         difficulty: "Easy",
+        strategyHeuristic: "Look at the relationship: Sentence 1 defines a general concept, and Sentences 2-3 provide a concrete case study illustrating it.",
         passage: "Biomimicry is the practice of looking to nature for solutions to complex engineering challenges. For example, the high-speed Japanese Shinkansen bullet train originally generated a deafening sonic boom whenever it exited tunnels at high speeds. Engineer Eiji Nakatsu resolved this dilemma by redesigning the train's nose to mimic the streamlined beak of the kingfisher bird, which dives seamlessly into water with minimal splash and resistance.",
         question: "Which choice best describes the main purpose of the text?",
         choices: [
@@ -976,11 +1338,20 @@ const ACADEMY_CONTENT = {
           C: "Half Right",
           D: "Too Extreme"
         },
-        explanation: "Choice B is correct. Sentence 1 defines biomimicry, and the rest of the text provides a specific case study (the Shinkansen train nose inspired by the kingfisher's beak) to demonstrate how nature inspired an engineering solution. Choice D is too extreme.",
+        explanation: {
+          correctBridge: "Choice B is correct. Sentence 1 establishes the definition of biomimicry, and sentences 2–3 describe a specific case study (the Shinkansen train nose inspired by the kingfisher beak) to illustrate how biological principles solve human engineering problems.",
+          choiceBreakdown: {
+            A: "Out of Scope Trap: The author describes how the sonic boom dilemma was solved, not that trains are hazardous.",
+            B: "Correct Answer: Accurately identifies the purpose as illustrating biomimicry via a specific engineering case study.",
+            C: "Half Right Trap: The kingfisher's beak is mentioned briefly as an inspiration, but its respiratory system is not described.",
+            D: "Too Extreme Trap: 'Every modern machine in existence' is an absurdly absolute overstatement."
+          },
+          keyTakeaway: "When a passage opens with a definition and follows with 'For example...', the main purpose is to define and illustrate that concept."
+        },
         glosses: {
-          "biomimicry": "the design and production of materials, structures, and systems that are modeled on biological entities and processes",
-          "deafening": "extremely loud; overpowering in sound",
-          "streamlined": "designed or organized to offer the least resistance to fluid or air flow"
+          "biomimicry": "(noun) the practice of designing materials or systems modeled on biological structures",
+          "deafening": "(adj.) extremely loud",
+          "streamlined": "(adj.) designed to offer the least resistance to air or fluid flow"
         }
       },
       {
@@ -988,6 +1359,7 @@ const ACADEMY_CONTENT = {
         type: "text-structure-purpose",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "The underlined sentence introduces the technological methodology used to break a historical scholarly deadlock.",
         passage: "For centuries, the origin of the Indus Valley Civilization's enigmatic script remained a major scholarly impasse, with epigraphers debating whether the inscriptions represented a spoken Dravidian tongue, an Indo-European dialect, or a purely non-linguistic symbol system. <u>Recently, computational linguist Rajesh Rao applied conditional entropy algorithms to compare the script against known human languages and non-linguistic data sets.</u> Rao's statistical models demonstrated that the script's pattern regularity falls squarely within the range of natural spoken languages, effectively ruling out the non-linguistic symbol hypothesis.",
         question: "Which choice best describes the function of the underlined sentence?",
         choices: [
@@ -1007,12 +1379,21 @@ const ACADEMY_CONTENT = {
           C: "Half Right",
           D: "Opposite"
         },
-        explanation: "Choice A accurately identifies the sentence's function: it introduces Rajesh Rao's use of computational conditional entropy algorithms as a new method to address the historical debate outlined in sentence 1. Choice B is too pessimistic/extreme. Choice C overstates the outcome (grammar rules were not established).",
+        explanation: {
+          correctBridge: "Choice A accurately identifies the sentence's rhetorical role: it introduces Rajesh Rao's use of computational algorithms as a new method to investigate the long-standing debate introduced in sentence 1.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately identifies the sentence as introducing a new computational method to address the debate.",
+            B: "Too Extreme Trap: The passage is optimistic about computational analysis, not conceding permanent failure.",
+            C: "Half Right Trap: The study determined the script was a spoken language, but did not produce its grammatical rules.",
+            D: "Opposite Trap: The passage found predictable patterns in language, not that speech is unpredictable."
+          },
+          keyTakeaway: "Track how an underlined sentence links the problem (historical impasse) to the solution (statistical findings)."
+        },
         glosses: {
-          "enigmatic": "difficult to interpret or understand; mysterious",
-          "impasse": "a situation in which no progress is possible, especially because of disagreement; a deadlock",
-          "epigraphers": "scholars who study and interpret ancient inscriptions or engravings",
-          "conditional entropy": "a statistical measure of the unpredictability or information content in sequences"
+          "enigmatic": "(adj.) difficult to interpret or understand; mysterious",
+          "impasse": "(noun) a deadlock where no progress is possible",
+          "epigraphers": "(noun) scholars who study ancient inscriptions",
+          "conditional entropy": "(noun) a statistical measure of information regularity"
         }
       },
       {
@@ -1020,6 +1401,7 @@ const ACADEMY_CONTENT = {
         type: "text-structure-purpose",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "Look for the classic two-part interdisciplinary structure: [Orthodox view from Field A] + [Alternative perspective from Field B].",
         passage: "In standard neoclassical macroeconomics, high inflation is attributed almost exclusively to an excessive expansion of the money supply by central banks. Sociologist Greta Krippner, however, offers an alternative perspective, demonstrating that the severe inflation of the 1970s was deeply tied to political struggles over income distribution. When governments lacked the political capital to allocate fiscal burdens directly, they allowed wage-price spirals to proliferate as a temporary political compromise, effectively deferring structural economic conflict.",
         question: "Which choice best describes the overall structure of the text?",
         choices: [
@@ -1039,11 +1421,20 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Out of Scope"
         },
-        explanation: "Choice B is correct. The text begins with the orthodox neoclassical explanation for inflation (money supply expansion) and then introduces Krippner's sociological research showing how 1970s inflation was driven by political distribution conflicts. Choice A is the opposite of the passage's intent. Choice D is out of scope.",
+        explanation: {
+          correctBridge: "Choice B is correct. The text begins with the orthodox neoclassical explanation for inflation (money supply expansion) and then presents Krippner's sociological research interpreting 1970s inflation through political distribution struggles.",
+          choiceBreakdown: {
+            A: "Opposite Trap: The passage introduces Krippner's work to provide an alternative, not to prove the economic principle universally valid.",
+            B: "Correct Answer: Accurately captures the structural movement from conventional economic explanation to alternative sociological framework.",
+            C: "Opposite Trap: It compares an economic view with a sociological view, not two sociological views.",
+            D: "Out of Scope Trap: The text does not provide an 18th-century banking history."
+          },
+          keyTakeaway: "On interdisciplinary passages, identify the two disciplines being contrasted (economics vs. sociology)."
+        },
         glosses: {
-          "neoclassical": "relating to a mainstream approach to economics focusing on the determination of goods, outputs, and income distributions via supply and demand",
-          "proliferate": "increase rapidly in numbers; multiply",
-          "deferring": "putting off an action or conflict to a later time"
+          "neoclassical": "(adj.) referring to mainstream economic theory based on supply, demand, and monetary policy",
+          "proliferate": "(verb) increase rapidly in number; multiply",
+          "deferring": "(verb) putting off an action or confrontation to a future time"
         }
       },
       {
@@ -1051,6 +1442,7 @@ const ACADEMY_CONTENT = {
         type: "text-structure-purpose",
         stage: "guided",
         difficulty: "Hard",
+        strategyHeuristic: "References to discarded theories (like miasma) establish the historical baseline of error that the protagonist overcame.",
         passage: "In 1854, during a catastrophic cholera outbreak in London's Soho district, prevailing medical dogma insisted that the disease was transmitted through 'miasma'—noxious air arising from decaying organic matter. Physician John Snow rejected this atmospheric theory. By meticulously plotting cholera deaths on a street map and interviewing residents, Snow demonstrated that infections clustered exclusively around the Broad Street water pump. When Snow persuaded local authorities to remove the pump handle, new infections plummeted, inaugurating the field of modern spatial epidemiology.",
         question: "Which choice best describes the function of the reference to the 'miasma' theory in the text?",
         choices: [
@@ -1070,12 +1462,21 @@ const ACADEMY_CONTENT = {
           C: "Out of Scope",
           D: "Opposite"
         },
-        explanation: "Choice A accurately describes the role of the miasma theory: it establishes the dominant, erroneous medical belief of the era, which provides the necessary context for understanding the significance of John Snow's waterborne discovery. Choice B contradicts the text (miasma was what Snow disproved, not what he used as evidence).",
+        explanation: {
+          correctBridge: "Choice A accurately describes the function of the miasma reference: it establishes the dominant, erroneous medical dogma of the era, which gives context to the significance of John Snow's waterborne discovery.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately identifies the miasma theory as the flawed belief that Snow's mapping disproved.",
+            B: "Opposite Trap: Snow disproved miasma; he did not use it as evidence to remove the handle.",
+            C: "Out of Scope Trap: Officials did not block his map; they complied by removing the handle.",
+            D: "Opposite Trap: Cholera is waterborne, which is what Snow proved."
+          },
+          keyTakeaway: "References to ancient/flawed beliefs serve as rhetorical contrasts to highlight the groundbreaking nature of a new discovery."
+        },
         glosses: {
-          "dogma": "a principle or set of principles laid down by an authority as incontrovertibly true",
-          "miasma": "an oppressive or unpleasant atmosphere which was historically thought to emanate from the earth and cause disease",
-          "noxious": "harmful, poisonous, or very unpleasant",
-          "spatial epidemiology": "the study of the geographical variation in disease risk or incidence"
+          "dogma": "(noun) a principle laid down by authority as incontrovertibly true",
+          "miasma": "(noun) an oppressive vapor or noxious air formerly thought to cause diseases",
+          "noxious": "(adj.) harmful, poisonous, or highly unpleasant",
+          "spatial epidemiology": "(noun) the geographical study of disease distribution and spread"
         }
       }
     ],
@@ -1085,6 +1486,7 @@ const ACADEMY_CONTENT = {
         type: "text-structure-purpose",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Identify the structure: Introduction of an agricultural technology + Sociological critique of its unintended consolidation impact.",
         passage: "Many agricultural researchers have celebrated precision farming—the use of GPS, drone imagery, and soil sensors to apply fertilizers only where needed—as an unqualified environmental victory. However, rural sociologists caution that the steep capital costs of precision hardware tend to accelerate farm consolidation, forcing smaller family farms out of business while enriching massive agribusiness conglomerates.",
         question: "Which choice best states the primary purpose of the text?",
         choices: [
@@ -1099,11 +1501,20 @@ const ACADEMY_CONTENT = {
           C: "Half Right",
           D: "Out of Scope"
         },
-        explanation: "Choice B is correct. The text introduces precision farming (the technological innovation) and then highlights how its high cost contributes to farm consolidation and harms family farms (a negative socioeconomic consequence). Choice A is too extreme. Choice C is too narrow. Choice D is unsupported.",
+        explanation: {
+          correctBridge: "Choice B is correct. The passage introduces precision farming (the technological innovation) and then presents the sociologists' warning that high costs accelerate farm consolidation (a negative socioeconomic consequence).",
+          choiceBreakdown: {
+            A: "Too Extreme Trap: The passage urges caution regarding economic impact; it does not advocate a complete ban.",
+            B: "Correct Answer: Perfectly captures the balance between introducing the technology and highlighting its socioeconomic side effect.",
+            C: "Half Right Trap: Drone cameras are mentioned as one tool, but technical specifications are not given.",
+            D: "Out of Scope Trap: The passage never compares crop yields between family and corporate farms."
+          },
+          keyTakeaway: "On purpose questions for technology passages, look for balanced choices that capture both the innovation and the critical drawback."
+        },
         glosses: {
-          "precision farming": "farming management concept based on observing, measuring, and responding to inter and intra-field variability in crops",
-          "consolidation": "the combination of many separate entities or small businesses into a single large system",
-          "conglomerates": "large corporations formed by the merging of separate and diverse firms"
+          "precision farming": "(noun) high-tech farming utilizing sensors and GPS to optimize fertilizer and water",
+          "consolidation": "(noun) the merging of multiple smaller businesses into giant conglomerates",
+          "conglomerates": "(noun) large commercial corporations composed of merged companies"
         }
       },
       {
@@ -1111,6 +1522,7 @@ const ACADEMY_CONTENT = {
         type: "text-structure-purpose",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "When a chemical paradox or trade-off is established in sentence 1, the underlined sentence introduces the molecular innovation that solves the paradox.",
         passage: "In materials science, developing polymers that are both extraordinarily rigid and easily recyclable has long posed a chemical paradox: rigidity requires permanent covalent cross-linking between molecular chains, whereas easy recyclability requires weak bonds that can be disassembled by heat. <u>Recently, chemist Jianing Zhang synthesised a class of 'vitrimers' containing dynamic covalent bonds that remain stable at room temperature but exchange partners when heated above 150°C.</u> This molecular architecture allows the material to retain the mechanical strength of thermoset plastics while permitting repeated reprocessing.",
         question: "Which choice best describes the function of the underlined sentence in the overall passage?",
         choices: [
@@ -1125,11 +1537,20 @@ const ACADEMY_CONTENT = {
           C: "Out of Scope",
           D: "Opposite"
         },
-        explanation: "Choice A accurately describes the function: sentence 1 poses a chemical paradox (trade-off between rigidity and recyclability), and the underlined sentence introduces Zhang's synthesized vitrimers as the breakthrough that solves this trade-off. Choice B and D contradict the positive achievement described.",
+        explanation: {
+          correctBridge: "Choice A accurately describes the function: sentence 1 poses the trade-off (rigidity vs. recyclability), and the underlined sentence introduces Zhang's synthesized vitrimers as the breakthrough that overcomes this chemical paradox.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately identifies the sentence as introducing the solution to the chemical trade-off.",
+            B: "Opposite Trap: The passage celebrates vitrimers as a success permitting repeated reprocessing.",
+            C: "Out of Scope Trap: 19th-century rubber vulcanization is never mentioned.",
+            D: "Opposite Trap: Heating above 150°C allows dynamic bond exchange without irreversible degradation."
+          },
+          keyTakeaway: "Problem-and-solution passages have a predictable structure: Sentence 1 introduces the engineering paradox; the underlined sentence introduces the innovative solution."
+        },
         glosses: {
-          "covalent bonds": "chemical bonds formed by the sharing of electron pairs between atoms",
-          "thermoset plastics": "polymers that become permanently rigid when cured and cannot be remelted",
-          "vitrimers": "a class of plastics with dynamic cross-links that can flow and be reprocessed when heated"
+          "covalent bonds": "(noun) strong chemical bonds where atoms share electron pairs",
+          "thermoset plastics": "(noun) rigid polymers that cannot be remelted once cured",
+          "vitrimers": "(noun) dynamic plastic materials capable of flow and recycling when heated"
         }
       },
       {
@@ -1137,6 +1558,7 @@ const ACADEMY_CONTENT = {
         type: "text-structure-purpose",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "Track the evolution: [Early academic methodology] -> [Contemporary theoretical critique].",
         passage: "Early 20th-century ethnomusicologists often recorded Indigenous folksongs with the stated aim of 'salvaging' dying cultures before they assimilated into modern Western society. Contemporary musicologist Beverly Diamond critiques this salvage framework as fundamentally paternalistic. She argues that Indigenous musical traditions were never static relics doomed to extinction, but rather dynamic, evolving practices through which communities actively assert sovereignty and adapt to historical change.",
         question: "Which choice best describes the overall structure of the text?",
         choices: [
@@ -1151,11 +1573,20 @@ const ACADEMY_CONTENT = {
           C: "Out of Scope",
           D: "Opposite"
         },
-        explanation: "Choice A captures the rhetorical movement: Sentence 1 introduces the early 'salvage' approach of ethnomusicologists, while Sentences 2-3 describe Beverly Diamond's critique, which reconceptualizes Indigenous music as dynamic and sovereign. Choices B and C mention outside topics. Choice D is the opposite of Diamond's stance.",
+        explanation: {
+          correctBridge: "Choice A captures the rhetorical movement: sentence 1 introduces the early 20th-century 'salvage' approach, and sentences 2–3 detail Beverly Diamond's modern critique, which reconceptualizes Indigenous music as dynamic and sovereign.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately maps the structure from early academic approach to modern reinterpretation.",
+            B: "Out of Scope Trap: No musical notation system or school curriculum is discussed.",
+            C: "Out of Scope Trap: No audio quality dispute between field researchers is mentioned.",
+            D: "Opposite Trap: Diamond argues traditions are dynamic and alive, not that they ceased to exist."
+          },
+          keyTakeaway: "Look for shifts between historical paradigms and contemporary critical reformulations."
+        },
         glosses: {
-          "ethnomusicologists": "scholars who study the music of different cultures, especially non-Western traditions",
-          "paternalistic": "governing or treating people in a fatherly manner, especially by providing for their needs without giving them rights or autonomy",
-          "sovereignty": "the authority of a state or people to govern themselves"
+          "ethnomusicologists": "(noun) scholars who study music in its cultural and social contexts",
+          "paternalistic": "(adj.) treating people in a fatherly manner that restricts their freedom or autonomy",
+          "sovereignty": "(noun) the authority of a people to govern their own affairs and cultural identity"
         }
       },
       {
@@ -1163,6 +1594,7 @@ const ACADEMY_CONTENT = {
         type: "text-structure-purpose",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Look for historical counter-evidence that invalidated a famous economic forecast.",
         passage: "In 1798, Thomas Malthus published his *Essay on the Principle of Population*, arguing that because human population grows geometrically while food production increases only arithmetically, mass famine was mathematically inevitable. <u>Yet Malthus failed to foresee the Haber-Bosch process and genetic hybridization, which exponentially multiplied agricultural yields throughout the 20th century.</u> Consequently, global food production has outpaced population growth, though political distribution inequalities continue to cause localized food insecurity.",
         question: "Which choice best describes the function of the underlined sentence in the text?",
         choices: [
@@ -1177,12 +1609,21 @@ const ACADEMY_CONTENT = {
           C: "Out of Scope",
           D: "Too Extreme"
         },
-        explanation: "Choice B is correct. Sentence 1 outlines Malthus's prediction of inevitable famine. The underlined sentence introduces the unforeseen technological breakthroughs (Haber-Bosch process, hybridization) that multiplied food yields and undermined Malthus's forecast. Choice A is the opposite. Choice D is an extreme claim refuted by the final clause.",
+        explanation: {
+          correctBridge: "Choice B is correct. Sentence 1 establishes Malthus's prediction of inevitable famine. The underlined sentence introduces the unforeseen innovations (Haber-Bosch process, genetic hybridization) that multiplied food yields and undermined his premise.",
+          choiceBreakdown: {
+            A: "Opposite Trap: The sentence refutes Malthus's projection rather than validating it.",
+            B: "Correct Answer: Accurately explains that the sentence introduces technological breakthroughs that invalidated Malthus's prediction.",
+            C: "Out of Scope Trap: Banning synthetic fertilizers is never argued.",
+            D: "Too Extreme Trap: The final sentence explicitly notes that localized food insecurity still exists."
+          },
+          keyTakeaway: "Underlined sentences highlighting unforeseen discoveries explain why a historical theory failed."
+        },
         glosses: {
-          "geometrically": "increasing at a constant ratio or exponential rate (e.g., 2, 4, 8, 16)",
-          "arithmetically": "increasing at a constant additive rate (e.g., 2, 4, 6, 8)",
-          "Haber-Bosch process": "an industrial chemical process that synthesizes ammonia from nitrogen and hydrogen for fertilizers",
-          "hybridization": "the process of cross-breeding different varieties or species to create hardier offspring"
+          "geometrically": "(adv.) increasing exponentially at a multiplying ratio",
+          "arithmetically": "(adv.) increasing linearly at a constant addition rate",
+          "Haber-Bosch process": "(noun) an industrial chemical method for synthesizing ammonia fertilizer",
+          "hybridization": "(noun) cross-breeding varieties to produce higher-yielding crops"
         }
       }
     ],
@@ -1212,11 +1653,48 @@ const ACADEMY_CONTENT = {
       whatItTests: "Cross-Text Connections presents two paired passages (Text 1 and Text 2) on the same topic and asks you to evaluate how the author of one text would respond to the findings, claims, or perspective of the other.",
       frequency: "1 to 2 questions per module.",
       recognitionTest: "The question stem typically asks: 'Based on the texts, how would the author of Text 2 most likely respond to the claim in Text 1 regarding [X]?' or 'Which choice best describes a shared assumption between both authors?'",
-      eslNote: "The #1 hazard here is 'Perspective Reversal'—choosing an option that accurately represents Author 1's opinion when the question asked for Author 2's reaction to Author 1."
+      goldenRules: [
+        {
+          title: "The Perspective Lock Rule",
+          description: "Always underline WHO is responding to WHOM in the question stem. The #1 trap is picking Author 1's view when asked for Author 2's response."
+        },
+        {
+          title: "The Bridge Relationship Check",
+          description: "Paired texts almost never completely agree or completely disagree. They usually: (1) qualify a claim, (2) provide an alternative cause for the same fact, or (3) identify an overlooked flaw."
+        },
+        {
+          title: "The Common Ground Anchor",
+          description: "Both authors usually agree on the core fact or observation, but diverge sharply on the interpretation or causation."
+        },
+        {
+          title: "The Nuance Mandate",
+          description: "Author 2's response will be courteous and reasoned (e.g., 'acknowledges the data but questions the scope'), never aggressive or dismissive."
+        }
+      ],
+      pacingStrategy: {
+        steps: [
+          { seconds: "25", action: "Summarize Text 1", detail: "Note main claim + author's polarity (+/-)" },
+          { seconds: "25", action: "Summarize Text 2", detail: "Note how Text 2 reacts to Text 1 (Counter, Alternative, Qualify)" },
+          { seconds: "20", action: "Lock Question Stem", detail: "Confirm: 'How does Author 2 view Author 1's claim on X?'" },
+          { seconds: "20", action: "Select & Veto", detail: "Pick the nuanced bridge; eliminate perspective reversal traps" }
+        ]
+      },
+      commonPitfalls: [
+        {
+          name: "Perspective Reversal",
+          explanation: "Choosing an answer that accurately summarizes Text 1 when the question asked for Text 2's rebuttal."
+        },
+        {
+          name: "Total Rejection Assumption",
+          explanation: "Assuming Author 2 denies all of Text 1's facts, when Author 2 actually accepts the facts but offers a different explanation."
+        }
+      ],
+      eslNote: "Watch for concession words in Text 2 ('While Author 1 correctly observes X, they overlook Y'). The real answer lies in Y."
     },
     stage2_method: {
       name: "The Venn Bridge Protocol",
       summary: "A rigorous 4-step synthesis workflow to lock down dual viewpoints.",
+      examFormula: "Text 1 Claim + Text 2 Concession & Counter-Thesis = Inter-textual Bridge",
       steps: [
         {
           num: 1,
@@ -1242,6 +1720,12 @@ const ACADEMY_CONTENT = {
           rule: "Re-read the question stem to make 100% sure you are answering from the requested author's point of view.",
           expertMove: "If asked 'How would Author 2 respond?', I channel Author 2's skepticism toward Author 1's conclusion."
         }
+      ],
+      checklist: [
+        "Did I check whose perspective is required by the question stem?",
+        "Did I locate the exact point of overlap between both texts?",
+        "Does Author 2 concede any facts before disagreeing?",
+        "Did I avoid choices that exaggerate Author 2's disagreement?"
       ]
     },
     stage3_workedExamples: [
@@ -1250,6 +1734,7 @@ const ACADEMY_CONTENT = {
         type: "cross-text-connections",
         stage: "worked-example",
         difficulty: "Hard",
+        strategyHeuristic: "Look at the concession in Text 2: Kacelnik accepts the physical dexterity of the crows, but rejects that it represents learned cultural transmission.",
         passage: "<b>Text 1</b><br>For decades, primatologists maintained that tool use was a uniquely hominid adaptation that catalyzed human cognitive evolution. However, extensive field observations of wild New Caledonian crows (*Corvus moneduloides*) have overturned this assumption. These birds systematically fashion hooked twigs and barbed leaves to extract grubs from tree bark, displaying sophisticated multi-step problem solving without possessing mammalian neocortical brain structures.<br><br><b>Text 2</b><br>While cognitive biologist Alex Kacelnik acknowledges the remarkable tool-making dexterity of New Caledonian crows, he cautions against equating avian tool behavior with human-style cumulative culture. Human technology relies on social transmission, teaching, and iterative generational improvement. In contrast, laboratory experiments demonstrate that isolated crows raised in complete isolation from adult conspecifics still instinctively construct hooked tools, suggesting that their behavior is largely an innate genetic adaptation rather than learned cultural innovation.",
         question: "Based on the texts, how would Kacelnik (Text 2) most likely respond to the characterization of crow tool use in Text 1?",
         choices: [
@@ -1260,22 +1745,33 @@ const ACADEMY_CONTENT = {
         ],
         answer: "C",
         thinkAloud: [
-          "Step 1 (Analyze Text 1): Author 1 says crow tool-making disproves that tool use is uniquely human and shows sophisticated problem solving without mammalian brain structures.",
-          "Step 2 (Analyze Text 2): Author 2 (Kacelnik) agrees crows have 'remarkable tool-making dexterity', BUT cautions against equating it with human culture because isolated crows still make tools instinctively (innate genetic adaptation, not social learning).",
-          "Step 3 (Bridge Relationship): Kacelnik partially agrees with the ability (dexterity) but qualifies/limits the cognitive interpretation (innate vs. learned cultural transmission).",
-          "Step 4 (Test Choices): Choice A is 'Opposite' (Text 2 acknowledges dexterity). Choice B contradicts both texts (crows lack mammalian neocortex). Choice D reverses Text 2's description of humans (human tech relies on social transmission). Choice C perfectly matches the nuance of Text 2."
+          "Step 1 (Analyze Text 1 Stance): Author 1 says crow tool-making disproves human uniqueness and shows sophisticated problem-solving without a mammalian neocortex.",
+          "Step 2 (Analyze Text 2 Stance): Kacelnik admits crows have 'remarkable tool-making dexterity', BUT cautions against equating it with human culture because isolated crows make tools instinctively (genetic, not social culture).",
+          "Step 3 (Bridge Relationship): Kacelnik agrees with the physical ability (dexterity), but qualifies the cognitive interpretation (innate instinct vs. learned culture).",
+          "Step 4 (Verify Stem Direction): 'How would Kacelnik (Text 2) respond to Text 1?'",
+          "Step 5 (Evaluate Choice C): Choice C matches: agrees crows make complex tools, but disputes that it represents learned cultural transmission.",
+          "Step 6 (Eliminate Traps): Choice A contradicts Text 2 (Kacelnik acknowledges dexterity). Choice B contradicts both texts (crows lack mammalian neocortex). Choice D reverses human culture (humans rely on social learning, not instinct)."
         ],
         trapTypes: {
           A: "Opposite",
           B: "Opposite",
           D: "Opposite"
         },
-        explanation: "Choice C is correct because Kacelnik in Text 2 acknowledges the 'remarkable tool-making dexterity' of the crows (agreeing they make complex tools) but argues their behavior is an 'innate genetic adaptation' rather than learned cultural transmission. Choice A contradicts Text 2. Choice B misstates anatomy. Choice D reverses Kacelnik's description of human technology.",
+        explanation: {
+          correctBridge: "Choice C accurately synthesizes Kacelnik's position in Text 2: he acknowledges the impressive tool-making dexterity of crows (agreeing with their complex skill) but presents isolation data to argue that their behavior is an innate genetic adaptation rather than socially learned cumulative culture.",
+          choiceBreakdown: {
+            A: "Opposite Trap: Kacelnik explicitly acknowledges the tool-making dexterity of crows; he does not deny that they use tools.",
+            B: "Opposite Trap: Text 1 states crows lack mammalian neocortical structures, and Text 2 never claims they possess them.",
+            C: "Correct Answer: Perfectly captures Kacelnik's two-part stance: agreeing with the physical ability while rejecting the cultural interpretation.",
+            D: "Opposite Trap: Text 2 explicitly states that human technology relies on social transmission, not innate instincts."
+          },
+          keyTakeaway: "On Cross-Text questions, the correct choice frequently pairs an area of agreement (complex tools) with an area of divergence (innate vs. cultural)."
+        },
         glosses: {
-          "hominid": "a primate of a family (Hominidae) that includes humans and their fossil ancestors",
-          "dexterity": "skill in performing tasks, especially with the hands or appendages",
-          "cumulative culture": "the transmission and progressive improvement of knowledge and technology across generations",
-          "conspecifics": "members of the same biological species"
+          "hominid": "(noun) a member of the biological family including humans and their fossil ancestors",
+          "dexterity": "(noun) skill in performing physical tasks, especially with hands or appendages",
+          "cumulative culture": "(noun) the transmission and progressive improvement of knowledge across generations",
+          "conspecifics": "(noun) members of the same biological species"
         }
       },
       {
@@ -1283,6 +1779,7 @@ const ACADEMY_CONTENT = {
         type: "cross-text-connections",
         stage: "worked-example",
         difficulty: "Hard",
+        strategyHeuristic: "Pomeranz attacks the assumption that European institutions were unique by demonstrating that China had equally strong property rights.",
         passage: "<b>Text 1</b><br>The 'Great Divergence'—the historical phenomenon whereby Western European economies leaped ahead of Asian economies in the 18th and 19th centuries—is frequently attributed by institutional economists to Europe's superior property rights, legal contracts, and financial markets, which incentivized capital investment and industrial innovation.<br><br><b>Text 2</b><br>Historian Kenneth Pomeranz disputes this Eurocentric narrative, noting that around 1750, core commercial regions in China, such as the Yangtze Delta, possessed land markets, commercial law, and labor mobility that were just as robust as those in Britain. Instead, Pomeranz argues that Britain's breakthrough was driven by fortuitous geographical accidents: easily accessible domestic coal deposits and access to resource-rich American colonial ghost acreage.",
         question: "Based on the texts, how would Pomeranz (Text 2) most likely respond to the institutional economists mentioned in Text 1?",
         choices: [
@@ -1293,22 +1790,32 @@ const ACADEMY_CONTENT = {
         ],
         answer: "B",
         thinkAloud: [
-          "Step 1 (Isolate Text 1): Institutional economists claim Europe leaped ahead because of superior property rights, legal contracts, and financial markets.",
-          "Step 2 (Isolate Text 2): Pomeranz says China's Yangtze Delta had property and commercial markets just as robust as Britain's (so institutions weren't unique/superior); instead, Britain won due to coal deposits and colonial land access.",
-          "Step 3 (Bridge): Pomeranz rejects the institutional superiority thesis and replaces it with geography and resources.",
-          "Step 4 (Evaluate Choices): Choice A is extreme and unsupported. Choice C is historically opposite. Choice D is an opposite/perspective trap. Choice B matches Pomeranz's exact two-part counter-argument."
+          "Step 1 (Analyze Text 1): Institutional economists argue Europe diverged because of superior property rights, contracts, and financial markets.",
+          "Step 2 (Analyze Text 2): Pomeranz shows that China's Yangtze Delta had property rights and commercial law just as robust as Britain's (institutions were not unique). He attributes Britain's success to coal and colonial resources.",
+          "Step 3 (Bridge): Pomeranz rejects institutional superiority and offers geography/resources as the true explanation.",
+          "Step 4 (Test Choice B): 'By contending that institutional property rights were not unique to Western Europe and that geographical advantages were the primary catalyst.' Exact match.",
+          "Step 5 (Eliminate Distractors): Choice A is Too Extreme. Choice C contradicts historical chronology. Choice D is an Opposite/Perspective trap (represents Text 1)."
         ],
         trapTypes: {
           A: "Too Extreme",
           C: "Opposite",
           D: "Opposite"
         },
-        explanation: "Choice B is correct. Pomeranz points out that property rights and commercial markets in the Yangtze Delta were just as robust as those in Britain (challenging the institutional uniqueness claim) and argues that geographic proximity to coal and colonial resources was the decisive catalyst. Choice D represents Text 1's view, not Pomeranz's.",
+        explanation: {
+          correctBridge: "Choice B is correct. Pomeranz directly refutes the institutional thesis by noting that the Yangtze Delta had equally robust legal and property institutions around 1750, arguing that geographical advantages (coal and colonial land) were the decisive drivers.",
+          choiceBreakdown: {
+            A: "Too Extreme Trap: Pomeranz does not claim British financial markets were non-existent.",
+            B: "Correct Answer: Directly articulates Pomeranz's dual counter-argument (institutions weren't unique; geography was the catalyst).",
+            C: "Opposite Trap: China did not industrialize earlier; the Great Divergence describes Europe pulling ahead.",
+            D: "Opposite / Wrong Attribution Trap: This summarizes the view of institutional economists in Text 1, which Pomeranz rejects."
+          },
+          keyTakeaway: "When Author 2 rejects Author 1's causal explanation, look for a choice that mentions both the debunked cause and the newly proposed cause."
+        },
         glosses: {
-          "Great Divergence": "the process by which the Western world became much wealthier and technologically advanced than the rest of the world in the 18th-19th centuries",
-          "incentivized": "provided with an incentive or motivation to do something",
-          "fortuitous": "happening by a lucky chance; fortunate",
-          "ghost acreage": "additional land outside a nation's borders (e.g., colonies) used to provide resources and food"
+          "Great Divergence": "(noun) the historical gap in wealth and industrial capacity between the West and the rest of the world",
+          "incentivized": "(verb) provided with an economic motive or incentive",
+          "fortuitous": "(adj.) happening by a lucky chance or coincidence",
+          "ghost acreage": "(noun) foreign land or colonies exploited to provide food and raw materials"
         }
       }
     ],
@@ -1352,14 +1859,16 @@ const ACADEMY_CONTENT = {
         type: "cross-text-connections",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "Identify what Text 2 concedes (individual flexibility) vs. what it warns against (loss of spontaneous collaboration).",
         passage: "<b>Text 1</b><br>Advocates of remote work contend that eliminating daily commutes significantly enhances employee well-being and productivity. By giving workers autonomy over their physical environment and schedules, companies observe lower burnout rates and higher employee retention.<br><br><b>Text 2</b><br>While organizational psychologist David Chen acknowledges that remote work provides individual flexibility, he points out that informal, spontaneous workplace interactions—the unplanned 'watercooler conversations'—are essential for cross-departmental innovation. In entirely remote environments, communication becomes siloed, ultimately reducing the generation of novel corporate ideas.",
         question: "Based on the texts, how would David Chen (Text 2) most likely characterize the view expressed by the advocates in Text 1?",
         choices: [
           "A) As an outright falsehood that has caused every remote company to immediately go bankrupt.",
           "B) As an accurate assessment of individual benefits that nevertheless overlooks the collective long-term costs to collaborative innovation.",
           "C) As a flawed economic theory that overestimates the importance of spontaneous employee discussions.",
-          "D) As an indisputable proof that all in-person office spaces should be permanently closed."
-        ],
+          "D) As an indisputable proof that all in-person office spaces should be permanently closed.",
+          "A) As an outright falsehood that has caused every remote company to immediately go bankrupt."
+        ].slice(0, 4),
         answer: "B",
         hints: [
           "Hint 1 (Nudge): Look at the opening concession in Text 2: 'While... Chen acknowledges that remote work provides individual flexibility, he points out that...'",
@@ -1371,11 +1880,20 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Too Extreme"
         },
-        explanation: "Choice B is correct. Chen concedes that remote work provides flexibility (individual benefits) but argues that it harms cross-departmental innovation and creative collaboration (collective costs). Choices A and D are too extreme. Choice C reverses Chen's belief in the value of spontaneous conversations.",
+        explanation: {
+          correctBridge: "Choice B is correct. Chen concedes that remote work improves individual flexibility (validating Text 1's premise), but argues that it damages cross-departmental innovation (identifying an overlooked collective cost).",
+          choiceBreakdown: {
+            A: "Too Extreme Trap: 'Outright falsehood' and 'caused every company to go bankrupt' are gross exaggerations.",
+            B: "Correct Answer: Accurately reflects Chen's balanced stance: individual advantages exist, but collaborative innovation is harmed.",
+            C: "Opposite Trap: Chen emphasizes that spontaneous discussions are vital, not that they are overestimated.",
+            D: "Too Extreme Trap: Chen does not advocate closing all physical office spaces."
+          },
+          keyTakeaway: "Scholarly critiques rarely call an opposing view an 'outright falsehood'; they usually argue it is 'an incomplete assessment that overlooks another dimension'."
+        },
         glosses: {
-          "autonomy": "the right or condition of self-government; freedom from external control",
-          "siloed": "isolated from other departments, teams, or groups in an organization",
-          "watercooler conversations": "informal, casual conversations among coworkers in an office setting"
+          "autonomy": "(noun) the right or condition of self-governance; freedom from external control",
+          "siloed": "(adj.) isolated within separate departments or operational silos",
+          "watercooler conversations": "(noun) informal, casual workplace interactions"
         }
       },
       {
@@ -1383,6 +1901,7 @@ const ACADEMY_CONTENT = {
         type: "cross-text-connections",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "Contrast the time horizons: Gomez focuses on rapid short-term uptake; Vance focuses on long-term ecological security.",
         passage: "<b>Text 1</b><br>Ecologist Elena Gomez argues that planting monoculture forests of fast-growing commercial pine is an effective, rapid strategy for carbon sequestration. Her field measurements indicate that young pine plantations absorb atmospheric carbon dioxide at twice the annual rate of mature, slow-growing native oak woodlands.<br><br><b>Text 2</b><br>Conservation biologist Marcus Vance cautions that measuring short-term carbon uptake in pine monocultures presents a misleading picture of ecological stability. Monoculture plantations are exceptionally vulnerable to pest infestations and wildfires, both of which abruptly release sequestered carbon back into the atmosphere. Vance contends that biodiverse native forests, while slower to mature, provide far more secure, resilient long-term carbon storage.",
         question: "Based on the texts, how does Vance (Text 2) differ from Gomez (Text 1) regarding forest management for carbon storage?",
         choices: [
@@ -1402,11 +1921,20 @@ const ACADEMY_CONTENT = {
           C: "Out of Scope",
           D: "Opposite"
         },
-        explanation: "Choice B is correct. Gomez focuses on rapid, high-rate carbon uptake in pine plantations, while Vance argues that the risk of pests and fires in monocultures makes biodiverse native forests a more resilient, secure option for long-term storage. Choice A contradicts the data. Choice D reverses Vance's warning about pests.",
+        explanation: {
+          correctBridge: "Choice B is correct. Gomez prioritizes the rapid, short-term rate of carbon sequestration in pine, whereas Vance argues that risk of fire and pest outbreaks makes biodiverse native forests a more secure long-term carbon reservoir.",
+          choiceBreakdown: {
+            A: "Opposite Trap: Vance concedes that native woodlands are 'slower to mature' than pine.",
+            B: "Correct Answer: Accurately identifies Vance's emphasis on long-term resilience over short-term speed.",
+            C: "Out of Scope Trap: Vance agrees tree planting sequesters carbon; he debates which forest type is more secure.",
+            D: "Opposite Trap: Vance explicitly warns that pine monocultures are exceptionally vulnerable to pests."
+          },
+          keyTakeaway: "On environmental debates, look for the trade-off between short-term rate and long-term stability."
+        },
         glosses: {
-          "monoculture": "the cultivation or growth of a single crop or plant species in a given area",
-          "carbon sequestration": "the process of capturing and storing atmospheric carbon dioxide",
-          "biodiverse": "containing a wide variety of plant and animal species in an ecosystem"
+          "monoculture": "(noun) the cultivation of a single plant species over a large area",
+          "carbon sequestration": "(noun) the capture and long-term storage of atmospheric carbon dioxide",
+          "biodiverse": "(adj.) containing a wide variety of plant and animal species"
         }
       },
       {
@@ -1414,6 +1942,7 @@ const ACADEMY_CONTENT = {
         type: "cross-text-connections",
         stage: "guided",
         difficulty: "Hard",
+        strategyHeuristic: "Look at the discrepancy between Renfrew's overland decay model and Santos's discovery of massive distant caches.",
         passage: "<b>Text 1</b><br>In his analysis of ancient Mediterranean commerce, archaeologist Colin Renfrew proposed that the obsidian trade was driven by 'down-the-line' exchange: each village along a trade corridor traded raw stone with its immediate neighbor, resulting in an exponential drop-off in obsidian abundance the further a site was from the volcanic source.<br><br><b>Text 2</b><br>Geochemist Maria Santos utilized X-ray fluorescence to analyze obsidian blades at the coastal site of Tell el-Hajj, located 800 kilometers from the nearest Anatolian volcano. Rather than finding only minute traces consistent with down-the-line decay, Santos discovered vast caches of high-purity obsidian, suggesting direct maritime seafaring trade routes that bypassed intermediate overland settlements.",
         question: "Based on the texts, how do the findings made by Santos (Text 2) challenge Renfrew's model (Text 1)?",
         choices: [
@@ -1433,11 +1962,20 @@ const ACADEMY_CONTENT = {
           C: "Out of Scope",
           D: "Opposite"
         },
-        explanation: "Choice B is correct. Renfrew's model predicted that obsidian amounts would drop off exponentially at distant sites, but Santos found massive caches 800 km away, indicating direct maritime trade that contradicts the simple overland down-the-line model. Choice D is what Santos disproved.",
+        explanation: {
+          correctBridge: "Choice B is correct. Renfrew's down-the-line model predicted an exponential decrease resulting in only minute traces at distant sites, but Santos discovered massive caches 800 km away, demonstrating that direct seafaring bypassed overland decay.",
+          choiceBreakdown: {
+            A: "Opposite Trap: Both authors confirm obsidian was widely and heavily traded.",
+            B: "Correct Answer: Accurately points out that the abundance at 800 km was far higher than Renfrew's decay model predicted.",
+            C: "Out of Scope Trap: Volcano activity timing is not mentioned.",
+            D: "Opposite Trap: Santos demonstrated maritime transport, disproving the strict overland caravan assumption."
+          },
+          keyTakeaway: "When a new archaeological finding challenges a mathematical decay model, the challenge is almost always an unexpected abundance at a distant location."
+        },
         glosses: {
-          "obsidian": "a hard, dark, glasslike volcanic rock formed by the rapid solidification of lava without crystallization",
-          "down-the-line exchange": "a trade mechanism where goods are passed sequentially from one neighboring community to the next",
-          "X-ray fluorescence": "a non-destructive analytical technique used to determine the elemental composition of materials"
+          "obsidian": "(noun) a dark, glasslike volcanic rock prized for sharp cutting tools",
+          "down-the-line exchange": "(noun) a trade pattern where goods are handed sequentially from neighbor to neighbor",
+          "X-ray fluorescence": "(noun) a non-destructive chemical analysis technique"
         }
       },
       {
@@ -1445,6 +1983,7 @@ const ACADEMY_CONTENT = {
         type: "cross-text-connections",
         stage: "guided",
         difficulty: "Hard",
+        strategyHeuristic: "For 'both authors would agree' questions, find the shared premise (that reward structures influence motivation) rather than extreme absolutes.",
         passage: "<b>Text 1</b><br>Many behavioral psychologists argue that intrinsic motivation—doing an activity for its inherent satisfaction—is invariably eroded when tangible external rewards, such as monetary bonuses, are introduced. In this view, extrinsic rewards cause individuals to perceive their behavior as externally controlled, diminishing their spontaneous creativity and long-term engagement.<br><br><b>Text 2</b><br>Management scholar Teresa Amabile suggests that the relationship between rewards and motivation is far more nuanced. While transactional, controlling rewards that dictate exactly how a task must be performed do stifle creativity, 'synergistic' rewards—such as recognition of competence, professional autonomy, or bonus funding that enables further independent exploration—can actually bolster intrinsic motivation.",
         question: "Based on the texts, both authors would most likely agree with which of the following statements?",
         choices: [
@@ -1464,11 +2003,20 @@ const ACADEMY_CONTENT = {
           C: "Too Extreme",
           D: "Opposite"
         },
-        explanation: "Choice B is correct. Both texts agree that external rewards influence internal motivation (Text 1 focuses on the negative impacts of extrinsic rewards, while Text 2 details how controlling vs. synergistic structures produce different motivational outcomes). Choices A and C are far too extreme. Choice D contradicts both authors.",
+        explanation: {
+          correctBridge: "Choice B is correct. Both authors agree that the introduction and structure of external rewards exert a meaningful psychological influence on intrinsic motivation (Text 1 focuses on the erosive effects of extrinsic rewards, while Text 2 distinguishes between controlling and synergistic rewards).",
+          choiceBreakdown: {
+            A: "Too Extreme Trap: Text 2 explicitly denies that all rewards destroy creativity, showing synergistic rewards bolster it.",
+            B: "Correct Answer: Formulates the moderate, universally supported premise that reward structure affects motivation.",
+            C: "Too Extreme Trap: Neither author claims workers must be completely unpaid.",
+            D: "Opposite Trap: Both authors emphasize that rewards have substantial psychological effects."
+          },
+          keyTakeaway: "On shared agreement questions, the correct answer is always a moderate, overarching principle, never an extreme absolute."
+        },
         glosses: {
-          "intrinsic motivation": "the drive to engage in an activity arising from internal satisfaction rather than external rewards",
-          "extrinsic rewards": "tangible rewards or incentives given by others (e.g., money, grades, trophies)",
-          "synergistic": "working together in a way where the combined effect is greater than the sum of separate effects"
+          "intrinsic motivation": "(noun) the internal drive to do an activity for its own sake",
+          "extrinsic rewards": "(noun) external incentives such as cash bonuses or awards",
+          "synergistic": "(adj.) working together cooperatively to produce an enhanced total effect"
         }
       }
     ],
@@ -1478,6 +2026,7 @@ const ACADEMY_CONTENT = {
         type: "cross-text-connections",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Look at the core catalyst disagreement: Infrastructure investment (Text 1) vs. Automobile economic taxes/penalties (Text 2).",
         passage: "<b>Text 1</b><br>Urban planners in Copenhagen attribute the city's cycling boom to extensive investments in segregated bike highways with dedicated traffic signals. They argue that physical separation from motor vehicles is the essential prerequisite for encouraging risk-averse demographics, including children and elderly citizens, to adopt cycling for daily transit.<br><br><b>Text 2</b><br>Transportation economist Liam O'Connor contends that while segregated infrastructure is beneficial, Copenhagen's cycling adoption was primarily driven by aggressive economic disincentives on automobiles, including a 150% registration tax on private cars and high municipal parking fees. Without these financial penalties, O'Connor argues, separated bike lanes alone would not have induced car owners to switch to bicycles.",
         question: "Based on the texts, how does O'Connor's view in Text 2 differ from the view of the Copenhagen urban planners in Text 1?",
         choices: [
@@ -1492,11 +2041,20 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Too Extreme"
         },
-        explanation: "Choice B is correct. Text 1 attributes the boom primarily to segregated bike infrastructure. In Text 2, O'Connor argues that economic disincentives on cars (taxes and parking fees) were the primary driver, claiming bike lanes alone would not have sufficed. Choice A is unmentioned. Choice C contradicts the text. Choice D is too extreme.",
+        explanation: {
+          correctBridge: "Choice B is correct. Text 1 credits separated bike infrastructure as the essential driver. O'Connor in Text 2 argues that heavy vehicle taxes and parking fees were the primary catalyst, asserting that bike lanes alone would have been insufficient.",
+          choiceBreakdown: {
+            A: "Out of Scope Trap: O'Connor does not claim bike lanes cause traffic accidents.",
+            B: "Correct Answer: Accurately pinpoints O'Connor's claim that vehicle financial disincentives were the decisive factor.",
+            C: "Opposite Trap: O'Connor explains why citizens switched to bikes, not that they insist on driving.",
+            D: "Too Extreme Trap: O'Connor never makes claims about children or elderly riders refusing to bike."
+          },
+          keyTakeaway: "Cross-Text questions often pit an infrastructure explanation against an economic incentive explanation."
+        },
         glosses: {
-          "segregated": "set apart or separated from the main body or traffic",
-          "risk-averse": "reluctant to take risks or expose oneself to potential danger",
-          "disincentives": "factors, especially financial penalties, that discourage particular actions"
+          "segregated": "(adj.) physically separated from other traffic lanes",
+          "risk-averse": "(adj.) hesitant or unwilling to take physical or financial risks",
+          "disincentives": "(noun) financial penalties or deterrents that discourage behavior"
         }
       },
       {
@@ -1504,6 +2062,7 @@ const ACADEMY_CONTENT = {
         type: "cross-text-connections",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "Bergner's natural geochemical explanation (hydrogen venting) eliminates the necessity of Loeb's alien technology hypothesis.",
         passage: "<b>Text 1</b><br>Astrophysicist Avi Loeb proposed that the interstellar object 'Oumuamua, discovered in 2017, exhibited non-gravitational acceleration as it exited our solar system, which he suggested could be explained by radiation pressure acting on a thin, artificial solar sail constructed by extraterrestrial intelligence.<br><br><b>Text 2</b><br>Planetary scientist Jennifer Bergner developed a geochemical model demonstrating that 'Oumuamua's acceleration could be fully accounted for by natural outgassing. Bergner showed that cosmic rays striking water ice within the interstellar comet would liberate entrapped molecular hydrogen (H<sub>2</sub>), which, upon solar heating, was vented in invisible jets that accelerated the object without producing a visible dust coma.",
         question: "Based on the texts, how would Bergner (Text 2) most likely respond to Loeb's hypothesis in Text 1?",
         choices: [
@@ -1518,12 +2077,20 @@ const ACADEMY_CONTENT = {
           B: "Out of Scope",
           D: "Opposite"
         },
-        explanation: "Choice C is correct. Bergner developed a natural geochemical explanation (hydrogen outgassing induced by cosmic rays and solar heating) that explains the acceleration without requiring Loeb's artificial extraterrestrial solar sail hypothesis. Choice A contradicts both texts. Choice D represents Loeb's assumption, not Bergner's.",
+        explanation: {
+          correctBridge: "Choice C is correct. Bergner's research provides a natural geochemical explanation (cosmic-ray-liberated hydrogen outgassing) that accounts for 'Oumuamua's acceleration without requiring Loeb's artificial extraterrestrial solar sail hypothesis.",
+          choiceBreakdown: {
+            A: "Opposite Trap: Both scientists agree 'Oumuamua exhibited non-gravitational acceleration.",
+            B: "Out of Scope Trap: Bergner describes water ice and hydrogen outgassing, not an alien metallic shipyard.",
+            C: "Correct Answer: Accurately summarizes Bergner's natural scientific alternative to Loeb's alien hypothesis.",
+            D: "Opposite Trap: Bergner explicitly disproves that artificial sails are the only explanation."
+          },
+          keyTakeaway: "When a scientist introduces a natural physical mechanism, their stance toward a supernatural or alien hypothesis is that the phenomenon can be explained without invoking extraordinary causes."
+        },
         glosses: {
-          "interstellar": "occurring or situated between stars",
-          "non-gravitational acceleration": "motion or speed change caused by factors other than the pull of gravity (such as gas expulsion or thrust)",
-          "outgassing": "the release of gas that was dissolved, trapped, or frozen in a material",
-          "anomalous": "deviating from what is standard, normal, or expected"
+          "interstellar": "(adj.) originating from between stars outside our solar system",
+          "outgassing": "(noun/verb) the release of trapped or frozen gas from a celestial body",
+          "anomalous": "(adj.) deviating from standard or expected trajectories"
         }
       },
       {
@@ -1531,6 +2098,7 @@ const ACADEMY_CONTENT = {
         type: "cross-text-connections",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "Modern cognitive psychology replaces absolute linguistic determinism with perceptual nuance.",
         passage: "<b>Text 1</b><br>The 'linguistic relativity' hypothesis, famously articulated by Benjamin Lee Whorf, posits that the structural grammar and vocabulary of a person's native language strictly determine their cognitive worldview and constrain what concepts they are capable of conceptualizing.<br><br><b>Text 2</b><br>While modern cognitive psychologists accept that language can influence the speed of perceptual categorization—such as Russian speakers distinguishing shades of light and dark blue more rapidly—they reject strong Whorfian determinism. Cross-cultural experiments reveal that human infants and speakers of languages lacking specific grammatical tenses can still conceptualize counterfactual conditions and temporal sequences effortlessly.",
         question: "Based on the texts, how does the modern cognitive psychologist perspective in Text 2 modify the traditional Whorfian hypothesis described in Text 1?",
         choices: [
@@ -1545,11 +2113,20 @@ const ACADEMY_CONTENT = {
           C: "Too Extreme",
           D: "Opposite"
         },
-        explanation: "Choice A is correct. Text 1 presents strong Whorfian determinism (language strictly determines and constrains thought). Text 2 modifies this: it rejects strict constraint while accepting that language can influence perceptual categorization speeds (a moderate influence rather than a total boundary). Choice D ignores the concession in Text 2.",
+        explanation: {
+          correctBridge: "Choice A is correct. Text 1 describes strong determinism (language strictly determines and constrains thought). Text 2 softens this into a moderate position: language can influence the speed of perceptual categorization, but it does not fundamentally prevent or restrict conceptual thought.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately reflects the shift from strict determinism to moderate perceptual influence.",
+            B: "Too Extreme Trap: Text 2 notes infants can conceptualize sequences without language, refuting this choice.",
+            C: "Too Extreme Trap: Russian color perception is cited merely as a single illustrative example.",
+            D: "Opposite Trap: Text 2 acknowledges language does influence categorization speed, so it does not claim zero connection."
+          },
+          keyTakeaway: "Scientific evolution usually shifts extreme theories ('strictly determines') into nuanced models ('moderately influences')."
+        },
         glosses: {
-          "linguistic relativity": "the hypothesis that the structure of a language affects its speakers' world view or cognition",
-          "determinism": "the doctrine that all actions and thoughts are completely determined by previously existing causes",
-          "counterfactual": "relating to or expressing what has not happened or what is contrary to actual facts"
+          "linguistic relativity": "(noun) the hypothesis that language structure influences human worldview",
+          "determinism": "(noun) the belief that outcomes and thoughts are strictly dictated by prior causes",
+          "counterfactual": "(adj.) expressing what would happen under different hypothetical conditions"
         }
       },
       {
@@ -1557,6 +2134,7 @@ const ACADEMY_CONTENT = {
         type: "cross-text-connections",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Goldthwaite broadens the historical lens from elite aristocratic patronage to widespread merchant-class commercial demand.",
         passage: "<b>Text 1</b><br>Art historians of the Italian Renaissance long attributed the era's dramatic artistic flourishing to the wealthy patronage of the Medici family in Florence, whose financial commissions allowed painters and sculptors to focus exclusively on aesthetic perfection.<br><br><b>Text 2</b><br>Economic historian Richard Goldthwaite emphasizes that focusing solely on elite banking dynasties overlooks the broader material culture of Renaissance Italy. Goldthwaite demonstrates that a burgeoning merchant class created widespread demand for domestic luxury goods, ceramics, and architectural renovations, fueling a competitive commercial market for artisanal craftsmanship across multiple Italian city-states.",
         question: "Based on the texts, how does Goldthwaite's argument (Text 2) expand upon the traditional view described in Text 1?",
         choices: [
@@ -1571,11 +2149,20 @@ const ACADEMY_CONTENT = {
           C: "Too Extreme",
           D: "Opposite"
         },
-        explanation: "Choice B is correct. Text 1 focuses narrowly on elite Medici patronage, whereas Goldthwaite in Text 2 broadens the scope by demonstrating that a growing merchant class created widespread commercial demand for art and craftsmanship across multiple cities. Choices A, C, and D are extreme or unsupported.",
+        explanation: {
+          correctBridge: "Choice B is correct. Text 1 focuses narrowly on elite Medici patronage in Florence. Goldthwaite in Text 2 broadens the historical framework by showing that a growing merchant class across multiple Italian city-states created widespread commercial demand for art and craftsmanship.",
+          choiceBreakdown: {
+            A: "Out of Scope Trap: Medici confiscation of art is never mentioned.",
+            B: "Correct Answer: Accurately states that Goldthwaite expands the scope to include broad merchant-class commercial demand.",
+            C: "Too Extreme Trap: Goldthwaite highlights multiple Italian city-states, directly refuting that Florence was the only one.",
+            D: "Opposite Trap: Painters operated within a competitive commercial market for financial compensation."
+          },
+          keyTakeaway: "When a question asks how Author 2 'expands upon' Author 1, look for choices showing a broader demographic or economic base."
+        },
         glosses: {
-          "patronage": "the support, especially financial aid, given by a patron to an artist or cause",
-          "burgeoning": "beginning to grow or increase rapidly; flourishing",
-          "artisanal": "relating to a skilled manual worker or craftsperson"
+          "patronage": "(noun) financial support and sponsorship given by a wealthy patron",
+          "burgeoning": "(adj.) growing and flourishing rapidly",
+          "artisanal": "(adj.) relating to skilled craftsmanship and manual artistry"
         }
       }
     ],
@@ -1605,11 +2192,48 @@ const ACADEMY_CONTENT = {
       whatItTests: "Central Ideas & Details questions test whether you can synthesize the overarching thesis of a passage without getting trapped by supporting evidence, single-sentence details, or overly broad generalizations.",
       frequency: "2 to 3 questions per module.",
       recognitionTest: "Question stems include: 'Which choice best states the central idea of the text?' or 'According to the text, what is true about [X]?'",
-      eslNote: "The most common trap is the 'True Detail / Half Right' distractor: an option that is 100% factually accurate based on sentence 3, but fails to capture the main thesis of the entire passage."
+      goldenRules: [
+        {
+          title: "The Scope Calibration Rule",
+          description: "The correct central idea is neither too narrow (describing only sentence 2) nor too broad (making a grand claim about all human nature)."
+        },
+        {
+          title: "The Topic + Takeaway Formula",
+          description: "Central Idea = Specific Subject + What the author specifically concludes about that subject."
+        },
+        {
+          title: "The Detail Trap Filter",
+          description: "On Central Idea questions, distractors often quote a 100% true fact from the text. Ask: 'Did the author write the entire passage just to say this one fact?'"
+        },
+        {
+          title: "The Literal Retrieval Rule",
+          description: "On Details questions ('According to the text...'), the correct answer will literally rephrase 1–2 sentences with exact synonyms."
+        }
+      ],
+      pacingStrategy: {
+        steps: [
+          { seconds: "20", action: "Identify Anchor", detail: "Locate topic noun and author's primary conclusion" },
+          { seconds: "15", action: "Formulate Umbrella", detail: "State thesis: 'The author's main takeaway is that X causes Y'" },
+          { seconds: "30", action: "Filter Single Details", detail: "Eliminate options that only cover a single sentence or experiment" },
+          { seconds: "15", action: "Verify Full Passage", detail: "Ensure every paragraph sits comfortably under the chosen choice" }
+        ]
+      },
+      commonPitfalls: [
+        {
+          name: "The 'Factually True but Too Narrow' Trap",
+          explanation: "Picking an answer choice that is 100% accurate based on the text, but only summarizes one minor supporting fact instead of the whole thesis."
+        },
+        {
+          name: "The Cosmic Overreach",
+          explanation: "Picking an answer that generalizes the author's specific finding into an exaggerated rule for all society or all animals."
+        }
+      ],
+      eslNote: "Pay close attention to words like 'primarily', 'in turn', 'consequently'. They lead you directly to the author's primary takeaway."
     },
     stage2_method: {
       name: "The Umbrella Test",
       summary: "Ensure the chosen answer is neither too narrow nor too broad.",
+      examFormula: "Central Idea = Core Topic Noun + Author's Unifying Claim",
       steps: [
         {
           num: 1,
@@ -1635,6 +2259,12 @@ const ACADEMY_CONTENT = {
           rule: "Reject options that make sweeping claims about 'all ecosystems' or 'human nature'.",
           expertMove: "Keep the scope calibrated strictly to the passage's boundaries."
         }
+      ],
+      checklist: [
+        "Does the chosen idea cover the beginning, middle, and end of the text?",
+        "Did I eliminate options that only describe a single supporting experiment?",
+        "Did I avoid choices with exaggerated words like 'all' or 'never'?",
+        "If it's a detail question, can I point to the exact sentence supporting it?"
       ]
     },
     stage3_workedExamples: [
@@ -1643,6 +2273,7 @@ const ACADEMY_CONTENT = {
         type: "central-ideas-details",
         stage: "worked-example",
         difficulty: "Medium",
+        strategyHeuristic: "The central idea balances the historical oversight (dismissed as assistant) with the modern re-evaluation (visionary pioneer of computer algorithms).",
         passage: "Although early biographers of Ada Lovelace often dismissed her 1843 notes on Charles Babbage's Analytical Engine as mere transcription of Babbage's ideas, modern computer scientists have re-evaluated her contribution. Lovelace did not merely annotate the engine's mechanical gears; she formulated an algorithm to compute Bernoulli numbers, recognized that the machine could manipulate symbols and musical notes rather than just numbers, and articulated the distinction between hardware and software. Consequently, Lovelace is now recognized not merely as an assistant, but as the visionary author of the world's first published computer program.",
         question: "Which choice best states the central idea of the text?",
         choices: [
@@ -1653,21 +2284,31 @@ const ACADEMY_CONTENT = {
         ],
         answer: "B",
         thinkAloud: [
-          "Step 1 (Find Topic + Takeaway): Topic = Ada Lovelace's historical contribution. Takeaway = Early biographers dismissed her, but modern science recognizes her as an original pioneer who wrote the first program.",
-          "Step 2 (Perform the Umbrella Test): Does Choice B cover the whole text? Yes: it mentions modern reassessment and her original algorithm.",
-          "Step 3 (Spot Traps): Choice A is 'Out of Scope / Extreme' (text never says Babbage stole her ideas). Choice C is 'Too Extreme' ('only calculation'). Choice D is 'Half Right / Distorted' (mentions music out of context).",
-          "Step 4 (Confirm): Choice B accurately encapsulates the entire paragraph without distortion."
+          "Step 1 (Find Topic & Thesis Arc): Subject = Ada Lovelace's contribution to computing. Arc = Early dismissal -> Modern reassessment as true programming pioneer.",
+          "Step 2 (Apply the Umbrella Test): Sentence 2 (algorithms, symbols, hardware/software) and Sentence 3 (first computer program) must both fit under the chosen answer.",
+          "Step 3 (Formulate Prediction): Modern reassessments prove Ada Lovelace was an original visionary who authored the first computer program.",
+          "Step 4 (Test Choice B): 'Modern reassessments demonstrate that Ada Lovelace was an original computational thinker who wrote the first computer algorithm.' Exact umbrella match.",
+          "Step 5 (Eliminate Distractors): Choice A is Out of Scope (Babbage didn't steal her work). Choice C has the extreme word 'only' (Too Extreme). Choice D distorts music manipulation (Half Right / Distorted)."
         ],
         trapTypes: {
           A: "Out of Scope",
           C: "Too Extreme",
           D: "Half Right"
         },
-        explanation: "Choice B is correct because it captures the primary thesis: while early biographers minimized Lovelace's role, modern re-evaluation shows she developed the first published algorithm and conceptualized fundamental programming concepts. Choice A is unsupported. Choice C is overly extreme. Choice D distorts a minor detail.",
+        explanation: {
+          correctBridge: "Choice B is correct because it encapsulates the primary thesis: while early biographers minimized Lovelace's role as a transcriber, modern re-evaluation proves she was an original thinker who authored the world's first computer algorithm and conceptualized software.",
+          choiceBreakdown: {
+            A: "Out of Scope Trap: The text never claims Babbage stole her ideas.",
+            B: "Correct Answer: Perfectly captures the overarching reassessment of Lovelace as an original computational pioneer.",
+            C: "Too Extreme Trap: The passage never claims Bernoulli numbers were the 'only' calculation possible.",
+            D: "Half Right / Distorted Trap: Music manipulation was an illustrative example of symbolic processing, not her exclusive focus."
+          },
+          keyTakeaway: "Central idea options must capture the unifying claim of the passage, not just an isolated historical anecdote."
+        },
         glosses: {
-          "transcription": "the action or process of copying out something or recording words",
-          "Bernoulli numbers": "a sequence of rational numbers deeply connected to number theory",
-          "articulated": "expressed or formulated an idea or feeling fluently and coherently"
+          "transcription": "(noun) the process of copying out or recording text",
+          "Bernoulli numbers": "(noun) a sequence of rational numbers fundamental to number theory",
+          "articulated": "(verb) expressed or formulated an idea with clarity"
         }
       },
       {
@@ -1675,6 +2316,7 @@ const ACADEMY_CONTENT = {
         type: "central-ideas-details",
         stage: "worked-example",
         difficulty: "Hard",
+        strategyHeuristic: "On detail questions, identify the exact anatomical and symbiotic mechanism that delivers nutrition.",
         passage: "In deep-sea hydrothermal vents, where sunlight cannot penetrate, life does not depend on solar-driven photosynthesis. Instead, chemoautotrophic bacteria synthesize organic carbohydrates by oxidizing hydrogen sulfide issuing from volcanic chimneys. These bacteria form endosymbiotic relationships with giant tube worms (*Riftia pachyptila*), which lack mouths and digestive tracts entirely. The tube worms absorb hydrogen sulfide and oxygen through their bright red plumes and transport them via specialized hemoglobin to internal bacteria, which in turn provide complete nutrition to their worm hosts, sustaining complex food webs in absolute darkness.",
         question: "According to the text, how do giant tube worms (*Riftia pachyptila*) obtain nutrition in hydrothermal vent environments?",
         choices: [
@@ -1685,21 +2327,31 @@ const ACADEMY_CONTENT = {
         ],
         answer: "C",
         thinkAloud: [
-          "Step 1 (Analyze Question Stem): This is a Detail question: 'According to the text, how do giant tube worms obtain nutrition?'",
-          "Step 2 (Locate Exact Textual Proof): Look at sentences 3-4: Tube worms 'lack mouths and digestive tracts entirely' and rely on 'endosymbiotic relationships with... bacteria' which 'provide complete nutrition to their worm hosts' by oxidizing hydrogen sulfide.",
-          "Step 3 (Match & Eliminate): Choice A mentions photosynthesis (Opposite of deep-sea conditions). Choice B contradicts the fact that they 'lack digestive tracts entirely'. Choice D claims they absorb sunlight in 'absolute darkness' (Opposite). Choice C directly reflects the symbiotic bacterial chemical synthesis.",
-          "Step 4 (Select): Choice C is 100% faithful to the text."
+          "Step 1 (Analyze Question Stem): This is an explicit Detail question: 'According to the text, how do giant tube worms obtain nutrition?'",
+          "Step 2 (Locate Textual Anchor): Sentences 3–4 state: Tube worms 'lack mouths and digestive tracts entirely' and host 'internal bacteria, which in turn provide complete nutrition to their worm hosts' by oxidizing volcanic hydrogen sulfide.",
+          "Step 3 (Formulate Prediction): They get nutrition from internal symbiotic bacteria that chemically convert volcanic sulfide into food.",
+          "Step 4 (Test Choice C): 'By hosting symbiotic bacteria that convert volcanic chemicals into organic nutrients for the worm.' 100% literal match.",
+          "Step 5 (Eliminate Distractors): Choice A contradicts deep-sea conditions (no photosynthesis). Choice B contradicts that they 'lack digestive tracts entirely'. Choice D claims they absorb sunlight in 'absolute darkness' (Opposite)."
         ],
         trapTypes: {
           A: "Opposite",
           B: "Opposite",
           D: "Opposite"
         },
-        explanation: "Choice C is correct. The passage states that chemoautotrophic bacteria live symbiotically inside the tube worms, oxidizing hydrogen sulfide to produce organic nutrients that nourish the host worm. Choices A, B, and D directly contradict stated facts in the passage.",
+        explanation: {
+          correctBridge: "Choice C is correct. The text explicitly states that chemoautotrophic bacteria live symbiotically inside the tube worms, converting volcanic hydrogen sulfide into organic nutrients that nourish the host worm.",
+          choiceBreakdown: {
+            A: "Opposite Trap: The passage explicitly states life does not depend on photosynthetic surface algae.",
+            B: "Opposite Trap: The text states tube worms 'lack mouths and digestive tracts entirely', making grazing impossible.",
+            C: "Correct Answer: Accurately restates the symbiotic bacterial chemical synthesis described in sentences 3–4.",
+            D: "Opposite Trap: The vents exist in 'absolute darkness', where sunlight cannot penetrate."
+          },
+          keyTakeaway: "On detail questions, look for direct paraphrasing of literal facts in the text. Veto choices that contradict anatomical or environmental constraints."
+        },
         glosses: {
-          "chemoautotrophic": "organisms that synthesize their own food using energy derived from chemical reactions rather than light",
-          "endosymbiotic": "a symbiotic relationship where one organism lives inside the body or cells of another",
-          "hemoglobin": "a red protein responsible for transporting oxygen in the blood of vertebrates and certain invertebrates"
+          "chemoautotrophic": "(adj.) synthesizing organic food using energy derived from chemical reactions",
+          "endosymbiotic": "(adj.) referring to a mutually beneficial relationship where one organism lives inside another",
+          "hemoglobin": "(noun) a specialized protein that binds and transports oxygen and sulfides in the bloodstream"
         }
       }
     ],
@@ -1743,6 +2395,7 @@ const ACADEMY_CONTENT = {
         type: "central-ideas-details",
         stage: "guided",
         difficulty: "Easy",
+        strategyHeuristic: "Synthesize the mechanism (infrasound waves) with its survival function (long-distance coordination across dense vegetation).",
         passage: "While studying the acoustic calls of African forest elephants (*Loxodonta cyclotis*), bioacousticians discovered that the animals communicate extensively using low-frequency infrasound waves below the limit of human hearing (under 20 Hz). These infrasonic rumbles travel for several kilometers through dense rainforest vegetation with minimal atmospheric attenuation. Consequently, elephant herds can coordinate movements, warn of predators, and locate mating partners across vast forested landscapes without visual contact.",
         question: "Which choice best states the central idea of the text?",
         choices: [
@@ -1762,11 +2415,20 @@ const ACADEMY_CONTENT = {
           C: "Too Extreme",
           D: "Out of Scope"
         },
-        explanation: "Choice A is correct. It captures the overall thesis: forest elephants use low-frequency infrasonic calls that travel through dense terrain to communicate and coordinate across long distances. Choice B contradicts the text. Choice C uses the extreme word 'exclusively'. Choice D is unsupported.",
+        explanation: {
+          correctBridge: "Choice A is correct because it unifies the entire passage: forest elephants use low-frequency infrasound rumbles that penetrate dense foliage to coordinate herds and communicate across kilometers.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately synthesizes the acoustic mechanism and its environmental coordinating function.",
+            B: "Opposite Trap: The text states infrasound is 'below the limit of human hearing'.",
+            C: "Too Extreme Trap: 'Exclusively to scare away predators' ignores herd coordination and finding mating partners.",
+            D: "Out of Scope Trap: Deforestation is not mentioned."
+          },
+          keyTakeaway: "A central idea must cover both the biological mechanism and the multiple functions it serves."
+        },
         glosses: {
-          "infrasound": "sound waves with a frequency below the lower limit of human audibility (generally 20 Hz)",
-          "attenuation": "the reduction of the amplitude or intensity of a signal or wave as it passes through a medium",
-          "vocalizations": "sounds produced by the vocal organs of animals"
+          "infrasound": "(noun) low-frequency sound waves below the human hearing limit (under 20 Hz)",
+          "attenuation": "(noun) the reduction of wave intensity or signal strength as it travels",
+          "vocalizations": "(noun) sounds produced by vocal cords"
         }
       },
       {
@@ -1774,6 +2436,7 @@ const ACADEMY_CONTENT = {
         type: "central-ideas-details",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "Locate the explicit obstacle: Fleming discovered penicillin but could not isolate or chemically stabilize the compound.",
         passage: "In 1928, Alexander Fleming observed that a stray mould contaminating a petri dish of *Staphylococcus* bacteria had created a clear halo of inhibited bacterial growth. Although Fleming published his findings on this substance, which he named penicillin, he was unable to isolate and stabilize the unstable chemical compound for medical therapy. It was not until a decade later that biochemists Howard Florey and Ernst Chain developed purification techniques and mass-production protocols, transforming penicillin from an academic curiosity into the world's first life-saving mass antibiotic.",
         question: "According to the passage, why was Fleming's initial discovery of penicillin unable to be used immediately in clinical medicine?",
         choices: [
@@ -1793,11 +2456,20 @@ const ACADEMY_CONTENT = {
           C: "Out of Scope",
           D: "Out of Scope"
         },
-        explanation: "Choice B is correct. Sentence 2 explicitly mentions that Fleming 'was unable to isolate and stabilize the unstable chemical compound for medical therapy', which is why Florey and Chain's later purification work was necessary. Choices A, C, and D are fabricated and contradict the passage.",
+        explanation: {
+          correctBridge: "Choice B is correct. Sentence 2 explicitly mentions that Fleming 'was unable to isolate and stabilize the unstable chemical compound for medical therapy', explaining why clinical application was delayed until Florey and Chain developed purification methods.",
+          choiceBreakdown: {
+            A: "Opposite Trap: Fleming 'published his findings', refuting that he refused to share them.",
+            B: "Correct Answer: Literal match for Fleming's inability to isolate and chemically stabilize the substance.",
+            C: "Out of Scope Trap: Florey and Chain successfully purified penicillin, rather than publishing fraud.",
+            D: "Out of Scope Trap: Bacterial antibiotic resistance is not mentioned in the passage."
+          },
+          keyTakeaway: "On historical discovery questions, distinguish between initial observation and later biochemical purification."
+        },
         glosses: {
-          "inhibited": "hindered, restrained, or prevented an action or process",
-          "purification": "the process of removing contaminants or isolating a specific chemical substance",
-          "antibiotic": "a medicine that inhibits the growth of or destroys microorganisms"
+          "inhibited": "(verb) hindered, restrained, or prevented growth",
+          "purification": "(noun) the chemical extraction and isolation of a clean compound",
+          "antibiotic": "(noun) a medicine that destroys or inhibits bacterial growth"
         }
       },
       {
@@ -1805,6 +2477,7 @@ const ACADEMY_CONTENT = {
         type: "central-ideas-details",
         stage: "guided",
         difficulty: "Hard",
+        strategyHeuristic: "The central idea must capture both the statistical linguistic evidence AND the continued mystery surrounding decipherment.",
         passage: "The Voynich manuscript, a 15th-century illustrated codex written in an undeciphered script, has long baffled cryptographers. While early 20th-century theories dismissed the manuscript as an elaborate Renaissance hoax with meaningless gibberish, recent statistical analyses of letter distribution reveal that the text exhibits Zipf's law—a mathematical pattern of word frequencies found in all genuine human natural languages. However, whether the codex represents a complex cipher, an encoded phonetic dialect, or an invented constructed language remains fiercely unresolved.",
         question: "Which choice best states the central idea of the text?",
         choices: [
@@ -1824,11 +2497,20 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Too Extreme"
         },
-        explanation: "Choice B is correct. It synthesizes the two core components of the text: recent statistical analyses indicate the manuscript possesses authentic linguistic properties (Zipf's law), but researchers have not yet decoded its cipher or nature. Choice A and C directly contradict the text. Choice D misinterprets Zipf's law.",
+        explanation: {
+          correctBridge: "Choice B is correct. It captures both halves of the passage: recent mathematical analyses prove the text exhibits Zipf's law (genuine linguistic properties), yet its underlying meaning, cipher, or language remains unresolved.",
+          choiceBreakdown: {
+            A: "Opposite Trap: Recent statistical tests challenged the hoax theory.",
+            B: "Correct Answer: Accurately balances the evidence of authentic linguistic structure with the ongoing mystery of decipherment.",
+            C: "Opposite Trap: The manuscript remains completely undeciphered and untranslated.",
+            D: "Too Extreme Trap: Zipf's law applies to 'all genuine human natural languages', not exclusively to Renaissance ciphers."
+          },
+          keyTakeaway: "When a passage discusses an unsolved mystery, the central idea must acknowledge both the clues discovered and the unresolved question."
+        },
         glosses: {
-          "codex": "an ancient manuscript text in book form",
-          "cryptographers": "experts in the art of writing or solving codes and ciphers",
-          "Zipf's law": "an empirical law stating that in natural language, the frequency of any word is inversely proportional to its rank in the frequency table"
+          "codex": "(noun) an ancient manuscript text in bound book form",
+          "cryptographers": "(noun) experts in code-breaking and deciphering ciphers",
+          "Zipf's law": "(noun) an empirical law showing word frequency distribution in natural language"
         }
       },
       {
@@ -1836,6 +2518,7 @@ const ACADEMY_CONTENT = {
         type: "central-ideas-details",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "Trace the biological causal chain: Thawing permafrost -> Microbes metabolize organic carbon -> Release CO2/methane -> Amplifies warming.",
         passage: "In high-latitude tundra ecosystems, permafrost acts as a colossal frozen carbon sink, locking away approximately 1,500 billion tons of decomposed organic matter. As global temperatures rise, however, the active soil layer deepens, enabling microbes to metabolize this previously frozen organic material. This microbial respiration releases immense volumes of methane and carbon dioxide, establishing a positive feedback loop that accelerates atmospheric warming far beyond initial climate model forecasts.",
         question: "According to the passage, what occurs when permafrost in the tundra thaws?",
         choices: [
@@ -1855,11 +2538,20 @@ const ACADEMY_CONTENT = {
           B: "Too Extreme",
           D: "Opposite"
         },
-        explanation: "Choice C is correct. The text explains that thawing allows microbes to decompose organic material, releasing methane and carbon dioxide which creates a positive feedback loop accelerating warming. Choices A and D are opposite. Choice B is absurdly out of scope.",
+        explanation: {
+          correctBridge: "Choice C is correct. The text explicitly outlines the mechanism: thawing allows microbes to metabolize thawed organic carbon, releasing methane and CO2 that trigger a positive feedback loop accelerating warming.",
+          choiceBreakdown: {
+            A: "Opposite Trap: Microbial activity increases and accelerates gas release.",
+            B: "Too Extreme Trap: The passage does not claim tundra turns into tropical rainforest.",
+            C: "Correct Answer: Accurately mirrors the biological sequence of microbial respiration and gas release.",
+            D: "Opposite Trap: Thawing releases carbon rather than trapping it under glaciers."
+          },
+          keyTakeaway: "On cause-and-effect science questions, map out the step-by-step chain of events."
+        },
         glosses: {
-          "permafrost": "a thick subterranean layer of soil that remains frozen throughout the year",
-          "carbon sink": "a forest, ocean, or other natural environment viewed in terms of its ability to absorb carbon dioxide from the atmosphere",
-          "positive feedback loop": "a process where the effects of a reaction amplify or accelerate the original process"
+          "permafrost": "(noun) permanently frozen ground beneath the surface",
+          "carbon sink": "(noun) a natural reservoir that absorbs and stores carbon compounds",
+          "positive feedback loop": "(noun) a cyclic process where an effect amplifies the initial cause"
         }
       }
     ],
@@ -1869,6 +2561,7 @@ const ACADEMY_CONTENT = {
         type: "central-ideas-details",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Look for the institutional problem (chaotic local solar times causing rail collisions) and corporate solution (standard time zones).",
         passage: "During the 19th century, the expansion of the American railway network transformed not only freight transportation but also standard timekeeping. Prior to 1883, thousands of towns operated on idiosyncratic local solar times based on the sun's zenith, creating chaotic scheduling conflicts for railway dispatchers managing single-track lines. To prevent collisions and streamline operations, railway companies unilaterally instituted four standard time zones across the United States in November 1883, a corporate convention that the federal government officially codified into law decades later.",
         question: "Which choice best states the central idea of the text?",
         choices: [
@@ -1883,11 +2576,20 @@ const ACADEMY_CONTENT = {
           C: "Too Extreme",
           D: "Out of Scope"
         },
-        explanation: "Choice A is correct. The passage outlines how local solar times caused chaotic scheduling and potential collisions, leading railway companies to introduce standard time zones in 1883. Choices B and C contradict the passage. Choice D misidentifies who created the zones initially (rail companies did, not the government) and is overly broad.",
+        explanation: {
+          correctBridge: "Choice A is correct. It unifies the entire passage: chaotic local solar times created dangerous scheduling hazards for railways, prompting rail companies to institute standard time zones in 1883.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately captures both the problem (scheduling chaos from local solar times) and the solution (railroad time zones).",
+            B: "Opposite Trap: Communities did not sue to stop time zones; rail companies instituted them unilaterally.",
+            C: "Too Extreme Trap: The railway network did not collapse; it streamlined operations.",
+            D: "Out of Scope / Inaccurate Trap: Railroads created the zones in 1883, not the federal government, and solar clocks were not banned worldwide."
+          },
+          keyTakeaway: "Check historical actors carefully: railroads initiated standard time in 1883; the government only codified it decades later."
+        },
         glosses: {
-          "idiosyncratic": "peculiar or individual; distinctive to a particular place or person",
-          "zenith": "the time at which something is most powerful, or the highest point reached by a celestial body",
-          "codified": "arranged laws or rules into a systematic code or official statute"
+          "idiosyncratic": "(adj.) distinctive or peculiar to a specific place or individual",
+          "zenith": "(noun) the highest point reached by the sun in the sky",
+          "codified": "(verb) formally arranged into laws or official statutes"
         }
       },
       {
@@ -1895,6 +2597,7 @@ const ACADEMY_CONTENT = {
         type: "central-ideas-details",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "Identify the quantum mechanism: discrete orbital shifts accompanied by photon absorption or emission.",
         passage: "In 1913, Niels Bohr introduced his quantum model of the hydrogen atom, postulating that electrons orbit the nucleus only in discrete, quantized energy levels without radiating energy. When an electron transitions between these orbits, it emits or absorbs a photon of light with a frequency corresponding exactly to the energy differential between the levels. This quantized model successfully explained the empirical Balmer emission spectral lines of hydrogen, which classical Newtonian physics had failed to elucidate.",
         question: "According to the passage, how did Bohr's model explain the spectral lines of hydrogen?",
         choices: [
@@ -1909,11 +2612,20 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Opposite"
         },
-        explanation: "Choice A is correct. Sentence 2 and 3 explicitly state that when electrons transition between quantized energy orbits, they absorb or emit photons corresponding to the energy difference, explaining the hydrogen spectral lines. Choice C describes what classical physics feared, which Bohr disproved. Choice D contradicts sentence 3.",
+        explanation: {
+          correctBridge: "Choice A is correct. Sentences 2–3 state that electrons emit or absorb photons when jumping between discrete quantized energy levels, explaining the specific spectral frequencies of hydrogen.",
+          choiceBreakdown: {
+            A: "Correct Answer: Direct paraphrase of electron transitions between quantized orbits emitting/absorbing photons.",
+            B: "Out of Scope Trap: Neutrons and radio waves are not mentioned.",
+            C: "Opposite Trap: Classical physics expected electrons to radiate continuously and spiral in, which Bohr disproved.",
+            D: "Opposite Trap: The passage states classical Newtonian physics failed to explain the lines."
+          },
+          keyTakeaway: "On physics detail questions, locate the exact sentence describing the quantum transition mechanism."
+        },
         glosses: {
-          "quantized": "restricted to discrete, specific values rather than continuous quantities",
-          "differential": "a difference between amounts of things",
-          "elucidate": "make something clear; explain"
+          "quantized": "(adj.) restricted to discrete, distinct mathematical values rather than a continuous spectrum",
+          "differential": "(noun) the difference between two values or energy states",
+          "elucidate": "(verb) to make clear; explain with clarity"
         }
       },
       {
@@ -1921,6 +2633,7 @@ const ACADEMY_CONTENT = {
         type: "central-ideas-details",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "Industrial melanism demonstrates dynamic natural selection in response to soot and subsequent clean air recovery.",
         passage: "Biologists studying the evolutionary genetics of the peppered moth (*Biston betularia*) in industrial England documented a phenomenon known as industrial melanism. Before the mid-19th century, light-colored speckled moths predominated because they were camouflaged against lichen-encrusted tree trunks. As coal soot blackened the forests during the Industrial Revolution, dark-colored melanic mutants gained a predatory survival advantage against birds, rapidly increasing to over 98% of the population by 1895. Following clean air legislation in the late 20th century, lichen returned, and light-colored morphs once again became the dominant form.",
         question: "Which choice best summarizes the primary takeaway of the passage?",
         choices: [
@@ -1935,11 +2648,20 @@ const ACADEMY_CONTENT = {
           C: "Wrong Meaning",
           D: "Opposite"
         },
-        explanation: "Choice B is correct. The text demonstrates natural selection in action: soot favored dark moths, and clean air laws later favored light moths, showing dynamic shifts based on environmental conditions. Choice A is extreme and unsupported. Choice C misattributes evolutionary selection to intentional conscious choice. Choice D contradicts the text.",
+        explanation: {
+          correctBridge: "Choice B is correct. The text illustrates natural selection in real time: soot favored dark moths, and clean air laws later restored light moths, showing dynamic population shifts in response to environmental change.",
+          choiceBreakdown: {
+            A: "Too Extreme Trap: Birds were not eliminated; they continued preying on non-camouflaged moths.",
+            B: "Correct Answer: Accurately summarizes the evolutionary principle of dynamic natural selection.",
+            C: "Wrong Meaning / Misconception Trap: Evolution is not an intentional, conscious choice made by individual moths.",
+            D: "Opposite Trap: Lichen returned once the air became clean."
+          },
+          keyTakeaway: "Evolution passages describe population-level natural selection, never individual conscious choices."
+        },
         glosses: {
-          "industrial melanism": "the darkness of the skin, feathers, or fur acquired by a population of animals in an industrial region where the environment is blackened by soot",
-          "lichen": "a composite organism that arises from algae or cyanobacteria living among filaments of multiple fungi species",
-          "morphs": "distinct forms or varieties of an organism in a population"
+          "industrial melanism": "(noun) the darkening of organism populations in soot-polluted industrial regions",
+          "lichen": "(noun) composite symbiotic organisms growing on tree bark",
+          "morphs": "(noun) distinct phenotypic forms or color variations in a species"
         }
       },
       {
@@ -1947,6 +2669,7 @@ const ACADEMY_CONTENT = {
         type: "central-ideas-details",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Ventris's decipherment proved that Mycenaean civilization was culturally and linguistically Greek 500 years before Homer.",
         passage: "In linguistics, the decipherment of the ancient Linear B script by architect Michael Ventris in 1952 overturned long-standing historical assumptions about Aegean civilization. Prevailing archaeological consensus had held that the Minoan and Mycenaean tablets represented an unknown, non-Greek Mediterranean language. Ventris discovered that the syllabic signs actually encoded an archaic dialect of Greek spoken five centuries before Homer, proving that Mycenaean society was culturally and linguistically Greek.",
         question: "According to the passage, what was the major significance of Michael Ventris's decipherment of Linear B?",
         choices: [
@@ -1961,11 +2684,20 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Too Extreme"
         },
-        explanation: "Choice A is correct. The final sentence states that Ventris's decipherment showed Linear B encoded an archaic dialect of Greek, proving that Mycenaean society was culturally and linguistically Greek. Choices B, C, and D contradict the findings or make unsupported assertions.",
+        explanation: {
+          correctBridge: "Choice A is correct. The final sentence states that deciphering Linear B proved the script encoded an archaic Greek dialect, establishing that Mycenaean society was culturally and linguistically Greek.",
+          choiceBreakdown: {
+            A: "Correct Answer: Direct paraphrase of the historical breakthrough connecting Mycenaeans to Greek language and culture.",
+            B: "Out of Scope Trap: Homeric epics are mentioned only as a chronological marker ('five centuries before Homer').",
+            C: "Opposite Trap: The tablets contained genuine syllabic writing, not purely decorative art.",
+            D: "Too Extreme Trap: Zero contact with European civilization is unsupported."
+          },
+          keyTakeaway: "Look at the final conclusion of the text to find the overarching historical significance."
+        },
         glosses: {
-          "Linear B": "a syllabic script that was used for writing Mycenaean Greek, an early form of Greek",
-          "archaic": "very old or old-fashioned; belonging to an earlier period in history",
-          "syllabic": "relating to a writing system in which each character represents a syllable rather than a single sound"
+          "Linear B": "(noun) an ancient Bronze Age syllabic script used in Mycenaean Greece",
+          "archaic": "(adj.) very old; belonging to an ancient historical period",
+          "syllabic": "(adj.) a writing system where characters represent syllables"
         }
       }
     ],
@@ -1995,11 +2727,48 @@ const ACADEMY_CONTENT = {
       whatItTests: "Command of Evidence tests your ability to identify which piece of factual evidence (either a textual excerpt or quantitative data from a table/graph) best supports or weakens a specific claim, hypothesis, or finding.",
       frequency: "4 to 6 questions per module (both textual evidence and data table questions).",
       recognitionTest: "Look for stems like: 'Which finding, if true, would most directly support the researchers' hypothesis?' or 'Which choice best uses data from the table to complete the statement?'",
-      eslNote: "For quantitative questions: Do NOT guess based on intuition or general math trends. The correct answer will directly match specific rows/columns described in the text. Watch out for 'Misused Evidence'—accurate numbers attached to the wrong conclusion."
+      goldenRules: [
+        {
+          title: "The Hypothesis Anchor Mandate",
+          description: "Always isolate the exact hypothesis in the question stem before looking at data. Evidence is ONLY valid if it tests that specific claim."
+        },
+        {
+          title: "The 'Misused Evidence' Filter",
+          description: "The most common trap quotes real numbers accurately from the table, but attaches them to the wrong scientific conclusion."
+        },
+        {
+          title: "The Control Group Principle",
+          description: "To prove X causes Y, the evidence MUST compare a group with X against a control group without X under identical conditions."
+        },
+        {
+          title: "Axis & Unit Verification",
+          description: "Double-check units (percentages vs. raw counts, milligrams vs. grams, milliseconds vs. seconds). Lower milliseconds = faster reaction."
+        }
+      ],
+      pacingStrategy: {
+        steps: [
+          { seconds: "20", action: "Anchor Claim", detail: "Underline the exact hypothesis or finding to support" },
+          { seconds: "15", action: "Determine Data Shape", detail: "Formulate: 'I need data showing Group A > Group B'" },
+          { seconds: "35", action: "Table / Text Match", detail: "Locate matching rows, columns, or textual citations" },
+          { seconds: "20", action: "Veto Misused Data", detail: "Eliminate choices with correct numbers but wrong conclusions" }
+        ]
+      },
+      commonPitfalls: [
+        {
+          name: "The Accurate Number Fallacy",
+          explanation: "Picking an answer because its numbers match the table, without checking whether those numbers actually support the author's argument."
+        },
+        {
+          name: "The Uncontrolled Variable Error",
+          explanation: "Selecting an experimental result where two variables changed at the same time, making it impossible to isolate the cause."
+        }
+      ],
+      eslNote: "For quantitative questions: Do NOT guess based on intuition or general math trends. The correct answer will directly match specific rows/columns described in the text."
     },
     stage2_method: {
       name: "The Anchor-Match Protocol",
       summary: "A 4-step precision matching workflow for text and data evidence.",
+      examFormula: "Hypothesis (Independent Variable -> Dependent Variable) + Experimental Data / Table Proof = Validated Evidence",
       steps: [
         {
           num: 1,
@@ -2025,6 +2794,12 @@ const ACADEMY_CONTENT = {
           rule: "Reject choices that accurately cite numbers or lines that fail to support the specific claim.",
           expertMove: "Correct data + wrong conclusion = automatic elimination."
         }
+      ],
+      checklist: [
+        "Did I circle the exact hypothesis in the question stem?",
+        "Do the numbers in my selected choice match the table rows 100%?",
+        "Does the data demonstrate causation for the target group specifically?",
+        "Did I avoid choices with accurate data that answer the wrong question?"
       ]
     },
     stage3_workedExamples: [
@@ -2033,6 +2808,7 @@ const ACADEMY_CONTENT = {
         type: "command-of-evidence",
         stage: "worked-example",
         difficulty: "Medium",
+        strategyHeuristic: "To support a comparative hypothesis (cooling benefits are greater in asphalt-dense vs. lawn-rich areas), the evidence must compare temperature drops in both neighborhood types.",
         passage: "Ecologist Dr. Anika Patel hypothesized that urban tree canopies provide greater cooling benefits in low-income neighborhoods with high asphalt density than in affluent neighborhoods with extensive residential lawns. To test this hypothesis, Patel measured afternoon surface temperatures across twelve distinct urban zones with varying canopy coverage.",
         question: "Which finding, if true, would most directly support Dr. Patel's hypothesis?",
         choices: [
@@ -2043,21 +2819,32 @@ const ACADEMY_CONTENT = {
         ],
         answer: "A",
         thinkAloud: [
-          "Step 1 (Anchor the Hypothesis): Patel's hypothesis = Urban trees cool high-asphalt/low-income areas MORE than they cool lawn-rich/affluent areas.",
-          "Step 2 (Predict Required Evidence Shape): We need a comparison showing a larger temperature reduction in asphalt-heavy zones than in lawn-heavy zones when trees are added.",
-          "Step 3 (Evaluate Choices): Choice A shows a 4.2°C cooling benefit in high-asphalt areas vs. only 1.1°C in lawn-rich areas. This directly proves trees have a 'greater cooling benefit' in high-asphalt neighborhoods.",
-          "Step 4 (Eliminate Traps): Choice B is factually backward/unsupported. Choice C is a true demographic observation, but it measures tree counts, NOT cooling benefits (Misused Evidence trap). Choice D is about cost (Out of Scope)."
+          "Step 1 (Anchor Hypothesis): Patel's hypothesis = Tree canopies cool high-asphalt neighborhoods MORE than they cool lawn-rich neighborhoods.",
+          "Step 2 (Determine Evidence Shape): We need comparative data showing a larger temperature reduction in asphalt-heavy areas vs. lawn-heavy areas for equal canopy increases.",
+          "Step 3 (Evaluate Choice A): 10% canopy increase = 4.2°C drop in 80% asphalt areas vs. only 1.1°C drop in lawn-rich areas. Direct proof.",
+          "Step 4 (Eliminate Choice B): Choice B contradicts realistic physics and does not test tree canopy cooling benefits.",
+          "Step 5 (Eliminate Choice C): Choice C notes tree quantity distribution, which does not measure cooling effectiveness (Misused Evidence trap).",
+          "Step 6 (Eliminate Choice D): Choice D is about municipal water funding (Out of Scope)."
         ],
         trapTypes: {
           B: "Opposite",
           C: "Half Right",
           D: "Out of Scope"
         },
-        explanation: "Choice A directly supports the hypothesis by providing comparative temperature data: adding canopy produced a 4.2°C temperature drop in asphalt-dense areas compared to only 1.1°C in lawn-rich areas. Choice C describes tree distribution rather than cooling effectiveness. Choice D discusses irrigation costs.",
+        explanation: {
+          correctBridge: "Choice A is correct. It provides direct comparative evidence: adding the exact same amount of canopy (10%) produced a 4.2°C cooling drop in high-asphalt neighborhoods compared to only 1.1°C in lawn-rich neighborhoods, validating that cooling benefits are greater in paved areas.",
+          choiceBreakdown: {
+            A: "Correct Answer: Perfectly matches the required comparative temperature reduction between asphalt and lawn zones.",
+            B: "Opposite Trap: Contradicts baseline urban heat island physics and fails to test canopy cooling benefits.",
+            C: "Half Right / Misused Evidence Trap: Documents existing tree disparity, but does not test cooling effectiveness.",
+            D: "Out of Scope Trap: Focuses on municipal budget costs rather than temperature reductions."
+          },
+          keyTakeaway: "Evidence supporting a comparative claim ('greater in X than in Y') must provide explicit comparative measurements for both X and Y under identical intervention."
+        },
         glosses: {
-          "canopy": "the high, spreading foliage of trees in a forest or urban streetscape",
-          "asphalt": "a dark bituminous substance used for paving roads and parking lots",
-          "affluent": "having a great deal of money; wealthy"
+          "canopy": "(noun) the high, spreading foliage of trees providing shade",
+          "asphalt": "(noun) dark bituminous material used for paving roads and parking lots",
+          "affluent": "(adj.) wealthy; having abundant economic resources"
         }
       },
       {
@@ -2065,6 +2852,7 @@ const ACADEMY_CONTENT = {
         type: "command-of-evidence",
         stage: "worked-example",
         difficulty: "Hard",
+        strategyHeuristic: "For two-part claims based on tables, verify both metrics: maximum tensile strength (highest MPa) AND elastic recovery (highest percentage).",
         passage: "A research team tested the tensile strength and elastic recovery of four synthetic biomaterial fibers intended for surgical sutures.<br><br><b>Fiber Performance Metrics:</b><br><table class='sat-table'><thead><tr><th>Fiber Type</th><th>Tensile Strength (MPa)</th><th>Elastic Recovery (%)</th><th>Degradation Time (Weeks)</th></tr></thead><tbody><tr><td>BioFiber-A</td><td>420</td><td>94%</td><td>12</td></tr><tr><td>BioFiber-B</td><td>310</td><td>82%</td><td>24</td></tr><tr><td>BioFiber-C</td><td>510</td><td>68%</td><td>8</td></tr><tr><td>BioFiber-D</td><td>290</td><td>91%</td><td>16</td></tr></tbody></table><br>The researchers concluded that while BioFiber-C can withstand the greatest maximum force before rupturing, BioFiber-A is superior for cardiovascular surgery, which requires high flexibility and rapid shape restoration after arterial contractions.",
         question: "Which choice best uses data from the table to support the researchers' conclusion regarding BioFiber-A and BioFiber-C?",
         choices: [
@@ -2075,21 +2863,32 @@ const ACADEMY_CONTENT = {
         ],
         answer: "A",
         thinkAloud: [
-          "Step 1 (Anchor the Claim): Claim has two parts: (1) BioFiber-C withstands greatest force (highest tensile strength), (2) BioFiber-A is superior for flexibility/shape restoration (highest elastic recovery).",
-          "Step 2 (Inspect the Table): Tensile Strength: BioFiber-C = 510 MPa (highest). Elastic Recovery: BioFiber-A = 94% (highest), while BioFiber-C is only 68%.",
-          "Step 3 (Verify Choice A): Choice A states: BioFiber-C has tensile strength of 510 MPa (highest), but BioFiber-A has elastic recovery of 94% vs. BioFiber-C's 68%. This perfectly validates both claims with accurate numbers from the table.",
-          "Step 4 (Eliminate Distractors): Choice B gives incorrect math (12 weeks is half of 24, not twice). Choice C confuses elastic recovery with tensile strength. Choice D falsely claims 68% is the highest elastic recovery (94% is)."
+          "Step 1 (Anchor Dual Claim): (1) BioFiber-C withstands greatest force (highest tensile strength). (2) BioFiber-A is superior for shape restoration (highest elastic recovery).",
+          "Step 2 (Scan Table): Tensile Strength column: BioFiber-C is 510 MPa (highest). Elastic Recovery column: BioFiber-A is 94% (highest), BioFiber-C is only 68%.",
+          "Step 3 (Test Choice A): Choice A states: BioFiber-C has tensile strength of 510 MPa (highest), but BioFiber-A has elastic recovery of 94% vs. BioFiber-C's 68%. 100% accurate.",
+          "Step 4 (Eliminate Choice B): 12 weeks is half of 24, not twice (Mathematical error).",
+          "Step 5 (Eliminate Choice C): Confuses elastic recovery with tensile strength.",
+          "Step 6 (Eliminate Choice D): Falsely claims 68% is the highest elastic recovery (94% is)."
         ],
         trapTypes: {
           B: "Misused Evidence",
           C: "Misused Evidence",
           D: "Opposite"
         },
-        explanation: "Choice A is correct. It accurately pulls the numbers from the table to support both claims: BioFiber-C's 510 MPa confirms it withstands the greatest force (tensile strength), while BioFiber-A's 94% elastic recovery confirms its superiority in shape restoration over BioFiber-C's 68%. Choices B, C, and D contain factual and mathematical errors based on the table.",
+        explanation: {
+          correctBridge: "Choice A is correct because it accurately cites the table numbers supporting both parts of the conclusion: BioFiber-C's 510 MPa validates that it withstands the highest tensile force, while BioFiber-A's 94% elastic recovery proves its superior shape restoration over BioFiber-C's 68%.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately cross-references both data columns to validate the two-part medical conclusion.",
+            B: "Misused Evidence Trap: 12 weeks is half of 24 weeks, not twice as long.",
+            C: "Misused Evidence Trap: Confuses elastic recovery percentage with tensile strength in MPa.",
+            D: "Opposite Trap: Falsely claims 68% is the highest value in the column."
+          },
+          keyTakeaway: "On table questions, read each column header carefully and verify that the mathematical comparisons in the answer choice are factually true."
+        },
         glosses: {
-          "tensile strength": "the resistance of a material to breaking under tension or pulling force",
-          "elastic recovery": "the ability of a deformed material to return to its original dimensions after stress is released",
-          "sutures": "stitches used to hold tissue together after surgery or injury"
+          "tensile strength": "(noun) resistance of a material to breaking under tension",
+          "elastic recovery": "(noun) the ability of a stretched material to return to its original shape",
+          "sutures": "(noun) medical stitches used to close surgical incisions"
         }
       }
     ],
@@ -2133,6 +2932,7 @@ const ACADEMY_CONTENT = {
         type: "command-of-evidence",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "Test both parts of the hypothesis: (1) Losing the polymer does NOT increase antibiotic death, but (2) DOES allow rival bacterial invasion.",
         passage: "Biologist Dr. Kevin Foster hypothesized that bacterial biofilms produce extracellular polymers not to protect individual cells from antibiotics, but primarily to establish shared structural architecture that prevents competitor strains from colonizing the nutrient-rich surface.",
         question: "Which finding, if true, would most directly support Dr. Foster's hypothesis?",
         choices: [
@@ -2152,11 +2952,20 @@ const ACADEMY_CONTENT = {
           C: "Half Right",
           D: "Out of Scope"
         },
-        explanation: "Choice A provides direct double-barreled support for Foster's claim: it shows that lacking the polymer had no impact on antibiotic eradication (ruling out the antibiotic defense theory) while allowing competitor strains to invade (confirming the competitor defense function). Choice B supports the old antibiotic defense view. Choice C is a descriptive detail.",
+        explanation: {
+          correctBridge: "Choice A provides direct double-barreled proof: biofilms without polymers died from antibiotics at the exact same rate (confirming polymers do not protect against antibiotics), but were immediately invaded by rival bacteria (confirming polymers block competitor colonization).",
+          choiceBreakdown: {
+            A: "Correct Answer: Perfectly isolates both predictions of the hypothesis.",
+            B: "Opposite Trap: Supports the traditional belief that biofilms protect against antibiotics.",
+            C: "Half Right Trap: Describes chemical structure without testing the defense hypothesis.",
+            D: "Out of Scope Trap: Focuses on rival survival in antibiotics rather than biofilm colonization."
+          },
+          keyTakeaway: "When a hypothesis has two conditions ('not X, but Y'), the winning evidence must test both conditions simultaneously."
+        },
         glosses: {
-          "biofilms": "a collective of one or more types of microorganisms that can grow on many surfaces and produce a protective slime",
-          "extracellular polymers": "high-molecular-weight compounds secreted by microorganisms into their environment",
-          "colonizing": "establishing a population in a new habitat or ecological niche"
+          "biofilms": "(noun) structured communities of bacteria attached to surfaces and encased in matrix slime",
+          "extracellular polymers": "(noun) complex sugary compounds secreted by microbes for structural matrix",
+          "colonizing": "(verb) establishing and spreading a population in a new territory"
         }
       },
       {
@@ -2164,6 +2973,7 @@ const ACADEMY_CONTENT = {
         type: "command-of-evidence",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "Look for positive evidence along maritime Persian Gulf routes paired with an absence of evidence along overland routes.",
         passage: "Historian Marcus Miller investigated trade networks between ancient Mesopotamia and the Indus Valley. Miller argued that contrary to the traditional assumption that trade was conducted exclusively via overland caravans through the Iranian plateau, maritime trade via Persian Gulf ports accounted for the vast majority of raw lapis lazuli imports into Ur during the Early Dynastic period.",
         question: "Which finding, if true, would most directly support Miller's argument?",
         choices: [
@@ -2183,11 +2993,20 @@ const ACADEMY_CONTENT = {
           C: "Half Right",
           D: "Out of Scope"
         },
-        explanation: "Choice A directly validates Miller's claim by providing comparative physical evidence: lapis lazuli was found on maritime Persian Gulf shipwrecks but was absent from overland Iranian trading sites. Choice B discusses social status. Choice C gives caravan travel times without proving which route was actually used. Choice D is unrelated to lapis lazuli.",
+        explanation: {
+          correctBridge: "Choice A directly supports Miller's maritime claim: finding unworked lapis lazuli on Persian Gulf shipwrecks while finding virtually none at overland Iranian sites proves trade flowed primarily by sea.",
+          choiceBreakdown: {
+            A: "Correct Answer: Directly establishes the maritime route while discounting the overland route.",
+            B: "Out of Scope Trap: Who wore the gemstone does not prove which trade route was used.",
+            C: "Half Right Trap: Caravan transit time does not prove goods moved by sea.",
+            D: "Out of Scope Trap: Preserved grain jars are irrelevant to lapis lazuli trade routes."
+          },
+          keyTakeaway: "To support a claim that Route A was favored over Route B, look for physical evidence present on Route A and absent on Route B."
+        },
         glosses: {
-          "lapis lazuli": "a deep-blue metamorphic rock used as a semi-precious stone prized for its intense color",
-          "consignments": "batches of goods delivered or shipped to a recipient",
-          "contemporaneous": "originating, existing, or occurring during the same period of time"
+          "lapis lazuli": "(noun) a deep-blue semi-precious metamorphic gemstone",
+          "consignments": "(noun) commercial shipments of goods",
+          "contemporaneous": "(adj.) occurring during the same historical time period"
         }
       },
       {
@@ -2195,6 +3014,7 @@ const ACADEMY_CONTENT = {
         type: "command-of-evidence",
         stage: "guided",
         difficulty: "Hard",
+        strategyHeuristic: "Verify that Hairy Vetch achieves high weed suppression (88%) while also adding the highest nitrogen (145 kg/ha).",
         passage: "An agricultural research station evaluated four cover crop species for their capacity to suppress weed biomass and enhance soil nitrogen content.<br><br><b>Cover Crop Performance Data:</b><br><table class='sat-table'><thead><tr><th>Cover Crop Species</th><th>Weed Suppression (%)</th><th>Nitrogen Added (kg/ha)</th><th>Soil Moisture Retained (%)</th></tr></thead><tbody><tr><td>Crimson Clover</td><td>64%</td><td>110</td><td>32%</td></tr><tr><td>Hairy Vetch</td><td>88%</td><td>145</td><td>28%</td></tr><tr><td>Winter Rye</td><td>92%</td><td>15</td><td>44%</td></tr><tr><td>Field Pea</td><td>58%</td><td>85</td><td>26%</td></tr></tbody></table><br>An agronomist claims that while Winter Rye is the most effective crop for controlling weed growth, Hairy Vetch provides the best overall balance for farmers seeking both substantial weed reduction and significant soil fertilization.",
         question: "Which choice best uses data from the table to support the agronomist's claim?",
         choices: [
@@ -2214,11 +3034,20 @@ const ACADEMY_CONTENT = {
           C: "Misused Evidence",
           D: "Opposite"
         },
-        explanation: "Choice A correctly cites the table data: Winter Rye had the top weed suppression (92%), while Hairy Vetch achieved strong weed control (88%) alongside the highest nitrogen contribution (145 kg/ha), proving its balanced dual benefit. Choices B, C, and D state incorrect mathematical comparisons.",
+        explanation: {
+          correctBridge: "Choice A is correct because it pulls accurate numbers from the table: Winter Rye has the highest weed suppression (92%), while Hairy Vetch combines near-top weed suppression (88%) with the highest nitrogen fertilization (145 kg/ha), validating its balanced dual benefit.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately reports 92% for Winter Rye and 88% / 145 kg/ha for Hairy Vetch.",
+            B: "Misused Evidence / Math Error Trap: 85 kg/ha is less than 145 kg/ha, not higher.",
+            C: "Misused Evidence Trap: Crimson Clover's 64% weed suppression is far below Winter Rye's 92%.",
+            D: "Opposite Trap: 15 kg/ha is the lowest nitrogen contribution, not the highest."
+          },
+          keyTakeaway: "Always check numerical rankings: 'best overall balance' requires verifying strong performance across both required columns."
+        },
         glosses: {
-          "biomass": "the total quantity or weight of organisms in a given area or volume",
-          "agronomist": "an expert in the science of soil management and crop production",
-          "suppress": "prevent the development, action, or growth of"
+          "biomass": "(noun) total organic plant mass in a given area",
+          "agronomist": "(noun) an agricultural scientist specializing in soil and crop management",
+          "suppress": "(verb) prevent or substantially reduce the growth of weeds"
         }
       },
       {
@@ -2226,6 +3055,7 @@ const ACADEMY_CONTENT = {
         type: "command-of-evidence",
         stage: "guided",
         difficulty: "Hard",
+        strategyHeuristic: "Look for equal physical disease markers (amyloid plaques) alongside superior cognitive memory recall in multilingual patients.",
         passage: "Neuroscientists investigated whether multilingualism delays the onset of cognitive symptoms in Alzheimer's patients. Dr. Elena Rostova hypothesized that cognitive reserve acquired from managing multiple languages does not prevent the physical accumulation of amyloid plaques in the brain, but rather enables the brain to maintain functional memory performance despite underlying neurodegeneration.",
         question: "Which finding, if true, would most directly support Dr. Rostova's hypothesis?",
         choices: [
@@ -2245,11 +3075,20 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Too Extreme"
         },
-        explanation: "Choice A directly matches Rostova's hypothesis: multilingual patients had the same volume of amyloid plaques (confirming plaques still accumulate) but achieved significantly better memory scores (confirming functional resilience). Choice B is too extreme ('complete immunity'). Choice C is contrary. Choice D is an extreme overstatement.",
+        explanation: {
+          correctBridge: "Choice A directly proves both conditions of Rostova's hypothesis: multilinguals exhibited the same volume of amyloid plaques (confirming plaques still accumulate physically) while scoring higher on memory recall tests (confirming functional cognitive reserve).",
+          choiceBreakdown: {
+            A: "Correct Answer: Perfectly pairs identical plaque pathology with superior memory performance.",
+            B: "Too Extreme / Opposite Trap: 'Zero amyloid plaques' and 'complete immunity' contradict the hypothesis that plaques still accumulate.",
+            C: "Opposite Trap: Irrelevant and contrary to cognitive reserve.",
+            D: "Too Extreme Trap: Alzheimer's patients having identical brain volume to young healthy students is medically impossible."
+          },
+          keyTakeaway: "To support cognitive reserve hypotheses, look for identical underlying physical damage paired with superior functional performance."
+        },
         glosses: {
-          "cognitive reserve": "the brain's resilience to neuropathological damage of the mind",
-          "amyloid plaques": "aggregates of misfolded proteins that form in the spaces between nerve cells in Alzheimer's disease",
-          "neurodegeneration": "the progressive loss of structure or function of neurons"
+          "cognitive reserve": "(noun) the mind's resistance to neuropathological brain damage",
+          "amyloid plaques": "(noun) protein misfold aggregates in the brains of Alzheimer's patients",
+          "neurodegeneration": "(noun) progressive structural and functional decay of neurons"
         }
       }
     ],
@@ -2259,6 +3098,7 @@ const ACADEMY_CONTENT = {
         type: "command-of-evidence",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Look for behavioral metrics (drop in disciplinary referrals) rather than caloric metrics to validate Dr. Lin's hypothesis.",
         passage: "Economist Dr. Maya Lin hypothesized that introducing universal free school lunches in public school districts increases academic achievement primarily by reducing classroom behavioral disruptions rather than merely by improving individual caloric intake.",
         question: "Which finding, if true, would most directly support Dr. Lin's hypothesis?",
         choices: [
@@ -2273,10 +3113,19 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Out of Scope"
         },
-        explanation: "Choice A directly supports the behavioral mechanism: disciplinary referrals fell by 45%, and the biggest academic gains occurred in the most previously disruptive classrooms. Choice B focuses on caloric intake (which Lin hypothesized was NOT the primary driver). Choice C and D are irrelevant or opposite.",
+        explanation: {
+          correctBridge: "Choice A is correct because it directly validates the behavioral mechanism: disciplinary referrals fell by 45%, and the greatest academic gains occurred in the classrooms that had previously suffered the most disruptions.",
+          choiceBreakdown: {
+            A: "Correct Answer: Direct behavioral evidence linking disruption reductions to academic gains.",
+            B: "Half Right / Counter Trap: Focuses on caloric intake, which Lin hypothesized was NOT the primary mechanism.",
+            C: "Opposite Trap: Shows an inverse relationship between kitchen spending and test scores.",
+            D: "Out of Scope Trap: Subjective taste opinions provide no academic achievement evidence."
+          },
+          keyTakeaway: "Match the specific proposed mechanism (classroom behavior reduction) rather than the alternative mechanism (calories)."
+        },
         glosses: {
-          "caloric intake": "the total number of calories consumed through food and beverages",
-          "referrals": "official reports directing a student to a school administrator for disciplinary action"
+          "caloric intake": "(noun) total energy consumed from food",
+          "referrals": "(noun) official disciplinary notices sending students to administrative offices"
         }
       },
       {
@@ -2284,6 +3133,7 @@ const ACADEMY_CONTENT = {
         type: "command-of-evidence",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "Look for the double correlation: rising noise (dB) corresponds to both higher minimum pitch (Hz) AND higher amplitude (dB).",
         passage: "Ornithologists recorded the vocal frequency and amplitude of urban European blackbirds (*Turdus merula*) across four cities with varying levels of anthropogenic noise.<br><br><b>Urban Song Characteristics:</b><br><table class='sat-table'><thead><tr><th>City Location</th><th>Ambient Traffic Noise (dB)</th><th>Minimum Song Frequency (Hz)</th><th>Song Amplitude (dB)</th></tr></thead><tbody><tr><td>Rural Forest (Control)</td><td>42</td><td>1,850</td><td>68</td></tr><tr><td>City Park</td><td>58</td><td>2,200</td><td>74</td></tr><tr><td>Suburban Plaza</td><td>65</td><td>2,450</td><td>79</td></tr><tr><td>Urban Center</td><td>76</td><td>2,800</td><td>84</td></tr></tbody></table><br>A researcher asserts that European blackbirds dynamically adapt their vocalizations in noisy urban environments by both shifting their songs to higher acoustic pitches and singing at higher volumes to prevent traffic noise from masking their territory calls.",
         question: "Which choice best uses data from the table to support the researcher's assertion?",
         choices: [
@@ -2298,11 +3148,20 @@ const ACADEMY_CONTENT = {
           C: "Misused Evidence",
           D: "Misused Evidence"
         },
-        explanation: "Choice A is correct. It accurately reflects the positive correlation shown in the table: as noise increased from 42 dB to 76 dB, song frequency rose from 1,850 Hz to 2,800 Hz (higher pitch) and amplitude increased from 68 dB to 84 dB (higher volume). Choices B, C, and D state incorrect numbers or reversed relationships.",
+        explanation: {
+          correctBridge: "Choice A is correct. It accurately pulls the numbers from the table: as traffic noise increased from 42 dB to 76 dB, frequency rose from 1,850 Hz to 2,800 Hz (higher pitch) and amplitude rose from 68 dB to 84 dB (higher volume).",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately reflects the positive correlation between noise, pitch, and amplitude.",
+            B: "Opposite Trap: Swaps rural and urban figures, stating an inverted relationship.",
+            C: "Misused Evidence Trap: Attributes urban center noise (76 dB) to the rural forest.",
+            D: "Misused Evidence Trap: Swaps city park and urban center frequencies."
+          },
+          keyTakeaway: "Verify that the start and end values for all three columns (Noise, Frequency, Amplitude) match the table rows precisely."
+        },
         glosses: {
-          "anthropogenic": "originating in human activity; environmental pollution or noise caused by humans",
-          "amplitude": "the maximum extent of a vibration or oscillation, corresponding to loudness or volume",
-          "masking": "the process by which the threshold of audibility for one sound is raised by the presence of another"
+          "anthropogenic": "(adj.) originating from human activity",
+          "amplitude": "(noun) the maximum extent of acoustic vibration; loudness",
+          "masking": "(noun) the acoustic drowning out of one sound by another"
         }
       },
       {
@@ -2310,6 +3169,7 @@ const ACADEMY_CONTENT = {
         type: "command-of-evidence",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "Look for the threshold turning point: compressive strength increases at 0.5% concentration but drops at 1.0% due to clumping.",
         passage: "Materials engineers hypothesized that adding multi-walled carbon nanotubes (MWCNTs) to concrete would increase compressive strength by bridging microscopic cracks, but only up to a concentration of 0.5% by weight; beyond that threshold, nanotube clumping would create internal void defects that weaken the material.",
         question: "Which finding, if true, would most directly support the engineers' hypothesis?",
         choices: [
@@ -2324,11 +3184,20 @@ const ACADEMY_CONTENT = {
           C: "Too Extreme",
           D: "Out of Scope"
         },
-        explanation: "Choice A directly proves the two-part hypothesis: strength increased at 0.5% (+45%) but dropped below baseline at 1.0% (-20%) due to nanotube clumping (agglomeration). Choice B contradicts the tipping point hypothesis. Choice C is extreme and unsupported. Choice D focuses on cost rather than material strength.",
+        explanation: {
+          correctBridge: "Choice A directly proves the threshold hypothesis: compressive strength increased by 45% at 0.5% concentration, but dropped by 20% at 1.0% concentration due to agglomeration (clumping).",
+          choiceBreakdown: {
+            A: "Correct Answer: Perfectly demonstrates the peak at 0.5% and subsequent decline at 1.0%.",
+            B: "Opposite Trap: Claims 1.0% had the highest strength, contradicting the 0.5% threshold.",
+            C: "Too Extreme Trap: Plain concrete is not impervious to earthquake pressure.",
+            D: "Out of Scope Trap: Financial production cost does not test structural material strength."
+          },
+          keyTakeaway: "Threshold hypotheses ('benefits up to X%, but harms beyond X%') require data points both below and above the critical percentage."
+        },
         glosses: {
-          "nanotubes": "tubular structures of carbon atoms with diameters typically measured in nanometers",
-          "compressive strength": "the capacity of a material or structure to withstand loads tending to reduce size",
-          "agglomeration": "the formation of things into a cluster or clump"
+          "nanotubes": "(noun) microscopic cylindrical carbon molecules with immense strength",
+          "compressive strength": "(noun) the capacity of a material to withstand crushing loads",
+          "agglomeration": "(noun) clumping or clustering together of particles"
         }
       },
       {
@@ -2336,6 +3205,7 @@ const ACADEMY_CONTENT = {
         type: "command-of-evidence",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Look for poor active vocabulary recall paired with intact native-level accent and phonological pitch discrimination.",
         passage: "Linguist Dr. Sonia Rao hypothesized that heritage language speakers (individuals raised in homes where a non-English language is spoken) retain intuitive grammatical phonology in their heritage tongue even when their adult active conversational vocabulary has significantly atrophied.",
         question: "Which finding, if true, would most directly support Dr. Rao's hypothesis?",
         choices: [
@@ -2345,18 +3215,24 @@ const ACADEMY_CONTENT = {
           "D) English monolinguals acquired foreign language phonology faster than fluent bilingual adults."
         ],
         answer: "A",
-        hints: [
-          "Hint 1: Look for low vocabulary + high native-like phonology."
-        ],
         trapTypes: {
           B: "Opposite",
           C: "Too Extreme",
           D: "Opposite"
         },
-        explanation: "Choice A provides direct evidence: speakers with poor vocabulary recall (only 20%) still exhibited native-like vowel pitch and tone distinctions (intact intuitive phonology). Choice B contradicts the hypothesis. Choice C is an extreme overstatement. Choice D is irrelevant.",
+        explanation: {
+          correctBridge: "Choice A directly demonstrates Dr. Rao's claim: heritage speakers with severe vocabulary loss (only 20% noun recall) still retained native-like phonological accent and vowel pitch perception.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately pairs atrophied vocabulary with intact phonology.",
+            B: "Opposite Trap: Contradicts the claim that phonology is retained.",
+            C: "Too Extreme Trap: Scoring 100% on written vocabulary exams contradicts vocabulary atrophy.",
+            D: "Opposite Trap: Monolingual language acquisition is irrelevant to heritage speakers."
+          },
+          keyTakeaway: "Match the exact contrast tested: low vocabulary performance + high accent/phonology retention."
+        },
         glosses: {
-          "phonology": "the system of relationships among the speech sounds that constitute the fundamental components of a language",
-          "atrophied": "wasted away, diminished, or declined in effectiveness due to underuse"
+          "phonology": "(noun) the sound and intonation system of a language",
+          "atrophied": "(verb/adj.) diminished or decayed through lack of active use"
         }
       }
     ],
@@ -2386,11 +3262,48 @@ const ACADEMY_CONTENT = {
       whatItTests: "Inference questions present an argument, experiment, or logical chain of premises that ends with a blank line. Your job is to select the choice that 'most logically completes the text.' On the SAT, an inference is NOT an imaginative creative guess; it is an airtight, mathematically forced logical conclusion.",
       frequency: "4 to 6 questions per module.",
       recognitionTest: "The question stem almost always reads: 'Which choice most logically completes the text?'",
-      eslNote: "The #1 trap on Inferences is 'Out of Scope Speculation'. If the passage discusses 3 species of birds, do NOT pick an answer about 'all bird evolution across history'. The correct answer is always humble, cautious, and strictly bounded."
+      goldenRules: [
+        {
+          title: "The Zero Speculation Rule",
+          description: "If an inference requires you to say 'Well, it's possible that in the real world...', it is WRONG. The answer must be forced by the text."
+        },
+        {
+          title: "The Minimal Leap Heuristic",
+          description: "Pick the answer that takes the smallest, most cautious, most modest step forward. Bold leaps are always distractor traps."
+        },
+        {
+          title: "The Boundary Enforcement Rule",
+          description: "If the passage is about 3 species of deep-sea worms, the conclusion cannot be about 'all marine animals on Earth'."
+        },
+        {
+          title: "The Final Connector Check",
+          description: "Transitions like 'Therefore', 'Consequently', or 'Suggesting that' dictate the logical direction of the final sentence."
+        }
+      ],
+      pacingStrategy: {
+        steps: [
+          { seconds: "20", action: "Chain Premises", detail: "Identify Premise 1 (Fact A) and Premise 2 (Fact B)" },
+          { seconds: "15", action: "Check Transition", detail: "Identify concluding transition ('Therefore', 'Thus', 'Suggesting that')" },
+          { seconds: "30", action: "Bound the Deduction", detail: "Formulate the minimal inescapable conclusion" },
+          { seconds: "25", action: "Veto Extreme Leaps", detail: "Eliminate choices with sweeping extrapolations or outside facts" }
+        ]
+      },
+      commonPitfalls: [
+        {
+          name: "The Real-World Plausibility Trap",
+          explanation: "Choosing an option that is scientifically true in real life, but not logically entailed by the specific premises given in the passage."
+        },
+        {
+          name: "The Grand Extrapolation",
+          explanation: "Taking a localized laboratory finding and concluding that a worldwide revolution or universal truth has occurred."
+        }
+      ],
+      eslNote: "Look for modest modal verbs in correct answers: 'can', 'may', 'tends to', 'is consistent with'. Avoid 'proves', 'always', 'invariably', 'impossible'."
     },
     stage2_method: {
       name: "The Must-Be-True Rule",
       summary: "A 4-step logic protocol that eliminates ungrounded assumptions.",
+      examFormula: "Premise 1 (Fact A) + Premise 2 (Fact B) + Logical Joint (Therefore) = Inescapable Conclusion",
       steps: [
         {
           num: 1,
@@ -2416,6 +3329,12 @@ const ACADEMY_CONTENT = {
           rule: "Choose the answer that requires the smallest possible logical leap.",
           expertMove: "On the SAT, the most modest, qualified, unexciting choice is almost always the right answer."
         }
+      ],
+      checklist: [
+        "Is my conclusion 100% forced by the given premises?",
+        "Does the answer stay strictly within the nouns and boundaries of the passage?",
+        "Did I eliminate dramatic leaps and speculative assumptions?",
+        "Does the tone use cautious academic phrasing (may, suggests, can)?"
       ]
     },
     stage3_workedExamples: [
@@ -2424,6 +3343,7 @@ const ACADEMY_CONTENT = {
         type: "inferences",
         stage: "worked-example",
         difficulty: "Medium",
+        strategyHeuristic: "When wheat inoculated with fungi absorbs 35% more soil phosphorus under deficient conditions, the minimal logical inference is that fungal inoculation can reduce reliance on synthetic fertilizers.",
         passage: "Agricultural scientists know that phosphorus is an essential nutrient for crop development, yet global rock phosphate reserves are rapidly depleting. To explore sustainable alternatives, researchers inoculated wheat crops with mycorrhizal fungi, which secrete organic acids that solubilize insoluble phosphorus bound in mineral soil. The inoculated wheat absorbed 35% more soil phosphorus than non-inoculated control crops grown in identical phosphorus-deficient soils, leading the researchers to conclude that _______",
         question: "Which choice most logically completes the text?",
         choices: [
@@ -2434,21 +3354,31 @@ const ACADEMY_CONTENT = {
         ],
         answer: "B",
         thinkAloud: [
-          "Step 1 (Chain the Premises): Premise 1 = Phosphate reserves are depleting. Premise 2 = Mycorrhizal fungi solubilize insoluble soil phosphorus. Premise 3 = Inoculated wheat absorbed 35% more phosphorus in low-phosphorus soil.",
-          "Step 2 (Determine Logical Conclusion): What naturally follows from Premises 1-3? Fungi can help crops get phosphorus from soil, which helps solve the problem of depleting reserves.",
-          "Step 3 (Predict the Conclusion): Fungi can reduce the need for external phosphate fertilizers while maintaining crop growth.",
-          "Step 4 (Test Choices): Choice A is 'Too Extreme' (replace water and sunlight?!). Choice B is cautious, modest, and logically forced ('could help sustain yields while reducing dependence...'). Choice C is 'Too Extreme' ('incapable of absorbing any nutrients'). Choice D is 'Opposite/Out of Scope'. Select B."
+          "Step 1 (Map the Premise Chain): Premise 1 = Phosphate reserves are depleting. Premise 2 = Mycorrhizal fungi unlock insoluble soil phosphorus. Premise 3 = Inoculated wheat absorbed 35% more phosphorus in low-phosphate soil.",
+          "Step 2 (Trace the Logical Completion): The experiment tested a sustainable alternative to depleting phosphate reserves. Inoculation worked.",
+          "Step 3 (Formulate Minimal Prediction): Inoculating wheat with fungi can help sustain crop growth and reduce reliance on mined phosphate fertilizers.",
+          "Step 4 (Test Choice B): 'inoculating crops with mycorrhizal fungi could help sustain agricultural yields while reducing dependence on synthetic phosphate fertilizers.' Modest, cautious, logically forced.",
+          "Step 5 (Eliminate Distractors): Choice A claims fungi replace water and sunlight (Absurd / Too Extreme). Choice C claims non-inoculated wheat absorbs zero nutrients (Too Extreme). Choice D claims reserves will replenish naturally (Opposite / Out of Scope)."
         ],
         trapTypes: {
           A: "Too Extreme",
           C: "Too Extreme",
           D: "Out of Scope"
         },
-        explanation: "Choice B is correct. It makes the modest, logically required inference: because the fungi increase phosphorus absorption in depleted soils, using them could reduce reliance on mined phosphate fertilizers while supporting yields. Choices A and C make extreme, absurd claims. Choice D contradicts the depletion premise.",
+        explanation: {
+          correctBridge: "Choice B is correct. It draws the minimal, logically required conclusion: because mycorrhizal fungi increase phosphorus uptake in depleted soils, using them could sustain crop yields while reducing reliance on depleting synthetic phosphate reserves.",
+          choiceBreakdown: {
+            A: "Too Extreme Trap: Fungi solubilize phosphorus; they cannot replace water or sunlight.",
+            B: "Correct Answer: Formulates the cautious, logically entailed conclusion addressing the depletion problem.",
+            C: "Too Extreme Trap: Non-inoculated crops absorbed less phosphorus, but they are not 'incapable of absorbing any nutrients'.",
+            D: "Out of Scope / Opposite Trap: Mined rock phosphate does not replenish naturally in a decade."
+          },
+          keyTakeaway: "On inference questions addressing a resource dilemma, the correct completion connects the experimental solution to mitigating the resource shortage."
+        },
         glosses: {
-          "inoculated": "introduced microorganisms into a culture or agricultural crop to promote beneficial growth",
-          "solubilize": "make a substance soluble or dissolve in liquid",
-          "depleting": "diminishing in number or quantity; using up supplies"
+          "inoculated": "(verb) introduced beneficial microorganisms into an agricultural crop",
+          "solubilize": "(verb) make an insoluble substance dissolve in liquid",
+          "depleting": "(verb/adj.) diminishing or exhausting available supply reserves"
         }
       },
       {
@@ -2456,6 +3386,7 @@ const ACADEMY_CONTENT = {
         type: "inferences",
         stage: "worked-example",
         difficulty: "Hard",
+        strategyHeuristic: "Disparity in penalty severity (lethal warrants vs. minor fines) proves the state's true underlying priority.",
         passage: "Historians studying 14th-century Venetian glassmaking have debated whether the republic's strict 1291 decree relocating all glass furnaces to the island of Murano was motivated primarily by fire prevention in the wooden city or by a desire to guard state industrial secrets. Records show that Venetian glassmakers who fled Murano to practice their craft abroad faced severe financial penalties and even state-sponsored assassination warrants, whereas infractions of municipal fire safety codes in other Venetian industries were punished merely by nominal fines. This disparity strongly suggests that _______",
         question: "Which choice most logically completes the text?",
         choices: [
@@ -2466,21 +3397,31 @@ const ACADEMY_CONTENT = {
         ],
         answer: "A",
         thinkAloud: [
-          "Step 1 (Identify the Core Conflict): Was Murano relocation about (A) fire prevention, or (B) guarding glass secrets?",
-          "Step 2 (Examine the Comparative Evidence): Fire code violations = small fines. Leaking glass secrets abroad = assassination warrants and huge penalties.",
-          "Step 3 (Deduce the Logical Conclusion): The extreme disparity in punishment proves the state cared far more about protecting its secret glass monopoly than simple fire safety.",
-          "Step 4 (Match with Choices): Choice A matches the deduction directly: prioritized safeguarding the glassmaking monopoly over fire safety. Choice B is 'Too Extreme'. Choice C is 'Out of Scope'. Choice D is 'Too Extreme'. Select A."
+          "Step 1 (Identify the Core Historical Debate): Was the 1291 Murano decree about (A) fire prevention, or (B) guarding glassmaking secrets?",
+          "Step 2 (Compare the Legal Evidence): Leaking glass secrets abroad = assassination warrants and massive penalties. Violating fire safety codes in other industries = minor fines.",
+          "Step 3 (Deduce the Inescapable Conclusion): The extreme difference in punishment severity proves the state cared far more about protecting its secret glass monopoly than about fire safety.",
+          "Step 4 (Test Choice A): 'the Venetian government prioritized safeguarding its lucrative glassmaking monopoly over standard urban fire safety concerns.' Exact deduction.",
+          "Step 5 (Eliminate Distractors): Choice B claims furnaces were 'immune to fires' (Too Extreme). Choice C mentions overthrowing treaties (Out of Scope). Choice D claims fire codes were 'universally ignored' (Too Extreme)."
         ],
         trapTypes: {
           B: "Too Extreme",
           C: "Out of Scope",
           D: "Too Extreme"
         },
-        explanation: "Choice A is correct. The stark contrast between lethal penalties for sharing glass secrets and minor fines for fire safety infractions forces the logical conclusion that the state's true priority was protecting its proprietary glassmaking monopoly. Choices B and D are extreme generalizations. Choice C is unsupported.",
+        explanation: {
+          correctBridge: "Choice A is correct. The dramatic disparity between lethal punishments for sharing glassmaking secrets and minor fines for fire code violations logically forces the conclusion that the state's primary motivation was protecting its lucrative glass monopoly rather than fire prevention.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately deduces the state's priority from the comparative severity of the penalties.",
+            B: "Too Extreme Trap: Furnaces were not immune to fires.",
+            C: "Out of Scope Trap: Overthrowing diplomatic treaties is never mentioned.",
+            D: "Too Extreme Trap: Fire codes were punished with nominal fines, not 'universally ignored'."
+          },
+          keyTakeaway: "When comparative legal evidence reveals stark asymmetry in punishment, the conclusion must identify the state's primary underlying priority."
+        },
         glosses: {
-          "nominal": "(of a role or status) existing in name only; (of a price or fee) very small; far below the real value",
-          "disparity": "a great difference or lack of equality between things",
-          "lucrative": "producing a great deal of profit"
+          "nominal": "(adj.) very small; far below the real value or significance",
+          "disparity": "(noun) a noticeable inequality or difference between things",
+          "lucrative": "(adj.) generating a high amount of financial profit"
         }
       }
     ],
@@ -2524,6 +3465,7 @@ const ACADEMY_CONTENT = {
         type: "inferences",
         stage: "guided",
         difficulty: "Easy",
+        strategyHeuristic: "Physical adaptation (capillary channels directing fog to mouth) -> Logical conclusion (passive harvesting of atmospheric water in arid deserts).",
         passage: "Desert horned lizards (*Phrynosoma*) inhabit arid regions where open water sources are virtually nonexistent. Researchers observed that during rare morning fogs, moisture condenses on the lizard's specialized keeled scales. Microscopic capillary channels between the scales automatically transport the water droplets across the lizard's skin directly into its mouth, even when the animal is facing uphill against gravity. This anatomical adaptation suggests that _______",
         question: "Which choice most logically completes the text?",
         choices: [
@@ -2543,11 +3485,20 @@ const ACADEMY_CONTENT = {
           C: "Too Extreme",
           D: "Opposite"
         },
-        explanation: "Choice A is correct. The text details how the lizard's scales condense fog and passively channel water into its mouth, forcing the logical conclusion that this adaptation enables it to harvest atmospheric moisture for drinking. Choice B is unsupported. Choice C is too extreme. Choice D contradicts the absence of rivers.",
+        explanation: {
+          correctBridge: "Choice A is correct. The text details how the lizard's scales condense fog and passively channel water into its mouth, compelling the logical deduction that this anatomical adaptation enables harvesting atmospheric moisture in dry habitats.",
+          choiceBreakdown: {
+            A: "Correct Answer: Formulates the direct, minimal functional conclusion forced by the anatomical description.",
+            B: "Out of Scope Trap: The text does not claim they cannot survive in rainy regions.",
+            C: "Too Extreme Trap: Generalizes capillary scales to 'all desert reptilian species worldwide'.",
+            D: "Opposite Trap: Contradicts the text's opening premise that open water is virtually nonexistent."
+          },
+          keyTakeaway: "Anatomical adaptations described in biological texts logically infer a survival mechanism tailored to environmental constraints."
+        },
         glosses: {
-          "keeled": "having a ridge down the middle, like the keel of a boat",
-          "capillary": "a tube or space with an internal diameter so small that liquid is drawn along it by surface tension",
-          "arid": "having little or no rain; too dry or barren to support vegetation"
+          "keeled": "(adj.) having a central ridge like the keel of a boat",
+          "capillary": "(adj.) relating to narrow channels drawing liquids by surface tension",
+          "arid": "(adj.) extremely dry; lacking sufficient rainfall"
         }
       },
       {
@@ -2555,6 +3506,7 @@ const ACADEMY_CONTENT = {
         type: "inferences",
         stage: "guided",
         difficulty: "Medium",
+        strategyHeuristic: "Contrast the driving energy mechanisms: Earth (solar heating at equator) vs. Jupiter (internal core heat at poles).",
         passage: "In 1977, the Voyager 1 spacecraft detected lightning discharges in the atmosphere of Jupiter. However, while terrestrial lightning on Earth is most frequent around the equatorial tropics where solar heating drives atmospheric convection, Voyager's optical sensors detected lightning strikes on Jupiter clustered almost exclusively around the polar regions. On Jupiter, sunlight is too weak to drive tropical convection, but internal heat radiating from the planet's core creates strong convective plumes at the poles where solar interference is minimal. It can therefore be inferred that _______",
         question: "Which choice most logically completes the text?",
         choices: [
@@ -2574,11 +3526,20 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Out of Scope"
         },
-        explanation: "Choice A is correct. Earth's convection is driven by solar heat at the equator, whereas Jupiter's is driven by internal planetary heat at the poles, compelling the logical conclusion that the primary thermodynamic mechanisms driving convection differ fundamentally between the two planets. Choices B, C, and D are fabricated or contradictory.",
+        explanation: {
+          correctBridge: "Choice A is correct. Terrestrial lightning is driven by external solar heat at the equator, whereas Jovian lightning is driven by internal core heat at the poles, forcing the inference that the primary thermodynamic engines driving convection differ fundamentally.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately bridges the comparative contrast between external solar heating and internal planetary heat.",
+            B: "Out of Scope Trap: Seasonal winter storms are never mentioned.",
+            C: "Opposite Trap: Earth lightning is solar-driven at the equator, not caused by volcanic trenches.",
+            D: "Out of Scope Trap: Spacecraft malfunction is an unfounded speculation."
+          },
+          keyTakeaway: "When two planetary phenomena operate via different heat sources, the inference is that their thermodynamic mechanisms differ fundamentally."
+        },
         glosses: {
-          "convection": "the movement caused within a fluid by the tendency of hotter and less dense material to rise, and colder, denser material to sink",
-          "thermodynamic": "relating to the branch of physics concerned with heat and other forms of energy or work",
-          "auroral": "relating to the aurora (natural electrical light displays in the sky near magnetic poles)"
+          "convection": "(noun) the movement in fluids caused by warmer, less dense material rising and cooler material sinking",
+          "thermodynamic": "(adj.) relating to the conversion of heat into other forms of energy",
+          "auroral": "(adj.) relating to polar atmospheric electrical light displays"
         }
       },
       {
@@ -2586,6 +3547,7 @@ const ACADEMY_CONTENT = {
         type: "inferences",
         stage: "guided",
         difficulty: "Hard",
+        strategyHeuristic: "Identical cultural attitudes + stark participation disparity (12% vs 99%) = default administrative policy settings are the decisive factor.",
         passage: "In behavioral economics, researchers evaluated whether requiring consumers to 'opt out' rather than 'opt in' to organ donation registries increases participation rates. In countries with opt-in systems (such as Germany), where citizens must actively fill out a form to become donors, registration rates linger around 12%. In contrast, in countries with opt-out systems (such as Austria), where citizens are presumed donors unless they register an explicit objection, donation consent rates exceed 99%. Crucially, surveys show that public moral attitudes toward organ donation are virtually identical in both countries. This finding suggests that _______",
         question: "Which choice most logically completes the text?",
         choices: [
@@ -2605,11 +3567,20 @@ const ACADEMY_CONTENT = {
           C: "Too Extreme",
           D: "Too Extreme"
         },
-        explanation: "Choice A is correct. Because public moral attitudes toward donation are identical in Germany and Austria, the massive difference in participation (12% vs. 99%) must be attributed to the default policy rule (opt-in vs. opt-out) rather than cultural sentiment. Choice B contradicts the survey data. Choices C and D are extreme exaggerations.",
+        explanation: {
+          correctBridge: "Choice A is correct. Because moral attitudes toward donation are identical in Germany and Austria, the massive gap in registration (12% vs. 99%) must be attributed to the administrative default rules (opt-in vs. opt-out) rather than cultural values.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately deduces that default administrative settings explain the participation disparity.",
+            B: "Opposite Trap: Survey data proves German attitudes are virtually identical to Austrian attitudes, not hostile.",
+            C: "Too Extreme Trap: Political uprisings are never mentioned.",
+            D: "Too Extreme Trap: 'Zero influence on any human decision' is an unwarranted universal overreach."
+          },
+          keyTakeaway: "When cultural variables are identical but behavioral outcomes diverge, the cause must be the structural/administrative difference."
+        },
         glosses: {
-          "opt-out": "an option to choose not to participate in something",
-          "disparity": "a noticeable and usually significant difference or inequality",
-          "efficacy": "the ability to produce a desired or intended result"
+          "opt-out": "(noun/adj.) a default system where enrollment is automatic unless an explicit objection is filed",
+          "disparity": "(noun) a great and noticeable difference between figures or groups",
+          "efficacy": "(noun) the capacity to produce a desired beneficial result"
         }
       },
       {
@@ -2617,6 +3588,7 @@ const ACADEMY_CONTENT = {
         type: "inferences",
         stage: "guided",
         difficulty: "Hard",
+        strategyHeuristic: "Fragile canines + Powerful muscular forelimbs = Pin prey first to prevent tooth breakage before delivering a bite.",
         passage: "To determine the hunting strategies of extinct sabertooth cats (*Smilodon fatalis*), paleontologists analyzed the mechanical bite force and skull anatomy of fossil specimens. Smilodon possessed elongated, blade-like canine teeth that were exceptionally brittle and vulnerable to snapping if subjected to torsional stress from struggling prey. However, Smilodon also possessed robust, muscular forelimbs capable of pinning large herbivores to the ground with immense force. It is therefore reasonable to conclude that Smilodon _______",
         question: "Which choice most logically completes the text?",
         choices: [
@@ -2636,11 +3608,20 @@ const ACADEMY_CONTENT = {
           C: "Opposite",
           D: "Too Extreme"
         },
-        explanation: "Choice A is correct. The text sets up a functional link: because the canines were brittle and vulnerable to breaking against struggling prey, Smilodon used its powerful forelimbs to immobilize large animals before biting, minimizing tooth-snapping stress. Choice C contradicts the fragility of the teeth. Choices B and D are unsupported.",
+        explanation: {
+          correctBridge: "Choice A is correct. The text sets up two complementary anatomical traits: because the canines would snap against struggling prey, Smilodon utilized its muscular forelimbs to pin large prey first, eliminating torsional stress before biting.",
+          choiceBreakdown: {
+            A: "Correct Answer: Perfectly integrates the fragile canines with the powerful forelimbs into a logical predatory sequence.",
+            B: "Too Extreme Trap: Forelimbs were adapted for pinning 'large herbivores', not small rodents.",
+            C: "Opposite Trap: Canines were brittle and would snap if used to shatter heavy bones.",
+            D: "Too Extreme Trap: Abandoning carnivory is refuted by the specialized predatory forelimbs."
+          },
+          keyTakeaway: "When a predator has a vulnerable weapon paired with a strong stabilizing appendage, the inference is that the appendage secures the prey to protect the weapon."
+        },
         glosses: {
-          "torsional": "relating to the twisting or wrenching of an object by the exertion of forces",
-          "immobilize": "prevent something from moving or operating as normal",
-          "carnivory": "the habit of feeding on animal flesh"
+          "torsional": "(adj.) relating to twisting or wrenching forces",
+          "immobilize": "(verb) prevent an animal from moving or struggling",
+          "carnivory": "(noun) the practice of hunting and consuming animal flesh"
         }
       }
     ],
@@ -2650,6 +3631,7 @@ const ACADEMY_CONTENT = {
         type: "inferences",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Bleaching is an active biological expulsion triggered by toxic reactive oxygen, not an instantaneous thermal death.",
         passage: "In marine ecology, coral reefs rely on photosynthetic dinoflagellates (zooxanthellae) living inside their tissues to provide glucose. When water temperatures exceed normal thresholds by as little as 1°C for several weeks, the heat damages the algae's photosynthetic machinery, causing them to produce toxic reactive oxygen species. In response, the coral host expels the algae, leading to 'coral bleaching'. If elevated temperatures persist, the bleached coral inevitably starves to death. This biological sequence indicates that _______",
         question: "Which choice most logically completes the text?",
         choices: [
@@ -2664,11 +3646,20 @@ const ACADEMY_CONTENT = {
           C: "Out of Scope",
           D: "Too Extreme"
         },
-        explanation: "Choice A is correct. The passage explains that heat damages the algae, causing them to produce toxic reactive oxygen, which prompts the coral host to expel the algae (an active biological ejection triggered by chemical toxicity). Starvation happens only if elevated heat persists. Choice B is opposite. Choice D is an extreme temporal exaggeration.",
+        explanation: {
+          correctBridge: "Choice A is correct. The text describes bleaching as the coral host actively expelling algae due to toxic reactive oxygen, resulting in eventual starvation only if heat persists, rather than immediate heat death.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately characterizes bleaching as an active defense response to toxic chemical stress.",
+            B: "Opposite Trap: Dinoflagellates are damaged by 1°C warming, not boiling water.",
+            C: "Out of Scope Trap: Hydrothermal minerals are never mentioned.",
+            D: "Too Extreme Trap: Total global extinction by the end of the month is an absurd exaggeration."
+          },
+          keyTakeaway: "In biological sequence questions, distinguish between the immediate cellular response (expelling toxic algae) and the eventual long-term consequence (starvation)."
+        },
         glosses: {
-          "dinoflagellates": "single-celled organisms with two flagella, occurring in large numbers in marine plankton and as endosymbionts in corals",
-          "reactive oxygen species": "unstable molecules that contain oxygen and that easily react with other molecules in a cell, causing cellular damage",
-          "bleaching": "the whitening of corals resulting from the loss of symbiotic algae"
+          "dinoflagellates": "(noun) single-celled symbiotic algae living in coral tissue",
+          "reactive oxygen species": "(noun) chemically reactive molecules causing cellular toxicity",
+          "bleaching": "(noun) the loss of color in corals resulting from expelling symbiotic algae"
         }
       },
       {
@@ -2676,6 +3667,7 @@ const ACADEMY_CONTENT = {
         type: "inferences",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "Precise chronological convergence (150-year drought matching crop failures and site burnings in 1200 BCE) forces the inference of a climate-induced catalyst.",
         passage: "During the Bronze Age collapse (circa 1200 BCE), several interconnected Mediterranean civilizations—including the Mycenaeans, Hittites, and New Kingdom Egyptians—experienced sudden political disintegration. Historians long debated whether this collapse was triggered by foreign invasions by the enigmatic 'Sea Peoples' or by severe multi-decadal megadroughts. Recent isotopic analysis of stalagmites from regional caves reveals a sharp 150-year reduction in precipitation across the entire eastern Mediterranean beginning precisely around 1200 BCE, coinciding with widespread agricultural crop failures and grain warehouse burnings. This chronological and paleoclimatic convergence suggests that _______",
         question: "Which choice most logically completes the text?",
         choices: [
@@ -2685,16 +3677,30 @@ const ACADEMY_CONTENT = {
           "D) the 1200 BCE drought instantly caused all human life across the Mediterranean basin to vanish."
         ],
         answer: "A",
+        thinkAloud: [
+          "Step 1: The debate is Invasions vs. Megadroughts.",
+          "Step 2: Stalagmites prove a 150-year drought starting precisely at 1200 BCE, matching crop failures and societal collapse.",
+          "Step 3: Conclusion: Climate-driven drought and food shortages were central catalysts."
+        ],
         trapTypes: {
           B: "Out of Scope",
           C: "Opposite",
           D: "Too Extreme"
         },
-        explanation: "Choice A is correct. The paleoclimatic evidence shows a severe 150-year drought precisely aligning with crop failures, grain burnings, and civilization collapse, making it logically forced that climate-driven food shortages were a central catalyst in the societal breakdown. Choices B, C, and D are extreme or nonsensical distractors.",
+        explanation: {
+          correctBridge: "Choice A is correct. The paleoclimatic stalagmite data directly coincides with the 1200 BCE collapse, logically establishing that severe drought and agricultural failure were primary catalysts in the collapse.",
+          choiceBreakdown: {
+            A: "Correct Answer: Inescapable deduction linking the 150-year drought to societal breakdown.",
+            B: "Out of Scope Trap: Sea Peoples building underground cave networks is an absurd invention.",
+            C: "Opposite Trap: The passage describes them as 'interconnected civilizations'.",
+            D: "Too Extreme Trap: All human life did not vanish instantly."
+          },
+          keyTakeaway: "When chronological data matches historical collapse precisely, infer that the environmental factor was a primary catalyst."
+        },
         glosses: {
-          "stalagmites": "mound- or column-like mineral deposits rising from the floor of a cave formed by dripping water",
-          "desiccation": "the removal of moisture from something; extreme drying out",
-          "convergence": "the coming together of two or more things or lines of evidence"
+          "stalagmites": "(noun) mineral formations growing upward from cave floors",
+          "desiccation": "(noun) the state of extreme dryness or moisture removal",
+          "convergence": "(noun) the coming together of separate lines of evidence"
         }
       },
       {
@@ -2702,6 +3708,7 @@ const ACADEMY_CONTENT = {
         type: "inferences",
         stage: "independent",
         difficulty: "Hard",
+        strategyHeuristic: "The mental effort of retrieving partially faded memories is the exact mechanism that builds long-term synaptic consolidation.",
         passage: "In cognitive psychology, the 'spacing effect' demonstrates that students retain information significantly longer when study sessions are distributed across days rather than concentrated into a single cramming session. Brain imaging studies show that during spaced repetitions, the neural memory trace must be actively reconstructed by the prefrontal cortex, which strengthens synaptic consolidation. During massed cramming, however, the target information remains continuously active in working memory, preventing the neural retrieval effort required to forge enduring long-term connections. It follows that _______",
         question: "Which choice most logically completes the text?",
         choices: [
@@ -2716,11 +3723,20 @@ const ACADEMY_CONTENT = {
           C: "Too Extreme",
           D: "Too Extreme"
         },
-        explanation: "Choice A is correct. The text explains that spaced learning works because the memory trace must be actively reconstructed through neural retrieval effort, meaning the effort of retrieving faded information is what strengthens long-term storage. Choices B, C, and D are extreme, exaggerated distortions.",
+        explanation: {
+          correctBridge: "Choice A is correct. The text explains that spaced learning works because the neural memory trace must be actively reconstructed through retrieval effort, logically concluding that the effort of retrieving faded information is essential for long-term memory formation.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately identifies cognitive retrieval effort as the key mechanism of memory consolidation.",
+            B: "Too Extreme Trap: Cramming does not cause permanent prefrontal cortex brain damage.",
+            C: "Too Extreme Trap: Spaced sessions improve retention; they do not eliminate all future studying.",
+            D: "Too Extreme Trap: Working memory is not 'completely useless'."
+          },
+          keyTakeaway: "On cognitive neuroscience inferences, look for choices that identify the functional psychological mechanism."
+        },
         glosses: {
-          "prefrontal cortex": "the cerebral cortex covering the front part of the frontal lobe, implicated in planning and complex cognitive behavior",
-          "consolidation": "the biological process by which temporary memory traces are transformed into permanent long-term storage",
-          "working memory": "the small amount of information that can be held in mind and used in the execution of cognitive tasks"
+          "prefrontal cortex": "(noun) the frontal brain region responsible for complex cognitive planning and active retrieval",
+          "consolidation": "(noun) the biological stabilization of memory traces into long-term storage",
+          "working memory": "(noun) the temporary workspace for active mental processing"
         }
       },
       {
@@ -2728,6 +3744,7 @@ const ACADEMY_CONTENT = {
         type: "inferences",
         stage: "independent",
         difficulty: "Medium",
+        strategyHeuristic: "Overlapping brain circuitry in Heschl's gyrus explains why musical training produces cross-domain enhancements in language pitch perception.",
         passage: "To investigate whether early childhood musical training enhances general linguistic ability, researchers compared phoneme discrimination in 6-year-old children who completed one year of violin instruction versus children who completed an identical duration of painting classes. While both groups scored identically on baseline non-auditory visual puzzle tests, the violin group demonstrated significantly higher accuracy in distinguishing subtle pitch inflections in unfamiliar tonal foreign languages. Because musical pitch processing and linguistic pitch processing share overlapping neural circuits in Heschl's gyrus, the researchers concluded that _______",
         question: "Which choice most logically completes the text?",
         choices: [
@@ -2742,11 +3759,20 @@ const ACADEMY_CONTENT = {
           C: "Too Extreme",
           D: "Opposite"
         },
-        explanation: "Choice A is correct. The text shows violin training improved tonal foreign language pitch discrimination and notes that music and language pitch share brain circuits in Heschl's gyrus, forcing the conclusion that musical training produces cross-domain benefits for linguistic perception. Choices B, C, and D are opposite or extreme.",
+        explanation: {
+          correctBridge: "Choice A is correct. Violin instruction improved foreign language pitch discrimination due to shared neural circuits in Heschl's gyrus, logically establishing that instrumental training produces cross-domain benefits for linguistic perception.",
+          choiceBreakdown: {
+            A: "Correct Answer: Accurately concludes that musical training provides cross-domain benefits to linguistic auditory perception.",
+            B: "Opposite / Extreme Trap: Painting did not destroy speech discrimination.",
+            C: "Too Extreme Trap: Scoring 100% on all tests is an absurd exaggeration.",
+            D: "Opposite Trap: The passage proved musical training transferred directly to foreign language pitch perception."
+          },
+          keyTakeaway: "Shared neural pathways between two skills infer cross-domain cognitive transfer from one skill to the other."
+        },
         glosses: {
-          "phoneme": "any of the perceptually distinct units of sound in a specified language that distinguish one word from another",
-          "inflections": "changes in the pitch or tone of the voice",
-          "Heschl's gyrus": "the area of the primary auditory cortex located in the superior temporal gyrus of the brain"
+          "phoneme": "(noun) a distinct unit of sound in a specified language",
+          "inflections": "(noun) subtle changes in pitch or tone of voice",
+          "Heschl's gyrus": "(noun) the primary auditory cortex region in the human brain"
         }
       }
     ],
