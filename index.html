@@ -32,7 +32,10 @@
       </nav>
 
       <div class="header-controls">
-        <button id="teacher-mode-btn" class="control-btn" title="Toggle Teacher Mode (Shortcut: T)" onclick="App.toggleTeacherMode()">
+        <button id="turkish-guide-btn" class="control-btn" title="Türkçe SAT Sözlüğü ve Strateji Rehberi (Kısayol: T)" onclick="App.openTurkishModal()">
+          <span>🇹🇷</span> Türkçe Destek <kbd>T</kbd>
+        </button>
+        <button id="teacher-mode-btn" class="control-btn" title="Toggle Teacher Mode (Shortcut: Shift+T)" onclick="App.toggleTeacherMode()">
           <span>👩‍🏫</span> Teacher Mode: <strong>OFF</strong>
         </button>
         <button id="esl-toggle-btn" class="control-btn active" title="Toggle ESL vocabulary glosses" onclick="App.toggleEsl()">
@@ -199,6 +202,41 @@
       <div class="modal-footer">
         <span class="modal-shortcut-tip">Press <kbd>M</kbd> or <kbd>Esc</kbd> to dismiss this card.</span>
         <button class="btn btn-primary" onclick="App.closeMethodModal()">Return to Practice</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       TURKISH SAT VOCABULARY & STRATEGY MODAL (KEY: T)
+       ========================================================================= -->
+  <div id="turkish-modal" class="modal-overlay" onclick="if(event.target === this) App.closeTurkishModal()">
+    <div class="modal-dialog modal-turkish-card animate-slide-up">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">🇹🇷</span>
+          <div>
+            <h3 id="turkish-modal-title">Türkçe SAT Kelime & Strateji Rehberi</h3>
+            <span class="modal-subtitle">Digital SAT Reading için Özel Türkçe Sözlük, Bağlaçlar ve Yalancı Eşdeğerler</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="App.closeTurkishModal()">✕</button>
+      </div>
+
+      <!-- Turkish Modal Tabs -->
+      <div class="turkish-modal-tabs">
+        <button class="turkish-tab-btn active" onclick="App.switchTurkishTab('vocab')">📖 En Sık Çıkan 100 Kelime</button>
+        <button class="turkish-tab-btn" onclick="App.switchTurkishTab('falseFriends')">⚠️ Yalancı Eşdeğerler (Tuzaklar)</button>
+        <button class="turkish-tab-btn" onclick="App.switchTurkishTab('transitions')">🔄 Bağlaçlar & Geçişler</button>
+        <button class="turkish-tab-btn" onclick="App.switchTurkishTab('stems')">🎯 Soru Kökleri Kılavuzu</button>
+      </div>
+
+      <div id="turkish-modal-body" class="modal-body turkish-modal-body-scroll">
+        <!-- Rendered dynamically by App.renderTurkishModalContent -->
+      </div>
+
+      <div class="modal-footer">
+        <span class="modal-shortcut-tip">Kapatmak için <kbd>T</kbd> veya <kbd>Esc</kbd> tuşuna basın.</span>
+        <button class="btn btn-primary" onclick="App.closeTurkishModal()">Alıştırmaya Dön</button>
       </div>
     </div>
   </div>

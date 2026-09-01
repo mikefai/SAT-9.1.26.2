@@ -227,6 +227,47 @@ const Engine = (function() {
         ${pacingHTML}
         ${pitfallsHTML}
 
+        ${skillData.turkishScaffold ? `
+          <div class="turkish-scaffold-card animate-fade-in">
+            <div class="turkish-card-header">
+              <div class="turkish-flag-title">
+                <span class="tr-flag-icon">🇹🇷</span>
+                <h3>${skillData.turkishScaffold.title || "Türk Öğrenciler İçin Kritik Sınav & Kelime Stratejisi"}</h3>
+              </div>
+              <button class="turkish-open-vault-btn" onclick="App.openTurkishModal('vocab')">
+                📖 Türkçe SAT Sözlüğünü Aç
+              </button>
+            </div>
+            <div class="turkish-card-body">
+              <p class="turkish-strategy-tip">${skillData.turkishScaffold.strategyNote}</p>
+
+              ${skillData.turkishScaffold.falseFriends && skillData.turkishScaffold.falseFriends.length > 0 ? `
+                <div class="turkish-trap-box">
+                  <span class="trap-box-label">⚠️ Sık Yapılan Anlam Hataları (False Friends & Tuzaklar):</span>
+                  <ul class="turkish-trap-list">
+                    ${skillData.turkishScaffold.falseFriends.map(f => `
+                      <li><strong>${f.word}:</strong> Türkçedeki <em>"${f.wrongConcept}"</em> değil; SAT'deki asıl anlamı: <strong>${f.correctConcept}</strong>.</li>
+                    `).join('')}
+                  </ul>
+                </div>
+              ` : ""}
+
+              ${skillData.turkishScaffold.keyVocab && skillData.turkishScaffold.keyVocab.length > 0 ? `
+                <div class="turkish-vocab-pills">
+                  <span class="vocab-pills-label">📌 Bu Modülde En Çok Çıkan Kelimeler:</span>
+                  <div class="pills-grid">
+                    ${skillData.turkishScaffold.keyVocab.map(v => `
+                      <div class="tr-vocab-pill">
+                        <strong>${v.word}</strong> <span class="tr-pos">(${v.pos})</span>: <span>${v.tr}</span>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              ` : ""}
+            </div>
+          </div>
+        ` : ""}
+
         ${skillData.eslNote ? `
           <div class="esl-scaffold-banner">
             <span class="esl-badge">ESL / Academic English Scaffold</span>
@@ -1075,7 +1116,7 @@ const Engine = (function() {
   }
 
   /**
-   * Injects interactive ESL gloss popovers into passage text
+   * Injects interactive ESL gloss popovers with bilingual English & Turkish translations into passage text
    */
   function injectGlosses(text, glosses) {
     if (!glosses || Object.keys(glosses).length === 0) return text;
@@ -1085,7 +1126,21 @@ const Engine = (function() {
       const escaped = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
       const regex = new RegExp(`\\b(${escaped})\\b`, 'gi');
       processed = processed.replace(regex, (match) => {
-        return `<span class="esl-gloss-term" tabindex="0" data-gloss="${def}">${match}<span class="esl-gloss-popover">${def}</span></span>`;
+        let enDef = def;
+        let trDef = "";
+        if (def.includes("• 🇹🇷") || def.includes("🇹🇷")) {
+          const parts = def.split(/•\s*🇹🇷|🇹🇷/);
+          enDef = parts[0].trim();
+          trDef = parts[1]?.trim() || "";
+        }
+
+        const popoverHTML = `
+          <span class="esl-gloss-popover">
+            <span class="gloss-en-part">${enDef}</span>
+            ${trDef ? `<span class="gloss-tr-part"><span class="tr-flag">🇹🇷</span> <strong>Türkçe:</strong> ${trDef}</span>` : ""}
+          </span>
+        `;
+        return `<span class="esl-gloss-term" tabindex="0" data-gloss="${def}">${match}${popoverHTML}</span>`;
       });
     });
 

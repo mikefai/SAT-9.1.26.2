@@ -425,11 +425,192 @@ const App = (function() {
   }
 
   /**
+   * Turkish SAT Guide & Vocabulary Modal Handling (🇹🇷)
+   */
+  let currentTurkishTab = "vocab";
+
+  function openTurkishModal(tab = "vocab") {
+    const modal = document.getElementById("turkish-modal");
+    if (modal) {
+      modal.classList.add("open");
+      switchTurkishTab(tab);
+    }
+  }
+
+  function closeTurkishModal() {
+    const modal = document.getElementById("turkish-modal");
+    if (modal) modal.classList.remove("open");
+  }
+
+  function switchTurkishTab(tabName) {
+    currentTurkishTab = tabName;
+    const tabBtns = document.querySelectorAll(".turkish-tab-btn");
+    tabBtns.forEach(btn => {
+      if (btn.getAttribute("onclick")?.includes(tabName)) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+
+    renderTurkishModalContent(tabName);
+  }
+
+  function renderTurkishModalContent(tabName, query = "") {
+    const bodyEl = document.getElementById("turkish-modal-body");
+    if (!bodyEl || !TURKISH_SAT_VOCAB_VAULT) return;
+
+    if (tabName === "vocab") {
+      const allWords = TURKISH_SAT_VOCAB_VAULT.top100Vocab || [];
+      const filtered = query.trim() === "" ? allWords : allWords.filter(w => 
+        w.word.toLowerCase().includes(query.toLowerCase()) || 
+        w.tr.toLowerCase().includes(query.toLowerCase()) ||
+        w.en.toLowerCase().includes(query.toLowerCase())
+      );
+
+      bodyEl.innerHTML = `
+        <div class="turkish-tab-content">
+          <div class="turkish-search-bar">
+            <span>🔍</span>
+            <input type="text" id="turkish-vocab-search" placeholder="Kelime veya Türkçe anlam ara (örn. qualify, alleviate, zayıflatmak)..." value="${query}" oninput="App.filterTurkishVocab(this.value)" autofocus />
+            <span class="vocab-count-badge">${filtered.length} kelime</span>
+          </div>
+
+          <div class="turkish-vocab-grid">
+            ${filtered.map(item => `
+              <div class="tr-vocab-card">
+                <div class="tr-vocab-header">
+                  <span class="tr-word-text">${item.word}</span>
+                  <span class="tr-pos-tag">${item.pos}</span>
+                </div>
+                <div class="tr-meaning-line">
+                  <span class="tr-flag-bullet">🇹🇷</span>
+                  <strong class="tr-translation">${item.tr}</strong>
+                </div>
+                <p class="tr-en-definition">${item.en}</p>
+                <div class="tr-sat-tip">
+                  <span class="tip-spark">💡 SAT İpucu:</span> ${item.satTip}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    } else if (tabName === "falseFriends") {
+      const falseFriends = TURKISH_SAT_VOCAB_VAULT.falseFriends || [];
+      bodyEl.innerHTML = `
+        <div class="turkish-tab-content">
+          <div class="turkish-info-intro">
+            <h4>⚠️ Yalancı Eşdeğerler (False Friends) ve SAT İkincil Anlamları</h4>
+            <p>Türk öğrencilerin en sık yanıldığı kelimeler, Türkçedeki benzer sesli karşılığıyla karıştırılan veya sözlükteki ilk anlamı yerine <strong>akademik ikincil anlamı</strong> test edilen kelimelerdir.</p>
+          </div>
+
+          <div class="false-friends-list">
+            ${falseFriends.map(ff => `
+              <div class="false-friend-card">
+                <div class="ff-card-header">
+                  <span class="ff-word">${ff.word}</span>
+                  <span class="ff-trap-tag">🚨 Tuzak Uyarısı</span>
+                </div>
+                <div class="ff-comparison-grid">
+                  <div class="ff-wrong-box">
+                    <span class="ff-box-label">❌ Yanıltıcı / İlk Akla Gelen Anlam:</span>
+                    <p>${ff.wrongTurkishThinking}</p>
+                  </div>
+                  <div class="ff-correct-box">
+                    <span class="ff-box-label">✓ SAT'deki Gerçek Akademik Anlamı:</span>
+                    <p><strong>${ff.satRealMeaning}</strong></p>
+                  </div>
+                </div>
+                <div class="ff-example-box">
+                  <strong>Örnek Cümle:</strong> <em>${ff.example}</em>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    } else if (tabName === "transitions") {
+      const transitions = TURKISH_SAT_VOCAB_VAULT.transitions || [];
+      bodyEl.innerHTML = `
+        <div class="turkish-tab-content">
+          <div class="turkish-info-intro">
+            <h4>🔄 Digital SAT Bağlaçlar & Geçiş İfadeleri Tablosu</h4>
+            <p>SAT Reading sorularının %80'inde yazarın asıl iddiası bağlaçların (pivot words) hemen arkasından gelir. Bu bağlaçları tanımak soru çözüm hızınızı ikiye katlar.</p>
+          </div>
+
+          <div class="transitions-group-list">
+            ${transitions.map(grp => `
+              <div class="transition-category-card">
+                <div class="transition-cat-header">
+                  <h4>${grp.category}</h4>
+                  <span class="cat-role-badge">${grp.role}</span>
+                </div>
+                <div class="transition-table-wrap">
+                  <table class="transition-tr-table">
+                    <thead>
+                      <tr>
+                        <th>İngilizce Bağlaç</th>
+                        <th>Türkçe Anlamı</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${grp.words.map(w => `
+                        <tr>
+                          <td><strong>${w.en}</strong></td>
+                          <td>${w.tr}</td>
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    } else if (tabName === "stems") {
+      const stems = TURKISH_SAT_VOCAB_VAULT.questionStems || [];
+      bodyEl.innerHTML = `
+        <div class="turkish-tab-content">
+          <div class="turkish-info-intro">
+            <h4>🎯 Soru Kökleri & Komutlar Kılavuzu (Ne İsteniyor?)</h4>
+            <p>Soru kökünü doğru anlamak, seçeneklerde hangi tuzağın kurulduğunu önceden tahmin etmenizi sağlar.</p>
+          </div>
+
+          <div class="stems-list">
+            ${stems.map(st => `
+              <div class="stem-guide-card">
+                <div class="stem-en-box">
+                  <span class="stem-tag">Soru Kökü (EN):</span>
+                  <h5>“${st.stemEn}”</h5>
+                </div>
+                <div class="stem-tr-box">
+                  <span class="stem-tag">Türkçe Çevirisi:</span>
+                  <p><strong>${st.stemTr}</strong></p>
+                </div>
+                <div class="stem-strategy-box">
+                  <span class="strategy-tag">💡 Ne Yapmalısınız (Strateji):</span>
+                  <p>${st.strategyTr}</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  function filterTurkishVocab(query) {
+    renderTurkishModalContent("vocab", query);
+  }
+
+  /**
    * Keyboard Shortcuts Handler
    */
   function setupKeyboardListeners() {
     window.addEventListener("keydown", (e) => {
-      // Don't intercept if user is typing in a textarea or text input
+      // Don't intercept if user is typing in an input or textarea
       if (["INPUT", "TEXTAREA"].includes(e.target.tagName)) return;
 
       const key = e.key;
@@ -444,8 +625,16 @@ const App = (function() {
         }
       } else if (key === "Escape") {
         closeMethodModal();
-      } else if (key === "t" || key === "T") {
+        closeTurkishModal();
+      } else if ((key === "t" || key === "T") && e.shiftKey) {
         toggleTeacherMode();
+      } else if (key === "t" || key === "T") {
+        const trModal = document.getElementById("turkish-modal");
+        if (trModal && trModal.classList.contains("open")) {
+          closeTurkishModal();
+        } else {
+          openTurkishModal();
+        }
       }
     });
   }
@@ -461,6 +650,10 @@ const App = (function() {
     navigateToStage,
     openMethodModal,
     closeMethodModal,
+    openTurkishModal,
+    closeTurkishModal,
+    switchTurkishTab,
+    filterTurkishVocab,
     exportDataFile,
     triggerImportDialog,
     confirmResetProgress
@@ -469,3 +662,4 @@ const App = (function() {
 
 // Bootstrap on DOM readiness
 document.addEventListener("DOMContentLoaded", App.init);
+
