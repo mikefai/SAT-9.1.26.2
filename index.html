@@ -3,35 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SAT Reading Skills Academy — Master Digital SAT Reading</title>
+  <title>SAT Reading & Writing Skills Academy — Digital SAT Metacognitive Mastery Platform</title>
+  <meta name="description" content="Offline-first mastery learning web application teaching every Digital SAT Reading & Writing question type, grammar conventions, daily vocabulary, error log, and student study tools." />
+  
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/responsive.css" />
 </head>
 <body class="esl-enabled">
 
   <!-- =========================================================================
-       APP HEADER & NAVIGATION
+       APPLICATION HEADER
        ========================================================================= -->
   <header class="app-header">
-    <div class="header-container">
-      <div class="header-brand" onclick="App.navigateToSkillMap()">
-        <span class="brand-icon">🏛️</span>
+    <div class="header-inner">
+      <div class="brand-block" onclick="App.navigateToSkillMap()">
+        <span class="brand-icon">🎓</span>
         <div class="brand-text">
-          <h1 class="brand-title">SAT Reading Skills Academy</h1>
-          <span class="brand-tagline">Metacognition & Strategy for Digital SAT Reading</span>
+          <h1 class="brand-title">SAT Skills Academy</h1>
+          <span class="brand-tagline">Reading, Grammar & Strategy for Digital SAT</span>
         </div>
       </div>
 
       <nav class="header-nav">
         <button id="nav-link-map" class="nav-link active" onclick="App.navigateToSkillMap()">
-          <span>🗺️</span> Skill Map
+          <span>🗺️</span> Reading Skills
+        </button>
+        <button id="nav-link-grammar" class="nav-link" onclick="App.navigateToGrammarHome()">
+          <span>✍️</span> Grammar Academy <kbd>G</kbd>
+        </button>
+        <button id="nav-link-vocab" class="nav-link" onclick="App.navigateToDailyVocab(1)">
+          <span>📅</span> Daily Vocab <kbd>V</kbd>
+        </button>
+        <button id="nav-link-error-log" class="nav-link" onclick="App.navigateToErrorLog()">
+          <span>📓</span> Hata Defteri <kbd>E</kbd>
         </button>
         <button id="nav-link-dashboard" class="nav-link" onclick="App.navigateToDashboard()">
-          <span>📊</span> Analytics & Mastery
+          <span>📊</span> Analytics
         </button>
       </nav>
 
       <div class="header-controls">
+        <button id="notepad-toggle-btn" class="control-btn" title="Not Defterini Aç / Kapat (Kısayol: N)" onclick="StudentTools.toggleNotepadDrawer()">
+          <span>📝</span> Notlarım <kbd>N</kbd>
+        </button>
         <button id="turkish-guide-btn" class="control-btn" title="Türkçe SAT Sözlüğü ve Strateji Rehberi (Kısayol: T)" onclick="App.openTurkishModal()">
           <span>🇹🇷</span> Türkçe Destek <kbd>T</kbd>
         </button>
@@ -73,11 +87,11 @@
        ========================================================================= -->
   <main class="app-main">
 
-    <!-- VIEW 1: SKILL MAP (HOME) -->
+    <!-- VIEW 1: SKILL MAP (READING HOME) -->
     <section id="skill-map-view" class="view-section animate-fade-in">
       <div class="view-header">
         <div class="view-title-group">
-          <h2>Mastery Curriculum Map</h2>
+          <h2>Mastery Curriculum Map (Reading)</h2>
           <p class="view-description">Master all 6 Digital SAT Reading question types plus core foundational habits. Achieve ≥80% on independent practice with ≤1 hint to unlock Mastered status.</p>
         </div>
       </div>
@@ -89,8 +103,7 @@
       <div id="modules-grid" class="modules-grid"></div>
     </section>
 
-
-    <!-- VIEW 2: MODULE ENGINE (STAGES 1 - 6) -->
+    <!-- VIEW 2: MODULE ENGINE (READING STAGES 1 - 6) -->
     <section id="module-view" class="view-section" style="display: none;">
       <!-- Module Header & Method Trigger -->
       <div class="module-header-bar">
@@ -115,66 +128,79 @@
       <div id="stage-canvas" class="stage-canvas-area"></div>
     </section>
 
+    <!-- VIEW 3: GRAMMAR ACADEMY (STANDARD ENGLISH CONVENTIONS) -->
+    <section id="grammar-view" class="view-section" style="display: none;">
+      <div class="app-container" id="grammar-canvas"></div>
+    </section>
 
-    <!-- VIEW 3: ANALYTICS & DIAGNOSTIC DASHBOARD -->
+    <!-- VIEW 4: 30-DAY DAILY VOCABULARY & DRILLS -->
+    <section id="vocab-daily-view" class="view-section" style="display: none;">
+      <div class="app-container" id="vocab-canvas"></div>
+    </section>
+
+    <!-- VIEW 5: AUTOMATIC ERROR LOG (HATA DEFTERİ) -->
+    <section id="error-log-view" class="view-section" style="display: none;">
+      <div class="app-container" id="error-log-canvas"></div>
+    </section>
+
+    <!-- VIEW 6: ANALYTICS & DIAGNOSTIC DASHBOARD -->
     <section id="dashboard-view" class="view-section" style="display: none;">
       <div class="view-header">
         <div class="view-title-group">
-          <h2>Metacognitive Diagnostic Dashboard</h2>
-          <p class="view-description">Track question-type accuracy, hint dependency, and your personal distractor trap vulnerability profile.</p>
+          <h2>Mastery Analytics & Error Diagnostics</h2>
+          <p class="view-description">Deep diagnostic inspection into student error patterns, distractor trap vulnerabilities, and readiness scores.</p>
         </div>
       </div>
 
-      <!-- Top Dashboard Grid: Radial Gauge + AI Coaching Recommendation -->
-      <div class="dashboard-hero-grid">
-        <div class="dashboard-card gauge-card">
-          <h3>Overall Mastery Progress</h3>
+      <!-- Hero Recommendation Callout -->
+      <div id="analytics-coaching-rec" class="coaching-callout-card animate-fade-in"></div>
+
+      <!-- Visual Charts Layout Grid -->
+      <div class="analytics-charts-grid">
+        <div class="chart-panel-card animate-fade-in">
+          <div class="chart-panel-header">
+            <h3>Overall Academy Mastery</h3>
+            <span class="chart-subtitle">Threshold: 80% independent accuracy</span>
+          </div>
           <div id="analytics-radial-gauge" class="gauge-wrapper"></div>
-          <p class="gauge-subcaption">Calculated from 80%+ independent mastery threshold.</p>
         </div>
 
-        <div class="dashboard-card coaching-card-wrapper" id="analytics-coaching-rec">
-          <!-- Populated by JS -->
+        <div class="chart-panel-card animate-fade-in">
+          <div class="chart-panel-header">
+            <h3>Trap Vulnerability Distribution</h3>
+            <span class="chart-subtitle">Breakdown of distractor flaws selected</span>
+          </div>
+          <div id="analytics-donut-container" class="donut-wrapper"></div>
         </div>
       </div>
 
-      <!-- Mid Dashboard Grid: Accuracy Bar Chart + Distractor Trap Donut Chart -->
-      <div class="dashboard-charts-grid">
-        <div class="dashboard-card">
-          <div class="card-header-with-tag">
-            <h3>Question-Type Accuracy Breakdown</h3>
-            <span class="subtag">Independent Exam Pace</span>
-          </div>
-          <div id="analytics-barchart-container" class="chart-container"></div>
+      <!-- Accuracy by Skill Bar Chart -->
+      <div class="chart-panel-card full-width animate-fade-in">
+        <div class="chart-panel-header">
+          <h3>Independent Practice Accuracy by Question Type</h3>
+          <span class="chart-subtitle">Direct performance in timed exam conditions</span>
         </div>
-
-        <div class="dashboard-card">
-          <div class="card-header-with-tag">
-            <h3>Trap Type Vulnerability Profile</h3>
-            <span class="subtag">Distractors You Fall For</span>
-          </div>
-          <div id="analytics-donut-container" class="chart-container"></div>
-        </div>
+        <div id="analytics-barchart-container" class="barchart-wrapper"></div>
       </div>
 
       <!-- Detailed Breakdown Table -->
-      <div class="dashboard-card table-card">
-        <h3>Comprehensive Skill Progress Matrix</h3>
+      <div class="chart-panel-card full-width animate-fade-in">
+        <div class="chart-panel-header">
+          <h3>Curricular Module Breakdown</h3>
+        </div>
         <div class="table-responsive">
-          <table class="sat-matrix-table">
+          <table class="analytics-table">
             <thead>
               <tr>
-                <th>Skill / Question Type</th>
-                <th>Mastery Status</th>
-                <th>Guided Accuracy</th>
-                <th>Avg Hints Used</th>
+                <th>Module / Skill</th>
+                <th>Status</th>
+                <th>Stages Done</th>
+                <th>Guided Items (Hints)</th>
                 <th>Independent Accuracy</th>
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody id="analytics-table-body">
-              <!-- Populated by JS -->
-            </tbody>
+            <tbody id="analytics-table-body"></tbody>
           </table>
         </div>
       </div>
@@ -183,63 +209,69 @@
   </main>
 
   <!-- =========================================================================
-       PERSISTENT METHOD CARD MODAL / DRAWER (KEY: M)
+       STRATEGY METHOD CARD MODAL DRAWER
        ========================================================================= -->
-  <div id="method-modal" class="modal-overlay" onclick="if(event.target === this) App.closeMethodModal()">
-    <div class="modal-dialog modal-method-card animate-slide-up">
+  <div id="method-modal" class="modal-backdrop" onclick="if(event.target === this) App.closeMethodModal()">
+    <div class="modal-card">
       <div class="modal-header">
         <div class="modal-title-wrap">
           <span class="modal-icon">📜</span>
-          <h3 id="method-modal-title">Method Strategy Reference Card</h3>
+          <h3 id="modal-method-title">Method Strategy Card</h3>
         </div>
-        <button class="modal-close-btn" onclick="App.closeMethodModal()">✕</button>
+        <button class="modal-close-btn" onclick="App.closeMethodModal()" title="Close Strategy Card (Esc)">✕</button>
       </div>
-
-      <div id="method-modal-body" class="modal-body method-steps-flow">
-        <!-- Injected by Engine -->
-      </div>
-
+      <div id="modal-method-body" class="modal-body-scroll"></div>
       <div class="modal-footer">
-        <span class="modal-shortcut-tip">Press <kbd>M</kbd> or <kbd>Esc</kbd> to dismiss this card.</span>
-        <button class="btn btn-primary" onclick="App.closeMethodModal()">Return to Practice</button>
+        <button class="btn btn-primary" onclick="App.closeMethodModal()">Close Card</button>
       </div>
     </div>
   </div>
 
   <!-- =========================================================================
-       TURKISH SAT VOCABULARY & STRATEGY MODAL (KEY: T)
+       TURKISH SAT VOCABULARY & STRATEGY GUIDE MODAL (🇹🇷)
        ========================================================================= -->
-  <div id="turkish-modal" class="modal-overlay" onclick="if(event.target === this) App.closeTurkishModal()">
-    <div class="modal-dialog modal-turkish-card animate-slide-up">
+  <div id="turkish-modal" class="modal-backdrop" onclick="if(event.target === this) App.closeTurkishModal()">
+    <div class="modal-card modal-turkish-card">
       <div class="modal-header">
         <div class="modal-title-wrap">
           <span class="modal-icon">🇹🇷</span>
-          <div>
-            <h3 id="turkish-modal-title">Türkçe SAT Kelime & Strateji Rehberi</h3>
-            <span class="modal-subtitle">Digital SAT Reading için Özel Türkçe Sözlük, Bağlaçlar ve Yalancı Eşdeğerler</span>
-          </div>
+          <h3 id="modal-turkish-title">Türk Öğrenciler İçin SAT Kelime & Strateji Kılavuzu</h3>
         </div>
-        <button class="modal-close-btn" onclick="App.closeTurkishModal()">✕</button>
+        <button class="modal-close-btn" onclick="App.closeTurkishModal()" title="Kapat (Esc)">✕</button>
       </div>
-
-      <!-- Turkish Modal Tabs -->
+      
       <div class="turkish-modal-tabs">
-        <button class="turkish-tab-btn active" onclick="App.switchTurkishTab('vocab')">📖 En Sık Çıkan 100 Kelime</button>
-        <button class="turkish-tab-btn" onclick="App.switchTurkishTab('falseFriends')">⚠️ Yalancı Eşdeğerler (Tuzaklar)</button>
-        <button class="turkish-tab-btn" onclick="App.switchTurkishTab('transitions')">🔄 Bağlaçlar & Geçişler</button>
-        <button class="turkish-tab-btn" onclick="App.switchTurkishTab('stems')">🎯 Soru Kökleri Kılavuzu</button>
+        <button class="turkish-tab-btn active" data-tab="vocab" onclick="App.switchTurkishTab('vocab')">📖 En Sık Çıkan 100 Kelime</button>
+        <button class="turkish-tab-btn" data-tab="false_friends" onclick="App.switchTurkishTab('false_friends')">⚠️ Yalancı Eşdeğerler (Tuzaklar)</button>
+        <button class="turkish-tab-btn" data-tab="transitions" onclick="App.switchTurkishTab('transitions')">🔄 Bağlaçlar & Geçişler</button>
+        <button class="turkish-tab-btn" data-tab="stems" onclick="App.switchTurkishTab('stems')">🎯 Soru Kökleri Kılavuzu</button>
       </div>
 
-      <div id="turkish-modal-body" class="modal-body turkish-modal-body-scroll">
-        <!-- Rendered dynamically by App.renderTurkishModalContent -->
-      </div>
+      <div id="turkish-modal-body" class="turkish-modal-body-scroll"></div>
 
       <div class="modal-footer">
-        <span class="modal-shortcut-tip">Kapatmak için <kbd>T</kbd> veya <kbd>Esc</kbd> tuşuna basın.</span>
-        <button class="btn btn-primary" onclick="App.closeTurkishModal()">Alıştırmaya Dön</button>
+        <button class="btn btn-primary" onclick="App.closeTurkishModal()">Rehberi Kapat</button>
       </div>
     </div>
   </div>
+
+  <!-- Hidden file input for JSON import -->
+  <input type="file" id="import-file-input" accept=".json" style="display: none;" onchange="
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const res = StorageManager.importData(e.target.result);
+        if (res.success) {
+          alert('Progress imported successfully!');
+          window.location.reload();
+        } else {
+          alert('Import failed: ' + res.error);
+        }
+      };
+      reader.readAsText(file);
+    }
+  " />
 
   <!-- Close dropdowns when clicking outside -->
   <script>
@@ -255,6 +287,7 @@
   <script src="js/config.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/content.js"></script>
+  <script src="js/student_tools.js"></script>
   <script src="js/analytics.js"></script>
   <script src="js/engine.js"></script>
   <script src="js/app.js"></script>

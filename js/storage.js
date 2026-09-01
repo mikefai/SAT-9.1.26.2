@@ -1,11 +1,12 @@
 /**
  * SAT READING SKILLS ACADEMY - Local Storage Manager
- * Zero network dependencies. Handles state persistence, schema migrations, import/export.
+ * Zero network dependencies. Handles state persistence, schema migrations,
+ * automatic mistake error logging, student notes, annotations, grammar & daily vocab.
  */
 
 const StorageManager = (function() {
   const STORAGE_KEY = CONFIG.STORAGE_KEY;
-  const CURRENT_SCHEMA_VERSION = 1;
+  const CURRENT_SCHEMA_VERSION = 2;
 
   /**
    * Generates a fresh default state object
@@ -17,10 +18,16 @@ const StorageManager = (function() {
       lastActiveAt: new Date().toISOString(),
       theme: CONFIG.THEME_DEFAULT,
       eslSupport: CONFIG.ESL_SUPPORT_DEFAULT,
+      turkishSupport: true,
       teacherMode: false,
       activeModuleId: "MOD-0",
       activeStageNumber: 1,
       modules: {},
+      grammar: {},
+      errorLog: [], // Automatic Error Log for mistakes
+      studentNotes: {}, // Scratchpad and reflections
+      textAnnotations: {}, // Highlighting and underlining per passage
+      dailyVocabProgress: {}, // 30-day vocabulary progress
       trapErrors: {
         "Too Extreme": 0,
         "Half Right": 0,
@@ -34,10 +41,13 @@ const StorageManager = (function() {
         totalCorrect: 0,
         totalHintsUsed: 0,
         guidedCompletedCount: 0,
-        independentCompletedCount: 0
+        independentCompletedCount: 0,
+        grammarCompletedCount: 0,
+        vocabCompletedCount: 0
       }
     };
 
+    // Reading Modules init
     MODULES_CONFIG.forEach(mod => {
       defaultState.modules[mod.id] = {
         id: mod.id,
@@ -62,6 +72,19 @@ const StorageManager = (function() {
       };
     });
 
+    // Grammar Modules init
+    if (typeof GRAMMAR_MODULES_CONFIG !== "undefined") {
+      GRAMMAR_MODULES_CONFIG.forEach(gmod => {
+        defaultState.grammar[gmod.id] = {
+          id: gmod.id,
+          status: CONFIG.STATUS_LABELS.NOT_STARTED,
+          completedCount: 0,
+          correctCount: 0,
+          items: {}
+        };
+      });
+    }
+
     return defaultState;
   }
 
@@ -77,47 +100,29 @@ const StorageManager = (function() {
         return fresh;
       }
       const parsed = JSON.parse(serialized);
-
-      // Verify schema version
-      if (!parsed.schemaVersion || parsed.schemaVersion !== CURRENT_SCHEMA_VERSION) {
-        console.warn("Upgrading storage schema to version", CURRENT_SCHEMA_VERSION);
-        parsed.schemaVersion = CURRENT_SCHEMA_VERSION;
-      }
-
-      // Ensure all modules exist in stored state
-      MODULES_CONFIG.forEach(mod => {
-        if (!parsed.modules[mod.id]) {
-          parsed.modules[mod.id] = {
-            id: mod.id,
-            status: CONFIG.STATUS_LABELS.NOT_STARTED,
-            stagesCompleted: [],
-            workedExamplesViewed: [],
-            trapLab: { completed: false, attempts: {} },
-            guided: { items: {}, hintsUsedTotal: 0, completedCount: 0 },
-            independent: { items: {}, completedCount: 0, correctCount: 0 },
-            selfAssessment: null
-          };
-        }
-      });
-
+      // Ensure missing schema fields are initialized
+      if (!parsed.errorLog) parsed.errorLog = [];
+      if (!parsed.studentNotes) parsed.studentNotes = {};
+      if (!parsed.textAnnotations) parsed.textAnnotations = {};
+      if (!parsed.dailyVocabProgress) parsed.dailyVocabProgress = {};
+      if (!parsed.grammar) parsed.grammar = {};
+      if (parsed.turkishSupport === undefined) parsed.turkishSupport = true;
       return parsed;
-    } catch (err) {
-      console.error("Storage access error, falling back to in-memory state:", err);
+    } catch (e) {
+      console.error("Failed to parse LocalStorage state:", e);
       return createDefaultState();
     }
   }
 
   /**
-   * Commits the entire state object to localStorage
+   * Commits the updated state to localStorage
    */
   function saveState(state) {
     try {
       state.lastActiveAt = new Date().toISOString();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      return true;
-    } catch (err) {
-      console.error("Failed to save state to localStorage:", err);
-      return false;
+    } catch (e) {
+      console.error("Failed to save to LocalStorage:", e);
     }
   }
 
@@ -130,7 +135,7 @@ const StorageManager = (function() {
   }
 
   /**
-   * Marks a stage as completed and updates module status
+   * Marks a stage complete for a module
    */
   function markStageComplete(moduleId, stageNumber) {
     const state = getState();
@@ -140,162 +145,123 @@ const StorageManager = (function() {
     if (!mod.stagesCompleted.includes(stageNumber)) {
       mod.stagesCompleted.push(stageNumber);
     }
-
-    if (mod.status === CONFIG.STATUS_LABELS.NOT_STARTED) {
-      mod.status = CONFIG.STATUS_LABELS.LEARNING;
-    }
-
-    if (mod.stagesCompleted.includes(5) || mod.stagesCompleted.includes(6)) {
-      mod.status = CONFIG.STATUS_LABELS.PRACTICING;
-    }
-
-    recalculateMastery(moduleId, state);
+    updateModuleStatus(mod);
     saveState(state);
   }
 
   /**
-   * Records a user's answer on Guided Practice (Stage 5)
+   * Records a Guided Practice attempt
    */
   function recordGuidedAnswer(moduleId, itemId, selectedChoice, isCorrect, hintsUsed) {
     const state = getState();
     const mod = state.modules[moduleId];
     if (!mod) return;
 
-    const previousItem = mod.guided.items[itemId];
-    const isFirstTime = !previousItem;
-
     mod.guided.items[itemId] = {
-      itemId,
       selected: selectedChoice,
-      isCorrect,
-      hintsUsed,
+      isCorrect: isCorrect,
+      hintsUsed: hintsUsed,
       timestamp: new Date().toISOString()
     };
 
-    // Update aggregate stats
-    if (isFirstTime) {
-      state.stats.totalQuestionsAttempted += 1;
-      if (isCorrect) state.stats.totalCorrect += 1;
-      state.stats.totalHintsUsed += hintsUsed;
-      state.stats.guidedCompletedCount += 1;
-    }
+    mod.guided.completedCount = Object.keys(mod.guided.items).length;
+    mod.guided.hintsUsedTotal = Object.values(mod.guided.items).reduce((acc, curr) => acc + curr.hintsUsed, 0);
 
-    // Recalculate module hint total
-    let hintSum = 0;
-    let guidedCount = 0;
-    Object.values(mod.guided.items).forEach(item => {
-      hintSum += (item.hintsUsed || 0);
-      guidedCount++;
-    });
-    mod.guided.hintsUsedTotal = hintSum;
-    mod.guided.completedCount = guidedCount;
+    state.stats.totalQuestionsAttempted++;
+    if (isCorrect) state.stats.totalCorrect++;
+    state.stats.totalHintsUsed += hintsUsed;
 
-    recalculateMastery(moduleId, state);
+    updateModuleStatus(mod);
     saveState(state);
   }
 
   /**
-   * Records a user's answer on Independent Practice (Stage 6)
+   * Records an Independent Practice attempt
    */
-  function recordIndependentAnswer(moduleId, itemId, selectedChoice, isCorrect, timeSpentSec, trapTypeHit) {
+  function recordIndependentAnswer(moduleId, itemId, selectedChoice, isCorrect, timeSpentSeconds, trapHit) {
     const state = getState();
     const mod = state.modules[moduleId];
     if (!mod) return;
 
-    const isFirstTime = !mod.independent.items[itemId];
-
     mod.independent.items[itemId] = {
-      itemId,
       selected: selectedChoice,
-      isCorrect,
-      timeSpentSec,
-      trapTypeHit: isCorrect ? null : trapTypeHit,
+      isCorrect: isCorrect,
+      timeSpent: timeSpentSeconds,
+      trapHit: trapHit || null,
       timestamp: new Date().toISOString()
     };
 
-    if (isFirstTime) {
-      state.stats.totalQuestionsAttempted += 1;
-      state.stats.independentCompletedCount += 1;
-      if (isCorrect) {
-        state.stats.totalCorrect += 1;
-      } else if (trapTypeHit && state.trapErrors[trapTypeHit] !== undefined) {
-        state.trapErrors[trapTypeHit] += 1;
-      }
+    mod.independent.completedCount = Object.keys(mod.independent.items).length;
+    mod.independent.correctCount = Object.values(mod.independent.items).filter(i => i.isCorrect).length;
+
+    state.stats.totalQuestionsAttempted++;
+    state.stats.independentCompletedCount++;
+    if (isCorrect) state.stats.totalCorrect++;
+
+    if (!isCorrect && trapHit && state.trapErrors[trapHit] !== undefined) {
+      state.trapErrors[trapHit]++;
     }
 
-    // Update counts
-    let correct = 0;
-    let total = 0;
-    Object.values(mod.independent.items).forEach(item => {
-      total++;
-      if (item.isCorrect) correct++;
-    });
-    mod.independent.completedCount = total;
-    mod.independent.correctCount = correct;
-
-    recalculateMastery(moduleId, state);
+    updateModuleStatus(mod);
     saveState(state);
   }
 
   /**
-   * Records a Trap Lab classification result (Stage 4)
+   * Records a Trap Lab drill attempt
    */
-  function recordTrapLabAnswer(moduleId, drillId, selectedTrap, isCorrect, actualTrap) {
+  function recordTrapLabAnswer(moduleId, drillId, selectedTrap, isCorrect, targetTrap) {
     const state = getState();
     const mod = state.modules[moduleId];
     if (!mod) return;
 
     mod.trapLab.attempts[drillId] = {
-      drillId,
       selectedTrap,
-      actualTrap,
       isCorrect,
+      targetTrap,
       timestamp: new Date().toISOString()
     };
 
-    if (!isCorrect && actualTrap && state.trapErrors[actualTrap] !== undefined) {
-      state.trapErrors[actualTrap] += 1;
+    state.stats.totalQuestionsAttempted++;
+    if (isCorrect) state.stats.totalCorrect++;
+
+    if (!isCorrect && state.trapErrors[targetTrap] !== undefined) {
+      state.trapErrors[targetTrap]++;
     }
 
+    updateModuleStatus(mod);
     saveState(state);
   }
 
   /**
-   * Records end-of-module self assessment
+   * Records Self-Assessment Rubric scores
    */
-  function recordSelfAssessment(moduleId, assessmentData) {
+  function recordSelfAssessment(moduleId, answersObject) {
     const state = getState();
     const mod = state.modules[moduleId];
     if (!mod) return;
 
     mod.selfAssessment = {
-      ...assessmentData,
-      submittedAt: new Date().toISOString()
+      answers: answersObject,
+      completedAt: new Date().toISOString()
     };
 
-    markStageComplete(moduleId, 6);
-    recalculateMastery(moduleId, state);
+    updateModuleStatus(mod);
     saveState(state);
   }
 
   /**
-   * Evaluates if a module has achieved MASTERED status:
-   * Rule: Independent accuracy >= 80% AND average hints on guided <= 1.0
+   * Evaluates and updates module status based on mastery rules
    */
-  function recalculateMastery(moduleId, stateObj) {
-    const state = stateObj || getState();
-    const mod = state.modules[moduleId];
-    if (!mod) return;
-
-    const guidedCount = Object.keys(mod.guided.items).length;
+  function updateModuleStatus(mod) {
     const indCount = Object.keys(mod.independent.items).length;
+    const guidedCount = Object.keys(mod.guided.items).length;
+    const totalInd = 4; // 4 independent items per module
 
-    if (indCount >= 3) {
-      const indAccuracy = mod.independent.correctCount / indCount;
+    if (indCount >= totalInd) {
+      const accuracy = mod.independent.correctCount / totalInd;
       const avgHints = guidedCount > 0 ? (mod.guided.hintsUsedTotal / guidedCount) : 0;
 
-      if (indAccuracy >= CONFIG.MASTERY_THRESHOLDS.MIN_INDEPENDENT_ACCURACY &&
-          avgHints <= CONFIG.MASTERY_THRESHOLDS.MAX_AVERAGE_HINTS) {
+      if (accuracy >= CONFIG.MASTERY_THRESHOLDS.MIN_INDEPENDENT_ACCURACY && avgHints <= CONFIG.MASTERY_THRESHOLDS.MAX_AVERAGE_HINTS) {
         mod.status = CONFIG.STATUS_LABELS.MASTERED;
       } else if (indCount > 0 || guidedCount > 0) {
         mod.status = CONFIG.STATUS_LABELS.PRACTICING;
@@ -305,6 +271,185 @@ const StorageManager = (function() {
     } else if (mod.stagesCompleted.length > 0) {
       mod.status = CONFIG.STATUS_LABELS.LEARNING;
     }
+  }
+
+  /**
+   * =========================================================================
+   * AUTOMATIC ERROR LOG (HATA DEFTERİ) METHODS
+   * Automatically captures mistakes, categorizes traps, and tracks re-tests.
+   * =========================================================================
+   */
+  function logMistake(mistakeData) {
+    const state = getState();
+    // Check if mistake already logged
+    const existingIndex = state.errorLog.findIndex(m => m.id === mistakeData.id);
+    const entry = {
+      id: mistakeData.id || `ERR-${Date.now()}`,
+      moduleId: mistakeData.moduleId || "General",
+      moduleTitle: mistakeData.moduleTitle || "",
+      type: mistakeData.type || "Reading", // Reading, Grammar, Vocab
+      question: mistakeData.question || "",
+      passage: mistakeData.passage || "",
+      selected: mistakeData.selected || "",
+      answer: mistakeData.answer || "",
+      trapType: mistakeData.trapType || "Unclassified",
+      explanation: mistakeData.explanation || "",
+      studentNote: mistakeData.studentNote || "",
+      timestamp: new Date().toISOString(),
+      resolved: false,
+      retryCount: 0
+    };
+
+    if (existingIndex >= 0) {
+      state.errorLog[existingIndex] = { ...state.errorLog[existingIndex], ...entry };
+    } else {
+      state.errorLog.unshift(entry);
+    }
+
+    saveState(state);
+    return entry;
+  }
+
+  function getMistakes(filter = {}) {
+    const state = getState();
+    let list = state.errorLog || [];
+    if (filter.type) list = list.filter(m => m.type === filter.type);
+    if (filter.moduleId) list = list.filter(m => m.moduleId === filter.moduleId);
+    if (filter.trapType) list = list.filter(m => m.trapType === filter.trapType);
+    if (filter.resolved !== undefined) list = list.filter(m => m.resolved === filter.resolved);
+    return list;
+  }
+
+  function resolveMistake(mistakeId) {
+    const state = getState();
+    const mistake = state.errorLog.find(m => m.id === mistakeId);
+    if (mistake) {
+      mistake.resolved = true;
+      mistake.resolvedAt = new Date().toISOString();
+      saveState(state);
+    }
+  }
+
+  function deleteMistake(mistakeId) {
+    const state = getState();
+    state.errorLog = state.errorLog.filter(m => m.id !== mistakeId);
+    saveState(state);
+  }
+
+  function saveMistakeNote(mistakeId, noteText) {
+    const state = getState();
+    const mistake = state.errorLog.find(m => m.id === mistakeId);
+    if (mistake) {
+      mistake.studentNote = noteText;
+      saveState(state);
+    }
+  }
+
+  /**
+   * =========================================================================
+   * STUDENT SCRATCHPAD & NOTES METHODS
+   * =========================================================================
+   */
+  function saveNote(noteId, title, content, tag = "General", questionId = null) {
+    const state = getState();
+    const id = noteId || `NOTE-${Date.now()}`;
+    state.studentNotes[id] = {
+      id,
+      title: title || "Untitled Note",
+      content: content || "",
+      tag: tag || "General",
+      questionId: questionId,
+      updatedAt: new Date().toISOString()
+    };
+    saveState(state);
+    return state.studentNotes[id];
+  }
+
+  function getNotes() {
+    const state = getState();
+    return Object.values(state.studentNotes || {}).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+  }
+
+  function deleteNote(noteId) {
+    const state = getState();
+    delete state.studentNotes[noteId];
+    saveState(state);
+  }
+
+  /**
+   * =========================================================================
+   * PASSAGE TEXT ANNOTATIONS (HIGHLIGHTING & UNDERLINING)
+   * =========================================================================
+   */
+  function saveAnnotations(passageKey, annotationsList) {
+    const state = getState();
+    state.textAnnotations[passageKey] = annotationsList;
+    saveState(state);
+  }
+
+  function getAnnotations(passageKey) {
+    const state = getState();
+    return state.textAnnotations[passageKey] || [];
+  }
+
+  function clearAnnotations(passageKey) {
+    const state = getState();
+    delete state.textAnnotations[passageKey];
+    saveState(state);
+  }
+
+  /**
+   * =========================================================================
+   * GRAMMAR ACADEMY PROGRESS METHODS
+   * =========================================================================
+   */
+  function recordGrammarAnswer(moduleId, questionId, selectedChoice, isCorrect) {
+    const state = getState();
+    if (!state.grammar[moduleId]) {
+      state.grammar[moduleId] = { id: moduleId, status: CONFIG.STATUS_LABELS.LEARNING, completedCount: 0, correctCount: 0, items: {} };
+    }
+    const gmod = state.grammar[moduleId];
+    gmod.items[questionId] = {
+      selected: selectedChoice,
+      isCorrect: isCorrect,
+      timestamp: new Date().toISOString()
+    };
+    gmod.completedCount = Object.keys(gmod.items).length;
+    gmod.correctCount = Object.values(gmod.items).filter(i => i.isCorrect).length;
+    gmod.status = gmod.completedCount >= 4 ? (gmod.correctCount >= 3 ? CONFIG.STATUS_LABELS.MASTERED : CONFIG.STATUS_LABELS.PRACTICING) : CONFIG.STATUS_LABELS.LEARNING;
+
+    state.stats.totalQuestionsAttempted++;
+    state.stats.grammarCompletedCount++;
+    if (isCorrect) state.stats.totalCorrect++;
+
+    saveState(state);
+  }
+
+  function getGrammarState(moduleId) {
+    const state = getState();
+    return state.grammar[moduleId] || null;
+  }
+
+  /**
+   * =========================================================================
+   * DAILY VOCABULARY PROGRESS METHODS
+   * =========================================================================
+   */
+  function recordDailyVocabCompletion(dayNumber, quizScore, masteredWords = []) {
+    const state = getState();
+    state.dailyVocabProgress[dayNumber] = {
+      day: dayNumber,
+      quizScore: quizScore,
+      masteredWords: masteredWords,
+      completedAt: new Date().toISOString()
+    };
+    state.stats.vocabCompletedCount = Object.keys(state.dailyVocabProgress).length;
+    saveState(state);
+  }
+
+  function getDailyVocabProgress() {
+    const state = getState();
+    return state.dailyVocabProgress || {};
   }
 
   /**
@@ -349,6 +494,21 @@ const StorageManager = (function() {
     recordIndependentAnswer,
     recordTrapLabAnswer,
     recordSelfAssessment,
+    logMistake,
+    getMistakes,
+    resolveMistake,
+    deleteMistake,
+    saveMistakeNote,
+    saveNote,
+    getNotes,
+    deleteNote,
+    saveAnnotations,
+    getAnnotations,
+    clearAnnotations,
+    recordGrammarAnswer,
+    getGrammarState,
+    recordDailyVocabCompletion,
+    getDailyVocabProgress,
     exportData,
     importData,
     resetProgress

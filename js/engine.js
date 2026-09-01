@@ -1,169 +1,114 @@
 /**
- * SAT READING SKILLS ACADEMY - Execution Engine
- * Handles stage flow, think-aloud progressive reveals, trap lab drills,
- * hint ladders, timer countdowns, answer checking, structured deep explanations,
- * and ESL gloss rendering.
+ * SAT READING & WRITING ACADEMY - Unified Pedagogical Engine
+ * Handles Reading stages (1-6), Grammar Academy, Daily Vocab Drills,
+ * Automatic Error Log (Hata Defteri), Turkish Solvers, and Interactive Study Tools.
  */
 
 const Engine = (function() {
-
-  let currentModuleId = "MOD-0";
+  let currentModuleId = null;
   let currentStageNumber = 1;
-  let currentItemIndex = 0;
   let currentThinkAloudStep = 0;
-  let currentHintsRevealed = 0;
-  let selectedChoiceKey = null;
+  let currentHintIndex = 0;
   let eliminatedChoices = new Set();
+  let selectedChoiceKey = null;
   let timerInterval = null;
   let timerSecondsRemaining = CONFIG.TIMER_DEFAULT_SECONDS;
-  let itemStartTime = null;
+  let itemStartTime = 0;
 
   /**
-   * Initializes or transitions to a specific module and stage
+   * Main entry point to load a specific module stage
    */
-  function loadModuleStage(moduleId, stageNumber = 1, itemIndex = 0) {
+  function loadModuleStage(moduleId, stageNum, itemIdx = 0) {
     currentModuleId = moduleId;
-    currentStageNumber = parseInt(stageNumber, 10);
-    currentItemIndex = parseInt(itemIndex, 10);
-    currentThinkAloudStep = 0;
-    currentHintsRevealed = 0;
-    selectedChoiceKey = null;
+    currentStageNumber = stageNum;
     eliminatedChoices.clear();
-    stopTimer();
+    selectedChoiceKey = null;
 
-    const moduleData = ACADEMY_CONTENT[moduleId];
-    if (!moduleData) {
-      console.error(`Module ${moduleId} not found in content database.`);
+    const container = document.getElementById("stage-canvas");
+    if (!container) return;
+
+    // Reset scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const modContent = ACADEMY_CONTENT[moduleId];
+    if (!modContent) {
+      container.innerHTML = `<div class="error-banner">Module content not found: ${moduleId}</div>`;
       return;
     }
 
-    renderModuleHeader(moduleId, currentStageNumber);
-    renderStageContent(moduleId, currentStageNumber, currentItemIndex);
-  }
-
-  /**
-   * Renders the top navigation stepper for the 6 stages
-   */
-  function renderModuleHeader(moduleId, stageNum) {
-    const modConfig = MODULES_CONFIG.find(m => m.id === moduleId);
-    const modState = StorageManager.getModuleState(moduleId);
-    const stagesContainer = document.getElementById("stage-stepper");
-    if (!stagesContainer) return;
-
-    const stages = [
-      { num: 1, name: "The Skill", icon: "📖" },
-      { num: 2, name: "The Method", icon: "🧭" },
-      { num: 3, name: "Worked Examples", icon: "🧠" },
-      { num: 4, name: "Trap Lab", icon: "🧪" },
-      { num: 5, name: "Guided Practice", icon: "🤝" },
-      { num: 6, name: "Independent", icon: "🎯" }
-    ];
-
-    let html = "";
-    stages.forEach(st => {
-      const isCompleted = modState && modState.stagesCompleted.includes(st.num);
-      const isActive = st.num === stageNum;
-      const statusClass = isActive ? "active" : isCompleted ? "completed" : "";
-
-      html += `
-        <button class="stage-step-btn ${statusClass}" data-stage="${st.num}" onclick="App.navigateToStage('${moduleId}', ${st.num})">
-          <span class="stage-badge">${isCompleted && !isActive ? "✓" : st.num}</span>
-          <span class="stage-label">${st.name}</span>
-        </button>
-      `;
-    });
-
-    stagesContainer.innerHTML = html;
-
-    // Update Module Banner title & tags
-    const titleEl = document.getElementById("module-banner-title");
-    const domainEl = document.getElementById("module-banner-domain");
-    const methodBtn = document.getElementById("module-banner-method-btn");
-
-    if (titleEl) titleEl.textContent = `${modConfig.number === 0 ? "Foundation" : "Module " + modConfig.number}: ${modConfig.title}`;
-    if (domainEl) domainEl.textContent = modConfig.domainTag;
-    if (methodBtn) {
-      methodBtn.innerHTML = `<span>📜</span> ${modConfig.methodName} <kbd>M</kbd>`;
-      methodBtn.onclick = () => App.openMethodModal(moduleId);
-    }
-  }
-
-  /**
-   * Renders the active stage view
-   */
-  function renderStageContent(moduleId, stageNum, itemIdx) {
-    const contentArea = document.getElementById("stage-canvas");
-    if (!contentArea) return;
-
-    const moduleData = ACADEMY_CONTENT[moduleId];
-
     switch (stageNum) {
       case 1:
-        renderStage1Skill(contentArea, moduleData.stage1_skill, moduleId);
+        renderStage1Skill(container, modContent.stage1_skill, moduleId);
         break;
       case 2:
-        renderStage2Method(contentArea, moduleData.stage2_method, moduleId);
+        renderStage2Method(container, modContent.stage2_method, moduleId);
         break;
       case 3:
-        renderStage3WorkedExamples(contentArea, moduleData.stage3_workedExamples, moduleId, itemIdx);
+        currentThinkAloudStep = 0;
+        renderStage3WorkedExamples(container, modContent.stage3_workedExamples, moduleId, itemIdx);
         break;
       case 4:
-        renderStage4TrapLab(contentArea, moduleData.stage4_trapLab, moduleId, itemIdx);
+        renderStage4TrapLab(container, modContent.stage4_trapLab, moduleId, itemIdx);
         break;
       case 5:
-        renderStage5GuidedPractice(contentArea, moduleData.stage5_guidedPractice, moduleId, itemIdx);
+        currentHintIndex = 0;
+        renderStage5GuidedPractice(container, modContent.stage5_guidedPractice, moduleId, itemIdx);
         break;
       case 6:
-        renderStage6IndependentPractice(contentArea, moduleData.stage6_independentPractice, moduleData.selfAssessmentRubric, moduleId, itemIdx);
+        renderStage6IndependentPractice(container, modContent.stage6_independentPractice, modContent.selfAssessmentRubric, moduleId, itemIdx);
         break;
       default:
-        contentArea.innerHTML = `<p>Unknown stage.</p>`;
+        renderStage1Skill(container, modContent.stage1_skill, moduleId);
+    }
+
+    if (typeof StudentTools !== "undefined") {
+      StudentTools.restorePassageAnnotations(`${moduleId}-S${stageNum}-I${itemIdx}`);
     }
   }
 
   /**
-   * Stage 1: The Skill ("What & Why" + Golden Rules + Pacing Breakdown)
+   * Stage 1: The Skill ("What and Why")
    */
   function renderStage1Skill(container, skillData, moduleId) {
     let goldenRulesHTML = "";
     if (skillData.goldenRules && skillData.goldenRules.length > 0) {
-      let cards = "";
-      skillData.goldenRules.forEach((rule, idx) => {
-        cards += `
-          <div class="golden-rule-card">
-            <div class="rule-number-pill">${idx + 1}</div>
-            <div class="rule-card-body">
-              <h4>${rule.title}</h4>
-              <p>${rule.description}</p>
-            </div>
-          </div>
-        `;
-      });
       goldenRulesHTML = `
-        <div class="golden-rules-section">
-          <div class="section-subtitle-pill"><span>🏆</span> Core Golden Rules for Answering</div>
+        <div class="skill-golden-rules-box">
+          <div class="golden-rules-header">
+            <span class="golden-icon">👑</span>
+            <h3>The 4 Non-Negotiable Golden Rules</h3>
+          </div>
           <div class="golden-rules-grid">
-            ${cards}
+            ${skillData.goldenRules.map((rule, idx) => `
+              <div class="golden-rule-card">
+                <div class="rule-number">${idx + 1}</div>
+                <div class="rule-content">
+                  <h4>${rule.title}</h4>
+                  <p>${rule.description}</p>
+                </div>
+              </div>
+            `).join('')}
           </div>
         </div>
       `;
     }
 
     let pacingHTML = "";
-    if (skillData.pacingStrategy) {
-      const steps = skillData.pacingStrategy.steps || [];
+    if (skillData.pacingStrategy && skillData.pacingStrategy.steps) {
       pacingHTML = `
-        <div class="pacing-timeline-box">
+        <div class="pacing-timeline-card">
           <div class="pacing-header">
-            <h3><span>⏱️</span> 90-Second Exam Pacing Protocol</h3>
-            <span class="pacing-total">Target: ~75–90s Total</span>
+            <span class="pacing-icon">⏱️</span>
+            <h3>Standard 90-Second Exam Pacing Protocol</h3>
           </div>
-          <div class="pacing-steps-row">
-            ${steps.map(s => `
-              <div class="pacing-step">
-                <span class="pacing-time">${s.seconds}s</span>
-                <div class="pacing-action">${s.action}</div>
-                <span class="pacing-subtext">${s.detail}</span>
+          <div class="pacing-steps-container">
+            ${skillData.pacingStrategy.steps.map((step, idx) => `
+              <div class="pacing-step-item">
+                <div class="pacing-time-badge">${step.seconds}s</div>
+                <div class="pacing-step-info">
+                  <span class="pacing-action">${step.action}</span>
+                  <span class="pacing-detail">${step.detail}</span>
+                </div>
               </div>
             `).join('')}
           </div>
@@ -174,13 +119,16 @@ const Engine = (function() {
     let pitfallsHTML = "";
     if (skillData.commonPitfalls && skillData.commonPitfalls.length > 0) {
       pitfallsHTML = `
-        <div class="pitfalls-section">
-          <div class="section-subtitle-pill" style="color: var(--status-error);"><span>⚠️</span> Common Cognitive Pitfalls & Misconceptions</div>
+        <div class="common-pitfalls-box">
+          <div class="pitfalls-header">
+            <span class="pitfalls-icon">⚠️</span>
+            <h3>Deadly Pitfalls & Distractor Biases</h3>
+          </div>
           <div class="pitfalls-grid">
             ${skillData.commonPitfalls.map(p => `
               <div class="pitfall-card">
-                <h4><span>🚨</span> ${p.name}</h4>
-                <p>${p.explanation}</p>
+                <span class="pitfall-name">${p.name}</span>
+                <p class="pitfall-desc">${p.explanation}</p>
               </div>
             `).join('')}
           </div>
@@ -191,7 +139,7 @@ const Engine = (function() {
     container.innerHTML = `
       <div class="stage-card skill-stage-card animate-fade-in">
         <div class="stage-card-header">
-          <div class="stage-pill">Stage 1 of 6</div>
+          <div class="stage-pill">Stage 1 of 6: The Skill</div>
           <h2 class="stage-title">${skillData.title}</h2>
         </div>
 
@@ -277,7 +225,7 @@ const Engine = (function() {
 
         <div class="stage-actions-footer">
           <button class="btn btn-primary btn-large" onclick="Engine.advanceStage()">
-            Proceed to Method Card (Stage 2) →
+            <span>I Understand the Skill — Next: The Method</span> →
           </button>
         </div>
       </div>
@@ -287,84 +235,42 @@ const Engine = (function() {
   }
 
   /**
-   * Stage 2: The Method ("The Steps" + Blueprint Formula & Verification Checklist)
+   * Stage 2: The Method (Step-by-Step Algorithm)
    */
   function renderStage2Method(container, methodData, moduleId) {
     let stepsHTML = "";
     methodData.steps.forEach(step => {
       stepsHTML += `
         <div class="method-step-card">
-          <div class="step-number-badge">${step.num}</div>
-          <div class="step-body">
-            <h4 class="step-title">${step.title}</h4>
-            <p class="step-rule">${step.rule}</p>
-            <div class="step-expert-quote">
-              <span class="expert-label">Top 1% Reader Move:</span>
-              <p>“${step.expertMove}”</p>
+          <div class="step-num-badge">${step.stepNumber}</div>
+          <div class="step-content">
+            <h3 class="step-title">${step.title}</h3>
+            <p class="step-desc">${step.description}</p>
+            <div class="step-micro-action">
+              <span class="action-label">Action:</span>
+              <span class="action-text">${step.action}</span>
             </div>
           </div>
         </div>
       `;
     });
 
-    let formulaHTML = "";
-    if (methodData.examFormula) {
-      formulaHTML = `
-        <div class="strategy-heuristic-banner" style="margin-bottom: 1.5rem;">
-          <span class="heuristic-icon">📐</span>
-          <div class="heuristic-content">
-            <div class="heuristic-title">The College Board Construction Formula</div>
-            <p class="heuristic-text">${methodData.examFormula}</p>
-          </div>
-        </div>
-      `;
-    }
-
-    let checklistHTML = "";
-    if (methodData.checklist && methodData.checklist.length > 0) {
-      checklistHTML = `
-        <div class="golden-rules-section">
-          <div class="section-subtitle-pill"><span>📋</span> Pre-Submission Verification Checklist</div>
-          <div class="golden-rules-grid">
-            ${methodData.checklist.map((item, idx) => `
-              <div class="golden-rule-card">
-                <div class="rule-number-pill" style="background-color: var(--status-mastered); color: #fff;">✓</div>
-                <div class="rule-card-body">
-                  <h4>Check ${idx + 1}</h4>
-                  <p>${item}</p>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
-    }
-
     container.innerHTML = `
       <div class="stage-card method-stage-card animate-fade-in">
         <div class="stage-card-header">
-          <div class="stage-pill">Stage 2 of 6</div>
+          <div class="stage-pill">Stage 2 of 6: The Method</div>
           <h2 class="stage-title">${methodData.name}</h2>
-          <p class="stage-subtitle">${methodData.summary}</p>
+          <p class="stage-subtitle">Follow this invariant repeatable algorithm for every single question of this type.</p>
         </div>
 
-        ${formulaHTML}
-
-        <div class="method-steps-container">
+        <div class="method-steps-vertical-flow">
           ${stepsHTML}
-        </div>
-
-        ${checklistHTML}
-
-        <div class="method-tip-banner">
-          <span class="tip-icon">💡</span>
-          <p><strong>Hot Tip:</strong> You can open this Method Card at ANY time during practice by pressing <kbd>M</kbd> or clicking the Method button in the header.</p>
         </div>
 
         <div class="stage-actions-footer">
           <button class="btn btn-secondary" onclick="App.navigateToStage('${moduleId}', 1)">← Back to Skill</button>
           <button class="btn btn-primary btn-large" onclick="Engine.advanceStage()">
-            Watch Worked Examples (Stage 3) →
+            <span>See the Method in Action (Worked Examples)</span> →
           </button>
         </div>
       </div>
@@ -374,82 +280,7 @@ const Engine = (function() {
   }
 
   /**
-   * Helper: Renders structured or string explanations cleanly
-   */
-  function renderStructuredExplanation(explanation, item, isCorrect) {
-    if (!explanation) return "";
-
-    if (typeof explanation === "object") {
-      let breakdownHTML = "";
-      if (explanation.choiceBreakdown) {
-        breakdownHTML = `
-          <div class="expl-section choice-autopsy">
-            <h4><span>🔍</span> Option-by-Option Breakdown & Trap Autopsy</h4>
-            <div class="autopsy-list">
-              ${["A", "B", "C", "D"].map(letter => {
-                const text = explanation.choiceBreakdown[letter];
-                if (!text) return "";
-                const isChoiceCorrect = letter === item.answer;
-                const trapName = item.trapTypes ? item.trapTypes[letter] : null;
-                const trapInfo = trapName ? TRAP_TAXONOMY[trapName] : null;
-                return `
-                  <div class="autopsy-item ${isChoiceCorrect ? 'autopsy-correct' : 'autopsy-wrong'}">
-                    <div class="autopsy-header">
-                      <span class="autopsy-letter">${letter})</span>
-                      ${isChoiceCorrect ? `
-                        <span class="autopsy-trap-badge" style="background-color: var(--status-mastered-bg); color: var(--status-mastered);">✓ Correct Answer (Logically Forced)</span>
-                      ` : (trapInfo ? `
-                        <span class="autopsy-trap-badge ${trapInfo.badgeClass}">${trapInfo.icon} Trap: ${trapName}</span>
-                      ` : '')}
-                    </div>
-                    <div class="autopsy-text">${text}</div>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          </div>
-        `;
-      }
-
-      return `
-        <div class="structured-explanation-card animate-fade-in">
-          <div class="expl-section correct-bridge">
-            <h4><span>🌟</span> Why Choice ${item.answer} is 100% Defensible</h4>
-            <p>${explanation.correctBridge || ""}</p>
-          </div>
-
-          ${explanation.keyTakeaway ? `
-            <div class="expl-section strategy-takeaway">
-              <h4><span>💡</span> Core Metacognitive Takeaway & Exam Heuristic</h4>
-              <p>${explanation.keyTakeaway}</p>
-            </div>
-          ` : ""}
-
-          ${breakdownHTML}
-        </div>
-      `;
-    }
-
-    return `
-      <div class="feedback-reveal-card animate-fade-in">
-        <div class="feedback-title ${isCorrect ? 'correct' : 'incorrect'}">
-          <span>${isCorrect ? '✓ Correct!' : '✕ Incorrect'}</span>
-        </div>
-        <p class="explanation-text">${explanation}</p>
-        ${item.trapTypes ? `
-          <div class="trap-breakdown-box">
-            <h5>Distractor Trap Breakdown:</h5>
-            <ul>
-              ${Object.entries(item.trapTypes).map(([opt, trap]) => `<li><strong>${opt}:</strong> ${trap} — ${TRAP_TAXONOMY[trap]?.description}</li>`).join('')}
-            </ul>
-          </div>
-        ` : ''}
-      </div>
-    `;
-  }
-
-  /**
-   * Stage 3: Worked Examples ("Watch Me Think")
+   * Stage 3: Worked Examples (Expert Think-Aloud)
    */
   function renderStage3WorkedExamples(container, examples, moduleId, itemIdx) {
     const item = examples[itemIdx] || examples[0];
@@ -457,41 +288,28 @@ const Engine = (function() {
     const isLastItem = itemIdx >= totalItems - 1;
 
     let optionsHTML = "";
-    const letters = ["A", "B", "C", "D"];
-
-    item.choices.forEach((choiceText, idx) => {
-      const letter = letters[idx];
+    item.choices.forEach(ch => {
+      const letter = ch.substring(0, 1);
       const isCorrect = letter === item.answer;
-      const trapName = item.trapTypes[letter];
-      const trapInfo = trapName ? TRAP_TAXONOMY[trapName] : null;
-
       optionsHTML += `
-        <div class="worked-choice-card ${isCorrect ? 'choice-correct' : 'choice-distractor'}">
-          <div class="choice-text-line">
-            <span class="choice-marker">${letter}</span>
-            <span class="choice-text">${choiceText.substring(3)}</span>
-          </div>
-          ${!isCorrect && trapInfo ? `
-            <div class="worked-trap-tag ${trapInfo.badgeClass}">
-              <span class="trap-icon">${trapInfo.icon}</span>
-              <strong>Trap Type:</strong> ${trapName}
-            </div>
-          ` : isCorrect ? `
-            <div class="worked-correct-tag">
-              <span>✓</span> <strong>Correct Answer</strong> (Logically Forced)
-            </div>
-          ` : ""}
+        <div class="worked-choice-item ${isCorrect ? 'choice-correct-highlight' : ''}">
+          <span class="worked-choice-letter">${letter}</span>
+          <span class="worked-choice-text">${ch.substring(3)}</span>
+          ${isCorrect ? `<span class="correct-tag">Correct Answer</span>` : ""}
         </div>
       `;
     });
 
     let thoughtsHTML = "";
-    item.thinkAloud.forEach((thought, idx) => {
-      const isVisible = idx <= currentThinkAloudStep;
+    const visibleThoughts = item.thinkAloud.slice(0, currentThinkAloudStep + 1);
+    visibleThoughts.forEach(thought => {
       thoughtsHTML += `
-        <div class="think-step-card ${isVisible ? 'visible animate-slide-up' : 'hidden'}">
-          <div class="think-step-badge">Thought ${idx + 1}</div>
-          <div class="think-step-text">${thought}</div>
+        <div class="think-step animate-slide-up">
+          <div class="think-meta">
+            <span class="think-badge">${thought.step}</span>
+            <span class="think-action-name">${thought.action}</span>
+          </div>
+          <p class="think-text">${thought.thought}</p>
         </div>
       `;
     });
@@ -567,7 +385,7 @@ const Engine = (function() {
               </div>
             </div>
 
-            <!-- Full Structured Explanation (revealed when all thoughts shown) -->
+            <!-- Full Structured Explanation -->
             ${!hasMoreThoughts ? renderStructuredExplanation(item.explanation, item, true) : ""}
           </div>
         </div>
@@ -590,9 +408,6 @@ const Engine = (function() {
     StorageManager.markStageComplete(moduleId, 3);
   }
 
-  /**
-   * Advances think-aloud step
-   */
   function revealNextThought(moduleId, itemIdx) {
     currentThinkAloudStep++;
     renderStage3WorkedExamples(document.getElementById("stage-canvas"), ACADEMY_CONTENT[moduleId].stage3_workedExamples, moduleId, itemIdx);
@@ -683,7 +498,7 @@ const Engine = (function() {
               </button>
             ` : `
               <button class="btn btn-primary btn-large" onclick="Engine.advanceStage()">
-                Begin Guided Practice (Stage 5) →
+                Proceed to Guided Practice (Stage 5) →
               </button>
             `
           ) : ""}
@@ -694,32 +509,80 @@ const Engine = (function() {
     StorageManager.markStageComplete(moduleId, 4);
   }
 
-  /**
-   * Submits Trap Lab classification
-   */
   function submitTrapAnswer(moduleId, drillId, selectedTrap, correctTrap, itemIdx) {
     selectedChoiceKey = selectedTrap;
     const isCorrect = selectedTrap === correctTrap;
+    const drills = ACADEMY_CONTENT[moduleId].stage4_trapLab;
+    const drill = drills[itemIdx];
+
     StorageManager.recordTrapLabAnswer(moduleId, drillId, selectedTrap, isCorrect, correctTrap);
-    renderStage4TrapLab(document.getElementById("stage-canvas"), ACADEMY_CONTENT[moduleId].stage4_trapLab, moduleId, itemIdx);
+
+    // Auto-log mistake if wrong
+    if (!isCorrect) {
+      StorageManager.logMistake({
+        id: `ERR-${drill.id}`,
+        moduleId: moduleId,
+        moduleTitle: MODULES_CONFIG.find(m => m.id === moduleId)?.title || "Trap Lab",
+        type: "Reading",
+        question: `Trap Lab: Flaw of “${drill.wrongChoice}”`,
+        passage: drill.stem,
+        selected: selectedTrap,
+        answer: correctTrap,
+        trapType: correctTrap,
+        explanation: drill.rationale
+      });
+    }
+
+    renderStage4TrapLab(document.getElementById("stage-canvas"), drills, moduleId, itemIdx);
   }
 
   /**
-   * Stage 5: Guided Practice ("We Do" with 3-level Hint Ladder & Structured Explanations)
+   * Helper: Render Turkish Step-by-Step Solver Guide
    */
-  function renderStage5GuidedPractice(container, items, moduleId, itemIdx) {
-    const item = items[itemIdx] || items[0];
-    const totalItems = items.length;
+  function renderTurkishSolverCard(solverGuide) {
+    if (!solverGuide) return "";
+    return `
+      <div class="turkish-solver-card animate-fade-in">
+        <div class="solver-card-header">
+          <span class="solver-flag">🇹🇷</span>
+          <h4>Nasıl Çözülür? (Adım Adım Çözüm Rehberi)</h4>
+        </div>
+        <div class="solver-steps-list">
+          <div class="solver-step-item">
+            <span class="step-num">1</span>
+            <p>${solverGuide.step1}</p>
+          </div>
+          <div class="solver-step-item">
+            <span class="step-num">2</span>
+            <p>${solverGuide.step2}</p>
+          </div>
+          <div class="solver-step-item">
+            <span class="step-num">3</span>
+            <p>${solverGuide.step3}</p>
+          </div>
+          <div class="solver-step-item">
+            <span class="step-num">4</span>
+            <p>${solverGuide.step4}</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Stage 5: Guided Practice ("We Do")
+   */
+  function renderStage5GuidedPractice(container, practiceItems, moduleId, itemIdx) {
+    const item = practiceItems[itemIdx] || practiceItems[0];
+    const totalItems = practiceItems.length;
     const isLastItem = itemIdx >= totalItems - 1;
     const modState = StorageManager.getModuleState(moduleId);
     const existingRecord = modState?.guided?.items?.[item.id];
     const isSubmitted = !!existingRecord || selectedChoiceKey !== null;
 
     let choicesHTML = "";
-    const letters = ["A", "B", "C", "D"];
-
-    item.choices.forEach((choiceText, idx) => {
-      const letter = letters[idx];
+    item.choices.forEach(choiceText => {
+      const letter = choiceText.substring(0, 1);
       const isEliminated = eliminatedChoices.has(letter);
       const isSelected = (existingRecord?.selected === letter) || (selectedChoiceKey === letter);
       const isCorrect = letter === item.answer;
@@ -740,7 +603,7 @@ const Engine = (function() {
             <span class="choice-text-content">${choiceText.substring(3)}</span>
           </button>
           ${!isSubmitted ? `
-            <button class="choice-eliminate-btn ${isEliminated ? 'active' : ''}" title="Cross out / eliminate option" onclick="Engine.toggleElimination('${letter}', '${moduleId}', 5, ${itemIdx})">
+            <button class="choice-eliminate-btn ${isEliminated ? 'active' : ''}" title="Cross out option" onclick="Engine.toggleElimination('${letter}', '${moduleId}', 5, ${itemIdx})">
               ✕
             </button>
           ` : ""}
@@ -749,20 +612,15 @@ const Engine = (function() {
     });
 
     let hintsHTML = "";
-    for (let h = 0; h < currentHintsRevealed; h++) {
-      const hintText = item.hints[h];
-      const hintTierLabels = ["Level 1: Gentle Nudge", "Level 2: Method Strategy Reminder", "Level 3: Partial Elimination"];
+    const revealedHints = item.hints.slice(0, currentHintIndex);
+    revealedHints.forEach((hint, idx) => {
       hintsHTML += `
-        <div class="hint-card hint-tier-${h + 1} animate-slide-up">
-          <div class="hint-header">
-            <span class="hint-tier-badge">${hintTierLabels[h]}</span>
-          </div>
-          <p class="hint-body">${hintText}</p>
+        <div class="hint-card hint-level-${hint.level} animate-slide-up">
+          <span class="hint-badge">${hint.type} (Hint ${idx + 1})</span>
+          <p class="hint-text">${hint.text}</p>
         </div>
       `;
-    }
-
-    const hintsRemaining = 3 - currentHintsRevealed;
+    });
 
     container.innerHTML = `
       <div class="stage-card guided-stage-card animate-fade-in">
@@ -771,13 +629,8 @@ const Engine = (function() {
             <div class="stage-pill">Stage 5 of 6: Guided Practice (Scaffolded)</div>
             <h2 class="stage-title">Practice Item ${itemIdx + 1} of ${totalItems}</h2>
           </div>
-          <div class="hint-meter-box">
-            <span class="hint-meter-label">Hints Used: <strong>${currentHintsRevealed}/3</strong></span>
-            <div class="hint-dots">
-              <span class="h-dot ${currentHintsRevealed >= 1 ? 'used' : ''}"></span>
-              <span class="h-dot ${currentHintsRevealed >= 2 ? 'used' : ''}"></span>
-              <span class="h-dot ${currentHintsRevealed >= 3 ? 'used' : ''}"></span>
-            </div>
+          <div class="item-progress-pills">
+            ${practiceItems.map((_, i) => `<span class="item-dot ${i === itemIdx ? 'active' : 'completed'}"></span>`).join('')}
           </div>
         </div>
 
@@ -801,9 +654,10 @@ const Engine = (function() {
             <div class="passage-body">
               ${injectGlosses(item.passage, item.glosses)}
             </div>
+            ${item.turkishSolverGuide ? renderTurkishSolverCard(item.turkishSolverGuide) : ""}
           </div>
 
-          <!-- Right: Question, Choices & Hint Ladder -->
+          <!-- Right: Question, Choices, Hint Ladder -->
           <div class="sat-question-pane">
             <div class="question-stem">${item.question}</div>
 
@@ -811,18 +665,21 @@ const Engine = (function() {
               ${choicesHTML}
             </div>
 
-            <!-- Hint Ladder Drawer -->
-            <div class="hint-ladder-section">
-              ${hintsHTML}
-
-              ${!isSubmitted && hintsRemaining > 0 ? `
-                <button class="btn btn-hint" onclick="Engine.requestHint('${moduleId}', ${itemIdx})">
-                  <span>💡</span> Request Next Hint (${hintsRemaining} available) <kbd>H</kbd>
-                </button>
-              ` : ""}
+            <!-- Hint Ladder -->
+            <div class="hint-ladder-box">
+              <div class="hint-ladder-header flex-between">
+                <h4>🎯 Scaffolding Hint Ladder</h4>
+                ${currentHintIndex < item.hints.length && !isSubmitted ? `
+                  <button class="btn btn-hint" onclick="Engine.requestHint('${moduleId}', ${itemIdx})">
+                    <span>Request Next Hint (${currentHintIndex + 1}/${item.hints.length})</span> <kbd>H</kbd>
+                  </button>
+                ` : ""}
+              </div>
+              <div class="revealed-hints-list">
+                ${hintsHTML}
+              </div>
             </div>
 
-            <!-- Submission or Feedback -->
             ${!isSubmitted ? `
               <div class="question-submit-area">
                 <button class="btn btn-primary btn-large" onclick="Engine.submitGuidedAnswer('${moduleId}', '${item.id}', '${item.answer}', ${itemIdx})" ${!selectedChoiceKey ? 'disabled' : ''}>
@@ -842,7 +699,7 @@ const Engine = (function() {
               </button>
             ` : `
               <button class="btn btn-primary btn-large" onclick="Engine.advanceStage()">
-                Begin Independent Practice (Stage 6) →
+                Proceed to Independent Practice (Stage 6) →
               </button>
             `
           ) : ""}
@@ -853,49 +710,61 @@ const Engine = (function() {
     StorageManager.markStageComplete(moduleId, 5);
   }
 
-  /**
-   * Request next hint in Guided Practice
-   */
   function requestHint(moduleId, itemIdx) {
-    if (currentHintsRevealed < 3) {
-      currentHintsRevealed++;
-      renderStage5GuidedPractice(document.getElementById("stage-canvas"), ACADEMY_CONTENT[moduleId].stage5_guidedPractice, moduleId, itemIdx);
+    const items = ACADEMY_CONTENT[moduleId].stage5_guidedPractice;
+    const item = items[itemIdx];
+    if (currentHintIndex < item.hints.length) {
+      currentHintIndex++;
+      renderStage5GuidedPractice(document.getElementById("stage-canvas"), items, moduleId, itemIdx);
     }
   }
 
-  /**
-   * Submits Guided Answer
-   */
   function submitGuidedAnswer(moduleId, itemId, correctAnswer, itemIdx) {
     if (!selectedChoiceKey) return;
     const isCorrect = selectedChoiceKey === correctAnswer;
-    StorageManager.recordGuidedAnswer(moduleId, itemId, selectedChoiceKey, isCorrect, currentHintsRevealed);
-    renderStage5GuidedPractice(document.getElementById("stage-canvas"), ACADEMY_CONTENT[moduleId].stage5_guidedPractice, moduleId, itemIdx);
+    const items = ACADEMY_CONTENT[moduleId].stage5_guidedPractice;
+    const item = items[itemIdx];
+    const trapHit = isCorrect ? null : (item.trapTypes?.[selectedChoiceKey] || "Distractor Trap");
+
+    StorageManager.recordGuidedAnswer(moduleId, itemId, selectedChoiceKey, isCorrect, currentHintIndex);
+
+    // Auto-log mistake if wrong
+    if (!isCorrect) {
+      StorageManager.logMistake({
+        id: `ERR-${item.id}`,
+        moduleId: moduleId,
+        moduleTitle: MODULES_CONFIG.find(m => m.id === moduleId)?.title || "Guided Practice",
+        type: "Reading",
+        question: item.question,
+        passage: item.passage,
+        selected: selectedChoiceKey,
+        answer: item.answer,
+        trapType: trapHit,
+        explanation: item.explanation?.correctBridge || "Review question rationale"
+      });
+    }
+
+    renderStage5GuidedPractice(document.getElementById("stage-canvas"), items, moduleId, itemIdx);
   }
 
   /**
-   * Stage 6: Independent Practice ("You Do" with 90s Timer, Structured Explanations & Self-Audit)
+   * Stage 6: Independent Practice ("You Do" Exam Pace)
    */
-  function renderStage6IndependentPractice(container, items, rubricData, moduleId, itemIdx) {
-    const totalItems = items.length;
-    const modState = StorageManager.getModuleState(moduleId);
-    const allCompleted = Object.keys(modState?.independent?.items || {}).length >= totalItems;
-
-    // If all items finished and we are at index >= totalItems, show rubric
-    if (itemIdx >= totalItems || (allCompleted && itemIdx === -1)) {
+  function renderStage6IndependentPractice(container, practiceItems, rubricData, moduleId, itemIdx) {
+    if (itemIdx >= practiceItems.length) {
       renderSelfAssessmentRubric(container, rubricData, moduleId);
       return;
     }
 
-    const item = items[itemIdx] || items[0];
+    const item = practiceItems[itemIdx];
+    const totalItems = practiceItems.length;
+    const modState = StorageManager.getModuleState(moduleId);
     const existingRecord = modState?.independent?.items?.[item.id];
     const isSubmitted = !!existingRecord || selectedChoiceKey !== null;
 
     let choicesHTML = "";
-    const letters = ["A", "B", "C", "D"];
-
-    item.choices.forEach((choiceText, idx) => {
-      const letter = letters[idx];
+    item.choices.forEach(choiceText => {
+      const letter = choiceText.substring(0, 1);
       const isEliminated = eliminatedChoices.has(letter);
       const isSelected = (existingRecord?.selected === letter) || (selectedChoiceKey === letter);
       const isCorrect = letter === item.answer;
@@ -916,7 +785,7 @@ const Engine = (function() {
             <span class="choice-text-content">${choiceText.substring(3)}</span>
           </button>
           ${!isSubmitted ? `
-            <button class="choice-eliminate-btn ${isEliminated ? 'active' : ''}" title="Cross out / eliminate option" onclick="Engine.toggleElimination('${letter}', '${moduleId}', 6, ${itemIdx})">
+            <button class="choice-eliminate-btn ${isEliminated ? 'active' : ''}" title="Cross out option" onclick="Engine.toggleElimination('${letter}', '${moduleId}', 6, ${itemIdx})">
               ✕
             </button>
           ` : ""}
@@ -957,6 +826,7 @@ const Engine = (function() {
             <div class="passage-body">
               ${injectGlosses(item.passage, item.glosses)}
             </div>
+            ${item.turkishSolverGuide ? renderTurkishSolverCard(item.turkishSolverGuide) : ""}
           </div>
 
           <!-- Right: Question & Choices -->
@@ -993,9 +863,6 @@ const Engine = (function() {
     }
   }
 
-  /**
-   * Submits Independent Answer
-   */
   function submitIndependentAnswer(moduleId, itemId, correctAnswer, itemIdx) {
     if (!selectedChoiceKey) return;
     stopTimer();
@@ -1003,9 +870,26 @@ const Engine = (function() {
     const isCorrect = selectedChoiceKey === correctAnswer;
     const items = ACADEMY_CONTENT[moduleId].stage6_independentPractice;
     const item = items[itemIdx];
-    const trapHit = isCorrect ? null : item.trapTypes[selectedChoiceKey];
+    const trapHit = isCorrect ? null : (item.trapTypes?.[selectedChoiceKey] || "Distractor Trap");
 
     StorageManager.recordIndependentAnswer(moduleId, itemId, selectedChoiceKey, isCorrect, timeSpent, trapHit);
+
+    // Auto-log mistake if wrong
+    if (!isCorrect) {
+      StorageManager.logMistake({
+        id: `ERR-${item.id}`,
+        moduleId: moduleId,
+        moduleTitle: MODULES_CONFIG.find(m => m.id === moduleId)?.title || "Independent Practice",
+        type: "Reading",
+        question: item.question,
+        passage: item.passage,
+        selected: selectedChoiceKey,
+        answer: item.answer,
+        trapType: trapHit,
+        explanation: item.explanation?.correctBridge || "Review question rationale"
+      });
+    }
+
     renderStage6IndependentPractice(document.getElementById("stage-canvas"), items, ACADEMY_CONTENT[moduleId].selfAssessmentRubric, moduleId, itemIdx);
   }
 
@@ -1070,26 +954,40 @@ const Engine = (function() {
     `;
   }
 
-  /**
-   * Handles Self-Assessment submission
-   */
   function submitRubric(event, moduleId) {
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
     const answers = {};
-    for (let [key, val] of formData.entries()) {
-      answers[key] = parseInt(val, 10);
+    for (const [key, val] of formData.entries()) {
+      answers[key] = val;
     }
     StorageManager.recordSelfAssessment(moduleId, answers);
     App.navigateToSkillMap();
   }
 
   /**
-   * Handles option selection
+   * Choice and Elimination Handling
    */
   function handleChoiceClick(letter, moduleId, stageNum, itemIdx) {
+    if (eliminatedChoices.has(letter)) return;
     selectedChoiceKey = letter;
+    refreshStageView(moduleId, stageNum, itemIdx);
+  }
+
+  function toggleElimination(letter, moduleId, stageNum, itemIdx) {
+    if (eliminatedChoices.has(letter)) {
+      eliminatedChoices.delete(letter);
+    } else {
+      eliminatedChoices.add(letter);
+      if (selectedChoiceKey === letter) {
+        selectedChoiceKey = null;
+      }
+    }
+    refreshStageView(moduleId, stageNum, itemIdx);
+  }
+
+  function refreshStageView(moduleId, stageNum, itemIdx) {
     if (stageNum === 5) {
       renderStage5GuidedPractice(document.getElementById("stage-canvas"), ACADEMY_CONTENT[moduleId].stage5_guidedPractice, moduleId, itemIdx);
     } else if (stageNum === 6) {
@@ -1098,20 +996,479 @@ const Engine = (function() {
   }
 
   /**
-   * Toggles elimination (strike-through)
+   * Deep Structured Explanation Builder
    */
-  function toggleElimination(letter, moduleId, stageNum, itemIdx) {
-    if (eliminatedChoices.has(letter)) {
-      eliminatedChoices.delete(letter);
-    } else {
-      eliminatedChoices.add(letter);
-      if (selectedChoiceKey === letter) selectedChoiceKey = null;
+  function renderStructuredExplanation(exp, item, isCorrect) {
+    if (!exp) return "";
+
+    let autopsyHTML = "";
+    if (exp.choiceBreakdown) {
+      autopsyHTML = `
+        <div class="distractor-autopsy-section">
+          <div class="autopsy-section-title">
+            <span>🔬</span>
+            <h4>Distractor Flaw Autopsy (Why Each Choice Fails or Succeeds)</h4>
+          </div>
+          <div class="autopsy-list">
+            ${Object.entries(exp.choiceBreakdown).map(([letter, analysis]) => {
+              const isRightLetter = letter === item.answer;
+              const trapBadge = item.trapTypes?.[letter] || (isRightLetter ? "Correct Answer" : "Flawed Distractor");
+              return `
+                <div class="autopsy-item ${isRightLetter ? 'autopsy-correct' : 'autopsy-wrong'}">
+                  <div class="autopsy-header">
+                    <span class="autopsy-letter">Option ${letter}</span>
+                    <span class="autopsy-trap-badge ${isRightLetter ? 'badge-correct' : 'badge-trap'}">${trapBadge}</span>
+                  </div>
+                  <p class="autopsy-text">${analysis}</p>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
     }
 
-    if (stageNum === 5) {
-      renderStage5GuidedPractice(document.getElementById("stage-canvas"), ACADEMY_CONTENT[moduleId].stage5_guidedPractice, moduleId, itemIdx);
-    } else if (stageNum === 6) {
-      renderStage6IndependentPractice(document.getElementById("stage-canvas"), ACADEMY_CONTENT[moduleId].stage6_independentPractice, ACADEMY_CONTENT[moduleId].selfAssessmentRubric, moduleId, itemIdx);
+    return `
+      <div class="explanation-card animate-fade-in ${isCorrect ? 'explanation-correct' : 'explanation-incorrect'}">
+        <div class="explanation-status-banner">
+          <span class="status-icon">${isCorrect ? '✓' : '✗'}</span>
+          <div class="status-text-wrap">
+            <div class="status-headline">${isCorrect ? 'Correct! Logical Path Verified.' : 'Incorrect Choice.'}</div>
+            <div class="correct-answer-pill">Defensible Answer: <strong>Option ${item.answer}</strong></div>
+          </div>
+        </div>
+
+        <div class="explanation-body-grid">
+          <div class="explanation-block correct-bridge">
+            <div class="block-title">
+              <span>🎯</span>
+              <h4>The Text-to-Option Bridge (Direct Textual Proof)</h4>
+            </div>
+            <p>${exp.correctBridge}</p>
+          </div>
+
+          ${autopsyHTML}
+
+          <div class="explanation-block key-takeaway">
+            <div class="block-title">
+              <span>🧠</span>
+              <h4>Metacognitive Rule for Next Time</h4>
+            </div>
+            <p>${exp.keyTakeaway}</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * =========================================================================
+   * DIGITAL SAT GRAMMAR ACADEMY ENGINE
+   * =========================================================================
+   */
+  function renderGrammarHome(container) {
+    const state = StorageManager.getState();
+    const gmods = GRAMMAR_MODULES_CONFIG || [];
+
+    let cardsHTML = "";
+    gmods.forEach(gmod => {
+      const gState = state.grammar?.[gmod.id] || { status: "Not Started", completedCount: 0, correctCount: 0 };
+      cardsHTML += `
+        <div class="grammar-module-card animate-fade-in" onclick="App.navigateToGrammarModule('${gmod.id}')">
+          <div class="gmod-header">
+            <span class="gmod-icon">${gmod.icon}</span>
+            <span class="gmod-tag">${gmod.domainTag}</span>
+          </div>
+          <h3 class="gmod-title">${gmod.title}</h3>
+          <h4 class="gmod-tr-title">🇹🇷 ${gmod.turkishTitle}</h4>
+          <p class="gmod-desc">${gmod.subtitle}</p>
+          <div class="gmod-footer">
+            <span class="status-badge status-${gState.status.toLowerCase().replace(' ', '-')}">${gState.status}</span>
+            <span class="gmod-time">⏱️ ${gmod.estimatedMinutes} mins</span>
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = `
+      <div class="grammar-dashboard animate-fade-in">
+        <div class="grammar-hero-banner">
+          <div class="hero-left">
+            <div class="hero-badge">Digital SAT Standard English Conventions</div>
+            <h1>✍️ Grammar & Conventions Academy</h1>
+            <p>Master punctuation, clause boundaries, agreement, modifiers, and transitions with Turkish formulas and College Board drills.</p>
+          </div>
+          <button class="btn btn-accent" onclick="App.openTurkishModal('transitions')">
+            🔄 Bağlaç & Geçişler Tablosu (🇹🇷)
+          </button>
+        </div>
+
+        <div class="grammar-modules-grid">
+          ${cardsHTML}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderGrammarModule(container, moduleId, itemIdx = 0) {
+    const modData = GRAMMAR_CONTENT[moduleId];
+    const modConfig = GRAMMAR_MODULES_CONFIG.find(m => m.id === moduleId);
+    if (!modData || !modConfig) return;
+
+    const drills = modData.drills || [];
+    const item = drills[itemIdx] || drills[0];
+    const totalDrills = drills.length;
+    const isLastDrill = itemIdx >= totalDrills - 1;
+
+    const state = StorageManager.getState();
+    const gState = state.grammar?.[moduleId] || { items: {} };
+    const prevRecord = gState.items?.[item.id];
+    const isSubmitted = !!prevRecord || selectedChoiceKey !== null;
+
+    let choicesHTML = "";
+    item.choices.forEach(ch => {
+      const letter = ch.substring(0, 1);
+      const isSelected = (prevRecord?.selected === letter) || (selectedChoiceKey === letter);
+      const isCorrect = letter === item.answer;
+
+      let btnClass = "sat-choice-button";
+      if (isSelected) btnClass += " choice-selected";
+      if (isSubmitted) {
+        if (isCorrect) btnClass += " choice-confirmed-correct";
+        else if (isSelected && !isCorrect) btnClass += " choice-confirmed-wrong";
+      }
+
+      choicesHTML += `
+        <button class="${btnClass}" onclick="Engine.handleGrammarChoice('${letter}')" ${isSubmitted ? 'disabled' : ''}>
+          <span class="choice-letter">${letter}</span>
+          <span class="choice-text-content">${ch.substring(3)}</span>
+        </button>
+      `;
+    });
+
+    container.innerHTML = `
+      <div class="grammar-lesson-view animate-fade-in">
+        <div class="grammar-header-row flex-between">
+          <div>
+            <button class="btn btn-secondary btn-small" onclick="App.navigateToGrammarHome()">← Back to Grammar Academy</button>
+            <h2 class="grammar-title">${modConfig.icon} ${modConfig.title} (🇹🇷 ${modConfig.turkishTitle})</h2>
+          </div>
+          <div class="item-progress-pills">
+            ${drills.map((_, i) => `<span class="item-dot ${i === itemIdx ? 'active' : 'completed'}"></span>`).join('')}
+          </div>
+        </div>
+
+        <!-- Turkish Grammar Rule & Formula Box -->
+        <div class="grammar-rule-box">
+          <div class="rule-box-header">
+            <span class="rule-icon">📐</span>
+            <h3>${modData.lesson.title}</h3>
+          </div>
+          <p class="rule-tr-explanation">${modData.lesson.turkishExplanation}</p>
+          <div class="formula-pre-box">
+            <code>${modData.lesson.formula.replace(/\n/g, '<br>')}</code>
+          </div>
+        </div>
+
+        <!-- Practice Drill -->
+        <div class="sat-split-layout">
+          <div class="sat-passage-pane">
+            <div class="pane-header">
+              <span class="pane-tag">Grammar Drill ${itemIdx + 1} of ${totalDrills}</span>
+            </div>
+            <div class="grammar-passage-box">
+              <p class="grammar-sentence-text">${item.passage}</p>
+            </div>
+            ${item.turkishSolverGuide ? renderTurkishSolverCard(item.turkishSolverGuide) : ""}
+          </div>
+
+          <div class="sat-question-pane">
+            <div class="question-stem">${item.question}</div>
+            <div class="sat-choices-container">
+              ${choicesHTML}
+            </div>
+
+            ${!isSubmitted ? `
+              <div class="question-submit-area">
+                <button class="btn btn-primary btn-large" onclick="Engine.submitGrammarAnswer('${moduleId}', '${item.id}', '${item.answer}', ${itemIdx})" ${!selectedChoiceKey ? 'disabled' : ''}>
+                  Confirm Grammar Choice <kbd>Enter</kbd>
+                </button>
+              </div>
+            ` : renderStructuredExplanation(item.explanation, item, (prevRecord?.isCorrect || selectedChoiceKey === item.answer))}
+          </div>
+        </div>
+
+        <div class="stage-actions-footer">
+          ${isSubmitted ? `
+            <button class="btn btn-primary" onclick="App.navigateToGrammarModule('${moduleId}', ${isLastDrill ? 0 : itemIdx + 1})">
+              ${!isLastDrill ? `Next Grammar Question (${itemIdx + 2}/${totalDrills}) →` : "Complete Grammar Module ✓"}
+            </button>
+          ` : ""}
+        </div>
+      </div>
+    `;
+
+    if (typeof StudentTools !== "undefined") {
+      StudentTools.restorePassageAnnotations(`GRAM-${moduleId}-I${itemIdx}`);
+    }
+  }
+
+  function handleGrammarChoice(letter) {
+    selectedChoiceKey = letter;
+    const btn = event?.currentTarget;
+    if (btn) {
+      document.querySelectorAll(".sat-choice-button").forEach(b => b.classList.remove("choice-selected"));
+      btn.classList.add("choice-selected");
+    }
+    const submitBtn = document.querySelector(".question-submit-area button");
+    if (submitBtn) submitBtn.disabled = false;
+  }
+
+  function submitGrammarAnswer(moduleId, questionId, correctAnswer, itemIdx) {
+    if (!selectedChoiceKey) return;
+    const isCorrect = selectedChoiceKey === correctAnswer;
+    const drills = GRAMMAR_CONTENT[moduleId].drills;
+    const item = drills[itemIdx];
+
+    StorageManager.recordGrammarAnswer(moduleId, questionId, selectedChoiceKey, isCorrect);
+
+    // Auto-log mistake if wrong
+    if (!isCorrect) {
+      StorageManager.logMistake({
+        id: `ERR-${item.id}`,
+        moduleId: moduleId,
+        moduleTitle: GRAMMAR_MODULES_CONFIG.find(m => m.id === moduleId)?.title || "Grammar",
+        type: "Grammar",
+        question: item.question,
+        passage: item.passage,
+        selected: selectedChoiceKey,
+        answer: correctAnswer,
+        trapType: "Grammar Convention Error",
+        explanation: item.explanation?.correctBridge || "Review grammar rule"
+      });
+    }
+
+    renderGrammarModule(document.getElementById("stage-canvas"), moduleId, itemIdx);
+  }
+
+  /**
+   * =========================================================================
+   * 30-DAY DAILY VOCABULARY & DRILLS ENGINE
+   * =========================================================================
+   */
+  function renderDailyVocabDashboard(container, selectedDay = 1) {
+    const sets = DAILY_VOCAB_SETS || [];
+    const dayData = sets.find(s => s.day === selectedDay) || sets[0];
+    const progress = StorageManager.getDailyVocabProgress();
+
+    let dayPillsHTML = "";
+    sets.forEach(s => {
+      const isDone = !!progress[s.day];
+      dayPillsHTML += `
+        <button class="day-tab-pill ${s.day === selectedDay ? 'active' : ''} ${isDone ? 'completed' : ''}" onclick="Engine.renderDailyVocabDashboard(document.getElementById('stage-canvas'), ${s.day})">
+          <span>Day ${s.day}</span>
+          ${isDone ? '<span class="done-check">✓</span>' : ''}
+        </button>
+      `;
+    });
+
+    let flashcardsHTML = "";
+    dayData.words.forEach(w => {
+      flashcardsHTML += `
+        <div class="vocab-flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <span class="fc-pos">${w.pos}</span>
+              <h3 class="fc-word">${w.word}</h3>
+              <span class="fc-prompt">🔄 Tıkla / Çevir (Türkçe & İpucu)</span>
+            </div>
+            <div class="flip-card-back">
+              <div class="fc-tr-line">🇹🇷 <strong>${w.tr}</strong></div>
+              <p class="fc-en-def">${w.en}</p>
+              <div class="fc-example"><em>"${w.ex}"</em></div>
+              <div class="fc-mnemonic">💡 ${w.mnemonic}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    const quizRecord = progress[selectedDay];
+    const isQuizDone = !!quizRecord;
+
+    container.innerHTML = `
+      <div class="daily-vocab-view animate-fade-in">
+        <div class="daily-vocab-header flex-between">
+          <div>
+            <div class="stage-pill">30-Day SAT Vocabulary Challenge</div>
+            <h2>📅 Day ${dayData.day}: ${dayData.theme}</h2>
+          </div>
+          <button class="btn btn-secondary" onclick="App.openTurkishModal('vocab')">
+            📖 100 Kelimelik Sözlüğü Aç
+          </button>
+        </div>
+
+        <div class="day-pills-scroll-row">
+          ${dayPillsHTML}
+        </div>
+
+        <div class="flashcards-grid">
+          ${flashcardsHTML}
+        </div>
+
+        <!-- Daily Quiz Drill -->
+        <div class="daily-quiz-card">
+          <div class="quiz-header">
+            <span>⚡</span>
+            <h3>Günün Alıştırması (Daily Sentence Completion Quiz)</h3>
+          </div>
+          <p class="quiz-question-text">${dayData.quiz.question}</p>
+          <div class="quiz-options-grid">
+            ${dayData.quiz.options.map(opt => {
+              const letter = opt.substring(0, 1);
+              const isCorrectOpt = letter === dayData.quiz.answer;
+              return `
+                <button class="quiz-choice-btn" onclick="Engine.submitDailyVocabQuiz(${dayData.day}, '${letter}', '${dayData.quiz.answer}')">
+                  ${opt}
+                </button>
+              `;
+            }).join('')}
+          </div>
+          ${isQuizDone ? `
+            <div class="quiz-feedback-box animate-fade-in">
+              <p><strong>Sonuç:</strong> ${dayData.quiz.explanation}</p>
+            </div>
+          ` : ""}
+        </div>
+      </div>
+    `;
+  }
+
+  function submitDailyVocabQuiz(dayNumber, selectedChoice, correctAnswer) {
+    const isCorrect = selectedChoice === correctAnswer;
+    StorageManager.recordDailyVocabCompletion(dayNumber, isCorrect ? 100 : 0);
+
+    const sets = DAILY_VOCAB_SETS;
+    const dayData = sets.find(s => s.day === dayNumber);
+
+    if (!isCorrect && dayData) {
+      StorageManager.logMistake({
+        id: `ERR-VOCAB-D${dayNumber}`,
+        moduleId: `Day-${dayNumber}`,
+        moduleTitle: `Daily Vocab: ${dayData.theme}`,
+        type: "Vocab",
+        question: dayData.quiz.question,
+        passage: "Daily Vocabulary Practice",
+        selected: selectedChoice,
+        answer: correctAnswer,
+        trapType: "Vocabulary Meaning Error",
+        explanation: dayData.quiz.explanation
+      });
+    }
+
+    renderDailyVocabDashboard(document.getElementById("stage-canvas"), dayNumber);
+  }
+
+  /**
+   * =========================================================================
+   * AUTOMATIC ERROR LOG (OTOMATİK HATA DEFTERİ) ENGINE
+   * =========================================================================
+   */
+  function renderErrorLogView(container, filterType = "ALL") {
+    let mistakes = StorageManager.getMistakes();
+    if (filterType !== "ALL") {
+      mistakes = mistakes.filter(m => m.type === filterType);
+    }
+
+    let rowsHTML = "";
+    if (mistakes.length === 0) {
+      rowsHTML = `
+        <div class="error-log-empty">
+          <span class="empty-icon">🎉</span>
+          <h3>Hata Defteriniz Tertemiz!</h3>
+          <p>Çözdüğünüz sorularda yaptığınız yanlışlar ve tuzaklar burada otomatik olarak toplanır ve tekrar çözmenizi sağlar.</p>
+        </div>
+      `;
+    } else {
+      rowsHTML = mistakes.map((m, idx) => `
+        <div class="mistake-card ${m.resolved ? 'mistake-resolved' : ''} animate-fade-in" id="mistake-${m.id}">
+          <div class="mistake-card-header flex-between">
+            <div class="mistake-meta">
+              <span class="mistake-type-badge type-${m.type.toLowerCase()}">${m.type}</span>
+              <span class="mistake-module-name">${m.moduleTitle}</span>
+              <span class="mistake-trap-pill">⚠️ ${m.trapType}</span>
+            </div>
+            <div class="mistake-actions">
+              ${m.resolved ? '<span class="resolved-tag">✓ Çözüldü</span>' : `
+                <button class="btn btn-small btn-accent" onclick="Engine.resolveMistakeItem('${m.id}')">
+                  ✓ Öğrenildi Olarak İşaretle
+                </button>
+              `}
+              <button class="btn-icon-delete" onclick="Engine.deleteMistakeItem('${m.id}')" title="Kayıttan Sil">✕</button>
+            </div>
+          </div>
+
+          <div class="mistake-body">
+            <div class="mistake-question-text"><strong>Soru:</strong> ${m.question}</div>
+            ${m.passage ? `<div class="mistake-passage-preview"><em>"${m.passage.slice(0, 180)}..."</em></div>` : ''}
+            
+            <div class="mistake-answers-row">
+              <span class="chosen-wrong">Seçtiğiniz Hatalı Cevap: <strong>${m.selected}</strong></span>
+              <span class="correct-truth">Doğru Cevap: <strong>${m.answer}</strong></span>
+            </div>
+
+            <p class="mistake-explanation-text">💡 ${m.explanation}</p>
+
+            <div class="mistake-reflection-box">
+              <label>📝 Kendi Notunuz (Neden bu tuzağa düştünüz?):</label>
+              <div class="reflection-input-row">
+                <input type="text" id="refl-input-${m.id}" value="${m.studentNote || ''}" placeholder="Örn. Qualify kelimesini yanlış anladım, zıtlık bağlacını kaçırdım..." />
+                <button class="btn btn-small btn-secondary" onclick="Engine.saveMistakeReflection('${m.id}')">Notu Kaydet</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    container.innerHTML = `
+      <div class="error-log-view animate-fade-in">
+        <div class="error-log-header flex-between">
+          <div>
+            <div class="stage-pill">Kişiselleştirilmiş Hata Defteri</div>
+            <h2>📓 Otomatik Hata Defteri & Tuzak Analizi</h2>
+            <p>Yanlış yaptığınız her soru buraya kaydedilir. Tuzakları inceleyin ve notlar alarak pekiştirin.</p>
+          </div>
+          <div class="error-log-filter-pills">
+            <button class="filter-pill ${filterType === 'ALL' ? 'active' : ''}" onclick="Engine.renderErrorLogView(document.getElementById('stage-canvas'), 'ALL')">Tümü (${StorageManager.getMistakes().length})</button>
+            <button class="filter-pill ${filterType === 'Reading' ? 'active' : ''}" onclick="Engine.renderErrorLogView(document.getElementById('stage-canvas'), 'Reading')">Reading</button>
+            <button class="filter-pill ${filterType === 'Grammar' ? 'active' : ''}" onclick="Engine.renderErrorLogView(document.getElementById('stage-canvas'), 'Grammar')">Grammar</button>
+            <button class="filter-pill ${filterType === 'Vocab' ? 'active' : ''}" onclick="Engine.renderErrorLogView(document.getElementById('stage-canvas'), 'Vocab')">Vocab</button>
+          </div>
+        </div>
+
+        <div class="mistakes-list-container">
+          ${rowsHTML}
+        </div>
+      </div>
+    `;
+  }
+
+  function resolveMistakeItem(mistakeId) {
+    StorageManager.resolveMistake(mistakeId);
+    renderErrorLogView(document.getElementById("stage-canvas"));
+  }
+
+  function deleteMistakeItem(mistakeId) {
+    StorageManager.deleteMistake(mistakeId);
+    renderErrorLogView(document.getElementById("stage-canvas"));
+  }
+
+  function saveMistakeReflection(mistakeId) {
+    const input = document.getElementById(`refl-input-${mistakeId}`);
+    if (input) {
+      StorageManager.saveMistakeNote(mistakeId, input.value.trim());
+      alert("Notunuz Hata Defterine kaydedildi!");
     }
   }
 
@@ -1203,6 +1560,16 @@ const Engine = (function() {
     submitIndependentAnswer,
     submitRubric,
     advanceStage,
-    injectGlosses
+    injectGlosses,
+    renderGrammarHome,
+    renderGrammarModule,
+    handleGrammarChoice,
+    submitGrammarAnswer,
+    renderDailyVocabDashboard,
+    submitDailyVocabQuiz,
+    renderErrorLogView,
+    resolveMistakeItem,
+    deleteMistakeItem,
+    saveMistakeReflection
   };
 })();

@@ -1,6 +1,7 @@
 /**
- * SAT READING SKILLS ACADEMY - Main Application & Router
- * Manages view routing, user preferences, keyboard shortcuts, modals, and Teacher Mode.
+ * SAT READING & WRITING ACADEMY - Main Application & Router
+ * Manages view routing (Reading, Grammar, Daily Vocab, Error Log, Analytics),
+ * preferences, keyboard shortcuts, modals, student tools, and Teacher Mode.
  */
 
 const App = (function() {
@@ -17,8 +18,12 @@ const App = (function() {
     setupKeyboardListeners();
     handleHashRouting();
 
+    if (typeof StudentTools !== "undefined") {
+      StudentTools.init();
+    }
+
     window.addEventListener("hashchange", handleHashRouting);
-    console.log("SAT Reading Skills Academy initialized successfully.");
+    console.log("SAT Reading & Writing Academy initialized successfully.");
   }
 
   /**
@@ -104,7 +109,7 @@ const App = (function() {
   }
 
   /**
-   * Router handling hash changes (#map, #module/:id/:stage, #dashboard)
+   * Router handling hash changes (#map, #module/:id/:stage, #grammar, #vocab-daily, #error-log, #dashboard)
    */
   function handleHashRouting() {
     const hash = window.location.hash || "#map";
@@ -118,6 +123,18 @@ const App = (function() {
       const stageNum = parts[2] ? parseInt(parts[2], 10) : 1;
       const itemIdx = parts[3] ? parseInt(parts[3], 10) : 0;
       showModuleView(moduleId, stageNum, itemIdx);
+    } else if (view === "grammar") {
+      if (parts[1]) {
+        const itemIdx = parts[2] ? parseInt(parts[2], 10) : 0;
+        showGrammarModuleView(parts[1], itemIdx);
+      } else {
+        showGrammarHomeView();
+      }
+    } else if (view === "vocab-daily") {
+      const dayNum = parts[1] ? parseInt(parts[1], 10) : 1;
+      showDailyVocabView(dayNum);
+    } else if (view === "error-log") {
+      showErrorLogView();
     } else if (view === "dashboard") {
       showDashboardView();
     } else {
@@ -126,13 +143,19 @@ const App = (function() {
   }
 
   function hideAllViews() {
-    const views = ["skill-map-view", "module-view", "dashboard-view"];
+    const views = [
+      "skill-map-view",
+      "module-view",
+      "grammar-view",
+      "vocab-daily-view",
+      "error-log-view",
+      "dashboard-view"
+    ];
     views.forEach(id => {
       const el = document.getElementById(id);
       if (el) el.style.display = "none";
     });
 
-    // Update active nav links
     const navLinks = document.querySelectorAll(".nav-link");
     navLinks.forEach(link => link.classList.remove("active"));
   }
@@ -149,6 +172,38 @@ const App = (function() {
     const el = document.getElementById("module-view");
     if (el) el.style.display = "block";
     Engine.loadModuleStage(moduleId, stageNum, itemIdx);
+  }
+
+  function showGrammarHomeView() {
+    const el = document.getElementById("grammar-view");
+    if (el) el.style.display = "block";
+    const link = document.getElementById("nav-link-grammar");
+    if (link) link.classList.add("active");
+    Engine.renderGrammarHome(document.getElementById("grammar-canvas"));
+  }
+
+  function showGrammarModuleView(moduleId, itemIdx = 0) {
+    const el = document.getElementById("grammar-view");
+    if (el) el.style.display = "block";
+    const link = document.getElementById("nav-link-grammar");
+    if (link) link.classList.add("active");
+    Engine.renderGrammarModule(document.getElementById("grammar-canvas"), moduleId, itemIdx);
+  }
+
+  function showDailyVocabView(dayNum = 1) {
+    const el = document.getElementById("vocab-daily-view");
+    if (el) el.style.display = "block";
+    const link = document.getElementById("nav-link-vocab");
+    if (link) link.classList.add("active");
+    Engine.renderDailyVocabDashboard(document.getElementById("vocab-canvas"), dayNum);
+  }
+
+  function showErrorLogView(filter = "ALL") {
+    const el = document.getElementById("error-log-view");
+    if (el) el.style.display = "block";
+    const link = document.getElementById("nav-link-error-log");
+    if (link) link.classList.add("active");
+    Engine.renderErrorLogView(document.getElementById("error-log-canvas"), filter);
   }
 
   function showDashboardView() {
@@ -170,10 +225,25 @@ const App = (function() {
     window.location.hash = "#dashboard";
   }
 
+  function navigateToGrammarHome() {
+    window.location.hash = "#grammar";
+  }
+
+  function navigateToGrammarModule(moduleId, itemIdx = 0) {
+    window.location.hash = `#grammar/${moduleId}/${itemIdx}`;
+  }
+
+  function navigateToDailyVocab(day = 1) {
+    window.location.hash = `#vocab-daily/${day}`;
+  }
+
+  function navigateToErrorLog() {
+    window.location.hash = "#error-log";
+  }
+
   function navigateToModule(moduleId) {
     const state = StorageManager.getState();
     const mod = state.modules[moduleId];
-    // Find next uncompleted stage or default to Stage 1
     let nextStage = 1;
     if (mod && mod.stagesCompleted.length > 0) {
       for (let s = 1; s <= 6; s++) {
@@ -201,25 +271,24 @@ const App = (function() {
     const globalSummary = Analytics.getGlobalSummary(state);
     const recommendation = Analytics.getPersonalizedRecommendation(state);
 
-    // Render Global Overview Bar
     const globalBar = document.getElementById("global-mastery-bar");
     if (globalBar) {
       globalBar.innerHTML = `
         <div class="global-overview-card animate-fade-in">
           <div class="overview-metric">
             <span class="metric-num">${globalSummary.overallMasteryPct}%</span>
-            <span class="metric-label">Curriculum Mastered</span>
+            <span class="metric-label">Reading Curriculum Mastered</span>
           </div>
           <div class="overview-metric">
             <span class="metric-num">${globalSummary.totalMastered}/7</span>
-            <span class="metric-label">Skills at Master Level</span>
+            <span class="metric-label">Reading Skills at Master Level</span>
           </div>
           <div class="overview-metric">
             <span class="metric-num">${Math.round(globalSummary.overallAccuracy * 100)}%</span>
-            <span class="metric-label">Independent Exam Accuracy</span>
+            <span class="metric-label">Exam Pace Accuracy</span>
           </div>
           <div class="overview-recommendation-box">
-            <div class="rec-badge">Recommended Next Action</div>
+            <div class="rec-badge">Recommended Next Step</div>
             <div class="rec-title">${recommendation.headline}</div>
             <a href="${recommendation.actionUrl}" class="btn btn-accent btn-small">Launch Step →</a>
           </div>
@@ -299,78 +368,66 @@ const App = (function() {
 
     if (recContainer) {
       recContainer.innerHTML = `
-        <div class="coaching-card animate-fade-in">
-          <div class="coaching-header">
-            <span class="coaching-icon">🧠</span>
-            <div>
-              <span class="coaching-tag">Pedagogical Diagnosis</span>
-              <h3>${recommendation.headline}</h3>
-            </div>
-          </div>
-          <p class="coaching-advice">${recommendation.advice}</p>
-          <div class="coaching-action">
-            <a href="${recommendation.actionUrl}" class="btn btn-primary">Execute Recommended Remediation →</a>
-          </div>
+        <div class="rec-headline-badge">${recommendation.badge}</div>
+        <h3 class="rec-headline-title">${recommendation.headline}</h3>
+        <p class="rec-rationale">${recommendation.rationale}</p>
+        <div class="rec-button-wrap">
+          <a href="${recommendation.actionUrl}" class="btn btn-primary">${recommendation.actionText} →</a>
         </div>
       `;
     }
 
     if (tableBody) {
-      let rowsHTML = "";
-      global.modulesSummary.forEach(m => {
-        const indAccText = m.indCount > 0 ? `${Math.round(m.indAccuracy * 100)}% (${m.indCorrect}/${m.indCount})` : "Not Attempted";
-        const guidedAccText = m.guidedCount > 0 ? `${Math.round(m.guidedAccuracy * 100)}%` : "Not Attempted";
-        const avgHintText = m.guidedCount > 0 ? `${m.avgHints} hints/q` : "N/A";
-
-        rowsHTML += `
+      tableBody.innerHTML = global.modulesSummary.map(mod => {
+        const statusClass = `status-${mod.status.toLowerCase().replace(' ', '-')}`;
+        return `
           <tr>
-            <td><strong>${m.title}</strong></td>
-            <td><span class="status-badge status-${m.status.toLowerCase().replace(' ', '-')}">${m.status}</span></td>
-            <td>${guidedAccText}</td>
-            <td>${avgHintText}</td>
-            <td><strong>${indAccText}</strong></td>
+            <td><strong>${mod.number === 0 ? "Foundation" : "M" + mod.number}: ${mod.title}</strong></td>
+            <td><span class="status-badge ${statusClass}">${mod.status}</span></td>
+            <td>${mod.stagesCompletedCount}/6</td>
+            <td>${mod.guidedCompleted} items (${mod.hintsUsedTotal} hints)</td>
+            <td>${mod.accuracyPct}% (${mod.independentCorrect}/${mod.independentCompleted})</td>
             <td>
-              <button class="btn btn-small btn-secondary" onclick="App.navigateToModule('${m.id}')">Practice</button>
+              <button class="btn btn-small btn-secondary" onclick="App.navigateToModule('${mod.id}')">Open</button>
             </td>
           </tr>
         `;
-      });
-      tableBody.innerHTML = rowsHTML;
+      }).join('');
     }
   }
 
   /**
-   * Method Card Persistent Drawer/Modal
+   * Method Card Drawer / Modal
    */
   function openMethodModal(moduleId) {
-    const mod = MODULES_CONFIG.find(m => m.id === moduleId) || MODULES_CONFIG[0];
-    const moduleContent = ACADEMY_CONTENT[mod.id];
-    if (!moduleContent) return;
-
     const modal = document.getElementById("method-modal");
-    const titleEl = document.getElementById("method-modal-title");
-    const bodyEl = document.getElementById("method-modal-body");
+    if (!modal) return;
 
-    if (titleEl) titleEl.textContent = `${mod.methodName} — Strategy Card`;
+    const modConfig = MODULES_CONFIG.find(m => m.id === moduleId) || MODULES_CONFIG[0];
+    const modContent = ACADEMY_CONTENT[modConfig.id];
+    if (!modContent) return;
 
-    if (bodyEl) {
-      let stepsHTML = "";
-      moduleContent.stage2_method.steps.forEach(step => {
-        stepsHTML += `
-          <div class="method-modal-step">
-            <div class="step-num">${step.num}</div>
-            <div class="step-content">
-              <h4>${step.title}</h4>
-              <p>${step.rule}</p>
-              <blockquote class="expert-quote">“${step.expertMove}”</blockquote>
-            </div>
+    const titleEl = document.getElementById("modal-method-title");
+    const bodyEl = document.getElementById("modal-method-body");
+
+    if (titleEl) titleEl.textContent = `${modConfig.title}: ${modContent.stage2_method.name}`;
+
+    let stepsHTML = "";
+    modContent.stage2_method.steps.forEach(step => {
+      stepsHTML += `
+        <div class="method-modal-step">
+          <div class="step-num">${step.stepNumber}</div>
+          <div class="step-text">
+            <h4>${step.title}</h4>
+            <p>${step.description}</p>
+            <div class="micro-action"><em>Action:</em> ${step.action}</div>
           </div>
-        `;
-      });
-      bodyEl.innerHTML = stepsHTML;
-    }
+        </div>
+      `;
+    });
 
-    if (modal) modal.classList.add("open");
+    if (bodyEl) bodyEl.innerHTML = stepsHTML;
+    modal.classList.add("open");
   }
 
   function closeMethodModal() {
@@ -379,62 +436,17 @@ const App = (function() {
   }
 
   /**
-   * JSON Export / Import Handling
-   */
-  function exportDataFile() {
-    const jsonStr = StorageManager.exportData();
-    const blob = new Blob([jsonStr], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `sat_reading_academy_backup_${new Date().toISOString().slice(0,10)}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
-
-  function triggerImportDialog() {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = ".json,application/json";
-    input.onchange = (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = StorageManager.importData(event.target.result);
-        if (result.success) {
-          alert("Progress successfully imported!");
-          window.location.reload();
-        } else {
-          alert("Error importing data: " + result.error);
-        }
-      };
-      reader.readAsText(file);
-    };
-    input.click();
-  }
-
-  function confirmResetProgress() {
-    if (confirm("Are you sure you want to reset all your progress? This cannot be undone.")) {
-      StorageManager.resetProgress();
-      window.location.hash = "#map";
-      window.location.reload();
-    }
-  }
-
-  /**
-   * Turkish SAT Guide & Vocabulary Modal Handling (🇹🇷)
+   * Turkish SAT Guide Modal (🇹🇷)
    */
   let currentTurkishTab = "vocab";
 
   function openTurkishModal(tab = "vocab") {
+    currentTurkishTab = tab;
     const modal = document.getElementById("turkish-modal");
-    if (modal) {
-      modal.classList.add("open");
-      switchTurkishTab(tab);
-    }
+    if (!modal) return;
+
+    modal.classList.add("open");
+    switchTurkishTab(tab);
   }
 
   function closeTurkishModal() {
@@ -444,86 +456,80 @@ const App = (function() {
 
   function switchTurkishTab(tabName) {
     currentTurkishTab = tabName;
-    const tabBtns = document.querySelectorAll(".turkish-tab-btn");
-    tabBtns.forEach(btn => {
-      if (btn.getAttribute("onclick")?.includes(tabName)) {
-        btn.classList.add("active");
-      } else {
-        btn.classList.remove("active");
-      }
+    document.querySelectorAll(".turkish-tab-btn").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.tab === tabName);
     });
-
     renderTurkishModalContent(tabName);
   }
 
-  function renderTurkishModalContent(tabName, query = "") {
+  function renderTurkishModalContent(tabName, filterQuery = "") {
     const bodyEl = document.getElementById("turkish-modal-body");
-    if (!bodyEl || !TURKISH_SAT_VOCAB_VAULT) return;
+    if (!bodyEl) return;
 
     if (tabName === "vocab") {
-      const allWords = TURKISH_SAT_VOCAB_VAULT.top100Vocab || [];
-      const filtered = query.trim() === "" ? allWords : allWords.filter(w => 
-        w.word.toLowerCase().includes(query.toLowerCase()) || 
-        w.tr.toLowerCase().includes(query.toLowerCase()) ||
-        w.en.toLowerCase().includes(query.toLowerCase())
-      );
+      let vocabList = TURKISH_SAT_VOCAB_VAULT.top100Vocab || [];
+      if (filterQuery.trim()) {
+        const q = filterQuery.toLowerCase().trim();
+        vocabList = vocabList.filter(item => 
+          item.word.toLowerCase().includes(q) || 
+          item.tr.toLowerCase().includes(q) || 
+          item.en.toLowerCase().includes(q)
+        );
+      }
 
       bodyEl.innerHTML = `
         <div class="turkish-tab-content">
           <div class="turkish-search-bar">
             <span>🔍</span>
-            <input type="text" id="turkish-vocab-search" placeholder="Kelime veya Türkçe anlam ara (örn. qualify, alleviate, zayıflatmak)..." value="${query}" oninput="App.filterTurkishVocab(this.value)" autofocus />
-            <span class="vocab-count-badge">${filtered.length} kelime</span>
+            <input type="text" id="turkish-vocab-search" placeholder="Kelime ara (İngilizce veya Türkçe)..." value="${filterQuery}" oninput="App.filterTurkishVocab(this.value)" />
+            <span class="vocab-count-badge">${vocabList.length} Kelime</span>
           </div>
 
           <div class="turkish-vocab-grid">
-            ${filtered.map(item => `
+            ${vocabList.map(v => `
               <div class="tr-vocab-card">
                 <div class="tr-vocab-header">
-                  <span class="tr-word-text">${item.word}</span>
-                  <span class="tr-pos-tag">${item.pos}</span>
+                  <span class="tr-word-text">${v.word}</span>
+                  <span class="tr-pos-tag">${v.pos}</span>
                 </div>
                 <div class="tr-meaning-line">
-                  <span class="tr-flag-bullet">🇹🇷</span>
-                  <strong class="tr-translation">${item.tr}</strong>
+                  <strong>🇹🇷</strong> <span class="tr-translation">${v.tr}</span>
                 </div>
-                <p class="tr-en-definition">${item.en}</p>
-                <div class="tr-sat-tip">
-                  <span class="tip-spark">💡 SAT İpucu:</span> ${item.satTip}
-                </div>
+                <p class="tr-en-definition">${v.en}</p>
+                <div class="tr-sat-tip"><span class="tip-spark">💡 SAT İpucu:</span> ${v.tip}</div>
               </div>
             `).join('')}
           </div>
         </div>
       `;
-    } else if (tabName === "falseFriends") {
-      const falseFriends = TURKISH_SAT_VOCAB_VAULT.falseFriends || [];
+    } else if (tabName === "false_friends") {
+      const list = TURKISH_SAT_VOCAB_VAULT.falseFriends || [];
       bodyEl.innerHTML = `
         <div class="turkish-tab-content">
           <div class="turkish-info-intro">
-            <h4>⚠️ Yalancı Eşdeğerler (False Friends) ve SAT İkincil Anlamları</h4>
-            <p>Türk öğrencilerin en sık yanıldığı kelimeler, Türkçedeki benzer sesli karşılığıyla karıştırılan veya sözlükteki ilk anlamı yerine <strong>akademik ikincil anlamı</strong> test edilen kelimelerdir.</p>
+            <h4>⚠️ Yalancı Eşdeğerler (False Friends) Nedir?</h4>
+            <p>Türk öğrencilerin en sık düştüğü tuzak: İngilizce kelimenin Türkçedeki ilk çağrışımını seçmek. SAT bu kelimelerin ikincil akademik anlamlarını sorar.</p>
           </div>
 
           <div class="false-friends-list">
-            ${falseFriends.map(ff => `
+            ${list.map(ff => `
               <div class="false-friend-card">
                 <div class="ff-card-header">
                   <span class="ff-word">${ff.word}</span>
-                  <span class="ff-trap-tag">🚨 Tuzak Uyarısı</span>
+                  <span class="ff-trap-tag">⚠️ Tuzak Kelime</span>
                 </div>
                 <div class="ff-comparison-grid">
                   <div class="ff-wrong-box">
-                    <span class="ff-box-label">❌ Yanıltıcı / İlk Akla Gelen Anlam:</span>
-                    <p>${ff.wrongTurkishThinking}</p>
+                    <span class="ff-box-label">❌ Türkçedeki Yanıltıcı Algı:</span>
+                    <p>${ff.wrongConcept}</p>
                   </div>
                   <div class="ff-correct-box">
-                    <span class="ff-box-label">✓ SAT'deki Gerçek Akademik Anlamı:</span>
-                    <p><strong>${ff.satRealMeaning}</strong></p>
+                    <span class="ff-box-label">✓ SAT'deki Gerçek Akademik Anlam:</span>
+                    <p><strong>${ff.correctConcept}</strong></p>
                   </div>
                 </div>
                 <div class="ff-example-box">
-                  <strong>Örnek Cümle:</strong> <em>${ff.example}</em>
+                  <strong>Örnek Cümle:</strong> <em>"${ff.example}"</em>
                 </div>
               </div>
             `).join('')}
@@ -535,8 +541,8 @@ const App = (function() {
       bodyEl.innerHTML = `
         <div class="turkish-tab-content">
           <div class="turkish-info-intro">
-            <h4>🔄 Digital SAT Bağlaçlar & Geçiş İfadeleri Tablosu</h4>
-            <p>SAT Reading sorularının %80'inde yazarın asıl iddiası bağlaçların (pivot words) hemen arkasından gelir. Bu bağlaçları tanımak soru çözüm hızınızı ikiye katlar.</p>
+            <h4>🔄 SAT Bağlaçlar & Geçiş İfadeleri Tablosu</h4>
+            <p>Cümle tamamlama ve Cross-Text sorularında yön değiştiren veya pekiştiren en kritik bağlaçlar.</p>
           </div>
 
           <div class="transitions-group-list">
@@ -544,7 +550,7 @@ const App = (function() {
               <div class="transition-category-card">
                 <div class="transition-cat-header">
                   <h4>${grp.category}</h4>
-                  <span class="cat-role-badge">${grp.role}</span>
+                  <span class="cat-role-badge">İşlev: ${grp.role}</span>
                 </div>
                 <div class="transition-table-wrap">
                   <table class="transition-tr-table">
@@ -606,11 +612,36 @@ const App = (function() {
   }
 
   /**
+   * Data Management
+   */
+  function exportDataFile() {
+    const json = StorageManager.exportData();
+    const blob = new Blob([json], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `SAT_Reading_Academy_Progress_${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function triggerImportDialog() {
+    const input = document.getElementById("import-file-input");
+    if (input) input.click();
+  }
+
+  function confirmResetProgress() {
+    if (confirm("Are you sure you want to reset all progress? This cannot be undone.")) {
+      StorageManager.resetProgress();
+      window.location.reload();
+    }
+  }
+
+  /**
    * Keyboard Shortcuts Handler
    */
   function setupKeyboardListeners() {
     window.addEventListener("keydown", (e) => {
-      // Don't intercept if user is typing in an input or textarea
       if (["INPUT", "TEXTAREA"].includes(e.target.tagName)) return;
 
       const key = e.key;
@@ -626,6 +657,9 @@ const App = (function() {
       } else if (key === "Escape") {
         closeMethodModal();
         closeTurkishModal();
+        if (typeof StudentTools !== "undefined") {
+          StudentTools.closeNotepadDrawer();
+        }
       } else if ((key === "t" || key === "T") && e.shiftKey) {
         toggleTeacherMode();
       } else if (key === "t" || key === "T") {
@@ -634,6 +668,16 @@ const App = (function() {
           closeTurkishModal();
         } else {
           openTurkishModal();
+        }
+      } else if (key === "g" || key === "G") {
+        navigateToGrammarHome();
+      } else if (key === "v" || key === "V") {
+        navigateToDailyVocab(1);
+      } else if (key === "e" || key === "E") {
+        navigateToErrorLog();
+      } else if (key === "n" || key === "N") {
+        if (typeof StudentTools !== "undefined") {
+          StudentTools.toggleNotepadDrawer();
         }
       }
     });
@@ -646,6 +690,10 @@ const App = (function() {
     toggleTeacherMode,
     navigateToSkillMap,
     navigateToDashboard,
+    navigateToGrammarHome,
+    navigateToGrammarModule,
+    navigateToDailyVocab,
+    navigateToErrorLog,
     navigateToModule,
     navigateToStage,
     openMethodModal,
@@ -662,4 +710,3 @@ const App = (function() {
 
 // Bootstrap on DOM readiness
 document.addEventListener("DOMContentLoaded", App.init);
-

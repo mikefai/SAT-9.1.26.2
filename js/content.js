@@ -1,7 +1,7 @@
 /**
  * SAT READING SKILLS ACADEMY - Content Repository
- * Enriched with Turkish Vocabulary Scaffolds, Bilingual Glosses, Metacognitive Heuristics,
- * and Multi-Part Structured Deep Explanations.
+ * Enriched with Digital SAT Reading & Writing Curriculum, Grammar Academy Modules,
+ * Turkish Scaffolds, Bilingual Glosses, Metacognitive Heuristics, and Deep Explanations.
  */
 
 const ACADEMY_CONTENT = {
@@ -4317,5 +4317,738 @@ const ACADEMY_CONTENT = {
         }
       ]
     }
+  }
+};
+
+const GRAMMAR_CONTENT = {
+  "GRAM-1": {
+    "metadata": {
+      "id": "GRAM-1",
+      "title": "Boundaries & Run-ons",
+      "turkishTitle": "Cümle Sınırları & Noktalama Hataları",
+      "domain": "Standard English Conventions"
+    },
+    "lesson": {
+      "title": "Cümle Sınırları, Comma Splices ve FANBOYS Formülü",
+      "turkishExplanation": "Digital SAT'de en sık sorulan dilbilgisi kuralı iki tam bağımsız cümlenin (Independent Clause = Özne + Yüklem) nasıl birleştirileceğidir. İki bağımsız cümle asla yalnızca tek bir virgülle (,) birbirine bağlanamaz; buna 'Comma Splice' hatası denir.",
+      "formula": "İki Bağımsız Cümle Bağlama Formülleri:\n1) [Cümle 1] . [Cümle 2]\n2) [Cümle 1] ; [Cümle 2]\n3) [Cümle 1] , + FANBOYS (for, and, nor, but, or, yet, so) [Cümle 2]\n4) [Because/Although + Cümle 1] , [Cümle 2]",
+      "goldenRules": [
+        "İki tam cümle arasına tek başına asla virgül (,) koymayın (Comma Splice Tuzağı).",
+        "FANBOYS (and, but, so, yet...) bağlaçlarından önce virgül gelmesi için bağlaçtan SONRA da tam bir özne ve yüklem olması şarttır.",
+        "'However', 'therefore', 'moreover' gibi geçiş zarfları iki cümleyi virgülle bağlayamaz; öncesine noktalı virgül (;) veya nokta (.) gerekir."
+      ],
+      "commonTraps": [
+        {
+          "name": "The Comma Splice Trap",
+          "desc": "İki tam cümlenin arasına sadece virgül koyarak birleştirmek."
+        },
+        {
+          "name": "The Transitional Adverb Illusion",
+          "desc": "'However' veya 'therefore' kelimelerini 'and' gibi bağlaç sanıp virgülden sonra kullanmak."
+        }
+      ]
+    },
+    "drills": [
+      {
+        "id": "GRAM-D1-01",
+        "passage": "In 1898, Marie Curie discovered the radioactive elements polonium and radium _______ she received the Nobel Prize in Physics four years later.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) radium, consequently,",
+          "B) radium; consequently,",
+          "C) radium, and",
+          "D) radium, subsequently"
+        ],
+        "answer": "B",
+        "strategyHeuristic": "İki tam bağımsız cümle 'consequently' geçiş zarfıyla bağlanırken noktalı virgül + virgül (; consequently,) gerektirir.",
+        "turkishSolverGuide": {
+          "step1": "Boşluktan önceki kısma bakın: 'Marie Curie discovered...' (Tam Bağımsız Cümle).",
+          "step2": "Boşluktan sonraki kısma bakın: 'she received the Nobel Prize...' (Tam Bağımsız Cümle).",
+          "step3": "İki tam cümle 'consequently' ile bağlanacaksa: Noktalı virgül (;) + consequently + virgül (,) formülü zorunludur.",
+          "step4": "A ve D şıkları Comma Splice hatasıdır. C şıkkında 'and' sonrası zaman zarfı eksiktir. Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. 'In 1898, Marie Curie discovered...' and 'she received the Nobel Prize...' are two independent clauses. Connecting them with a conjunctive adverb ('consequently') requires a semicolon before the adverb and a comma after it.",
+          "choiceBreakdown": {
+            "A": "Comma Splice Trap: Using a comma before 'consequently' creates an illegal comma splice between two independent clauses.",
+            "B": "Correct Answer: Perfectly pairs the two independent clauses using a semicolon before the transition adverb.",
+            "C": "Wrong Structure: While 'and' can connect clauses, it alters the causal consequence emphasized in the sentence.",
+            "D": "Comma Splice Trap: 'Subsequently' is an adverb, not a coordinating conjunction; a comma alone is grammatically invalid."
+          },
+          "keyTakeaway": "Two complete independent clauses separated by conjunctive adverbs (however, therefore, consequently) require a semicolon before and a comma after."
+        }
+      },
+      {
+        "id": "GRAM-D1-02",
+        "passage": "Although atmospheric methane concentrations are significantly lower than carbon dioxide _______ methane traps substantially more infrared radiation per molecule over a twenty-year period.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) levels, but",
+          "B) levels, yet",
+          "C) levels,",
+          "D) levels; however,"
+        ],
+        "answer": "C",
+        "strategyHeuristic": "Cümle başında 'Although' gibi bir yan cümle bağlacı (subordinator) varken, ana cümlenin başına 'but' veya 'yet' konulamaz (Çift Bağlaç Tuzağı).",
+        "turkishSolverGuide": {
+          "step1": "Cümlenin en başına bakın: 'Although' (Bağımlı Yan Cümle Başlatıcısı).",
+          "step2": "Kural: Yan cümle bittiğinde sadece tek bir virgül konur ve ana cümle başlar: [Although X] , [Y].",
+          "step3": "A ve B şıklarında 'Although' varken 'but/yet' eklenmiş (Çift bağlaç hatası).",
+          "step4": "D şıkkında noktalı virgül kullanılmış (Yan cümle ana cümleden noktalı virgülle ayrılamaz). Doğru cevap C."
+        },
+        "explanation": {
+          "correctBridge": "Choice C is correct. The sentence begins with the subordinating conjunction 'Although', creating a dependent clause ('Although atmospheric methane concentrations are significantly lower than carbon dioxide levels'). A dependent clause must be followed simply by a comma before the main independent clause.",
+          "choiceBreakdown": {
+            "A": "Double Conjunction Trap: Using 'Although' and 'but' in the same sentence creates a grammatical conflict.",
+            "B": "Double Conjunction Trap: Using 'Although' with 'yet' is redundant and ungrammatical.",
+            "C": "Correct Answer: Correctly uses a single comma to separate the introductory dependent clause from the main clause.",
+            "D": "Punctuation Error: Semicolons cannot separate a dependent clause from an independent clause."
+          },
+          "keyTakeaway": "When a sentence starts with 'Although/Because/While', use only a comma between the dependent clause and the independent clause."
+        }
+      },
+      {
+        "id": "GRAM-D1-03",
+        "passage": "The architectural restoration team repaired the historic church's crumbling sandstone _______ reinforced the supporting iron arches in the bell tower.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) facade, and",
+          "B) facade and",
+          "C) facade; and",
+          "D) facade, they"
+        ],
+        "answer": "B",
+        "strategyHeuristic": "Tek bir özneye (team) bağlı iki yüklem (repaired + reinforced) arasına virgül konmaz (Compound Predicate).",
+        "turkishSolverGuide": {
+          "step1": "Özneyi bulun: 'The architectural restoration team'.",
+          "step2": "Yüklemleri bulun: 1. Yüklem = 'repaired...', 2. Yüklem = 'reinforced...'.",
+          "step3": "Kural: Aynı öznenin yaptığı iki eylem 'and' ile bağlanırken araya virgül konmaz (Özne + Fiil1 AND Fiil2).",
+          "step4": "A şıkkında gereksiz virgül var. D şıkkında Comma Splice var. Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. The sentence has a single subject ('The architectural restoration team') performing two actions in a compound predicate ('repaired...' and 'reinforced...'). No comma is used before 'and' when joining two verbs with the same subject.",
+          "choiceBreakdown": {
+            "A": "Unnecessary Comma Trap: A comma is not used before 'and' in a simple compound predicate without a second subject.",
+            "B": "Correct Answer: Correctly joins two parallel verbs ('repaired' and 'reinforced') without unnecessary punctuation.",
+            "C": "Punctuation Error: Semicolons cannot precede 'and' to join compound verbs.",
+            "D": "Comma Splice Trap: Creates two independent clauses separated only by a comma without a conjunction."
+          },
+          "keyTakeaway": "Do not place a comma before 'and' unless it is followed by a full subject and verb, or separates three or more list items."
+        }
+      },
+      {
+        "id": "GRAM-D1-04",
+        "passage": "During the 1920s Harlem Renaissance, poet Langston Hughes sought to celebrate Black working-class _______ his lyrical verses incorporated the syncopated rhythms and call-and-response patterns of African American blues music.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) life, and",
+          "B) life, his",
+          "C) life; his",
+          "D) life his"
+        ],
+        "answer": "C",
+        "strategyHeuristic": "İki tam bağımsız cümle noktalı virgül (;) ile doğrudan ve en temiz şekilde birleştirilir.",
+        "turkishSolverGuide": {
+          "step1": "1. Cümle: 'Langston Hughes sought to celebrate Black working-class life' (Tam Cümle).",
+          "step2": "2. Cümle: 'his lyrical verses incorporated...' (Tam Cümle).",
+          "step3": "İki bağımsız cümleyi bağlamak için: Noktalı virgül (;) kullanılır.",
+          "step4": "B şıkkı Comma Splice'tır. D şıkkı Fused Sentence (noktalamasız run-on) hatasıdır. Doğru cevap C."
+        },
+        "explanation": {
+          "correctBridge": "Choice C is correct. Both clauses are independent. A semicolon is the standard and correct punctuation mark to separate two related independent clauses without a coordinating conjunction.",
+          "choiceBreakdown": {
+            "A": "Coordination Error: 'and' is possible with a comma, but here the relationship is an explanatory semicolon.",
+            "B": "Comma Splice Trap: Separating two independent clauses with only a comma is grammatically incorrect.",
+            "C": "Correct Answer: Correctly connects two independent clauses using a semicolon.",
+            "D": "Fused Sentence Trap: Joining two independent clauses with no punctuation is a run-on error."
+          },
+          "keyTakeaway": "A semicolon (;) functions exactly like a period to separate two independent clauses."
+        }
+      }
+    ]
+  },
+  "GRAM-2": {
+    "metadata": {
+      "id": "GRAM-2",
+      "title": "Semicolons, Colons & Dashes",
+      "turkishTitle": "Noktalı Virgül, İki Nokta & Tire Kuralları",
+      "domain": "Standard English Conventions"
+    },
+    "lesson": {
+      "title": "İki Nokta (:), Noktalı Virgül (;) ve Çift Tire (—) Kuralları",
+      "turkishExplanation": "SAT'de iki nokta (:) kuralı çok kesindir: İki noktadan önceki kısım MUTLAKA tam bir bağımsız cümle (Independent Clause) olmalıdır. İki noktadan sonra ise bir açıklama, liste, tanım veya tek bir kelime gelebilir. Çift tire (— ... —) ise cümle arasına giren ek açıklamaları (non-essential information) parantez gibi ayırmak için kullanılır.",
+      "formula": "İki Nokta Kuralı: [Tam Bağımsız Cümle] : [Açıklama / Liste / Sonuç]\nÇift Tire Kuralı: [Özne] — [Ekstra Açıklama] — [Yüklem]",
+      "goldenRules": [
+        "İki noktadan (:) önce gelen kısım tek başına nokta konduğunda geçerli bir cümle olmalıdır.",
+        "Cümle başında açılan bir tire (—) mutlaka ikinci bir tire (—) ile kapatılmalıdır (Virgülle kapatılamaz).",
+        "Noktalı virgül (;) solunda ve sağında tam bir bağımsız cümle ister."
+      ],
+      "commonTraps": [
+        {
+          "name": "The Fragment Colon Trap",
+          "desc": "İki noktadan önce yarım cümle (örn. 'Such as:', 'Including:') kullanmak."
+        },
+        {
+          "name": "The Mismatched Punctuation Trap",
+          "desc": "Açıklamayı tireyle (—) başlatıp virgülle (,) bitirmek."
+        }
+      ]
+    },
+    "drills": [
+      {
+        "id": "GRAM-D2-01",
+        "passage": "Deep-sea anglerfish utilize a specialized bioluminescent lure known as the esca to attract prey in total darkness _______ the glowing organ contains millions of symbiotic photobacteria.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) darkness:",
+          "B) darkness, which",
+          "C) darkness; because",
+          "D) darkness, so"
+        ],
+        "answer": "A",
+        "strategyHeuristic": "İki noktadan (:) önce tam cümle vardır; iki noktadan sonraki kısım esca organının nasıl parladığını açıklayan bir cümledir.",
+        "turkishSolverGuide": {
+          "step1": "Sol tarafa bakın: 'Deep-sea anglerfish utilize a specialized lure...' (Tam Cümle).",
+          "step2": "Sağ tarafa bakın: 'the glowing organ contains millions of photobacteria' (Esca'nın nasıl ışık saçtığını açıklayan cümle).",
+          "step3": "Kural: Tam cümleden sonra gelen açıklayıcı cümle iki nokta (:) ile bağlanabilir.",
+          "step4": "C şıkkında noktalı virgül + because hatalıdır. Doğru cevap A."
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. The clause preceding the punctuation is an independent clause, and the clause following it explains the physiological mechanism of the glowing lure. A colon is standard to introduce an explanation or elaboration.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Correctly uses a colon to introduce an explanation following an independent clause.",
+            "B": "Fragment Trap: 'which the glowing organ contains' creates a garbled relative clause.",
+            "C": "Punctuation Error: Semicolons cannot precede subordinating conjunctions like 'because'.",
+            "D": "Faulty Logic: 'so' implies a result rather than an explanation."
+          },
+          "keyTakeaway": "A colon (:) can separate two independent clauses when the second clause explains or illustrates the first."
+        }
+      },
+      {
+        "id": "GRAM-D2-02",
+        "passage": "Biochemist Jennifer Doudna and her colleagues developed CRISPR-Cas9 _______ a revolutionary gene-editing technology that allows scientists to alter DNA sequences with unprecedented precision.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) technology—",
+          "B) CRISPR-Cas9—",
+          "C) CRISPR-Cas9,",
+          "D) CRISPR-Cas9:"
+        ],
+        "answer": "C",
+        "strategyHeuristic": "Cümlenin sonundaki isim tamlamasını açıklayan appositive yapısı için virgül (,) en sade ve doğru noktalama işaretidir.",
+        "turkishSolverGuide": {
+          "step1": "Ana cümle: 'Jennifer Doudna developed CRISPR-Cas9' (Tamamlandı).",
+          "step2": "Sonraki kısım: 'a revolutionary gene-editing technology...' (CRISPR-Cas9'u açıklayan bir sıfat/isim grubu - appositive).",
+          "step3": "Kural: Cümle sonundaki tekil bir appositive virgülle ayrılır.",
+          "step4": "Doğru cevap C."
+        },
+        "explanation": {
+          "correctBridge": "Choice C is correct. The phrase 'a revolutionary gene-editing technology...' is an appositive noun phrase renaming CRISPR-Cas9. A single comma correctly sets off this descriptive element at the end of the sentence.",
+          "choiceBreakdown": {
+            "A": "Redundant: Inserts an extra word 'technology' before the dash.",
+            "B": "Stylistic Dash: While a dash can set off an appositive, standard comma punctuation in Choice C is the precise and correct convention.",
+            "C": "Correct Answer: Accurately sets off the concluding appositive phrase with a comma.",
+            "D": "Colon vs Comma: A colon is acceptable for emphasis, but standard comma appositive is the direct grammatical form."
+          },
+          "keyTakeaway": "Appositives that rename a preceding noun at the end of a sentence are set off by a comma."
+        }
+      },
+      {
+        "id": "GRAM-D2-03",
+        "passage": "The observatory's high-altitude location in the Atacama Desert _______ exceptional atmospheric clarity, minimal cloud cover, and zero light pollution _______ makes it an ideal site for deep-space infrared astronomy.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) Desert—offering exceptional atmospheric clarity, minimal cloud cover, and zero light pollution—",
+          "B) Desert, offering exceptional atmospheric clarity, minimal cloud cover, and zero light pollution—",
+          "C) Desert—offering exceptional atmospheric clarity, minimal cloud cover, and zero light pollution,",
+          "D) Desert; offering exceptional atmospheric clarity, minimal cloud cover, and zero light pollution;"
+        ],
+        "answer": "A",
+        "strategyHeuristic": "Cümle içine giren açıklama tire ile açılmışsa mutlaka tire ile kapatılmalıdır (Punctuation Symmetry).",
+        "turkishSolverGuide": {
+          "step1": "Ana özne: 'The observatory's high-altitude location in the Atacama Desert'.",
+          "step2": "Ana yüklem: 'makes it an ideal site...'.",
+          "step3": "Araya giren 3 maddelik açıklama parantez gibi iki tire arasına (— ... —) alınmalıdır.",
+          "step4": "B ve C şıklarında işaretler uyumsuzdur (virgül-tire veya tire-virgül). Doğru cevap A."
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. The descriptive element ('offering exceptional atmospheric clarity...') interrupts the main clause between subject ('location') and verb ('makes'). Non-essential parenthetical elements enclosed by dashes must be symmetrical: opening with a dash and closing with a dash.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Symmetrically encloses the non-essential parenthetical phrase with matching dashes.",
+            "B": "Mismatched Punctuation: Opens with a comma and closes with a dash.",
+            "C": "Mismatched Punctuation: Opens with a dash and closes with a comma.",
+            "D": "Punctuation Error: Semicolons cannot enclose a participial modifying phrase."
+          },
+          "keyTakeaway": "Parenthetical dashes must always occur in matching pairs (— ... —) unless the phrase ends the sentence."
+        }
+      },
+      {
+        "id": "GRAM-D2-04",
+        "passage": "Archaeologists excavating the Pompeii villa discovered three intact storage _______ amphorae filled with preserved olive oil, glass perfume flasks, and bronze cooking vessels.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) vessels:",
+          "B) items:",
+          "C) categories;",
+          "D) containers,"
+        ],
+        "answer": "B",
+        "strategyHeuristic": "İki nokta (:) bir listeden önce gelir; listede kaç madde varsa önceki isimle (three intact storage items) birebir uyuşmalıdır.",
+        "turkishSolverGuide": {
+          "step1": "Listelenen maddeleri sayın: 1) amphorae, 2) glass flasks, 3) bronze vessels (Toplam 3 madde).",
+          "step2": "İki noktadan önce: 'discovered three intact storage items' (Tam Cümle).",
+          "step3": "Kural: Liste başlatmak için iki nokta (:) kullanılır.",
+          "step4": "Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. 'Archaeologists excavating the Pompeii villa discovered three intact storage items' is an independent clause that introduces a list of three specific artifacts. A colon correctly introduces this list.",
+          "choiceBreakdown": {
+            "A": "Repetition: 'vessels' repeats the third listed item, creating circular phrasing.",
+            "B": "Correct Answer: Perfectly frames the independent clause and introduces the 3-item list with a colon.",
+            "C": "Punctuation Error: A semicolon cannot introduce a list of items.",
+            "D": "Punctuation Error: A comma alone before a list creates a run-on structure."
+          },
+          "keyTakeaway": "Use a colon (:) after an independent clause to introduce a specific list or catalog of items."
+        }
+      }
+    ]
+  },
+  "GRAM-3": {
+    "metadata": {
+      "id": "GRAM-3",
+      "title": "Subject-Verb & Pronoun Agreement",
+      "turkishTitle": "Özne-Yüklem & Zamir Uyumu",
+      "domain": "Standard English Conventions"
+    },
+    "lesson": {
+      "title": "Özne-Yüklem Uyumu & Prepositional Phrase Eleme Formülü",
+      "turkishExplanation": "SAT'de özne ile yüklem arasına kafa karıştırmak için uzun edat öbekleri (Prepositional Phrases: of, in, with, by, for...) veya sıfat cümlecikleri yerleştirilir. Asıl özneyi bulmak için virgülden virgüle olan kısımları ve 'of...' ile başlayan edat gruplarını paranteze alıp silin!",
+      "formula": "Formül: [Asıl Tekil Özne] + (of the ancient cities in Mesopotamia) + [TEKİL FİİL (is / has / reveals)]",
+      "goldenRules": [
+        "Özne tekilse (Singular) fiil '-s' takısı alır (e.g., The discovery... reveals).",
+        "Özne çoğulsa (Plural) fiil yalın kalır (e.g., The discoveries... reveal).",
+        "'Neither of', 'Each of', 'One of' gibi yapılar her zaman TEKİL fiil gerektirir."
+      ],
+      "commonTraps": [
+        {
+          "name": "The Nearby Noun Trap",
+          "desc": "Fiilden hemen önce gelen çoğul kelimeyi özne sanıp çoğul fiil seçmek."
+        },
+        {
+          "name": "The Pronoun Ambiguity Trap",
+          "desc": "'They' veya 'it' zamirinin hangi ismin yerine geçtiğinin belirsiz olması."
+        }
+      ]
+    },
+    "drills": [
+      {
+        "id": "GRAM-D3-01",
+        "passage": "The intricate network of subterranean fungal filaments connecting mature birch trees to shaded saplings _______ essential phosphorus and nitrogen compounds across species boundaries.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) transfer",
+          "B) transfers",
+          "C) are transferring",
+          "D) have transferred"
+        ],
+        "answer": "B",
+        "strategyHeuristic": "Asıl özne 'The intricate network' (Tekil) olduğu için edat öbeklerini (of filaments connecting trees) eleyin; fiil tekil '-s' takısı (transfers) almalıdır.",
+        "turkishSolverGuide": {
+          "step1": "Özneyi bulun: 'The intricate network' (Tekil İsim).",
+          "step2": "Araya giren edat grubunu eleyin: '(of subterranean fungal filaments connecting mature birch trees to shaded saplings)'.",
+          "step3": "Cümleyi sadeleştirin: 'The network [BLANK] compounds.'",
+          "step4": "Network tekil olduğu için fiil 'transfers' olmalıdır. A, C ve D çoğuldur. Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. The head noun of the subject is 'The intricate network' (singular). The prepositional phrases 'of subterranean fungal filaments connecting mature birch trees...' are modifiers that do not affect subject-verb agreement. The singular subject requires the singular verb 'transfers'.",
+          "choiceBreakdown": {
+            "A": "Plural Verb Trap: 'transfer' is plural, agreeing erroneously with 'trees' or 'filaments'.",
+            "B": "Correct Answer: Correctly pairs the singular subject 'network' with the singular verb 'transfers'.",
+            "C": "Plural Verb Trap: 'are transferring' is plural.",
+            "D": "Plural Verb Trap: 'have transferred' is plural."
+          },
+          "keyTakeaway": "Ignore all prepositional phrases between the subject and the verb to identify the true singular or plural head noun."
+        }
+      },
+      {
+        "id": "GRAM-D3-02",
+        "passage": "Neither of the two archaeological excavation teams _______ able to unearth definitive evidence of Bronze Age metallurgy in the western trench.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) were",
+          "B) was",
+          "C) have been",
+          "D) are"
+        ],
+        "answer": "B",
+        "strategyHeuristic": "'Neither of the [plural noun]' yapısı İngilizcede her zaman TEKİL fiil (was / is) gerektirir.",
+        "turkishSolverGuide": {
+          "step1": "Özneye bakın: 'Neither of the two teams'.",
+          "step2": "Kural: 'Neither', 'Either', 'Each', 'Every one' yapıları daima TEKİL fiil alır.",
+          "step3": "'teams' çoğul görünse de 'Neither' tektir: 'Neither was able'.",
+          "step4": "A, C ve D çoğuldur. Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. In formal Standard English, indefinite pronouns such as 'neither', 'either', and 'each' are grammatically singular when followed by an 'of' phrase. The singular subject 'Neither' requires the singular past verb 'was'.",
+          "choiceBreakdown": {
+            "A": "Plural Verb Trap: 'were' incorrectly agrees with the plural object 'teams'.",
+            "B": "Correct Answer: Correctly uses the singular verb 'was' with the singular subject 'Neither'.",
+            "C": "Plural Verb Trap: 'have been' is plural.",
+            "D": "Plural Verb Trap: 'are' is plural."
+          },
+          "keyTakeaway": "'Neither of...', 'Either of...', and 'Each of...' always take singular verbs on the Digital SAT."
+        }
+      },
+      {
+        "id": "GRAM-D3-03",
+        "passage": "A swarm of desert locusts (*Schistocerca gregaria*), when triggered by serotonin surges, _______ its solitary green coloration for a gregarious yellow-and-black pattern.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) abandon",
+          "B) abandons",
+          "C) have abandoned",
+          "D) are abandoning"
+        ],
+        "answer": "B",
+        "strategyHeuristic": "'A swarm' topluluk ismi (collective noun) olup tekildir; 'locusts' çoğuluna kanmayın.",
+        "turkishSolverGuide": {
+          "step1": "Özne: 'A swarm' (Bir sürü - Tekil Topluluk İsmi).",
+          "step2": "Araya giren parantez içi kısmı atın: '(when triggered by serotonin surges)'.",
+          "step3": "'A swarm [BLANK] its coloration.'",
+          "step4": "Tekil fiil: 'abandons'. Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. 'A swarm' is a collective noun treated as singular. The parenthetical modifier 'when triggered by serotonin surges' does not alter agreement. The singular subject requires the singular verb 'abandons'.",
+          "choiceBreakdown": {
+            "A": "Plural Verb Trap: 'abandon' is plural, agreeing with 'locusts'.",
+            "B": "Correct Answer: Correctly matches the singular collective noun 'swarm' with 'abandons'.",
+            "C": "Plural Verb Trap: 'have abandoned' is plural.",
+            "D": "Plural Verb Trap: 'are abandoning' is plural."
+          },
+          "keyTakeaway": "Collective nouns (a swarm, a flock, a herd, a committee, a team) take singular verbs when acting as a single unit."
+        }
+      },
+      {
+        "id": "GRAM-D3-04",
+        "passage": "The rapid fluctuations in atmospheric pressure and temperature _______ responsible for generating severe convective thunderstorms along the mountain ridge.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) was",
+          "B) is",
+          "C) were",
+          "D) has been"
+        ],
+        "answer": "C",
+        "strategyHeuristic": "Özne 'The rapid fluctuations' (Çoğul İsim) olduğu için çoğul fiil (were) seçilmelidir.",
+        "turkishSolverGuide": {
+          "step1": "Özneyi bulun: 'The rapid fluctuations' (Çoğul isim - dalgalanmalar).",
+          "step2": "Edat grubunu atın: '(in atmospheric pressure and temperature)'.",
+          "step3": "'Fluctuations [BLANK] responsible.'",
+          "step4": "Çoğul fiil: 'were'. A, B ve D tekildir. Doğru cevap C."
+        },
+        "explanation": {
+          "correctBridge": "Choice C is correct. The head subject noun is 'fluctuations' (plural). It requires the plural past tense verb 'were'.",
+          "choiceBreakdown": {
+            "A": "Singular Verb Trap: 'was' is singular.",
+            "B": "Singular Verb Trap: 'is' is singular.",
+            "C": "Correct Answer: Correctly pairs the plural subject 'fluctuations' with 'were'.",
+            "D": "Singular Verb Trap: 'has been' is singular."
+          },
+          "keyTakeaway": "Match plural head nouns with plural verbs (were, are, have), ignoring singular objects inside prepositional phrases."
+        }
+      }
+    ]
+  },
+  "GRAM-4": {
+    "metadata": {
+      "id": "GRAM-4",
+      "title": "Modifiers & Dangling Participles",
+      "turkishTitle": "Sıfat/Zarf Tümceleri & Düşük Cümleler",
+      "domain": "Standard English Conventions"
+    },
+    "lesson": {
+      "title": "Düşük Cümleler (Dangling Modifiers) ve Özne Eşleme Formülü",
+      "turkishExplanation": "Cümle '-ing' veya '-ed' ile başlayan bir sıfat eylemiyle (participial phrase) başlıyorsa, virgülden HEMEN SONRA gelen kelime o eylemi bizzat yapan kişi veya varlık (mantıksal özne) olmak zorundadır!",
+      "formula": "Formül: [Having examined the telescope], [Galileo] (eylemi yapan kişi) + [observed the moons of Jupiter].\n❌ YANLIŞ: [Having examined the telescope], [the moons of Jupiter were observed by Galileo]. (Teleskobu inceleyen Jüpiter'in uyduları olamaz!)",
+      "goldenRules": [
+        "Giriş tümcesindeki eylemi kim yapıyorsa, virgülden hemen sonra ilk kelime olarak O gelmelidir.",
+        "Pasif cümle tuzaklarına dikkat edin (Eylemi yapan kişi virgülden sonra 'by...' ile arkaya atılamaz).",
+        "Sıfatlar niteledikleri ismin hemen yanında durmalıdır."
+      ],
+      "commonTraps": [
+        {
+          "name": "The Dangling Subject Trap",
+          "desc": "Virgülden sonra eylemi yapan kişi yerine nesneyi veya soyut bir kavramı koymak."
+        },
+        {
+          "name": "The Passive Voice Dislocation",
+          "desc": "Eylemi yapan kişiyi pasif yaparak cümlenin sonuna itmek."
+        }
+      ]
+    },
+    "drills": [
+      {
+        "id": "GRAM-D4-01",
+        "passage": "Having analyzed hundreds of ancient pottery shards under an electron microscope, _______",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) the chemical composition of the ceramic glaze was finally identified by the archaeologist.",
+          "B) the archaeologist was finally able to identify the chemical composition of the ceramic glaze.",
+          "C) the ancient kilns' firing temperatures were reconstructed with remarkable accuracy.",
+          "D) a breakthrough was achieved in understanding ancient ceramic trade routes."
+        ],
+        "answer": "B",
+        "strategyHeuristic": "Parçaları mikroskop altında inceleyen varlık kimdir? 'the archaeologist' (arkeolog). Virgülden sonra 'the archaeologist' gelmelidir.",
+        "turkishSolverGuide": {
+          "step1": "Giriş tümcesini okuyun: 'Having analyzed hundreds of pottery shards...' (Çömlek parçalarını inceleyen kim?).",
+          "step2": "Mantıklı özne: 'the archaeologist' (Arkeolog).",
+          "step3": "Virgülden sonraki ilk kelime 'the archaeologist' olmalıdır.",
+          "step4": "A şıkkında özne 'chemical composition', C'de 'temperatures', D'de 'breakthrough'. Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. The introductory participial phrase 'Having analyzed hundreds of ancient pottery shards...' must logically modify the subject that follows the comma. The archaeologist did the analyzing, so 'the archaeologist' must immediately follow the comma.",
+          "choiceBreakdown": {
+            "A": "Dangling Modifier Trap: 'the chemical composition' cannot analyze pottery shards.",
+            "B": "Correct Answer: Places the logical actor ('the archaeologist') immediately after the introductory modifier.",
+            "C": "Dangling Modifier Trap: 'firing temperatures' cannot analyze pottery shards.",
+            "D": "Dangling Modifier Trap: 'a breakthrough' cannot analyze pottery shards."
+          },
+          "keyTakeaway": "The noun immediately following an introductory modifying phrase must be the agent performing the action."
+        }
+      },
+      {
+        "id": "GRAM-D4-02",
+        "passage": "Renowned for its remarkable thermal resistance and low electrical conductivity, _______",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) aerospace engineers frequently utilize ceramic tile shielding on space shuttles.",
+          "B) ceramic tile shielding is frequently utilized by aerospace engineers on space shuttles.",
+          "C) space shuttles frequently require ceramic tile shielding designed by engineers.",
+          "D) the atmospheric reentry friction is absorbed by ceramic tile shielding."
+        ],
+        "answer": "B",
+        "strategyHeuristic": "Isı direnci ve düşük iletkenliğiyle ünlü olan şey nedir? Mühendisler değil, 'ceramic tile shielding' (seramik kalkanlar).",
+        "turkishSolverGuide": {
+          "step1": "Giriş tümcesi: 'Renowned for its remarkable thermal resistance...' (Isı direnciyle meşhur olan nedir?).",
+          "step2": "Isı direnci olan şey 'aerospace engineers' (mühendisler) olamaz; 'ceramic tile shielding' (seramik kalkan) olmalıdır.",
+          "step3": "Virgülden sonra 'ceramic tile shielding' gelmelidir.",
+          "step4": "Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. The descriptive modifier 'Renowned for its remarkable thermal resistance...' describes the material properties of 'ceramic tile shielding'. Therefore, 'ceramic tile shielding' must be the grammatical subject following the comma.",
+          "choiceBreakdown": {
+            "A": "Misplaced Modifier Trap: Falsely implies that 'aerospace engineers' possess thermal resistance.",
+            "B": "Correct Answer: Correctly places 'ceramic tile shielding' as the subject modified by the introductory phrase.",
+            "C": "Misplaced Modifier Trap: Falsely implies that 'space shuttles' themselves are the material described.",
+            "D": "Misplaced Modifier Trap: 'the atmospheric reentry friction' is not renowned for thermal resistance."
+          },
+          "keyTakeaway": "Check the logical subject of the introductory description: materials, people, or objects must match the adjective."
+        }
+      },
+      {
+        "id": "GRAM-D4-03",
+        "passage": "While navigating the treacherous, uncharted waters of the southern Pacific Ocean, _______",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) several previously unrecorded coral atolls were mapped by Captain James Cook.",
+          "B) Captain James Cook mapped several previously unrecorded coral atolls.",
+          "C) the ship's navigation charts were meticulously updated with new island positions.",
+          "D) a fierce tropical hurricane nearly destroyed the expedition's flagship."
+        ],
+        "answer": "B",
+        "strategyHeuristic": "Güney Pasifik sularında gemiyle seyir yapan kimdir? Kaptan Cook. Virgülden sonra 'Captain James Cook' gelmelidir.",
+        "turkishSolverGuide": {
+          "step1": "Giriş: 'While navigating the treacherous waters...' (Suları gezen kim?).",
+          "step2": "Haritayı çıkaran insan: 'Captain James Cook'.",
+          "step3": "A şıkkında mercan adaları geziyormuş gibi duruyor (Pasif tuzak).",
+          "step4": "Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. The participial clause 'While navigating the treacherous, uncharted waters...' requires a human navigator as its subject. 'Captain James Cook' is the person navigating, so he must immediately follow the comma.",
+          "choiceBreakdown": {
+            "A": "Dangling Modifier Trap: 'coral atolls' were not navigating the ocean.",
+            "B": "Correct Answer: Correctly aligns the active navigator 'Captain James Cook' with the modifying clause.",
+            "C": "Dangling Modifier Trap: 'navigation charts' cannot navigate the ocean.",
+            "D": "Dangling Modifier Trap: 'a fierce tropical hurricane' is not the entity navigating."
+          },
+          "keyTakeaway": "Active human verbs (navigating, studying, researching) must be followed by the human researcher after the comma."
+        }
+      },
+      {
+        "id": "GRAM-D4-04",
+        "passage": "Trained in classical Western music theory as well as traditional Ghanaian drumming, _______",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) composer Kwabena Nketia's symphonies synthesize polyrhythmic percussion with European orchestral harmonies.",
+          "B) composer Kwabena Nketia synthesizes polyrhythmic percussion with European orchestral harmonies in his symphonies.",
+          "C) the synthesis of polyrhythmic percussion and orchestral harmony was achieved by Kwabena Nketia.",
+          "D) polyrhythmic drumming techniques were integrated into classical concertos by Kwabena Nketia."
+        ],
+        "answer": "B",
+        "strategyHeuristic": "Eğitim alan varlık bestecinin kendisidir ('composer Kwabena Nketia'), onun senfonileri ('symphonies') değil!",
+        "turkishSolverGuide": {
+          "step1": "Giriş: 'Trained in classical music...' (Eğitimi alan kim?).",
+          "step2": "Eğitimi alan insan: 'composer Kwabena Nketia'.",
+          "step3": "A şıkkında kesme işaretiyle 'composer's symphonies' denmiş (Senfoniler eğitim alamaz - İsim tamlaması tuzağı).",
+          "step4": "Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. The person 'trained in classical Western music theory' is composer Kwabena Nketia himself. Placing 'composer Kwabena Nketia' directly after the comma correctly attributes the modifier.",
+          "choiceBreakdown": {
+            "A": "Possessive Dangling Trap: Modifies 'composer Kwabena Nketia's symphonies'—symphonies cannot be trained.",
+            "B": "Correct Answer: Directly attaches the modifier to the living person 'composer Kwabena Nketia'.",
+            "C": "Dangling Modifier Trap: 'the synthesis' cannot undergo musical training.",
+            "D": "Dangling Modifier Trap: 'drumming techniques' cannot undergo musical training."
+          },
+          "keyTakeaway": "Watch out for possessive nouns (e.g., 'the scientist's experiments' vs 'the scientist'): only the person can perform human training."
+        }
+      }
+    ]
+  },
+  "GRAM-5": {
+    "metadata": {
+      "id": "GRAM-5",
+      "title": "Rhetorical Transitions",
+      "turkishTitle": "Bağlaçlar & Mantıksal Geçişler",
+      "domain": "Expression of Ideas"
+    },
+    "lesson": {
+      "title": "Mantıksal Geçişler ve Bağlaç Kategorileri Formülü",
+      "turkishExplanation": "Rhetorical Transition sorularında iki cümle arasındaki mantıksal ilişkiyi 3 kategoriden birine oturtun: 1) ZITLIK (Contrast: However, Conversely, Nonetheless), 2) SEBEP-SONUÇ (Causation: Therefore, Consequently, Thus), 3) EK BİLGİ / ÖRNEK (Elaboration: Furthermore, For example, In fact).",
+      "formula": "Bağlaç Formülü:\nCümle 1: Problem / Beklenti.\nCümle 2: Tam tersi gerçeklik -> [However / In contrast]\nCümle 2: Mantıksal netice -> [Consequently / Therefore]\nCümle 2: Detaylandırma / Kanıt -> [For instance / Furthermore]",
+      "goldenRules": [
+        "Boşluğu kapatıp iki cümleyi kendi ana dilinizde birbirine bağlayın: 'Bu yüzden mi', 'Ama mı', 'Örneğin mi'?",
+        "Aynı kategorideki iki bağlaç (örn. Furthermore ve Moreover) birbirini eler çünkü ikisi de aynı işi yapar.",
+        "Önceki cümlenin yönü (+) iken sonraki cümle (-) ise zıtlık bağlacı zorunludur."
+      ],
+      "commonTraps": [
+        {
+          "name": "The Category Redundancy Trap",
+          "desc": "Aynı anlama gelen iki şık arasında kararsız kalıp gereksiz zaman kaybetmek."
+        },
+        {
+          "name": "The False Similarity Trap",
+          "desc": "Zıt bir sonuç varken 'Likewise' veya 'Similarly' seçmek."
+        }
+      ]
+    },
+    "drills": [
+      {
+        "id": "GRAM-D5-01",
+        "passage": "Many urban economists predicted that the widespread adoption of e-commerce would cause the total collapse of brick-and-mortar retail stores. _______ foot traffic in downtown shopping districts has rebounded strongly, with physical stores evolving into experiential showrooms.",
+        "question": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "A) In fact,",
+          "B) Consequently,",
+          "C) However,",
+          "D) Furthermore,"
+        ],
+        "answer": "C",
+        "strategyHeuristic": "Cümle 1 = Çöküş tahmini (-). Cümle 2 = Fiziksel mağazaların güçlü geri dönüşü (+). Zıtlık bağlacı (However) zorunludur.",
+        "turkishSolverGuide": {
+          "step1": "1. Cümle: Ekonomistler dükkanların çökeceğini tahmin etti (Kötü senaryo).",
+          "step2": "2. Cümle: Mağazalar güçlü şekilde toparlandı ve geri döndü (Tam tersi olumlu sonuç).",
+          "step3": "İlişki: ZITLIK (Contrast) -> 'Ancak / Oysa ki'.",
+          "step4": "Doğru cevap C (However)."
+        },
+        "explanation": {
+          "correctBridge": "Choice C is correct. Sentence 1 presents a prediction of retail collapse, while Sentence 2 states that physical store traffic has rebounded. 'However' correctly signals this direct contrast between prediction and reality.",
+          "choiceBreakdown": {
+            "A": "Wrong Relationship: 'In fact' emphasizes or reinforces a claim, but here the two sentences contradict each other.",
+            "B": "Wrong Relationship: 'Consequently' signals cause-and-effect, not contrast.",
+            "C": "Correct Answer: Correctly establishes the contrast between the predicted collapse and actual recovery.",
+            "D": "Wrong Relationship: 'Furthermore' adds supplementary information in the same direction."
+          },
+          "keyTakeaway": "When Sentence 1 predicts disaster and Sentence 2 reveals success, use a contrast transition (However, Yet, Conversely)."
+        }
+      },
+      {
+        "id": "GRAM-D5-02",
+        "passage": "During the manufacturing of solar photovoltaic cells, silver paste is utilized for the front electrical contacts due to its unparalleled electrical conductivity. Silver is exceptionally expensive and subject to global market volatility. _______ materials scientists are developing copper-based alternatives to reduce manufacturing costs.",
+        "question": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "A) For example,",
+          "B) As a result,",
+          "C) Conversely,",
+          "D) In contrast,"
+        ],
+        "answer": "B",
+        "strategyHeuristic": "Gümüşün çok pahalı olması (Sebep) -> Bilim insanlarının ucuz bakır alternatif geliştirmesi (Sonuç). 'As a result' gereklidir.",
+        "turkishSolverGuide": {
+          "step1": "Sebep: Gümüş çok pahalı ve fiyatı dalgalı.",
+          "step2": "Sonuç: Bu yüzden araştırmacılar daha ucuz bakır alternatif geliştiriyor.",
+          "step3": "İlişki: SEBEP-SONUÇ (Causation) -> 'Bu nedenle / Sonuç olarak'.",
+          "step4": "Doğru cevap B (As a result)."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. Sentence 2 describes the high cost and volatility of silver (cause), which directly leads scientists to develop cheaper copper alternatives in Sentence 3 (effect). 'As a result' correctly marks this causal connection.",
+          "choiceBreakdown": {
+            "A": "Wrong Relationship: 'For example' introduces an illustrative instance, not a consequence.",
+            "B": "Correct Answer: Correctly marks the causal relationship between high material costs and the research for alternatives.",
+            "C": "Wrong Relationship: 'Conversely' marks contrast, but Sentence 3 is a direct logical outcome.",
+            "D": "Wrong Relationship: 'In contrast' is synonymous with conversely and fails to capture cause-and-effect."
+          },
+          "keyTakeaway": "When a problem in Sentence 2 motivates the solution in Sentence 3, use a causation transition (As a result, Therefore, Consequently)."
+        }
+      },
+      {
+        "id": "GRAM-D5-03",
+        "passage": "Bees communicate the precise distance and direction of floral nectar sources through their famous 'waggle dance'. _______ the angle of the dance relative to vertical gravity encodes the direction of the food source relative to the azimuth of the sun.",
+        "question": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "A) Specifically,",
+          "B) Nevertheless,",
+          "C) On the other hand,",
+          "D) In summary,"
+        ],
+        "answer": "A",
+        "strategyHeuristic": "Cümle 1 genel bilgiyi verir ('dansla iletişim kurarlar'). Cümle 2 bu dansın açısının güneşe göre nasıl hesaplandığının spesifik detayını açıklar -> 'Specifically'.",
+        "turkishSolverGuide": {
+          "step1": "1. Cümle: Arılar dansla yön ve mesafe bildirir (Genel Bilgi).",
+          "step2": "2. Cümle: Dansın dikey açısı güneşin konumunu tam olarak kodlar (Ayrıntılı/Spesifik Mekanizma).",
+          "step3": "İlişki: DETAYLANDIRMA (Elaboration/Specification) -> 'Ayrıntılı olarak / Özellikle'.",
+          "step4": "Doğru cevap A (Specifically)."
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. Sentence 1 introduces the general concept of the waggle dance, and Sentence 2 provides specific technical details on how the angle correlates with the sun's position. 'Specifically' appropriately introduces this elaboration.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Accurately signals the transition from a general concept to its precise technical mechanism.",
+            "B": "Wrong Relationship: 'Nevertheless' indicates contrast, which is absent here.",
+            "C": "Wrong Relationship: 'On the other hand' indicates an alternative or contrast.",
+            "D": "Wrong Relationship: 'In summary' provides a brief recap, not a detailed technical elaboration."
+          },
+          "keyTakeaway": "When Sentence 2 zooms in to explain the exact mechanical details of a concept introduced in Sentence 1, use 'Specifically' or 'In particular'."
+        }
+      },
+      {
+        "id": "GRAM-D5-04",
+        "passage": "Soil degradation caused by intensive monoculture farming reduces beneficial earthworm populations by up to 70%. _______ the loss of organic root matter destroys the soil's natural sponge-like capacity to absorb flood rainwater.",
+        "question": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "A) However,",
+          "B) In addition,",
+          "C) Consequently,",
+          "D) Instead,"
+        ],
+        "answer": "B",
+        "strategyHeuristic": "Cümle 1 = Toprak bozulmasının 1. zararı (solucan kaybı). Cümle 2 = Toprak bozulmasının 2. zararı (su emme kapasitesi kaybı). Ek bilgi bağlacı (In addition) gereklidir.",
+        "turkishSolverGuide": {
+          "step1": "1. Cümle: Yoğun tarım solucanları %70 azaltır (1. Olumsuz Etki).",
+          "step2": "2. Cümle: Kök kaybı toprağın sel sularını emme kapasitesini yok eder (2. Olumsuz Etki).",
+          "step3": "İlişki: EK BİLGİ (Addition) -> 'Ayrıca / Buna ek olarak'.",
+          "step4": "Doğru cevap B (In addition)."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. Both sentences describe separate negative impacts of intensive monoculture farming (earthworm decline + loss of water absorption). 'In addition' correctly links two parallel supporting points.",
+          "choiceBreakdown": {
+            "A": "Wrong Relationship: 'However' signals contrast, but both sentences describe negative damage.",
+            "B": "Correct Answer: Correctly connects two parallel negative effects with an addition transition.",
+            "C": "Wrong Relationship: 'Consequently' implies Sentence 2 was caused by Sentence 1, but both are caused by farming.",
+            "D": "Wrong Relationship: 'Instead' indicates an alternative replacement, not an additional effect."
+          },
+          "keyTakeaway": "When listing multiple parallel effects originating from the same cause, use addition transitions (In addition, Furthermore, Moreover)."
+        }
+      }
+    ]
   }
 };

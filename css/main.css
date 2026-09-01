@@ -2706,14 +2706,842 @@ body.teacher-mode-active .teacher-notes-panel {
   margin-bottom: 0.2rem;
 }
 
-.strategy-tag {
-  color: #f59e0b;
-}
-
 .stem-tr-box p, .stem-strategy-box p {
   font-size: 0.85rem;
   color: var(--text-main);
   line-height: 1.45;
 }
+
+/* =========================================================================
+   19. STUDENT STUDY TOOLS (HIGHLIGHTING, UNDERLINING, NOTEPAD DRAWER)
+   ========================================================================= */
+
+/* Text Highlighting & Annotations */
+.highlight-yellow {
+  background-color: rgba(234, 179, 8, 0.35);
+  color: inherit;
+  padding: 0.1rem 0.2rem;
+  border-radius: 2px;
+  border-bottom: 2px solid #eab308;
+}
+
+.highlight-green {
+  background-color: rgba(34, 197, 94, 0.3);
+  color: inherit;
+  padding: 0.1rem 0.2rem;
+  border-radius: 2px;
+  border-bottom: 2px solid #22c55e;
+}
+
+.highlight-cyan {
+  background-color: rgba(6, 182, 212, 0.3);
+  color: inherit;
+  padding: 0.1rem 0.2rem;
+  border-radius: 2px;
+  border-bottom: 2px solid #06b6d4;
+}
+
+.annotated-underline {
+  text-decoration: underline;
+  text-decoration-color: #f43f5e;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+/* Floating Annotation Toolbar */
+.student-floating-toolbar {
+  position: absolute;
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-md);
+  padding: 0.35rem 0.5rem;
+  z-index: 1000;
+  animation: fadeIn 0.15s ease;
+}
+
+.student-floating-toolbar.show {
+  display: flex;
+}
+
+.student-floating-toolbar .tool-btn {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: all var(--transition-fast);
+}
+
+.student-floating-toolbar .tool-btn:hover {
+  background-color: var(--bg-surface-subtle);
+  border-color: var(--border-subtle);
+}
+
+.hl-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.hl-dot.yellow { background-color: #eab308; }
+.hl-dot.green { background-color: #22c55e; }
+.hl-dot.cyan { background-color: #06b6d4; }
+
+/* Slide-out Student Scratchpad Drawer */
+.student-notepad-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100vh;
+  background-color: var(--bg-surface);
+  border-left: 1px solid var(--border-default);
+  box-shadow: var(--shadow-xl);
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.student-notepad-drawer.open {
+  right: 0;
+}
+
+.notepad-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.15rem 1.25rem;
+  border-bottom: 1px solid var(--border-default);
+  background-color: var(--bg-surface-elevated);
+}
+
+.notepad-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notepad-title h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.notepad-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.notepad-new-note-box {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border-default);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  background-color: var(--bg-surface-subtle);
+}
+
+.notepad-new-note-box input, .notepad-new-note-box textarea, .notepad-new-note-box select {
+  width: 100%;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  outline: none;
+  font-family: inherit;
+}
+
+.notepad-actions-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notepad-notes-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.notepad-empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem 1rem;
+  font-size: 0.85rem;
+}
+
+.student-note-card {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.note-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-tag-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface-subtle);
+  color: var(--text-muted);
+}
+
+.note-tag-badge.tag-vocabulary { background-color: rgba(225, 29, 72, 0.15); color: #f43f5e; }
+.note-tag-badge.tag-grammar { background-color: rgba(14, 165, 233, 0.15); color: #0284c7; }
+.note-tag-badge.tag-traps { background-color: rgba(245, 158, 11, 0.15); color: #f59e0b; }
+
+.note-date {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.note-delete-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.note-card-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+}
+
+.note-card-body {
+  font-size: 0.8rem;
+  color: var(--text-main);
+  line-height: 1.45;
+}
+
+/* =========================================================================
+   20. TURKISH STEP-BY-STEP SOLVER CARD ("Nasıl Çözülür?")
+   ========================================================================= */
+.turkish-solver-card {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.06), rgba(245, 158, 11, 0.06));
+  border: 1px solid rgba(225, 29, 72, 0.25);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.15rem;
+  margin-top: 1.25rem;
+}
+
+.solver-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.solver-card-header h4 {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.solver-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.solver-step-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--text-main);
+}
+
+.solver-step-item .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #e11d48;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* =========================================================================
+   21. GRAMMAR ACADEMY STYLES
+   ========================================================================= */
+.grammar-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.grammar-hero-banner {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(99, 102, 241, 0.08));
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.grammar-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.grammar-module-card {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.grammar-module-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-primary);
+}
+
+.gmod-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gmod-icon {
+  font-size: 1.75rem;
+}
+
+.gmod-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--accent-secondary);
+  background-color: var(--bg-surface-subtle);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.gmod-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-top: 0.25rem;
+}
+
+.gmod-tr-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fbbf24;
+}
+
+.gmod-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.gmod-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.grammar-rule-box {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  border-left: 4px solid var(--accent-primary);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.rule-box-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.rule-box-header h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.rule-tr-explanation {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  margin-bottom: 0.75rem;
+}
+
+.formula-pre-box {
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  color: #38bdf8;
+  line-height: 1.5;
+}
+
+.grammar-passage-box {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+/* =========================================================================
+   22. 30-DAY DAILY VOCABULARY & FLIPCARDS
+   ========================================================================= */
+.daily-vocab-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.day-pills-scroll-row {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.day-tab-pill {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all var(--transition-fast);
+}
+
+.day-tab-pill.active {
+  background-color: var(--accent-primary);
+  color: #fff;
+  border-color: var(--accent-primary);
+}
+
+.day-tab-pill.completed {
+  border-color: var(--status-mastered);
+}
+
+.done-check {
+  color: var(--status-mastered);
+  font-weight: 800;
+}
+
+.flashcards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.vocab-flip-card {
+  background-color: transparent;
+  perspective: 1000px;
+  height: 220px;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.vocab-flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.flip-card-front {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+}
+
+.flip-card-front:hover {
+  border-color: var(--accent-primary);
+}
+
+.fc-pos {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.fc-word {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  margin: 0.5rem 0;
+}
+
+.fc-prompt {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.flip-card-back {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.12), rgba(245, 158, 11, 0.12));
+  border: 1px solid #e11d48;
+  transform: rotateY(180deg);
+  text-align: left;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.35rem;
+  overflow-y: auto;
+}
+
+.fc-tr-line {
+  font-size: 0.95rem;
+  color: #fbbf24;
+}
+
+.fc-en-def {
+  font-size: 0.8rem;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+
+.fc-example {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.fc-mnemonic {
+  font-size: 0.75rem;
+  color: #22c55e;
+  font-weight: 700;
+  margin-top: auto;
+}
+
+.daily-quiz-card {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.quiz-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.quiz-header h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.quiz-question-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.quiz-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.quiz-choice-btn {
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.quiz-choice-btn:hover {
+  background-color: var(--accent-primary-subtle);
+  border-color: var(--accent-primary);
+}
+
+.quiz-feedback-box {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: rgba(34, 197, 94, 0.1);
+  border-left: 3px solid var(--status-mastered);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--text-main);
+}
+
+/* =========================================================================
+   23. AUTOMATIC ERROR LOG (HATA DEFTERİ) STYLES
+   ========================================================================= */
+.error-log-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.error-log-filter-pills {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-pill {
+  background: none;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filter-pill.active {
+  background-color: var(--accent-primary);
+  color: #fff;
+  border-color: var(--accent-primary);
+}
+
+.mistakes-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.error-log-empty {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background-color: var(--bg-surface-elevated);
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius-lg);
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.mistake-card {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  border-left: 4px solid var(--status-error);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mistake-card.mistake-resolved {
+  border-left-color: var(--status-mastered);
+  opacity: 0.75;
+}
+
+.mistake-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mistake-type-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface-subtle);
+  color: var(--text-main);
+}
+
+.mistake-type-badge.type-reading { background-color: rgba(99, 102, 241, 0.15); color: #818cf8; }
+.mistake-type-badge.type-grammar { background-color: rgba(14, 165, 233, 0.15); color: #38bdf8; }
+.mistake-type-badge.type-vocab { background-color: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+
+.mistake-module-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.mistake-trap-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #f43f5e;
+  background-color: rgba(244, 63, 94, 0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.mistake-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.resolved-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--status-mastered);
+}
+
+.btn-icon-delete {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.mistake-question-text {
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.mistake-passage-preview {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background-color: var(--bg-surface-subtle);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+.mistake-answers-row {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+.chosen-wrong {
+  color: var(--status-error);
+}
+
+.correct-truth {
+  color: var(--status-mastered);
+}
+
+.mistake-explanation-text {
+  font-size: 0.85rem;
+  color: var(--text-main);
+  line-height: 1.45;
+}
+
+.mistake-reflection-box {
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mistake-reflection-box label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.reflection-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.reflection-input-row input {
+  flex-grow: 1;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.6rem;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  outline: none;
+}
+
 
 

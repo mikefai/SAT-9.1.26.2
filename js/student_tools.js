@@ -1,0 +1,297 @@
+/**
+ * SAT READING SKILLS ACADEMY - Student Interactive Tools
+ * Highlighting (Yellow, Green, Cyan), Underlining, Text Selection Toolbar,
+ * and Slide-out Student Scratchpad / Notepad.
+ */
+
+const StudentTools = (function() {
+
+  let activePassageKey = null;
+  let floatingToolbarEl = null;
+  let currentSelectionRange = null;
+
+  /**
+   * Initializes student study tools listeners
+   */
+  function init() {
+    createFloatingToolbar();
+    setupSelectionListeners();
+    setupNotepadDrawer();
+    console.log("Student study tools initialized.");
+  }
+
+  /**
+   * Creates floating toolbar DOM element
+   */
+  function createFloatingToolbar() {
+    if (document.getElementById("student-floating-toolbar")) return;
+
+    const toolbar = document.createElement("div");
+    toolbar.id = "student-floating-toolbar";
+    toolbar.className = "student-floating-toolbar";
+    toolbar.innerHTML = `
+      <button class="tool-btn hl-yellow" title="Vurgula: Sarı (Yellow)" onclick="StudentTools.applyHighlight('highlight-yellow')">
+        <span class="hl-dot yellow"></span> Sarı
+      </button>
+      <button class="tool-btn hl-green" title="Vurgula: Yeşil (Green)" onclick="StudentTools.applyHighlight('highlight-green')">
+        <span class="hl-dot green"></span> Yeşil
+      </button>
+      <button class="tool-btn hl-cyan" title="Vurgula: Mavi (Cyan)" onclick="StudentTools.applyHighlight('highlight-cyan')">
+        <span class="hl-dot cyan"></span> Mavi
+      </button>
+      <button class="tool-btn underline-btn" title="Altını Çiz (Underline)" onclick="StudentTools.applyHighlight('annotated-underline')">
+        <u>U</u> Altını Çiz
+      </button>
+      <button class="tool-btn note-btn" title="Not Ekle (Attach Note)" onclick="StudentTools.attachNoteToSelection()">
+        📝 Not Ekle
+      </button>
+      <button class="tool-btn clear-btn" title="Vurguyu Kaldır (Clear)" onclick="StudentTools.clearHighlightSelection()">
+        ✕
+      </button>
+    `;
+    document.body.appendChild(toolbar);
+    floatingToolbarEl = toolbar;
+  }
+
+  /**
+   * Listens for mouseup/touchend selection on passage panes
+   */
+  function setupSelectionListeners() {
+    document.addEventListener("selectionchange", handleSelectionChange);
+    document.addEventListener("mousedown", (e) => {
+      if (floatingToolbarEl && !floatingToolbarEl.contains(e.target) && !e.target.closest(".sat-passage-pane") && !e.target.closest(".grammar-passage-box")) {
+        hideFloatingToolbar();
+      }
+    });
+  }
+
+  function handleSelectionChange() {
+    const selection = window.getSelection();
+    if (!selection || selection.isCollapsed || selection.toString().trim() === "") {
+      hideFloatingToolbar();
+      return;
+    }
+
+    const range = selection.getRangeAt(0);
+    const container = range.commonAncestorContainer;
+    const passagePane = container.nodeType === 1 ? container.closest(".passage-body, .grammar-passage-box") : container.parentElement?.closest(".passage-body, .grammar-passage-box");
+
+    if (!passagePane) {
+      hideFloatingToolbar();
+      return;
+    }
+
+    currentSelectionRange = range;
+    positionFloatingToolbar(range);
+  }
+
+  function positionFloatingToolbar(range) {
+    if (!floatingToolbarEl) return;
+    const rect = range.getBoundingClientRect();
+    const top = rect.top + window.scrollY - 48;
+    const left = rect.left + window.scrollX + (rect.width / 2) - (floatingToolbarEl.offsetWidth / 2);
+
+    floatingToolbarEl.style.top = `${Math.max(10, top)}px`;
+    floatingToolbarEl.style.left = `${Math.max(10, left)}px`;
+    floatingToolbarEl.classList.add("show");
+  }
+
+  function hideFloatingToolbar() {
+    if (floatingToolbarEl) {
+      floatingToolbarEl.classList.remove("show");
+    }
+  }
+
+  /**
+   * Applies highlight or underline class to current selection
+   */
+  function applyHighlight(className) {
+    if (!currentSelectionRange) return;
+
+    try {
+      const span = document.createElement("span");
+      span.className = className;
+      span.setAttribute("data-annotation", className);
+      currentSelectionRange.surroundContents(span);
+      window.getSelection().removeAllRanges();
+      hideFloatingToolbar();
+      saveCurrentPassageAnnotations();
+    } catch (e) {
+      // If selection spans multiple block elements
+      console.warn("Complex selection highlighting simplified:", e);
+    }
+  }
+
+  function clearHighlightSelection() {
+    if (!currentSelectionRange) return;
+    const parent = currentSelectionRange.commonAncestorContainer.parentElement;
+    if (parent && (parent.classList.contains("highlight-yellow") || parent.classList.contains("highlight-green") || parent.classList.contains("highlight-cyan") || parent.classList.contains("annotated-underline"))) {
+      const text = document.createTextNode(parent.textContent);
+      parent.parentNode.replaceChild(text, parent);
+    }
+    window.getSelection().removeAllRanges();
+    hideFloatingToolbar();
+    saveCurrentPassageAnnotations();
+  }
+
+  function attachNoteToSelection() {
+    const selectedText = currentSelectionRange ? currentSelectionRange.toString().trim() : "";
+    hideFloatingToolbar();
+    openNotepadDrawer();
+    const input = document.getElementById("notepad-title-input");
+    const content = document.getElementById("notepad-content-input");
+    if (input && selectedText) {
+      input.value = `Note: "${selectedText.slice(0, 30)}..."`;
+    }
+    if (content && selectedText) {
+      content.value = `Selected text: "${selectedText}"\n\nNotes:\n`;
+    }
+  }
+
+  function saveCurrentPassageAnnotations() {
+    if (!activePassageKey) return;
+    const pane = document.querySelector(".passage-body, .grammar-passage-box");
+    if (pane) {
+      StorageManager.saveAnnotations(activePassageKey, pane.innerHTML);
+    }
+  }
+
+  function restorePassageAnnotations(passageKey) {
+    activePassageKey = passageKey;
+    const savedHTML = StorageManager.getAnnotations(passageKey);
+    const pane = document.querySelector(".passage-body, .grammar-passage-box");
+    if (pane && savedHTML && savedHTML.length > 0) {
+      pane.innerHTML = savedHTML;
+    }
+  }
+
+  /**
+   * Notepad / Scratchpad Drawer UI
+   */
+  function setupNotepadDrawer() {
+    // Check if drawer already exists
+    if (document.getElementById("student-notepad-drawer")) return;
+
+    const drawer = document.createElement("div");
+    drawer.id = "student-notepad-drawer";
+    drawer.className = "student-notepad-drawer";
+    drawer.innerHTML = `
+      <div class="notepad-header">
+        <div class="notepad-title">
+          <span>📝</span>
+          <h3>Öğrenci Çalışma Notları (Scratchpad)</h3>
+        </div>
+        <button class="notepad-close-btn" onclick="StudentTools.closeNotepadDrawer()">✕</button>
+      </div>
+
+      <div class="notepad-new-note-box">
+        <input type="text" id="notepad-title-input" placeholder="Not başlığı (örn. Qualify kuralı, FANBOYS formülü)..." />
+        <textarea id="notepad-content-input" placeholder="Kendi notlarınızı, düşülen tuzakları ve formülleri buraya yazın..." rows="4"></textarea>
+        <div class="notepad-actions-row">
+          <select id="notepad-tag-select">
+            <option value="General">🏷️ Genel Strateji</option>
+            <option value="Vocabulary">📖 Kelime & False Friends</option>
+            <option value="Grammar">🧱 Dilbilgisi Kuralları</option>
+            <option value="Traps">⚠️ Dikkat Edilecek Tuzaklar</option>
+          </select>
+          <button class="btn btn-accent btn-small" onclick="StudentTools.saveNewNote()">
+            💾 Notu Kaydet
+          </button>
+        </div>
+      </div>
+
+      <div class="notepad-notes-list" id="notepad-notes-container">
+        <!-- Rendered dynamically -->
+      </div>
+    `;
+    document.body.appendChild(drawer);
+  }
+
+  function openNotepadDrawer() {
+    const drawer = document.getElementById("student-notepad-drawer");
+    if (drawer) {
+      drawer.classList.add("open");
+      renderNotesList();
+    }
+  }
+
+  function closeNotepadDrawer() {
+    const drawer = document.getElementById("student-notepad-drawer");
+    if (drawer) drawer.classList.remove("open");
+  }
+
+  function toggleNotepadDrawer() {
+    const drawer = document.getElementById("student-notepad-drawer");
+    if (drawer && drawer.classList.contains("open")) {
+      closeNotepadDrawer();
+    } else {
+      openNotepadDrawer();
+    }
+  }
+
+  function saveNewNote() {
+    const titleInput = document.getElementById("notepad-title-input");
+    const contentInput = document.getElementById("notepad-content-input");
+    const tagSelect = document.getElementById("notepad-tag-select");
+
+    const title = titleInput ? titleInput.value.trim() : "";
+    const content = contentInput ? contentInput.value.trim() : "";
+    const tag = tagSelect ? tagSelect.value : "General";
+
+    if (!content && !title) return;
+
+    StorageManager.saveNote(null, title || "Ders Notu", content, tag);
+
+    if (titleInput) titleInput.value = "";
+    if (contentInput) contentInput.value = "";
+
+    renderNotesList();
+  }
+
+  function renderNotesList() {
+    const container = document.getElementById("notepad-notes-container");
+    if (!container) return;
+
+    const notes = StorageManager.getNotes();
+    if (notes.length === 0) {
+      container.innerHTML = `
+        <div class="notepad-empty-state">
+          <span>🗒️</span>
+          <p>Henüz kayıtlı notunuz yok. Yukarıdaki kutudan soru ipuçları veya kelime notları ekleyin.</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = notes.map(note => `
+      <div class="student-note-card">
+        <div class="note-card-header">
+          <span class="note-tag-badge tag-${note.tag.toLowerCase()}">${note.tag}</span>
+          <span class="note-date">${new Date(note.updatedAt).toLocaleDateString("tr-TR", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
+          <button class="note-delete-btn" onclick="StudentTools.deleteNote('${note.id}')" title="Notu Sil">✕</button>
+        </div>
+        <h4 class="note-card-title">${note.title}</h4>
+        <p class="note-card-body">${note.content.replace(/\n/g, '<br>')}</p>
+      </div>
+    `).join('');
+  }
+
+  function deleteNote(noteId) {
+    StorageManager.deleteNote(noteId);
+    renderNotesList();
+  }
+
+  return {
+    init,
+    applyHighlight,
+    clearHighlightSelection,
+    attachNoteToSelection,
+    restorePassageAnnotations,
+    saveCurrentPassageAnnotations,
+    openNotepadDrawer,
+    closeNotepadDrawer,
+    toggleNotepadDrawer,
+    saveNewNote,
+    deleteNote
+  };
+})();

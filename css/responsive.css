@@ -163,6 +163,35 @@
     transform: none;
     max-width: 220px;
   }
+
+  /* Student Study Tools Mobile Adaptations */
+  .student-notepad-drawer {
+    width: 100%;
+    right: -100%;
+  }
+
+  .grammar-hero-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grammar-modules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .flashcards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mistake-answers-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .student-floating-toolbar {
+    flex-wrap: wrap;
+    max-width: 90vw;
+  }
 }
 
 /* =========================================================================

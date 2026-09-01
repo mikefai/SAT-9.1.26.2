@@ -186,10 +186,172 @@ const KEYBOARD_SHORTCUTS = {
   "m": "Open / Close Method Card",
   "t": "Open Turkish SAT Vocabulary & Strategy Guide (🇹🇷)",
   "shift+t": "Toggle Teacher Mode",
-  "e": "Toggle Answer Elimination Mode",
+  "g": "Go to Grammar Academy",
+  "v": "Go to Daily Vocab & Drills",
+  "e": "Go to Error Log (Hata Defteri)",
+  "n": "Open Student Scratchpad / Notes Drawer",
   "Enter": "Next Step / Submit Answer",
   "Escape": "Close Modal / Drawer"
 };
+
+/**
+ * =========================================================================
+ * DIGITAL SAT GRAMMAR ACADEMY CONFIGURATION
+ * Standard English Conventions & Expression of Ideas
+ * =========================================================================
+ */
+const GRAMMAR_MODULES_CONFIG = [
+  {
+    id: "GRAM-1",
+    slug: "sentence-boundaries",
+    number: 1,
+    title: "Boundaries & Run-ons",
+    turkishTitle: "Cümle Sınırları & Noktalama Hataları",
+    domain: "Standard English Conventions",
+    domainTag: "Sentence Structure",
+    icon: "🧱",
+    subtitle: "Comma splices, fused sentences, coordinating conjunctions (FANBOYS), and subordinating clauses",
+    estimatedMinutes: 20
+  },
+  {
+    id: "GRAM-2",
+    slug: "colons-semicolons-dashes",
+    number: 2,
+    title: "Semicolons, Colons & Dashes",
+    turkishTitle: "Noktalı Virgül, İki Nokta & Tire Kuralları",
+    domain: "Standard English Conventions",
+    domainTag: "Punctuation Precision",
+    icon: "⚡",
+    subtitle: "Independent clause pairing, explanatory colons, and non-essential appositive dashes",
+    estimatedMinutes: 20
+  },
+  {
+    id: "GRAM-3",
+    slug: "subject-verb-agreement",
+    number: 3,
+    title: "Subject-Verb & Pronoun Agreement",
+    turkishTitle: "Özne-Yüklem & Zamir Uyumu",
+    domain: "Standard English Conventions",
+    domainTag: "Agreement & Number",
+    icon: "⚖️",
+    subtitle: "Eliminating prepositional phrase distractors, collective nouns, and pronoun ambiguity",
+    estimatedMinutes: 25
+  },
+  {
+    id: "GRAM-4",
+    slug: "modifiers-participles",
+    number: 4,
+    title: "Modifiers & Dangling Participles",
+    turkishTitle: "Sıfat/Zarf Tümceleri & Düşük Cümleler",
+    domain: "Standard English Conventions",
+    domainTag: "Syntax & Placement",
+    icon: "🎯",
+    subtitle: "Introductory participial phrases, misplaced adjectives, and logical subject attachment",
+    estimatedMinutes: 20
+  },
+  {
+    id: "GRAM-5",
+    slug: "rhetorical-transitions",
+    number: 5,
+    title: "Rhetorical Transitions",
+    turkishTitle: "Bağlaçlar & Mantıksal Geçişler",
+    domain: "Expression of Ideas",
+    domainTag: "Logic & Flow",
+    icon: "🔄",
+    subtitle: "Contrast, causation, elaboration, and illustrative transitional adverbs",
+    estimatedMinutes: 25
+  }
+];
+
+/**
+ * =========================================================================
+ * 30-DAY DAILY VOCABULARY & DRILLS CURRICULUM
+ * Structured spaced-repetition sets for SAT Mastery
+ * =========================================================================
+ */
+const DAILY_VOCAB_SETS = [
+  {
+    day: 1,
+    theme: "Pivots & Contrast (Zıtlık & Değişim)",
+    words: [
+      { word: "Alleviate", pos: "verb", tr: "Hafifletmek, dindirmek", en: "Make pain or problem less severe", ex: "The new bypass highway helped alleviate heavy suburban traffic congestion.", mnemonic: "Alleviate = 'Relieve' gibi rahatlatır." },
+      { word: "Compound", pos: "verb", tr: "Kötüleştirmek, katlamak", en: "Make a problem worse by adding to it", ex: "Delaying maintenance will only compound structural damage to the bridge.", mnemonic: "Compound interest katlandığı gibi, problem de katlanır." },
+      { word: "Mitigate", pos: "verb", tr: "Hafifletmek, etkisini azaltmak", en: "Make less severe or harmful", ex: "Planting mangroves along the coast mitigates destructive storm surges.", mnemonic: "Mitigate = Milder (daha ılımlı) hale getirmek." },
+      { word: "Exacerbate", pos: "verb", tr: "Alevlendirmek, daha da bozmak", en: "Make a negative situation worse", ex: "High interest rates exacerbated the company's financial distress.", mnemonic: "Exacerbate = 'Extra bad' yapmak." }
+    ],
+    quiz: {
+      question: "Which word best completes: 'The government introduced subsidies to _______ the rising cost of winter heating for low-income families'?",
+      options: ["A) exacerbate", "B) alleviate", "C) compound", "D) fabricate"],
+      answer: "B",
+      explanation: "Subsidies are meant to relieve or lessen financial burdens, requiring 'alleviate'."
+    }
+  },
+  {
+    day: 2,
+    theme: "Academic Precision & Claims (İddia & Sınırlandırma)",
+    words: [
+      { word: "Qualify", pos: "verb", tr: "Sınırlandırmak, şart koymak", en: "To limit or moderate a broad assertion", ex: "The researcher qualified her conclusion by noting the small sample size.", mnemonic: "SAT'de 'diploma almak' değil, iddiayı daraltmaktır." },
+      { word: "Substantiate", pos: "verb", tr: "Somut kanıtla ispatlamak", en: "Provide evidence to prove truth", ex: "Without archival records, the historian could not substantiate the claim.", mnemonic: "Substance (somut madde/kanıt) katmak." },
+      { word: "Corroborate", pos: "verb", tr: "Teyit etmek, doğrulamak", en: "Confirm or support a finding", ex: "Independent satellite data corroborated the deforestation report.", mnemonic: "Co-operate gibi, iki delil birbirini onaylar." },
+      { word: "Undermine", pos: "verb", tr: "Baltalamak, zayıflatmak", en: "Weaken the foundation of a claim", ex: "The leaked documents completely undermined the minister's credibility.", mnemonic: "Altını (under) kazıp (mine) binayı çökertmek." }
+    ],
+    quiz: {
+      question: "Which word best completes: 'Dr. Santos published new fossil radiometric dates that _______ the revised timeline for early hominid migration'?",
+      options: ["A) undermined", "B) corroborated", "C) eradicated", "D) eclipsed"],
+      answer: "B",
+      explanation: "The dates confirmed and supported the timeline, which means they 'corroborated' it."
+    }
+  },
+  {
+    day: 3,
+    theme: "Clarity & Tone (Üslup & Açıklık)",
+    words: [
+      { word: "Lucid", pos: "adj", tr: "Açık, net, kolay anlaşılır", en: "Expressed clearly; easy to comprehend", ex: "Her lucid explanation made quantum mechanics accessible to novices.", mnemonic: "Luz (ışık) gibi aydınlık ve berrak." },
+      { word: "Equivocal", pos: "adj", tr: "Muğlak, iki anlamlı, belirsiz", en: "Open to more than one interpretation", ex: "The diplomat's equivocal response left both nations uncertain of treaty terms.", mnemonic: "Equal voices = iki tarafı da ima eden belirsizlik." },
+      { word: "Unflappable", pos: "adj", tr: "Soğukkanlı, sarsılmaz", en: "Showing marked composure in crisis", ex: "The flight captain remained unflappable during severe engine turbulence.", mnemonic: "Kanat çırpıp (flap) telaşlanmayan sarsılmaz kişi." },
+      { word: "Indefatigable", pos: "adj", tr: "Yorulmak bilmez, azimli", en: "Persisting tirelessly without fatigue", ex: "The indefatigable activist spent fifty years organizing labor unions.", mnemonic: "Fatigue (yorgunluk) nedir bilmeyen." }
+    ],
+    quiz: {
+      question: "Which word best completes: 'Despite the chaotic press conference, the spokesperson maintained an _______ demeanor and answered every aggressive question calmly'?",
+      options: ["A) equivocal", "B) unflappable", "C) volatile", "D) obsolete"],
+      answer: "B",
+      explanation: "Remaining calm in a chaotic situation means being 'unflappable'."
+    }
+  },
+  {
+    day: 4,
+    theme: "Change & Innovation (Yenilik & Dönüşüm)",
+    words: [
+      { word: "Augment", pos: "verb", tr: "Artırmak, çoğaltmak", en: "Make greater by adding to it", ex: "The museum augmented its collection with twenty rare Renaissance drawings.", mnemonic: "August (yüce) gibi büyütmek/artırmak." },
+      { word: "Curtail", pos: "verb", tr: "Kısmak, sınırlandırmak", en: "Reduce in extent or impose limits", ex: "Budget deficits forced the city council to curtail public library hours.", mnemonic: "Kuyruğunu kesip (cut tail) kısaltmak." },
+      { word: "Novel", pos: "adj", tr: "Özgün, daha önce görülmemiş yeni", en: "Strikingly new or unusual", ex: "The startup proposed a novel method for recycling ocean microplastics.", mnemonic: "Roman değil, sıfat olarak yepyeni orijinal fikir." },
+      { word: "Obsolete", pos: "adj", tr: "Modası geçmiş, köhnemiş", en: "No longer produced or used", ex: "Cloud storage has rendered floppy disks completely obsolete.", mnemonic: "Eski eşyalar gibi miadı dolmuş." }
+    ],
+    quiz: {
+      question: "Which word best completes: 'Rising material costs forced the aerospace contractor to _______ production on the experimental supersonic jet'?",
+      options: ["A) augment", "B) curtail", "C) celebrate", "D) replicate"],
+      answer: "B",
+      explanation: "Rising costs force a reduction or limitation in production, requiring 'curtail'."
+    }
+  },
+  {
+    day: 5,
+    theme: "Investigation & Analysis (İnceleme & Delil)",
+    words: [
+      { word: "Scrutinize", pos: "verb", tr: "Kılı kırk yarmak, didik didik incelemek", en: "Examine or inspect with great care", ex: "Tax auditors scrutinized five years of corporate accounting ledgers.", mnemonic: "Büyüteçle kılı kırk yaran dedektif gibi." },
+      { word: "Speculative", pos: "adj", tr: "Spekülatif, kanıtsız tahmine dayalı", en: "Based on conjecture rather than knowledge", ex: "Without physical artifact proof, the lost city theory remains purely speculative.", mnemonic: "Spekülasyon = kanıtsız tahmin." },
+      { word: "Elucidate", pos: "verb", tr: "Açıklığa kavuşturmak, izah etmek", en: "Make clear and explain thoroughly", ex: "The chemist's diagrams elucidated the multi-step enzymatic reaction.", mnemonic: "Lucid (ışık tutarak) izah etmek." },
+      { word: "Disparate", pos: "adj", tr: "Tamamen farklı, bağdaşmaz", en: "Fundamentally distinct or incongruous", ex: "The study combined disparate datasets from genomics, geology, and linguistics.", mnemonic: "Dis (ayrı) + par (denklik yok)." }
+    ],
+    quiz: {
+      question: "Which word best completes: 'The biography was praised for its ability to _______ the complex political motives behind the 1848 revolutions'?",
+      options: ["A) elucidate", "B) eradicate", "C) impede", "D) compromise"],
+      answer: "A",
+      explanation: "Explaining and clarifying complex motives means to 'elucidate' them."
+    }
+  }
+];
+
 
 /**
  * =========================================================================
