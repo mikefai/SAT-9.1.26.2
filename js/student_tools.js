@@ -215,12 +215,12 @@ const StudentTools = (function() {
         </div>
       </div>
 
-      <div style="display: flex; gap: 0.35rem; padding: 0.75rem 1.25rem 0; overflow-x: auto;">
-        <button class="filter-pill ${activeTagFilter === 'ALL' ? 'active' : ''}" onclick="StudentTools.filterNotes('ALL')">Tümü</button>
-        <button class="filter-pill ${activeTagFilter === 'General' ? 'active' : ''}" onclick="StudentTools.filterNotes('General')">Strateji</button>
-        <button class="filter-pill ${activeTagFilter === 'Vocabulary' ? 'active' : ''}" onclick="StudentTools.filterNotes('Vocabulary')">Kelime</button>
-        <button class="filter-pill ${activeTagFilter === 'Grammar' ? 'active' : ''}" onclick="StudentTools.filterNotes('Grammar')">Dilbilgisi</button>
-        <button class="filter-pill ${activeTagFilter === 'Traps' ? 'active' : ''}" onclick="StudentTools.filterNotes('Traps')">Tuzaklar</button>
+      <div class="notepad-filters-row" id="notepad-filters-container">
+        <button class="filter-pill ${activeTagFilter === 'ALL' ? 'active' : ''}" data-tag="ALL" onclick="StudentTools.filterNotes('ALL')">Tümü</button>
+        <button class="filter-pill ${activeTagFilter === 'General' ? 'active' : ''}" data-tag="General" onclick="StudentTools.filterNotes('General')">Strateji</button>
+        <button class="filter-pill ${activeTagFilter === 'Vocabulary' ? 'active' : ''}" data-tag="Vocabulary" onclick="StudentTools.filterNotes('Vocabulary')">Kelime</button>
+        <button class="filter-pill ${activeTagFilter === 'Grammar' ? 'active' : ''}" data-tag="Grammar" onclick="StudentTools.filterNotes('Grammar')">Dilbilgisi</button>
+        <button class="filter-pill ${activeTagFilter === 'Traps' ? 'active' : ''}" data-tag="Traps" onclick="StudentTools.filterNotes('Traps')">Tuzaklar</button>
       </div>
 
       <div class="notepad-notes-list" id="notepad-notes-container"></div>
@@ -230,7 +230,12 @@ const StudentTools = (function() {
 
   function filterNotes(tag) {
     activeTagFilter = tag;
-    setupNotepadDrawer();
+    const filterContainer = document.getElementById("notepad-filters-container");
+    if (filterContainer) {
+      filterContainer.querySelectorAll(".filter-pill").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-tag") === tag);
+      });
+    }
     renderNotesList();
   }
 

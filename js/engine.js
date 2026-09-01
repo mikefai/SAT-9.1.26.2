@@ -343,7 +343,11 @@ const Engine = (function() {
           <div class="sat-passage-pane">
             <div class="pane-header">
               <span class="pane-tag">Passage</span>
-              <span class="difficulty-badge ${item.difficulty.toLowerCase()}">${item.difficulty}</span>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <button class="btn btn-secondary btn-small" style="padding: 2px 6px; font-size: 0.75rem;" onclick="StudentTools.adjustPassageFont(-0.05)" title="Metin Boyutunu Küçült">A-</button>
+                <button class="btn btn-secondary btn-small" style="padding: 2px 6px; font-size: 0.75rem;" onclick="StudentTools.adjustPassageFont(0.05)" title="Metin Boyutunu Büyüt">A+</button>
+                <span class="difficulty-badge ${item.difficulty.toLowerCase()}">${item.difficulty}</span>
+              </div>
             </div>
             <div class="passage-body">
               ${injectGlosses(item.passage, item.glosses)}
@@ -649,7 +653,11 @@ const Engine = (function() {
           <div class="sat-passage-pane">
             <div class="pane-header">
               <span class="pane-tag">Passage Context</span>
-              <span class="difficulty-badge ${item.difficulty.toLowerCase()}">${item.difficulty}</span>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <button class="btn btn-secondary btn-small" style="padding: 2px 6px; font-size: 0.75rem;" onclick="StudentTools.adjustPassageFont(-0.05)" title="Metin Boyutunu Küçült">A-</button>
+                <button class="btn btn-secondary btn-small" style="padding: 2px 6px; font-size: 0.75rem;" onclick="StudentTools.adjustPassageFont(0.05)" title="Metin Boyutunu Büyüt">A+</button>
+                <span class="difficulty-badge ${item.difficulty.toLowerCase()}">${item.difficulty}</span>
+              </div>
             </div>
             <div class="passage-body">
               ${injectGlosses(item.passage, item.glosses)}
@@ -821,7 +829,11 @@ const Engine = (function() {
           <div class="sat-passage-pane">
             <div class="pane-header">
               <span class="pane-tag">Passage Context</span>
-              <span class="difficulty-badge ${item.difficulty.toLowerCase()}">${item.difficulty}</span>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <button class="btn btn-secondary btn-small" style="padding: 2px 6px; font-size: 0.75rem;" onclick="StudentTools.adjustPassageFont(-0.05)" title="Metin Boyutunu Küçült">A-</button>
+                <button class="btn btn-secondary btn-small" style="padding: 2px 6px; font-size: 0.75rem;" onclick="StudentTools.adjustPassageFont(0.05)" title="Metin Boyutunu Büyüt">A+</button>
+                <span class="difficulty-badge ${item.difficulty.toLowerCase()}">${item.difficulty}</span>
+              </div>
             </div>
             <div class="passage-body">
               ${injectGlosses(item.passage, item.glosses)}
@@ -1067,6 +1079,8 @@ const Engine = (function() {
    * =========================================================================
    */
   function renderGrammarHome(container) {
+    const target = container || document.getElementById("grammar-canvas") || document.getElementById("stage-canvas");
+    if (!target) return;
     const state = StorageManager.getState();
     const gmods = GRAMMAR_MODULES_CONFIG || [];
 
@@ -1090,7 +1104,7 @@ const Engine = (function() {
       `;
     });
 
-    container.innerHTML = `
+    target.innerHTML = `
       <div class="grammar-dashboard animate-fade-in">
         <div class="grammar-hero-banner">
           <div class="hero-left">
@@ -1111,6 +1125,8 @@ const Engine = (function() {
   }
 
   function renderGrammarModule(container, moduleId, itemIdx = 0) {
+    const target = container || document.getElementById("grammar-canvas") || document.getElementById("stage-canvas");
+    if (!target) return;
     const modData = GRAMMAR_CONTENT[moduleId];
     const modConfig = GRAMMAR_MODULES_CONFIG.find(m => m.id === moduleId);
     if (!modData || !modConfig) return;
@@ -1146,7 +1162,7 @@ const Engine = (function() {
       `;
     });
 
-    container.innerHTML = `
+    target.innerHTML = `
       <div class="grammar-lesson-view animate-fade-in">
         <div class="grammar-header-row flex-between">
           <div>
@@ -1175,6 +1191,10 @@ const Engine = (function() {
           <div class="sat-passage-pane">
             <div class="pane-header">
               <span class="pane-tag">Grammar Drill ${itemIdx + 1} of ${totalDrills}</span>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <button class="btn btn-secondary btn-small" style="padding: 2px 6px; font-size: 0.75rem;" onclick="StudentTools.adjustPassageFont(-0.05)" title="Metin Boyutunu Küçült">A-</button>
+                <button class="btn btn-secondary btn-small" style="padding: 2px 6px; font-size: 0.75rem;" onclick="StudentTools.adjustPassageFont(0.05)" title="Metin Boyutunu Büyüt">A+</button>
+              </div>
             </div>
             <div class="grammar-passage-box">
               <p class="grammar-sentence-text">${item.passage}</p>
@@ -1215,11 +1235,15 @@ const Engine = (function() {
 
   function handleGrammarChoice(letter) {
     selectedChoiceKey = letter;
-    const btn = event?.currentTarget;
-    if (btn) {
-      document.querySelectorAll(".sat-choice-button").forEach(b => b.classList.remove("choice-selected"));
-      btn.classList.add("choice-selected");
-    }
+    const buttons = document.querySelectorAll(".sat-choice-button");
+    buttons.forEach(b => {
+      const l = b.querySelector(".choice-letter");
+      if (l && l.textContent.trim() === letter) {
+        b.classList.add("choice-selected");
+      } else {
+        b.classList.remove("choice-selected");
+      }
+    });
     const submitBtn = document.querySelector(".question-submit-area button");
     if (submitBtn) submitBtn.disabled = false;
   }
@@ -1248,7 +1272,7 @@ const Engine = (function() {
       });
     }
 
-    renderGrammarModule(document.getElementById("stage-canvas"), moduleId, itemIdx);
+    renderGrammarModule(null, moduleId, itemIdx);
   }
 
   /**
@@ -1257,6 +1281,8 @@ const Engine = (function() {
    * =========================================================================
    */
   function renderDailyVocabDashboard(container, selectedDay = 1) {
+    const target = container || document.getElementById("vocab-canvas") || document.getElementById("stage-canvas");
+    if (!target) return;
     const sets = DAILY_VOCAB_SETS || [];
     const dayData = sets.find(s => s.day === selectedDay) || sets[0];
     const progress = StorageManager.getDailyVocabProgress();
@@ -1265,7 +1291,7 @@ const Engine = (function() {
     sets.forEach(s => {
       const isDone = !!progress[s.day];
       dayPillsHTML += `
-        <button class="day-tab-pill ${s.day === selectedDay ? 'active' : ''} ${isDone ? 'completed' : ''}" onclick="Engine.renderDailyVocabDashboard(document.getElementById('stage-canvas'), ${s.day})">
+        <button class="day-tab-pill ${s.day === selectedDay ? 'active' : ''} ${isDone ? 'completed' : ''}" onclick="Engine.renderDailyVocabDashboard(null, ${s.day})">
           <span>Day ${s.day}</span>
           ${isDone ? '<span class="done-check">✓</span>' : ''}
         </button>
@@ -1296,7 +1322,7 @@ const Engine = (function() {
     const quizRecord = progress[selectedDay];
     const isQuizDone = !!quizRecord;
 
-    container.innerHTML = `
+    target.innerHTML = `
       <div class="daily-vocab-view animate-fade-in">
         <div class="daily-vocab-header flex-between">
           <div>
@@ -1366,7 +1392,7 @@ const Engine = (function() {
       });
     }
 
-    renderDailyVocabDashboard(document.getElementById("stage-canvas"), dayNumber);
+    renderDailyVocabDashboard(null, dayNumber);
   }
 
   /**
@@ -1375,6 +1401,8 @@ const Engine = (function() {
    * =========================================================================
    */
   function renderErrorLogView(container, filterType = "ALL") {
+    const target = container || document.getElementById("error-log-canvas") || document.getElementById("stage-canvas");
+    if (!target) return;
     let mistakes = StorageManager.getMistakes();
     if (filterType !== "ALL") {
       mistakes = mistakes.filter(m => m.type === filterType);
@@ -1431,7 +1459,7 @@ const Engine = (function() {
       `).join('');
     }
 
-    container.innerHTML = `
+    target.innerHTML = `
       <div class="error-log-view animate-fade-in">
         <div class="error-log-header flex-between">
           <div>
@@ -1440,10 +1468,10 @@ const Engine = (function() {
             <p>Yanlış yaptığınız her soru buraya kaydedilir. Tuzakları inceleyin ve notlar alarak pekiştirin.</p>
           </div>
           <div class="error-log-filter-pills">
-            <button class="filter-pill ${filterType === 'ALL' ? 'active' : ''}" onclick="Engine.renderErrorLogView(document.getElementById('stage-canvas'), 'ALL')">Tümü (${StorageManager.getMistakes().length})</button>
-            <button class="filter-pill ${filterType === 'Reading' ? 'active' : ''}" onclick="Engine.renderErrorLogView(document.getElementById('stage-canvas'), 'Reading')">Reading</button>
-            <button class="filter-pill ${filterType === 'Grammar' ? 'active' : ''}" onclick="Engine.renderErrorLogView(document.getElementById('stage-canvas'), 'Grammar')">Grammar</button>
-            <button class="filter-pill ${filterType === 'Vocab' ? 'active' : ''}" onclick="Engine.renderErrorLogView(document.getElementById('stage-canvas'), 'Vocab')">Vocab</button>
+            <button class="filter-pill ${filterType === 'ALL' ? 'active' : ''}" onclick="Engine.renderErrorLogView(null, 'ALL')">Tümü (${StorageManager.getMistakes().length})</button>
+            <button class="filter-pill ${filterType === 'Reading' ? 'active' : ''}" onclick="Engine.renderErrorLogView(null, 'Reading')">Reading</button>
+            <button class="filter-pill ${filterType === 'Grammar' ? 'active' : ''}" onclick="Engine.renderErrorLogView(null, 'Grammar')">Grammar</button>
+            <button class="filter-pill ${filterType === 'Vocab' ? 'active' : ''}" onclick="Engine.renderErrorLogView(null, 'Vocab')">Vocab</button>
           </div>
         </div>
 
@@ -1456,12 +1484,12 @@ const Engine = (function() {
 
   function resolveMistakeItem(mistakeId) {
     StorageManager.resolveMistake(mistakeId);
-    renderErrorLogView(document.getElementById("stage-canvas"));
+    renderErrorLogView(null);
   }
 
   function deleteMistakeItem(mistakeId) {
     StorageManager.deleteMistake(mistakeId);
-    renderErrorLogView(document.getElementById("stage-canvas"));
+    renderErrorLogView(null);
   }
 
   function saveMistakeReflection(mistakeId) {

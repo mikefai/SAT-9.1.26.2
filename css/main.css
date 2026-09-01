@@ -2618,6 +2618,14 @@ body.esl-disabled .esl-gloss-popover {
   gap: 0.5rem;
 }
 
+.notepad-filters-row {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.75rem 1.25rem 0.25rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .notepad-notes-list {
   flex-grow: 1;
   overflow-y: auto;
