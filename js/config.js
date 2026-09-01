@@ -1,16 +1,16 @@
 /**
- * SAT READING SKILLS ACADEMY - Configuration & Constants
+ * SAT READING & WRITING SKILLS ACADEMY - Configuration & Constants
  * Fully offline-capable, zero external dependencies.
  */
 
 const CONFIG = {
-  APP_TITLE: "SAT Reading Skills Academy",
-  SUBTITLE: "Master the Metacognition Behind Digital SAT Reading",
-  TARGET_EXAM: "Digital SAT Reading & Writing (Reading Question Types)",
-  STUDENT_LEVEL: "B1–B2 ESL & SAT Aspirants",
+  APP_TITLE: "SAT Skills Academy",
+  SUBTITLE: "Master the Metacognition Behind Digital SAT Reading & Writing",
+  TARGET_EXAM: "Digital SAT Reading & Writing (Reading & Grammar Conventions)",
+  STUDENT_LEVEL: "B1–B2 ESL & SAT Aspirants (Customized for Turkish Learners)",
   ESL_SUPPORT_DEFAULT: true,
   THEME_DEFAULT: "dark",
-  STORAGE_KEY: "sat_reading_academy_v1",
+  STORAGE_KEY: "sat_reading_academy_v2",
   TIMER_DEFAULT_SECONDS: 90,
   MASTERY_THRESHOLDS: {
     MIN_INDEPENDENT_ACCURACY: 0.80, // 80% or higher
@@ -74,7 +74,7 @@ const TRAP_TAXONOMY = {
 };
 
 /**
- * Module Registry & Metadata
+ * Reading Module Registry & Metadata
  */
 const MODULES_CONFIG = [
   {
@@ -98,48 +98,48 @@ const MODULES_CONFIG = [
     domain: "Craft & Structure",
     domainTag: "Craft & Structure",
     estimatedMinutes: 25,
-    icon: "🔍",
-    subtitle: "Using context clues, tone markers, and secondary meanings",
-    methodName: "The BLANK Method",
+    icon: "📚",
+    subtitle: "Contextual vocabulary, tone matching, secondary meanings & blanking strategies",
+    methodName: "The Blank-and-Predict Protocol",
     stagesCount: 6
   },
   {
     id: "MOD-2",
-    slug: "text-structure-purpose",
+    slug: "cross-text-connections",
     number: 2,
+    title: "Cross-Text Connections",
+    domain: "Craft & Structure",
+    domainTag: "Craft & Structure",
+    estimatedMinutes: 30,
+    icon: "⚖️",
+    subtitle: "Synthesizing paired perspectives, tracking author agreements and disagreements",
+    methodName: "The Two-Pass Perspective Matrix",
+    stagesCount: 6
+  },
+  {
+    id: "MOD-3",
+    slug: "text-structure-and-purpose",
+    number: 3,
     title: "Text Structure & Purpose",
     domain: "Craft & Structure",
     domainTag: "Craft & Structure",
     estimatedMinutes: 25,
     icon: "🏗️",
-    subtitle: "Identifying HOW a passage is structured and WHY the author wrote it",
-    methodName: "The Blueprint Technique",
-    stagesCount: 6
-  },
-  {
-    id: "MOD-3",
-    slug: "cross-text-connections",
-    number: 3,
-    title: "Cross-Text Connections",
-    domain: "Craft & Structure",
-    domainTag: "Craft & Structure",
-    estimatedMinutes: 30,
-    icon: "🔗",
-    subtitle: "Comparing dual perspectives, finding common ground, and predicting author rebuttals",
-    methodName: "The Venn Bridge Protocol",
+    subtitle: "Rhetorical roles, paragraph function, and overall passage architecture",
+    methodName: "The Structural Verb Filter",
     stagesCount: 6
   },
   {
     id: "MOD-4",
-    slug: "central-ideas-details",
+    slug: "central-ideas-and-details",
     number: 4,
     title: "Central Ideas & Details",
     domain: "Information & Ideas",
     domainTag: "Information & Ideas",
     estimatedMinutes: 25,
     icon: "🎯",
-    subtitle: "Distinguishing the overarching thesis from supporting evidence and scope traps",
-    methodName: "The Umbrella Test",
+    subtitle: "Isolating the primary thesis, filtering secondary illustrations, and strict textual fidelity",
+    methodName: "The Scope-Match Sieve",
     stagesCount: 6
   },
   {
@@ -256,140 +256,233 @@ const GRAMMAR_MODULES_CONFIG = [
     title: "Rhetorical Transitions",
     turkishTitle: "Bağlaçlar & Mantıksal Geçişler",
     domain: "Expression of Ideas",
-    domainTag: "Logic & Flow",
+    domainTag: "Transitions",
     icon: "🔄",
-    subtitle: "Contrast, causation, elaboration, and illustrative transitional adverbs",
-    estimatedMinutes: 25
+    subtitle: "Contrast, causation, elaboration, and addition transitions in paragraph flow",
+    estimatedMinutes: 20
   }
 ];
 
 /**
  * =========================================================================
- * 30-DAY DAILY VOCABULARY & DRILLS CURRICULUM
- * Structured spaced-repetition sets for SAT Mastery
+ * 30-DAY DAILY VOCABULARY & SENTENCE COMPLETION DRILLS
+ * High-Yield Digital SAT Words with Turkish Scaffold & Mnemonics
  * =========================================================================
  */
 const DAILY_VOCAB_SETS = [
   {
     day: 1,
-    theme: "Pivots & Contrast (Zıtlık & Değişim)",
+    title: "Day 1: Tone & Severity Modulation",
     words: [
-      { word: "Alleviate", pos: "verb", tr: "Hafifletmek, dindirmek", en: "Make pain or problem less severe", ex: "The new bypass highway helped alleviate heavy suburban traffic congestion.", mnemonic: "Alleviate = 'Relieve' gibi rahatlatır." },
-      { word: "Compound", pos: "verb", tr: "Kötüleştirmek, katlamak", en: "Make a problem worse by adding to it", ex: "Delaying maintenance will only compound structural damage to the bridge.", mnemonic: "Compound interest katlandığı gibi, problem de katlanır." },
-      { word: "Mitigate", pos: "verb", tr: "Hafifletmek, etkisini azaltmak", en: "Make less severe or harmful", ex: "Planting mangroves along the coast mitigates destructive storm surges.", mnemonic: "Mitigate = Milder (daha ılımlı) hale getirmek." },
-      { word: "Exacerbate", pos: "verb", tr: "Alevlendirmek, daha da bozmak", en: "Make a negative situation worse", ex: "High interest rates exacerbated the company's financial distress.", mnemonic: "Exacerbate = 'Extra bad' yapmak." }
+      { word: "Alleviate", pos: "verb", en: "To make suffering or a problem less severe", tr: "Hafifletmek, dindirmek", ex: "The new policy aimed to alleviate economic strain on working families.", mnemonic: "Alleviate -> 'Ali ve Ateş' (Ali yangına su döküp ateşi hafifletti)." },
+      { word: "Compound", pos: "verb", en: "To make something bad worse; intensify or add to", tr: "Daha da kötüleştirmek, katlamak", ex: "The severe drought compounded the agricultural crisis.", mnemonic: "Compound -> bileşik faiz gibi sorunları katlamak." },
+      { word: "Mitigate", pos: "verb", en: "To make less severe, harmful, or painful", tr: "Yatıştırmak, etkisini azaltmak", ex: "Urban planners planted trees to mitigate extreme heat island effects.", mnemonic: "Mitigate -> 'Miti (efsaneyi) gate (kapıda)' durdurup zararı azalttık." },
+      { word: "Exacerbate", pos: "verb", en: "To make a problem, bad situation, or negative feeling worse", tr: "Alevlendirmek, şiddetlendirmek", ex: "Cutting public transit funding will only exacerbate traffic congestion.", mnemonic: "Exacerbate -> 'Extra acerbic' (aşırı asidik/acı hale getirmek)." }
     ],
     quiz: {
-      question: "Which word best completes: 'The government introduced subsidies to _______ the rising cost of winter heating for low-income families'?",
-      options: ["A) exacerbate", "B) alleviate", "C) compound", "D) fabricate"],
-      answer: "B",
-      explanation: "Subsidies are meant to relieve or lessen financial burdens, requiring 'alleviate'."
+      sentence: "Although city officials hoped the new bus lanes would _______ traffic congestion, ongoing road construction only served to _______ the gridlock.",
+      options: ["A) mitigate ... compound", "B) exacerbate ... alleviate", "C) overlook ... substantiate", "D) qualify ... scrutinize"],
+      answer: "A",
+      explanation: "İlk boşluk olumlu bir azaltma fiili ('mitigate' = hafifletmek) gerektirir. 'Although' zıtlık bağlacından sonraki ikinci boşluk ise durumu daha da kötüleştiren bir eylem ('compound' = katlamak/kötüleştirmek) gerektirir."
     }
   },
   {
     day: 2,
-    theme: "Academic Precision & Claims (İddia & Sınırlandırma)",
+    title: "Day 2: Scientific Evidence & Claims",
     words: [
-      { word: "Qualify", pos: "verb", tr: "Sınırlandırmak, şart koymak", en: "To limit or moderate a broad assertion", ex: "The researcher qualified her conclusion by noting the small sample size.", mnemonic: "SAT'de 'diploma almak' değil, iddiayı daraltmaktır." },
-      { word: "Substantiate", pos: "verb", tr: "Somut kanıtla ispatlamak", en: "Provide evidence to prove truth", ex: "Without archival records, the historian could not substantiate the claim.", mnemonic: "Substance (somut madde/kanıt) katmak." },
-      { word: "Corroborate", pos: "verb", tr: "Teyit etmek, doğrulamak", en: "Confirm or support a finding", ex: "Independent satellite data corroborated the deforestation report.", mnemonic: "Co-operate gibi, iki delil birbirini onaylar." },
-      { word: "Undermine", pos: "verb", tr: "Baltalamak, zayıflatmak", en: "Weaken the foundation of a claim", ex: "The leaked documents completely undermined the minister's credibility.", mnemonic: "Altını (under) kazıp (mine) binayı çökertmek." }
+      { word: "Qualify", pos: "verb (SAT special)", en: "To limit, modify, or restrict the scope of a claim", tr: "Sınırlandırmak, kayıt/şart koymak", ex: "The biologist qualified her hypothesis by noting that the results applied only to temperate climates.", mnemonic: "Qualify SAT'de 'diplomalı olmak' değil, iddiaya sınır koymaktır." },
+      { word: "Substantiate", pos: "verb", en: "To provide evidence to support or prove the truth of something", tr: "Somut kanıtlarla doğrulamak", ex: "The archaeologist excavated further layers to substantiate her dating of the settlement.", mnemonic: "Substantiate -> 'Substance' (madde, somut delil) koymak." },
+      { word: "Corroborate", pos: "verb", en: "To confirm or give support to a statement, theory, or finding", tr: "Teyit etmek, doğrulamak", ex: "Satellite imagery corroborated the eyewitness reports of glacial retreat.", mnemonic: "Corroborate -> 'Co-robot' (birlikte doğrulayan sistem)." },
+      { word: "Undermine", pos: "verb", en: "To lessen the effectiveness, power, or validity of something", tr: "Baltalamak, temelini zayıflatmak", ex: "New geological data completely undermined the previous continental drift timeline.", mnemonic: "Under-mine -> altını kazıp temeli çökerterek zayıflatmak." }
     ],
     quiz: {
-      question: "Which word best completes: 'Dr. Santos published new fossil radiometric dates that _______ the revised timeline for early hominid migration'?",
-      options: ["A) undermined", "B) corroborated", "C) eradicated", "D) eclipsed"],
+      sentence: "Recent isotopic measurements failed to _______ the long-held volcanic winter theory, instead providing data that significantly _______ its core premises.",
+      options: ["A) undermine ... corroborated", "B) substantiate ... undermined", "C) fabricate ... augmented", "D) articulate ... championed"],
       answer: "B",
-      explanation: "The dates confirmed and supported the timeline, which means they 'corroborated' it."
+      explanation: "'Failed to' olumsuz ifadesinden sonra teoriyi doğrulayacak bir fiil ('substantiate') gerekir. 'Instead' zıtlık bildirdiği için ikinci kısım teoriyi zayıflatan ('undermined') olmalıdır."
     }
   },
   {
     day: 3,
-    theme: "Clarity & Tone (Üslup & Açıklık)",
+    title: "Day 3: Clarity, Ambiguity & Intellect",
     words: [
-      { word: "Lucid", pos: "adj", tr: "Açık, net, kolay anlaşılır", en: "Expressed clearly; easy to comprehend", ex: "Her lucid explanation made quantum mechanics accessible to novices.", mnemonic: "Luz (ışık) gibi aydınlık ve berrak." },
-      { word: "Equivocal", pos: "adj", tr: "Muğlak, iki anlamlı, belirsiz", en: "Open to more than one interpretation", ex: "The diplomat's equivocal response left both nations uncertain of treaty terms.", mnemonic: "Equal voices = iki tarafı da ima eden belirsizlik." },
-      { word: "Unflappable", pos: "adj", tr: "Soğukkanlı, sarsılmaz", en: "Showing marked composure in crisis", ex: "The flight captain remained unflappable during severe engine turbulence.", mnemonic: "Kanat çırpıp (flap) telaşlanmayan sarsılmaz kişi." },
-      { word: "Indefatigable", pos: "adj", tr: "Yorulmak bilmez, azimli", en: "Persisting tirelessly without fatigue", ex: "The indefatigable activist spent fifty years organizing labor unions.", mnemonic: "Fatigue (yorgunluk) nedir bilmeyen." }
+      { word: "Lucid", pos: "adj", en: "Expressed clearly; easy to understand; bright", tr: "Açık, berrak, anlaşılır", ex: "Her lucid explanation of quantum entanglement made the concept accessible to beginners.", mnemonic: "Lucid -> 'Lüks ışık' gibi pırıl pırıl ve aydınlık." },
+      { word: "Equivocal", pos: "adj", en: "Open to more than one interpretation; ambiguous; uncertain", tr: "Muğlak, iki anlama gelebilen, belirsiz", ex: "The candidate gave an equivocal response to questions about the proposed tax increase.", mnemonic: "Equi (eşit) + vocal (ses): iki farklı tarafa da çekilebilen ses." },
+      { word: "Unflappable", pos: "adj", en: "Having or showing calmness in a crisis; calm and unperturbed", tr: "Soğukkanlı, sarsılmaz", ex: "Even when the flight instruments malfunctioned, the pilot remained unflappable.", mnemonic: "Flap (kanat çırpmak, telaşlanmak) yapmayan -> sakin." },
+      { word: "Indefatigable", pos: "adj", en: "Persisting tirelessly without fatigue", tr: "Yorulmak bilmez, azimli", ex: "The botanist’s indefatigable field work in the Amazon documented over 500 new species.", mnemonic: "In- (olumsuz) + fatigue (yorgunluk) -> hiç yorulmayan." }
     ],
     quiz: {
-      question: "Which word best completes: 'Despite the chaotic press conference, the spokesperson maintained an _______ demeanor and answered every aggressive question calmly'?",
-      options: ["A) equivocal", "B) unflappable", "C) volatile", "D) obsolete"],
-      answer: "B",
-      explanation: "Remaining calm in a chaotic situation means being 'unflappable'."
+      sentence: "Unlike her predecessor whose speeches were deliberately _______ and evasive, the new director presented a _______ roadmap for the company's restructuring.",
+      options: ["A) equivocal ... lucid", "B) lucid ... equivocal", "C) dogmatic ... tenuous", "D) candid ... obsolete"],
+      answer: "A",
+      explanation: "'Unlike' karşılaştırması: İlk kısım 'evasive' (kaçamak) ile uyumlu 'equivocal' (muğlak) gerektirirken, ikinci kısım net ve açık olan 'lucid' kelimesini gerektirir."
     }
   },
   {
     day: 4,
-    theme: "Change & Innovation (Yenilik & Dönüşüm)",
+    title: "Day 4: Magnitude, Time & Innovation",
     words: [
-      { word: "Augment", pos: "verb", tr: "Artırmak, çoğaltmak", en: "Make greater by adding to it", ex: "The museum augmented its collection with twenty rare Renaissance drawings.", mnemonic: "August (yüce) gibi büyütmek/artırmak." },
-      { word: "Curtail", pos: "verb", tr: "Kısmak, sınırlandırmak", en: "Reduce in extent or impose limits", ex: "Budget deficits forced the city council to curtail public library hours.", mnemonic: "Kuyruğunu kesip (cut tail) kısaltmak." },
-      { word: "Novel", pos: "adj", tr: "Özgün, daha önce görülmemiş yeni", en: "Strikingly new or unusual", ex: "The startup proposed a novel method for recycling ocean microplastics.", mnemonic: "Roman değil, sıfat olarak yepyeni orijinal fikir." },
-      { word: "Obsolete", pos: "adj", tr: "Modası geçmiş, köhnemiş", en: "No longer produced or used", ex: "Cloud storage has rendered floppy disks completely obsolete.", mnemonic: "Eski eşyalar gibi miadı dolmuş." }
+      { word: "Augment", pos: "verb", en: "To make something greater by adding to it; increase", tr: "Artırmak, büyütmek, takviye etmek", ex: "The museum augmented its collection through a generous donation of Renaissance paintings.", mnemonic: "Augment -> 'Augustus' imparatorluğu büyüterek genişletti." },
+      { word: "Curtail", pos: "verb", en: "To reduce in extent or quantity; impose a restriction on", tr: "Kısmak, kısıtlamak, yarıda kesmek", ex: "Budget constraints forced the university to curtail several study abroad programs.", mnemonic: "Curtail -> 'Curtain' (perdeyi erken kapatıp kısmak)." },
+      { word: "Novel", pos: "adj (SAT special)", en: "New and not resembling something formerly known or used", tr: "Yepyeni, özgün, orijinal", ex: "The team designed a novel algorithmic architecture that reduced processing latency by half.", mnemonic: "Novel sıfat olarak 'roman' değil, 'yepyeni ve özgün' demektir." },
+      { word: "Obsolete", pos: "adj", en: "No longer produced or used; out of date", tr: "Kullanımdan kalkmış, demode", ex: "Advances in digital photography quickly rendered chemical darkrooms obsolete.", mnemonic: "Obsolete -> 'O fosil oldu' (artık kullanılmıyor)." }
     ],
     quiz: {
-      question: "Which word best completes: 'Rising material costs forced the aerospace contractor to _______ production on the experimental supersonic jet'?",
-      options: ["A) augment", "B) curtail", "C) celebrate", "D) replicate"],
-      answer: "B",
-      explanation: "Rising costs force a reduction or limitation in production, requiring 'curtail'."
+      sentence: "Rather than relying on _______ legacy techniques, the engineering firm developed a _______ filtration method that significantly reduced industrial water waste.",
+      options: ["A) obsolete ... novel", "B) novel ... obsolete", "C) pervasive ... tenuous", "D) candid ... dogmatic"],
+      answer: "A",
+      explanation: "'Legacy' (eski/miras) teknikler 'obsolete' (kullanımdan kalkmış) iken, geliştirilen yeni yöntem 'novel' (özgün/yeni) olmalıdır."
     }
   },
   {
     day: 5,
-    theme: "Investigation & Analysis (İnceleme & Delil)",
+    title: "Day 5: Scientific Inquiry & Scrutiny",
     words: [
-      { word: "Scrutinize", pos: "verb", tr: "Kılı kırk yarmak, didik didik incelemek", en: "Examine or inspect with great care", ex: "Tax auditors scrutinized five years of corporate accounting ledgers.", mnemonic: "Büyüteçle kılı kırk yaran dedektif gibi." },
-      { word: "Speculative", pos: "adj", tr: "Spekülatif, kanıtsız tahmine dayalı", en: "Based on conjecture rather than knowledge", ex: "Without physical artifact proof, the lost city theory remains purely speculative.", mnemonic: "Spekülasyon = kanıtsız tahmin." },
-      { word: "Elucidate", pos: "verb", tr: "Açıklığa kavuşturmak, izah etmek", en: "Make clear and explain thoroughly", ex: "The chemist's diagrams elucidated the multi-step enzymatic reaction.", mnemonic: "Lucid (ışık tutarak) izah etmek." },
-      { word: "Disparate", pos: "adj", tr: "Tamamen farklı, bağdaşmaz", en: "Fundamentally distinct or incongruous", ex: "The study combined disparate datasets from genomics, geology, and linguistics.", mnemonic: "Dis (ayrı) + par (denklik yok)." }
+      { word: "Scrutinize", pos: "verb", en: "To examine or inspect closely and thoroughly", tr: "Didik didik incelemek, kılı kırk yarmak", ex: "Peer reviewers scrutinized the clinical trial data for statistical anomalies.", mnemonic: "Scrutinize -> 'Screw' gibi vidalayıp en ince vidasına kadar bakmak." },
+      { word: "Speculative", pos: "adj", en: "Engaged in, expressing, or based on conjecture rather than empirical knowledge", tr: "Varsayımsal, ampirik kanıta dayanmayan", ex: "Without fossil evidence, any claim about the sauropod's vocalizations remains purely speculative.", mnemonic: "Speculative -> sadece tahmin ve kurgu içeren." },
+      { word: "Elucidate", pos: "verb", en: "To make something clear; explain", tr: "Aydınlatmak, izah etmek", ex: "The lecture elucidated the biochemical mechanism underlying cellular respiration.", mnemonic: "Elucidate -> 'Lucid' (aydınlık/net) hale getirmek." },
+      { word: "Disparate", pos: "adj", en: "Essentially different in kind; not allowing comparison", tr: "Tamamen farklı, apayrı, bağdaşmaz", ex: "The anthology brought together disparate essays ranging from medieval history to modern sociology.", mnemonic: "Disparate -> 'Dis-parallel' (asla paralel ve benzer olmayan)." }
     ],
     quiz: {
-      question: "Which word best completes: 'The biography was praised for its ability to _______ the complex political motives behind the 1848 revolutions'?",
-      options: ["A) elucidate", "B) eradicate", "C) impede", "D) compromise"],
+      sentence: "Until the research team can obtain physical core samples, their hypothesis about deep-mantle convection remains _______ and cannot yet be _______ as fact.",
+      options: ["A) speculative ... substantiated", "B) substantiated ... scrutinized", "C) pervasive ... undermined", "D) pragmatic ... augmented"],
       answer: "A",
-      explanation: "Explaining and clarifying complex motives means to 'elucidate' them."
+      explanation: "Fiziksel numune alınamadığı için hipotez 'speculative' (tahmini/varsayımsal) kalır ve gerçek olarak 'substantiated' (kanıtlanamaz)."
+    }
+  },
+  {
+    day: 6,
+    title: "Day 6: Argumentation, Stance & Conviction",
+    words: [
+      { word: "Champion", pos: "verb (SAT special)", en: "To vigorously support or defend a cause or person", tr: "Savunmak, öncülüğünü yapmak", ex: "The senator championed environmental protections throughout her long legislative career.", mnemonic: "Champion fiil olunca 'şampiyon olmak' değil, davayı sonuna kadar savunmaktır." },
+      { word: "Repudiate", pos: "verb", en: "To refuse to accept or be associated with; deny the truth or validity of", tr: "Reddetmek, tanımamak, inkar etmek", ex: "The philosopher later repudiated his early writings on determinism.", mnemonic: "Repudiate -> 'Re-put' (geri itip reddetmek)." },
+      { word: "Dogmatic", pos: "adj", en: "Inclined to lay down principles as incontrovertibly true, without evidence or debate", tr: "Bağnaz, dogmatik, tartışmasız dayatmacı", ex: "Her dogmatic approach to policy prevented any fruitful compromise with opposing parties.", mnemonic: "Dogmatic -> dogmalara körü körüne sarılan." },
+      { word: "Candid", pos: "adj", en: "Truthful and straightforward; frank", tr: "İçten, dürüst, dobra", ex: "In a rare candid interview, the CEO acknowledged the company's product design flaws.", mnemonic: "Candid -> 'Candle' (mumu yakıp her şeyi dosdoğru gösteren)." }
+    ],
+    quiz: {
+      sentence: "While public relations representatives issued carefully staged statements, the lead investigator offered a _______ assessment that explicitly _______ the contractor's safety record.",
+      options: ["A) candid ... repudiated", "B) dogmatic ... championed", "C) speculative ... alleviated", "D) plastic ... mitigated"],
+      answer: "A",
+      explanation: "Halkla ilişkilerin yapmacık açıklamalarına zıt olarak müfettiş dobra ('candid') bir değerlendirme sunmuş ve şirketin güvenlik kaydını reddetmiştir ('repudiated')."
+    }
+  },
+  {
+    day: 7,
+    title: "Day 7: Precision, Caution & Skepticism",
+    words: [
+      { word: "Fastidious", pos: "adj", en: "Very attentive to and concerned about accuracy and detail", tr: "Aşırı titiz, kılı kırk yaran", ex: "The restorer was fastidious in matching the exact pigment ratios of the 17th-century fresco.", mnemonic: "Fastidious -> 'Fasulyeyi tek tek ayıran titiz aşçı'." },
+      { word: "Tenuous", pos: "adj", en: "Very weak or slight; insubstantial", tr: "Zayıf, iğreti, pamuk ipliğine bağlı", ex: "The statistical correlation between the two variables was tenuous at best.", mnemonic: "Tenuous -> 'Tenis ipi gibi incecik ve zayıf'." },
+      { word: "Plausible", pos: "adj", en: "Seeming reasonable or probable", tr: "Akla yatkın, makul, olası", ex: "Her explanation for the missing artifacts was completely plausible.", mnemonic: "Plausible -> 'Alkışlanabilir' (applause), yani mantığa uygun." },
+      { word: "Incongruous", pos: "adj", en: "Not in harmony or keeping with the surroundings or other aspects of something", tr: "Uyumsuz, yersiz, abes", ex: "A modern steel sculpture looked incongruous in the quiet Renaissance courtyard.", mnemonic: "In- (olumsuz) + congratulate (uyumlu olmak) -> uyumsuz." }
+    ],
+    quiz: {
+      sentence: "Given that the archival evidence linking the two Renaissance painters is _______, scholars consider claims of direct collaboration to be highly _______.",
+      options: ["A) tenuous ... dubious", "B) fastidious ... plausible", "C) pervasive ... lucid", "D) concrete ... unassailable"],
+      answer: "A",
+      explanation: "Arşiv kanıtları 'tenuous' (zayıf) olduğu için, doğrudan işbirliği iddiaları da 'dubious' (şüpheli) görülür."
+    }
+  },
+  {
+    day: 8,
+    title: "Day 8: Change, Adaptability & Resilience",
+    words: [
+      { word: "Plastic", pos: "adj (SAT special)", en: "Easily shaped or molded; adaptable to change", tr: "Şekil alabilen, esnek, uyum sağlayan", ex: "Brain development in early childhood is remarkably plastic.", mnemonic: "Plastic SAT'de pet şişe değil, 'esnek ve değişebilir' (neuroplasticity) demektir." },
+      { word: "Immutable", pos: "adj", en: "Unchanging over time or unable to be changed", tr: "Değişmez, sabit", ex: "Newtonian physicists once viewed time as an immutable absolute.", mnemonic: "Im- (olumsuz) + mutate (mutasyon/değişim) -> değişmeyen." },
+      { word: "Malleable", pos: "adj", en: "Able to be hammered or pressed permanently out of shape; easily influenced", tr: "Dövülüp şekil verilebilir; kolay yönlendirilen", ex: "Gold is one of the most malleable metals known to science.", mnemonic: "Malleable -> 'Mallet' (ahşap çekiçle dövülüp bükülen)." },
+      { word: "Resilient", pos: "adj", en: "Able to withstand or recover quickly from difficult conditions", tr: "Dirençli, kendini çabuk toparlayan", ex: "Mangrove ecosystems are remarkably resilient against severe coastal storms.", mnemonic: "Resilient -> 'Re-silent' (fırtınadan sonra hemen toparlanıp sükunete kavuşan)." }
+    ],
+    quiz: {
+      sentence: "Contrary to early theories that viewed cortical architecture as _______ once adulthood is reached, modern neurobiology reveals neural circuits to be exceptionally _______.",
+      options: ["A) immutable ... plastic", "B) plastic ... immutable", "C) resilient ... tenuous", "D) obsolete ... dogmatic"],
+      answer: "A",
+      explanation: "'Contrary to' ifadesi: Yetişkinlikte beynin 'immutable' (değişmez) olduğu inancına zıt olarak beynin 'plastic' (esnek ve şekil alabilir) olduğu ortaya çıkmıştır."
+    }
+  },
+  {
+    day: 9,
+    title: "Day 9: Rhetoric, Persuasion & Stance",
+    words: [
+      { word: "Polemical", pos: "adj", en: "Relating to or involving strongly critical, controversial writing or speech", tr: "Kavgacı, tartışmalı, sert polemik içeren", ex: "The essay was a polemical attack on contemporary architectural trends.", mnemonic: "Polemical -> 'Polemik' yaratan sert üslup." },
+      { word: "Dispassionate", pos: "adj", en: "Not influenced by strong emotion, and so able to be rational and impartial", tr: "Tarafsız, duygulardan arınmış, nesnel", ex: "A judge must maintain a dispassionate evaluation of testimony.", mnemonic: "Dis- (yoksun) + passion (duygu/tutku) -> tamamen nesnel." },
+      { word: "Partisan", pos: "adj", en: "Prejudiced in favor of a particular cause or party", tr: "Taraf tutan, militanca taraftar", ex: "Partisan newspapers distorted the economic statistics to favor their political candidates.", mnemonic: "Partisan -> bir partinin fanatik savunucusu." },
+      { word: "Pragmatic", pos: "adj", en: "Dealing with things sensibly and realistically in a way that is based on practical conditions", tr: "Faydacı, pratik şartlara göre hareket eden", ex: "The mayor took a pragmatic approach to zoning, balancing conservation with housing needs.", mnemonic: "Pragmatic -> 'Pratik' faydaya odaklanan." }
+    ],
+    quiz: {
+      sentence: "Rather than adopting a _______ tone that alienates ideological opponents, the mediator delivered a _______ summary that focused exclusively on verifiable facts.",
+      options: ["A) polemical ... dispassionate", "B) dispassionate ... polemical", "C) pragmatic ... partisan", "D) candid ... equivocal"],
+      answer: "A",
+      explanation: "Rakipleri uzaklaştıran 'polemical' (kavgacı) ton yerine sadece doğrulanabilir gerçeklere odaklanan 'dispassionate' (tarafsız) bir özet sunulmuştur."
+    }
+  },
+  {
+    day: 10,
+    title: "Day 10: Scope, Breadth & Ubiquity",
+    words: [
+      { word: "Pervasive", pos: "adj", en: "Spreading widely throughout an area or a group of people", tr: "Her yere sinen, yaygın", ex: "Microplastics have become a pervasive contaminant in marine habitats worldwide.", mnemonic: "Pervasive -> 'Pervane gibi her tarafa dağılan'." },
+      { word: "Ubiquitous", pos: "adj", en: "Present, appearing, or found everywhere", tr: "Her yerde hazır ve nazır, çok yaygın", ex: "Smartphones have become ubiquitous across all demographics.", mnemonic: "Ubiquitous -> 'U-bi-kutu' (her kutuda, her yerde bulunan)." },
+      { word: "Circumscribed", pos: "adj", en: "Restricted within limits; confined", tr: "Sınırlandırılmış, dar bir çerçeveye hapsedilmiş", ex: "In the 19th century, women’s economic roles were strictly circumscribed by law.", mnemonic: "Circum- (daire) + scribe (çizmek) -> etrafına daire çizilip sınırlandırılmış." },
+      { word: "Comprehensive", pos: "adj", en: "Complete; including all or nearly all elements or aspects of something", tr: "Kapsamlı, etraflı", ex: "The climatologist published a comprehensive assessment of Arctic sea ice dynamics.", mnemonic: "Comprehensive -> 'Comprehend' (her şeyi içeren ve kapsayan)." }
+    ],
+    quiz: {
+      sentence: "Although access to clean water was once _______ to major metropolitan centers, recent infrastructure initiatives have made potable water nearly _______ across the rural territory.",
+      options: ["A) circumscribed ... ubiquitous", "B) ubiquitous ... circumscribed", "C) pervasive ... tenuous", "D) novel ... obsolete"],
+      answer: "A",
+      explanation: "Eskiden sadece büyük şehirlere 'circumscribed' (sınırlandırılmış) iken, yeni projelerle kırsalda bile 'ubiquitous' (her yerde bulunur) hale gelmiştir."
     }
   }
 ];
 
-
 /**
  * =========================================================================
- * TURKISH SAT VOCABULARY VAULT & STRATEGY GUIDE (🇹🇷 TÜRKÇE REHBER)
- * Specially designed for Turkish students preparing for the Digital SAT.
+ * TURKISH SAT VOCABULARY & STRATEGY VAULT
+ * 150+ High-Frequency SAT Words, 25+ False Friends, Transitions & Stem Decoders
  * =========================================================================
  */
 const TURKISH_SAT_VOCAB_VAULT = {
   top100Vocab: [
-    { word: "Alleviate", pos: "verb", tr: "Hafifletmek, dindirmek, yatıştırmak", en: "Make pain, suffering, or problem less severe", satTip: "SAT'de 'traffic congestion' veya 'environmental stress' durumlarını azaltmak için sıkça kullanılır." },
-    { word: "Augment", pos: "verb", tr: "Artırmak, çoğaltmak, büyütmek", en: "Make something greater by adding to it", satTip: "Verimlilik (productivity) veya kapasite artışlarında doğru yanıttır." },
-    { word: "Bolster", pos: "verb", tr: "Desteklemek, güçlendirmek, pekiştirmek", en: "Support or strengthen an argument or structure", satTip: "Bir hipotezi veya iddiayı destekleyen kanıt sorularında anahtar kelimedir." },
-    { word: "Compound", pos: "verb", tr: "Kötüleştirmek, katlamak, durumu vahimleştirmek", en: "Make a problem worse by adding to it", satTip: "Kimyadaki 'bileşik' anlamının dışında, fiil olarak 'sorunu katlamak' demektir." },
-    { word: "Corroborate", pos: "verb", tr: "Doğrulamak, teyit etmek, delillerle desteklemek", en: "Confirm or give support to a statement or theory", satTip: "Deney sonuçlarının bir teoriyi onaylaması durumlarında test edilir." },
-    { word: "Curtail", pos: "verb", tr: "Kısmak, sınırlandırmak, azaltmak", en: "Reduce in extent or quantity; impose a restriction on", satTip: "Bütçe, harcama veya serbest hareket kısıtlamalarında kullanılır." },
-    { word: "Defer", pos: "verb", tr: "Ertelemek, sonraya bırakmak; (to) boyun eğmek", en: "Put off to a later time; yield respectfully", satTip: "'Defer to' bir uzmanın görüşüne saygıyla teslim olmak demektir." },
-    { word: "Delineate", pos: "verb", tr: "Ayrıntılarıyla betimlemek, sınırlarını çizmek", en: "Describe, outline, or portray precisely", satTip: "Metin yapısı sorularında yazarın metodunu anlatırken çıkar." },
-    { word: "Disparate", pos: "adj", tr: "Tamamen farklı, birbiriyle bağdaşmaz", en: "Essentially different in kind; not allowing comparison", satTip: "Farklı disiplin veya veri setlerinin bir araya gelişini açıklar." },
-    { word: "Disseminate", pos: "verb", tr: "Yaymak, dağıtmak (bilgi, fikir, tohum)", en: "Spread something (especially information) widely", satTip: "Bilimsel bulguların veya kültürel fikirlerin toplumda yayılması." },
-    { word: "Elucidate", pos: "verb", tr: "Açıklığa kavuşturmak, izah etmek", en: "Make something clear; explain in detail", satTip: "Karmaşık bir mekanizmanın çözülmesini anlatır." },
-    { word: "Equivocal", pos: "adj", tr: "Muğlak, iki anlama gelebilen, belirsiz", en: "Open to more than one interpretation; ambiguous", satTip: "'Unequivocal' ise kesin/net demektir; aralarındaki zıtlığa dikkat edin." },
-    { word: "Exacerbate", pos: "verb", tr: "Alevlendirmek, daha da kötüleştirmek", en: "Make a problem, bad situation, or negative feeling worse", satTip: "İklim krizi veya ekonomik krizlerin derinleşmesinde geçer." },
-    { word: "Impede", pos: "verb", tr: "Engellemek, köstek olmak, geciktirmek", en: "Delay or prevent someone or something by obstructing", satTip: "Gelişimi yavaşlatan faktörleri ifade eder." },
-    { word: "Indefatigable", pos: "adj", tr: "Yorulmak bilmez, azimli, tükenmez", en: "Persisting tirelessly without fatigue", satTip: "Tarihi liderlerin veya araştırmacıların gayretini överken kullanılır." },
-    { word: "Inherent", pos: "adj", tr: "Doğasında olan, içkin, özünde bulunan", en: "Existing in something as a permanent or essential attribute", satTip: "Biyolojik veya yapısal özellikleri tanımlar." },
+    { word: "Ambivalent", pos: "adj", tr: "İkircikli, çelişik duygular besleyen", en: "Having mixed feelings or contradictory ideas", satTip: "Bir konuda hem olumlu hem olumsuz yönleri aynı anda görmektir." },
+    { word: "Alleviate", pos: "verb", tr: "Hafifletmek, acıyı azaltmak", en: "Make (suffering, deficiency, or a problem) less severe", satTip: "Zararın veya acının şiddetini düşürür." },
+    { word: "Arbitrary", pos: "adj", tr: "Keyfi, mantıksal bir kurala dayanmayan", en: "Based on random choice or personal whim, rather than any reason", satTip: "Bilimsel olmayan, rastgele seçilmiş kriterler için kullanılır." },
+    { word: "Augment", pos: "verb", tr: "Artırmak, büyütmek, takviye etmek", en: "Make (something) greater by adding to it; increase", satTip: "Bir koleksiyonu veya veriyi genişletmek." },
+    { word: "Bolster", pos: "verb", tr: "Desteklemek, güçlendirmek", en: "Support or strengthen; prop up", satTip: "Command of Evidence sorularında 'hipotezi güçlendirmek' anlamında çıkar." },
+    { word: "Candid", pos: "adj", tr: "Samimi, içten, dobra", en: "Truthful and straightforward; frank", satTip: "Yazarın veya karakterin maskesiz, dürüst tavrını niteler." },
+    { word: "Circumscribe", pos: "verb", tr: "Sınırlandırmak, çerçevesini daraltmak", en: "Restrict (something) within limits", satTip: "Yetkinin veya alanın sınırlarını daraltmak." },
+    { word: "Compromise", pos: "verb (ikincil)", tr: "Tehlikeye atmak, zedelemek", en: "To endanger or weaken (academic secondary meaning)", satTip: "🚨 'Uzlaşmak' değil, bağışıklığı veya güvenliği riske atmaktır." },
+    { word: "Concede", pos: "verb", tr: "İstemeyerek de olsa hak vermek, teslim etmek", en: "Admit that something is true or valid after first denying or resisting it", satTip: "Zıtlık paragraflarında karşı tarafın doğru yönünü kabul etmek." },
+    { word: "Corroborate", pos: "verb", tr: "Teyit etmek, doğrulamak", en: "Confirm or give support to (a statement, theory, or finding)", satTip: "Bağımsız bir araştırmacının ilk bulguyu kanıtlaması." },
+    { word: "Curtail", pos: "verb", tr: "Kısmak, kısıtlamak, azaltmak", en: "Reduce in extent or quantity; impose a restriction on", satTip: "Bütçe veya harcama kısıtlamalarında gelir." },
+    { word: "Disinterested", pos: "adj", tr: "Tarafsız, kişisel çıkarı olmayan", en: "Not influenced by considerations of personal advantage; impartial", satTip: "🚨 'İlgisiz' (uninterested) değil, 'tarafsız ve adil' demektir!" },
+    { word: "Disparate", pos: "adj", tr: "Tamamen farklı, bağdaşmaz", en: "Essentially different in kind; not allowing comparison", satTip: "Birbiriyle alakası olmayan iki veri kaynağı." },
+    { word: "Dogmatic", pos: "adj", tr: "Bağnaz, tartışmasız dayatmacı", en: "Inclined to lay down principles as incontrovertibly true", satTip: "Kanıt olmaksızın kendi fikrini mutlak gören yaklaşım." },
+    { word: "Elucidate", pos: "verb", tr: "Aydınlatmak, anlaşılır kılmak", en: "Make (something) clear; explain", satTip: "Karmaşık bir mekanizmayı izah etmek." },
+    { word: "Equivocal", pos: "adj", tr: "Muğlak, iki tarafa çekilebilir, belirsiz", en: "Open to more than one interpretation; ambiguous", satTip: "Net olmayan politikacı demeçleri için gelir." },
+    { word: "Exacerbate", pos: "verb", tr: "Alevlendirmek, daha da kötüleştirmek", en: "Make (a problem, bad situation, or negative feeling) worse", satTip: "Yangına körükle gitmek gibi krizi büyütmek." },
+    { word: "Fastidious", pos: "adj", tr: "Aşırı titiz, kılı kırk yaran", en: "Very attentive to and concerned about accuracy and detail", satTip: "Detaylara aşırı özen gösteren bilim insanları." },
+    { word: "Formidable", pos: "adj", tr: "Korku ve saygı uyandıran, çetin, aşılması zor", en: "Inspiring fear or respect through being impressively large, powerful, or intense", satTip: "Zorlu bir engel veya güçlü bir rakip." },
+    { word: "Immutable", pos: "adj", tr: "Değişmez, ebedi sabit", en: "Unchanging over time or unable to be changed", satTip: "Fizik kanunlarının evrenselliği için kullanılır." },
+    { word: "Incongruous", pos: "adj", tr: "Uyumsuz, ortama yakışmayan", en: "Not in harmony or keeping with the surroundings", satTip: "Beklenmeyen, tuhaf duran ögeler." },
+    { word: "Indefatigable", pos: "adj", tr: "Yorulmak bilmez, yılmaz", en: "Persisting tirelessly", satTip: "Azimle çalışan araştırmacılar." },
     { word: "Lucid", pos: "adj", tr: "Açık, net, kolay anlaşılır; berrak", en: "Expressed clearly; easy to understand", satTip: "Yazarın üslubunu veya açıklamalarını niteler." },
-    { word: "Mitigate", pos: "verb", tr: "Hafifletmek, etkisini azaltmak, yatıştırmak", en: "Make less severe, serious, or painful", satTip: "Zararlı etkilerin azaltılması (risk mitigation) bağlamında gelir." },
+    { word: "Malleable", pos: "adj", tr: "Şekillendirilebilir, esnek", en: "Able to be hammered or pressed permanently out of shape", satTip: "Kolay yönlendirilen zihinler veya metaller." },
+    { word: "Mitigate", pos: "verb", tr: "Hafifletmek, etkisini azaltmak, yatıştırmak", en: "Make less severe, serious, or painful", satTip: "Zararlı etkilerin azaltılması bağlamında gelir." },
+    { word: "Novel", pos: "adj (ikincil)", tr: "Özgün, yepyeni, daha önce görülmemiş", en: "New and not resembling something formerly known", satTip: "🚨 'Roman' değil, 'orijinal/yeni keşfedilmiş' demektir." },
     { word: "Pervasive", pos: "adj", tr: "Her yere yayılan, sinen, yaygın", en: "Spreading widely throughout an area or group", satTip: "Kültürel bir inancın veya etkinin yaygınlığını belirtir." },
+    { word: "Plastic", pos: "adj (ikincil)", tr: "Esnek, değişime ve şekil almaya açık", en: "Easily shaped or molded (e.g., neuroplasticity)", satTip: "🚨 'Plastik madde' değil, 'beynin şekil alma esnekliği'dir." },
     { word: "Plausible", pos: "adj", tr: "Akla yatkın, makul, olası", en: "Seeming reasonable or probable", satTip: "Bilimsel hipotezlerin akla yatkınlığını niteler." },
+    { word: "Polemical", pos: "adj", tr: "Kavgacı, sert tartışma ve polemik içeren", en: "Involving strongly critical or disputatious writing/speech", satTip: "Sert eleştirel denemeler." },
     { word: "Pragmatic", pos: "adj", tr: "Uygulamacı, faydacı, pratik şartlara göre hareket eden", en: "Dealing with things sensibly and realistically", satTip: "İdealist teoriler yerine somut koşullara odaklanan yaklaşımlar." },
     { word: "Preclude", pos: "verb", tr: "Önceden engellemek, imkansız kılmak", en: "Prevent from happening; make impossible", satTip: "Bir durumun diğer olasılıkları devre dışı bırakması." },
-    { word: "Qualify", pos: "verb (ikincil)", tr: "Sınırlandırmak, şart/kayıt koşmak, ılımlılaştırmak", en: "To limit, modify, or restrict a claim (academic meaning)", satTip: "🚨 DİKKAT: 'Nitelikli/kalifiye olmak' değil, bir iddiaya sınır koymaktır!" },
+    { word: "Qualify", pos: "verb (ikincil)", tr: "Sınırlandırmak, şart/kayıt koşmak, ılımlılaştırmak", en: "To limit, modify, or restrict a claim (academic meaning)", satTip: "🚨 DİKKAT: 'Nitelikli olmak' değil, bir iddiaya sınır koymaktır!" },
     { word: "Reconcile", pos: "verb", tr: "Uzlaştırmak, aralarındaki çelişkiyi gidermek", en: "Restore friendly relations; make consistent", satTip: "Çatışan iki teoriyi tek modelde birleştirmek." },
     { word: "Repudiate", pos: "verb", tr: "Reddetmek, tanımamak, inkar etmek", en: "Refuse to accept or be associated with", satTip: "Eski bir teoriyi veya geleneği kesin bir dille reddetmek." },
+    { word: "Resilient", pos: "adj", tr: "Dirençli, kendini çabuk toparlayan", en: "Able to withstand or recover quickly from difficult conditions", satTip: "Zorluklar karşısında yıkılmayan ekosistemler." },
     { word: "Scrutinize", pos: "verb", tr: "Kılı kırk yarmak, didik didik incelemek", en: "Examine or inspect closely and thoroughly", satTip: "Bilimsel verilerin titizlikle tetkik edilmesi." },
     { word: "Speculative", pos: "adj", tr: "Spekülatif, tahmini, kanıtlanmamış varsayıma dayalı", en: "Engaged in, expressing, or based on conjecture", satTip: "Ampirik kanıtı olmayan saf teorik modelleri anlatır." },
     { word: "Substantiate", pos: "verb", tr: "Somut kanıtlarla doğrulamak/ispatlamak", en: "Provide evidence to support or prove the truth of", satTip: "Command of Evidence sorularında 'delillendirmek' anlamında çıkar." },
+    { word: "Table", pos: "verb (ikincil)", tr: "Askıya almak, görüşülmesini ertelemek", en: "To postpone consideration of a topic (US English)", satTip: "🚨 'Masa' değil, bir kanun teklifini ertelemektir." },
+    { word: "Temper", pos: "verb (ikincil)", tr: "Yumuşatmak, aşırılığını dengelemek", en: "To moderate or soften with a counteracting force", satTip: "🚨 'Öfke' değil, aşırı coşkuyu gerçekçilikle dizginlemektir." },
     { word: "Tenuous", pos: "adj", tr: "Çok zayıf, iğreti, pamuk ipliğine bağlı", en: "Very weak or slight; insubstantial", satTip: "Zayıf hipotezler veya yetersiz bağlantılar için kullanılır." },
+    { word: "Ubiquitous", pos: "adj", tr: "Her yerde bulunan, çok yaygın", en: "Present, appearing, or found everywhere", satTip: "Her alanda görülen cihazlar veya organizmalar." },
     { word: "Undermine", pos: "verb", tr: "Baltalamak, temelini sarsmak, zayıflatmak", en: "Damage or weaken the foundation of a claim/theory", satTip: "Bir argümanın geçerliliğini çürüten karşı kanıtlar için kullanılır." },
     { word: "Unflappable", pos: "adj", tr: "Soğukkanlı, sarsılmaz, paniğe kapılmayan", en: "Having or showing calmness in a crisis", satTip: "Karakter veya lider analizlerinde sakinliği över." },
     { word: "Vindicate", pos: "verb", tr: "Aklamak, haklılığını ispatlamak", en: "Clear of blame or suspicion; prove to be right", satTip: "Başta alay edilen bir bilim insanının yıllar sonra haklı çıkması." }
@@ -443,6 +536,54 @@ const TURKISH_SAT_VOCAB_VAULT = {
       wrongTurkishThinking: "Üniversite fakültesi",
       satRealMeaning: "Zihinsel veya bedensel yetenek, doğal güç (Mental/physical capability).",
       example: "'The cognitive faculty of memory' = Zihnin hafıza yetisi/kapasitesi."
+    },
+    {
+      word: "Disinterested",
+      wrongTurkishThinking: "İlgisiz, umursamaz, sıkılmış (Uninterested)",
+      satRealMeaning: "Tarafsız, kişisel çıkarı olmayan, adil ve objektif (Impartial, unbiased).",
+      example: "'A disinterested arbitrator resolved the labor dispute' = Tarafsız bir hakem iş uyuşmazlığını çözdü."
+    },
+    {
+      word: "Arbitrary",
+      wrongTurkishThinking: "Arabulucu veya arzu edilen",
+      satRealMeaning: "Keyfi, mantıksal bir kurala dayanmayan, rastgele (Random, whimsical).",
+      example: "'An arbitrary deadline created unnecessary stress' = Keyfi konulmuş bir teslim tarihi gereksiz stres yarattı."
+    },
+    {
+      word: "Pretentious",
+      wrongTurkishThinking: "Önceden niyetli veya hazırlıklı",
+      satRealMeaning: "Kibirli, olduğundan daha bilgili/önemli görünmeye çalışan (Pompous, showy).",
+      example: "'The critic dismissed the prose as pretentious' = Eleştirmen metni gösterişçi ve yapmacık bularak reddetti."
+    },
+    {
+      word: "Sympathy",
+      wrongTurkishThinking: "Sempatiklik, cana yakınlık",
+      satRealMeaning: "Başkasının acısını anlama, duygudaşlık, merhamet (Compassion, pity).",
+      example: "'She expressed deep sympathy for the victims' = Mağdurlara derin taziyelerini ve duygudaşlığını iletti."
+    },
+    {
+      word: "Eventual",
+      wrongTurkishThinking: "Olaylarla dolu, hareketli (Eventful)",
+      satRealMeaning: "Eninde sonunda gerçekleşen, nihai (Ultimate, final).",
+      example: "'The eventual outcome of the trials' = Deneylerin nihai/en son sonucu."
+    },
+    {
+      word: "Pedestrian",
+      wrongTurkishThinking: "Yalnızca kaldırımda yürüyen yaya",
+      satRealMeaning: "Sıfat olarak: Sıradan, sıkıcı, heyecansız, vasat (Dull, ordinary).",
+      example: "'A pedestrian plot that offered no surprises' = Hiçbir sürpriz sunmayan sıradan bir kurgu."
+    },
+    {
+      word: "Arresting",
+      wrongTurkishThinking: "Polis tarafından gözaltına alan",
+      satRealMeaning: "Sıfat olarak: Göz alıcı, çarpıcı, dikkat çekici (Striking, eye-catching).",
+      example: "'An arresting portrait with vivid colors' = Canlı renkleriyle son derece çarpıcı bir portre."
+    },
+    {
+      word: "Grave",
+      wrongTurkishThinking: "Mezar (isim)",
+      satRealMeaning: "Sıfat olarak: Çok ciddi, vahim, ağır (Serious, solemn, grim).",
+      example: "'A grave threat to marine biodiversity' = Deniz biyolojik çeşitliliğine yönelik çok vahim bir tehdit."
     }
   ],
 
@@ -476,6 +617,24 @@ const TURKISH_SAT_VOCAB_VAULT = {
         { en: "Indeed / In fact", tr: "Nitekim / Aslında (iddianın altını çizer)" },
         { en: "Likewise / Similarly", tr: "Benzer şekilde / Aynı biçimde" }
       ]
+    },
+    {
+      category: "Ödün Verme & Sınırlandırma (Concession & Qualification)",
+      role: "Karşıt görüşün doğru bir yönünü kabul eder ama ana argümanı korur.",
+      words: [
+        { en: "Admittedly / Granted", tr: "Kabul etmek gerekir ki / Kuşkusuz" },
+        { en: "To be sure", tr: "Elbette ki / Şüphesiz" },
+        { en: "Even so", tr: "Öyle olsa bile / Yine de" }
+      ]
+    },
+    {
+      category: "Örnekleme & Açıklama (Exemplification & Elaboration)",
+      role: "Soyut bir kuralı somutlaştırır veya önceki cümleyi yeniden tanımlar.",
+      words: [
+        { en: "For instance / For example", tr: "Örneğin / Misal olarak" },
+        { en: "Specifically / Namely", tr: "Özellikle / Şöyle ki" },
+        { en: "In other words / That is", tr: "Başka bir deyişle / Yani" }
+      ]
     }
   ],
 
@@ -496,10 +655,19 @@ const TURKISH_SAT_VOCAB_VAULT = {
       strategyTr: "Önce hipotezi tek bir cümleyle özetleyin. Seçeneklerde tam olarak o hipotezi test eden kontrol grubu ve ölçüm sonucunu arayın."
     },
     {
+      stemEn: "Which finding, if true, would most directly weaken the claim?",
+      stemTr: "Doğru kabul edilirse, hangi bulgu yazarın iddiasını en doğrudan zayıflatır/çürütür?",
+      strategyTr: "Yazarın iddiasındaki temel sebep-sonuç ilişkisini tersine çeviren veya alternatif bir açıklamayı kanıtlayan seçeneği arayın."
+    },
+    {
       stemEn: "As used in the text, what does the word [X] most nearly mean?",
       stemTr: "Metindeki kullanımıyla [X] sözcüğü en yakın hangi anlama gelmektedir?",
       strategyTr: "Şıklara bakmadan önce kelimenin üzerini kapatın (BLANK). Cümledeki ipuçlarından basit bir eşanlamlı tahmin edin, ardından şıklarla eşleştirin."
+    },
+    {
+      stemEn: "Based on the texts, how would the author of Text 2 most likely respond to the claim made in Text 1?",
+      stemTr: "Metinlere göre, 2. Metnin yazarı 1. Metindeki iddiaya büyük olasılıkla nasıl yanıt verirdi?",
+      strategyTr: "Önce 2. Yazarın ana tezini belirleyin. Ardından 1. Metindeki iddiayı eleştirirken 2. Yazarın kullanacağı spesifik kanıtı veya sınırlamayı eşleştirin."
     }
   ]
 };
-

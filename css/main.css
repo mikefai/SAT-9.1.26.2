@@ -1,19 +1,20 @@
 /**
- * SAT READING SKILLS ACADEMY - Main Stylesheet
- * Dark-first design system with complete light-mode CSS variable toggle.
- * Clean, modern edtech aesthetics, zero external fonts or CDN dependencies.
+ * SAT READING & WRITING SKILLS ACADEMY - Main Stylesheet
+ * Ultra-polished, offline-first, dependency-free CSS architecture.
+ * Supports Dark/Light Theme, Reading Stages 1-6, Grammar Academy, Daily Vocab,
+ * Automatic Error Log, Metacognition Think-Aloud, Turkish Scaffolds & Study Tools.
  */
 
 /* =========================================================================
-   1. CSS DESIGN TOKENS & COLOR THEMES
+   1. DESIGN TOKENS & CSS VARIABLES
    ========================================================================= */
 :root {
   /* Dark Theme (Default) */
-  --bg-base: #0b0f19;
-  --bg-surface: #111827;
+  --bg-base: #090d16;
+  --bg-surface: #0f172a;
   --bg-surface-elevated: #1e293b;
-  --bg-surface-subtle: #0f172a;
-  --bg-glass: rgba(17, 24, 39, 0.85);
+  --bg-surface-subtle: #334155;
+  --bg-glass: rgba(15, 23, 42, 0.88);
 
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
@@ -28,6 +29,7 @@
   --accent-primary-hover: #4f46e5;
   --accent-primary-subtle: rgba(99, 102, 241, 0.15);
   --accent-secondary: #06b6d4;
+  --accent-secondary-hover: #0891b2;
   --accent-glow: rgba(99, 102, 241, 0.35);
 
   --status-mastered: #10b981;
@@ -58,6 +60,7 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.35);
   --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.65);
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
@@ -72,7 +75,7 @@
   --bg-surface: #ffffff;
   --bg-surface-elevated: #f1f5f9;
   --bg-surface-subtle: #e2e8f0;
-  --bg-glass: rgba(255, 255, 255, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.92);
 
   --text-main: #0f172a;
   --text-muted: #475569;
@@ -87,6 +90,7 @@
   --accent-primary-hover: #4338ca;
   --accent-primary-subtle: rgba(79, 70, 229, 0.08);
   --accent-secondary: #0891b2;
+  --accent-secondary-hover: #0e7490;
   --accent-glow: rgba(79, 70, 229, 0.2);
 
   --status-mastered: #059669;
@@ -104,6 +108,7 @@
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.16);
 }
 
 /* =========================================================================
@@ -149,7 +154,7 @@ kbd {
   padding: 2px 6px;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-muted);
   background-color: var(--bg-surface-elevated);
   border: 1px solid var(--border-default);
@@ -157,8 +162,16 @@ kbd {
   box-shadow: 0 1px 0 var(--border-default);
 }
 
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 /* =========================================================================
-   3. APP HEADER & NAVIGATION
+   3. APPLICATION HEADER & NAVIGATION
    ========================================================================= */
 .app-header {
   position: sticky;
@@ -170,29 +183,31 @@ kbd {
   padding: 0.75rem 1.5rem;
 }
 
-.header-container {
-  max-width: 1400px;
+.header-inner, .header-container {
+  max-width: 1440px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.header-brand {
+.brand-block, .header-brand {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .brand-icon {
-  font-size: 1.75rem;
+  font-size: 1.85rem;
 }
 
 .brand-title {
   font-size: 1.15rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-main);
   letter-spacing: -0.02em;
 }
@@ -206,19 +221,22 @@ kbd {
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
+  flex-wrap: wrap;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.9rem;
-  font-size: 0.9rem;
-  font-weight: 600;
+  gap: 0.35rem;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 700;
   color: var(--text-muted);
   border-radius: var(--radius-md);
+  border: 1px solid transparent;
   transition: all var(--transition-fast);
+  cursor: pointer;
 }
 
 .nav-link:hover {
@@ -229,22 +247,23 @@ kbd {
 .nav-link.active {
   color: var(--text-main);
   background-color: var(--accent-primary-subtle);
-  border: 1px solid var(--accent-primary);
+  border-color: var(--accent-primary);
 }
 
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  flex-wrap: wrap;
 }
 
 .control-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.8rem;
-  font-size: 0.85rem;
-  font-weight: 500;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--text-muted);
   background-color: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
@@ -264,7 +283,18 @@ kbd {
 }
 
 .control-btn.icon-only {
-  padding: 0.45rem 0.6rem;
+  padding: 0.4rem 0.6rem;
+}
+
+#turkish-guide-btn {
+  border-color: rgba(225, 29, 72, 0.4);
+  background: rgba(225, 29, 72, 0.1);
+  color: #f43f5e;
+}
+
+#turkish-guide-btn:hover {
+  background: rgba(225, 29, 72, 0.2);
+  color: #fb7185;
 }
 
 /* Dropdown Menu */
@@ -281,9 +311,9 @@ kbd {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
   padding: 0.4rem 0;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .dropdown-menu.show {
@@ -323,21 +353,27 @@ kbd {
 }
 
 .teacher-banner .banner-inner {
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
 /* =========================================================================
-   4. LAYOUT & CONTAINERS
+   4. LAYOUT CONTAINERS
    ========================================================================= */
 .app-main {
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
 
 .view-section {
   width: 100%;
+}
+
+.app-container, .stage-canvas-area {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .view-header {
@@ -348,8 +384,8 @@ kbd {
   font-size: 1.75rem;
   font-weight: 800;
   letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
   color: var(--text-main);
-  margin-bottom: 0.35rem;
 }
 
 .view-description {
@@ -358,86 +394,20 @@ kbd {
   max-width: 800px;
 }
 
-/* Common Button Styles */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
-}
-
-.btn-primary {
-  background-color: var(--accent-primary);
-  color: #ffffff;
-  box-shadow: 0 2px 10px var(--accent-glow);
-}
-
-.btn-primary:hover {
-  background-color: var(--accent-primary-hover);
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  background-color: var(--bg-surface-elevated);
-  color: var(--text-main);
-  border: 1px solid var(--border-default);
-}
-
-.btn-secondary:hover {
-  background-color: var(--bg-surface-subtle);
-  border-color: var(--border-focus);
-}
-
-.btn-accent {
-  background-color: var(--accent-secondary);
-  color: #0f172a;
-}
-
-.btn-accent:hover {
-  filter: brightness(1.1);
-}
-
-.btn-large {
-  padding: 0.85rem 1.75rem;
-  font-size: 1rem;
-}
-
-.btn-small {
-  padding: 0.35rem 0.75rem;
-  font-size: 0.8rem;
-}
-
-.btn-block {
-  width: 100%;
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none !important;
-}
-
-/* =========================================================================
-   5. VIEW 1: SKILL MAP (HOME)
-   ========================================================================= */
+/* Global Summary Container */
 .global-summary-container {
   margin-bottom: 2rem;
 }
 
 .global-overview-card {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) 2fr;
-  gap: 1.5rem;
-  align-items: center;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  background: linear-gradient(135deg, var(--bg-surface), var(--bg-surface-elevated));
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 1.5fr;
+  gap: 1.5rem;
+  align-items: center;
   box-shadow: var(--shadow-sm);
 }
 
@@ -447,34 +417,36 @@ kbd {
 }
 
 .metric-num {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: var(--accent-primary);
-  line-height: 1;
-  margin-bottom: 0.35rem;
+  color: var(--text-main);
+  line-height: 1.1;
 }
 
 .metric-label {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
   color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
 }
 
 .overview-recommendation-box {
-  background-color: var(--bg-surface-elevated);
-  border-left: 4px solid var(--accent-secondary);
+  background-color: var(--bg-surface-subtle);
+  border-left: 3px solid var(--accent-primary);
   border-radius: var(--radius-md);
-  padding: 1rem 1.25rem;
+  padding: 0.9rem 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .rec-badge {
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  color: var(--accent-secondary);
-  letter-spacing: 0.05em;
+  color: var(--accent-primary);
 }
 
 .rec-title {
@@ -483,32 +455,30 @@ kbd {
   color: var(--text-main);
 }
 
-/* Modules Grid */
+/* =========================================================================
+   5. MODULE CARDS GRID (READING SKILL MAP)
+   ========================================================================= */
 .modules-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 1.5rem;
 }
 
 .module-card {
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-  position: relative;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .module-card:hover {
   transform: translateY(-3px);
+  border-color: var(--border-focus);
   box-shadow: var(--shadow-md);
-  border-color: var(--border-default);
-}
-
-.module-card.status-mastered {
-  border-color: rgba(16, 185, 129, 0.4);
 }
 
 .module-card-top {
@@ -519,44 +489,13 @@ kbd {
 }
 
 .module-domain-pill {
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  color: var(--accent-secondary);
+  background-color: rgba(6, 182, 212, 0.1);
   padding: 0.2rem 0.6rem;
   border-radius: var(--radius-sm);
-  background-color: var(--bg-surface-elevated);
-  color: var(--text-muted);
-}
-
-.module-status-badge, .status-badge {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.25rem 0.7rem;
-  border-radius: var(--radius-full);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.status-mastered {
-  color: var(--status-mastered);
-  background-color: var(--status-mastered-bg);
-}
-
-.status-practicing {
-  color: var(--status-practicing);
-  background-color: var(--status-practicing-bg);
-}
-
-.status-learning {
-  color: var(--status-learning);
-  background-color: var(--status-learning-bg);
-}
-
-.status-not-started {
-  color: var(--status-not-started);
-  background-color: var(--status-not-started-bg);
 }
 
 .module-card-icon {
@@ -565,30 +504,33 @@ kbd {
 }
 
 .module-card-title {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 800;
   color: var(--text-main);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
+  line-height: 1.3;
 }
 
 .module-card-subtitle {
   font-size: 0.85rem;
   color: var(--text-muted);
+  line-height: 1.45;
   margin-bottom: 1rem;
   flex-grow: 1;
 }
 
 .module-card-method {
-  font-size: 0.85rem;
-  padding: 0.5rem 0.75rem;
   background-color: var(--bg-surface-elevated);
+  padding: 0.5rem 0.75rem;
   border-radius: var(--radius-sm);
+  font-size: 0.8rem;
   margin-bottom: 1.25rem;
+  border-left: 2px solid var(--accent-primary);
 }
 
 .method-label {
   color: var(--text-muted);
-  margin-right: 0.35rem;
+  margin-right: 0.25rem;
 }
 
 .module-progress-track {
@@ -597,21 +539,17 @@ kbd {
 
 .progress-bar-bg {
   height: 6px;
-  background-color: var(--bg-surface-elevated);
+  background-color: var(--bg-surface-subtle);
   border-radius: var(--radius-full);
   overflow: hidden;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
 }
 
 .progress-bar-fill {
   height: 100%;
-  background-color: var(--accent-primary);
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
   border-radius: var(--radius-full);
-  transition: width 0.4s ease;
-}
-
-.module-card.status-mastered .progress-bar-fill {
-  background-color: var(--status-mastered);
+  transition: width var(--transition-base);
 }
 
 .progress-text {
@@ -620,29 +558,25 @@ kbd {
 }
 
 /* =========================================================================
-   6. VIEW 2: MODULE ENGINE & 6-STAGE STEPPER
+   6. MODULE ENGINE HEADER & STEPPER
    ========================================================================= */
 .module-header-bar {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.75rem;
+  margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.25rem;
-}
-
-.module-meta-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .module-banner-title {
   font-size: 1.4rem;
   font-weight: 800;
-  color: var(--text-main);
+  margin-top: 0.25rem;
 }
 
 .module-header-actions {
@@ -651,81 +585,56 @@ kbd {
   gap: 0.75rem;
 }
 
-/* Stage Stepper Navigation */
 .stage-stepper {
   display: flex;
   gap: 0.5rem;
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 0.5rem;
   margin-bottom: 1.5rem;
   overflow-x: auto;
+  padding-bottom: 0.5rem;
 }
 
 .stage-step-btn {
   flex: 1;
-  min-width: 130px;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.6rem 0.8rem;
+  min-width: 140px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  color: var(--text-muted);
+  padding: 0.75rem 0.9rem;
+  text-align: left;
   transition: all var(--transition-fast);
 }
 
 .stage-step-btn:hover {
   background-color: var(--bg-surface-elevated);
-  color: var(--text-main);
 }
 
 .stage-step-btn.active {
+  border-color: var(--accent-primary);
   background-color: var(--accent-primary-subtle);
-  color: var(--text-main);
+}
+
+.step-btn-num {
+  font-size: 0.7rem;
   font-weight: 700;
-  border: 1px solid var(--accent-primary);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
 }
 
-.stage-step-btn.completed {
-  color: var(--status-mastered);
-}
-
-.stage-badge {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 700;
-  background-color: var(--bg-surface-elevated);
-  color: var(--text-main);
-}
-
-.stage-step-btn.active .stage-badge {
-  background-color: var(--accent-primary);
-  color: #fff;
-}
-
-.stage-step-btn.completed .stage-badge {
-  background-color: var(--status-mastered-bg);
-  color: var(--status-mastered);
-}
-
-.stage-label {
+.step-btn-name {
   font-size: 0.85rem;
-  white-space: nowrap;
+  font-weight: 700;
+  color: var(--text-main);
 }
 
-/* Stage Container Cards */
+/* Stage Card Common */
 .stage-card {
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   padding: 2rem;
   box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
 }
 
 .stage-card-header {
@@ -733,9 +642,8 @@ kbd {
 }
 
 .stage-pill {
-  display: inline-block;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--accent-primary);
@@ -743,41 +651,100 @@ kbd {
 }
 
 .stage-title {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 800;
   color: var(--text-main);
+  letter-spacing: -0.01em;
 }
 
 .stage-subtitle {
   font-size: 0.95rem;
   color: var(--text-muted);
-  margin-top: 0.25rem;
+  margin-top: 0.35rem;
 }
 
 .stage-actions-footer {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-subtle);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Item Progress Pills */
+.item-progress-pills {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.item-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--bg-surface-subtle);
+}
+
+.item-dot.active {
+  background-color: var(--accent-primary);
+  transform: scale(1.2);
+}
+
+.item-dot.completed {
+  background-color: var(--status-mastered);
+}
+
+/* Strategy Heuristic Banner */
+.strategy-heuristic-banner {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(99, 102, 241, 0.08));
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-left: 4px solid var(--accent-secondary);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.heuristic-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.heuristic-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent-secondary);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+.heuristic-text {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.5;
 }
 
 /* =========================================================================
-   7. STAGE 1 & 2: SKILL & METHOD CARDS
+   7. STAGE 1: THE SKILL COMPONENTS
    ========================================================================= */
 .skill-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  gap: 1.25rem;
   margin-bottom: 1.5rem;
 }
 
 .skill-info-block {
   background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 1.25rem;
-  border-left: 4px solid var(--accent-primary);
 }
 
 .block-header {
@@ -787,14 +754,25 @@ kbd {
   margin-bottom: 0.5rem;
 }
 
+.block-icon {
+  font-size: 1.25rem;
+}
+
 .block-header h3 {
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.skill-info-block p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-main);
 }
 
 .skill-recognition-box {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(6, 182, 212, 0.08));
-  border: 1px solid rgba(99, 102, 241, 0.25);
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
   padding: 1.25rem;
   margin-bottom: 1.5rem;
@@ -807,99 +785,302 @@ kbd {
   margin-bottom: 0.5rem;
 }
 
+.recognition-icon {
+  font-size: 1.25rem;
+}
+
 .recognition-header h3 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--accent-secondary);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--accent-primary);
 }
 
-.esl-scaffold-banner {
-  background-color: rgba(245, 158, 11, 0.08);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  border-radius: var(--radius-md);
-  padding: 1rem 1.25rem;
-  margin-bottom: 1.5rem;
+.recognition-content p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-main);
 }
 
-.esl-badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: #f59e0b;
-  text-transform: uppercase;
-  margin-bottom: 0.25rem;
-}
-
-/* Method Steps */
-.method-steps-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.method-step-card {
-  display: flex;
-  gap: 1rem;
+/* Golden Rules Box */
+.skill-golden-rules-box {
   background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-left: 4px solid #f59e0b;
   border-radius: var(--radius-md);
   padding: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
-.step-number-badge {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: var(--accent-primary);
-  color: #fff;
+.golden-rules-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.golden-icon {
+  font-size: 1.25rem;
+}
+
+.golden-rules-header h3 {
+  font-size: 1.05rem;
   font-weight: 800;
-  font-size: 1.1rem;
+  color: var(--text-main);
+}
+
+.golden-rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.golden-rule-card {
+  display: flex;
+  gap: 0.75rem;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+}
+
+.rule-number {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #f59e0b;
+  color: #000;
+  font-weight: 800;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
-.step-title {
-  font-size: 1.1rem;
+.rule-content h4 {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.2rem;
+}
+
+.rule-content p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Pacing Timeline */
+.pacing-timeline-card {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.pacing-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pacing-header h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.pacing-steps-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.pacing-step-item {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.pacing-time-badge {
+  background-color: var(--accent-primary-subtle);
+  color: var(--accent-primary);
+  font-weight: 800;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.pacing-step-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.pacing-action {
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--text-main);
-  margin-bottom: 0.25rem;
 }
 
-.step-rule {
-  font-size: 0.95rem;
-  color: var(--text-main);
-  margin-bottom: 0.5rem;
-}
-
-.step-expert-quote {
-  background-color: var(--bg-surface-subtle);
-  border-left: 3px solid var(--accent-secondary);
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-style: italic;
+.pacing-detail {
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
-.expert-label {
-  font-weight: 700;
-  font-style: normal;
+/* Pitfalls Box */
+.common-pitfalls-box {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-left: 4px solid var(--status-error);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.pitfalls-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pitfalls-header h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.pitfalls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem;
+}
+
+.pitfall-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+}
+
+.pitfall-name {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--status-error);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.pitfall-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.esl-scaffold-banner {
+  background-color: var(--bg-surface-elevated);
+  border-left: 4px solid var(--accent-secondary);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.esl-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
   color: var(--accent-secondary);
   display: block;
-  font-size: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.esl-scaffold-banner p {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.5;
 }
 
 /* =========================================================================
-   8. SAT SPLIT SCREEN LAYOUT (PASSAGE LEFT, QUESTION RIGHT)
+   8. STAGE 2: THE METHOD COMPONENTS
+   ========================================================================= */
+.method-steps-vertical-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.method-step-card {
+  display: flex;
+  gap: 1.25rem;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  align-items: flex-start;
+}
+
+.step-num-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex-grow: 1;
+}
+
+.step-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.3rem;
+}
+
+.step-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 0.6rem;
+}
+
+.step-micro-action {
+  background-color: var(--bg-surface-subtle);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--text-main);
+}
+
+.action-label {
+  font-weight: 700;
+  color: var(--accent-secondary);
+  margin-right: 0.35rem;
+}
+
+/* =========================================================================
+   9. SAT SPLIT SCREEN LAYOUT (PASSAGE LEFT, QUESTION RIGHT)
    ========================================================================= */
 .sat-split-layout {
   display: grid;
-  grid-template-columns: 1.05fr 1fr;
+  grid-template-columns: 1.1fr 1fr;
   gap: 2rem;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
 }
 
 .sat-passage-pane {
@@ -907,8 +1088,9 @@ kbd {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 1.5rem;
-  max-height: 650px;
+  max-height: 680px;
   overflow-y: auto;
+  position: relative;
 }
 
 .pane-header {
@@ -922,14 +1104,14 @@ kbd {
 
 .pane-tag {
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   color: var(--text-muted);
 }
 
 .difficulty-badge {
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
   padding: 0.15rem 0.5rem;
   border-radius: var(--radius-sm);
 }
@@ -941,7 +1123,7 @@ kbd {
 .passage-body {
   font-family: var(--font-serif);
   font-size: 1.05rem;
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--text-main);
 }
 
@@ -953,12 +1135,11 @@ kbd {
 
 .question-stem {
   font-size: 1.05rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-main);
   line-height: 1.45;
 }
 
-/* SAT Options Styling */
 .sat-choices-container, .worked-choices-list {
   display: flex;
   flex-direction: column;
@@ -1019,7 +1200,7 @@ kbd {
   height: 26px;
   border-radius: 50%;
   border: 1px solid var(--border-default);
-  font-weight: 700;
+  font-weight: 800;
   font-size: 0.85rem;
   flex-shrink: 0;
   color: var(--text-muted);
@@ -1041,6 +1222,12 @@ kbd {
   background-color: var(--status-error);
   color: #fff;
   border-color: var(--status-error);
+}
+
+.choice-text-content {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--text-main);
 }
 
 .choice-eliminate-btn {
@@ -1065,47 +1252,64 @@ kbd {
   background-color: var(--status-error-bg);
 }
 
-/* Worked Choices Annotations */
-.worked-choice-card {
+/* Timer Box */
+.sat-timer-box {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 0.4rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.sat-timer-box.timer-warning {
+  border-color: var(--status-error);
+  color: var(--status-error);
+  background-color: var(--status-error-bg);
+  animation: pulse 1s infinite;
+}
+
+/* =========================================================================
+   10. STAGE 3: WORKED EXAMPLES & THINK-ALOUD
+   ========================================================================= */
+.worked-choice-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   background-color: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 0.85rem 1rem;
 }
 
-.choice-marker {
-  font-weight: 700;
-  margin-right: 0.5rem;
-}
-
-.worked-trap-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.2rem 0.6rem;
-  border-radius: var(--radius-sm);
-  margin-top: 0.4rem;
-  background-color: var(--bg-surface-subtle);
-}
-
-.worked-correct-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.2rem 0.6rem;
-  border-radius: var(--radius-sm);
-  margin-top: 0.4rem;
+.worked-choice-item.choice-correct-highlight {
+  border-color: var(--status-mastered);
   background-color: var(--status-mastered-bg);
+}
+
+.worked-choice-letter {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.worked-choice-text {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  flex-grow: 1;
+}
+
+.correct-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
   color: var(--status-mastered);
 }
 
-/* =========================================================================
-   9. STAGE 3: THINK-ALOUD TIMELINE ENGINE
-   ========================================================================= */
 .think-aloud-box {
   background-color: var(--bg-surface-subtle);
   border: 1px solid var(--border-default);
@@ -1128,13 +1332,13 @@ kbd {
 }
 
 .think-aloud-title h3 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--accent-secondary);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-main);
 }
 
 .think-step-counter {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
@@ -1145,24 +1349,40 @@ kbd {
   margin-bottom: 1rem;
 }
 
-.think-step-card {
+.think-step {
   background-color: var(--bg-surface-elevated);
   border-left: 3px solid var(--accent-primary);
   border-radius: var(--radius-sm);
   padding: 0.75rem 1rem;
 }
 
-.think-step-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--accent-primary);
+.think-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 0.25rem;
 }
 
-.think-step-text {
-  font-size: 0.9rem;
+.think-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--accent-primary-subtle);
+  color: var(--accent-primary);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-sm);
+}
+
+.think-action-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.think-text {
+  font-size: 0.85rem;
   color: var(--text-main);
+  line-height: 1.45;
 }
 
 .think-controls {
@@ -1170,23 +1390,17 @@ kbd {
   justify-content: flex-end;
 }
 
-.full-explanation-card {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(99, 102, 241, 0.08));
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-  margin-top: 1rem;
-}
-
-.full-explanation-card h4 {
-  font-size: 0.95rem;
-  font-weight: 700;
+.think-completed-badge {
+  font-size: 0.8rem;
+  font-weight: 800;
   color: var(--status-mastered);
-  margin-bottom: 0.4rem;
+  background-color: var(--status-mastered-bg);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-sm);
 }
 
 /* =========================================================================
-   10. STAGE 4: TRAP LAB DRILLS
+   11. STAGE 4: TRAP LAB DRILLS
    ========================================================================= */
 .traplab-stem-box {
   background-color: var(--bg-surface-elevated);
@@ -1197,7 +1411,7 @@ kbd {
 
 .stem-label {
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   color: var(--text-muted);
   display: block;
@@ -1214,7 +1428,7 @@ kbd {
 
 .wrong-choice-label {
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--status-error);
   display: block;
   margin-bottom: 0.25rem;
@@ -1222,20 +1436,20 @@ kbd {
 
 .target-wrong-text {
   font-size: 1.05rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-main);
   font-style: italic;
 }
 
 .classifier-prompt {
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 800;
   margin-bottom: 1rem;
 }
 
 .trap-options-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 0.75rem;
   margin-bottom: 1.5rem;
 }
@@ -1248,9 +1462,9 @@ kbd {
   background-color: var(--bg-surface-elevated);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  font-weight: 600;
-  font-size: 0.9rem;
   color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: 700;
   transition: all var(--transition-fast);
 }
 
@@ -1262,11 +1476,13 @@ kbd {
 .trap-btn-correct {
   border-color: var(--status-mastered) !important;
   background-color: var(--status-mastered-bg) !important;
+  color: var(--status-mastered) !important;
 }
 
 .trap-btn-wrong {
   border-color: var(--status-error) !important;
   background-color: var(--status-error-bg) !important;
+  color: var(--status-error) !important;
 }
 
 .traplab-feedback-card {
@@ -1285,857 +1501,204 @@ kbd {
 }
 
 .feedback-header h4 {
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
 }
 
 .feedback-rationale {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: var(--text-main);
-  margin: 0.5rem 0;
+  line-height: 1.45;
+  margin: 0.4rem 0;
 }
 
 .trap-strategy-reminder {
+  font-size: 0.8rem;
+  color: var(--text-muted);
   background-color: var(--bg-surface-subtle);
-  border-left: 3px solid var(--accent-secondary);
-  padding: 0.6rem 0.85rem;
+  padding: 0.5rem 0.75rem;
   border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  margin-top: 0.75rem;
+  border-left: 2px solid var(--accent-secondary);
 }
 
 /* =========================================================================
-   11. STAGE 5: GUIDED PRACTICE & 3-TIER HINT LADDER
+   12. STAGE 5: GUIDED PRACTICE & HINT LADDER
    ========================================================================= */
-.hint-meter-box {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background-color: var(--bg-surface-elevated);
-  padding: 0.4rem 0.8rem;
-  border-radius: var(--radius-md);
-}
-
-.hint-meter-label {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.hint-dots {
-  display: flex;
-  gap: 4px;
-}
-
-.h-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--border-default);
-}
-
-.h-dot.used {
-  background-color: #f59e0b;
-}
-
-.hint-ladder-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin: 0.5rem 0;
-}
-
-.hint-card {
+.hint-ladder-box {
   background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  padding: 0.85rem 1rem;
+  padding: 1.15rem;
+  margin-top: 1rem;
 }
 
-.hint-tier-1 { border-left: 4px solid #3b82f6; }
-.hint-tier-2 { border-left: 4px solid #f59e0b; }
-.hint-tier-3 { border-left: 4px solid #ef4444; }
-
-.hint-tier-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--text-muted);
+.hint-ladder-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
 }
 
-.hint-body {
+.hint-ladder-header h4 {
   font-size: 0.9rem;
-  color: var(--text-main);
-  margin-top: 0.25rem;
+  font-weight: 800;
 }
 
 .btn-hint {
-  align-self: flex-start;
   background-color: rgba(245, 158, 11, 0.12);
   color: #f59e0b;
   border: 1px solid rgba(245, 158, 11, 0.3);
-  font-size: 0.85rem;
-  padding: 0.5rem 0.9rem;
-  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
 }
 
 .btn-hint:hover {
   background-color: rgba(245, 158, 11, 0.2);
 }
 
-.feedback-reveal-card {
+.revealed-hints-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.hint-card {
   background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-  margin-top: 1rem;
-}
-
-.feedback-title {
-  font-size: 1.1rem;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-}
-
-.feedback-title.correct { color: var(--status-mastered); }
-.feedback-title.incorrect { color: var(--status-error); }
-
-.trap-breakdown-box {
-  background-color: var(--bg-surface-subtle);
   border-radius: var(--radius-sm);
-  padding: 0.85rem;
-  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid #f59e0b;
 }
 
-.trap-breakdown-box h5 {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 0.4rem;
-}
-
-.trap-breakdown-box ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  font-size: 0.85rem;
-}
-
-/* =========================================================================
-   12. STAGE 6: INDEPENDENT PRACTICE & TIMER
-   ========================================================================= */
-.sat-timer-box {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-default);
-  padding: 0.4rem 0.85rem;
-  border-radius: var(--radius-md);
-  font-family: var(--font-mono);
-  font-size: 1.1rem;
-  font-weight: 700;
-}
-
-.sat-timer-box.timer-warning {
-  border-color: var(--status-error);
-  color: var(--status-error);
-  animation: pulseWarning 1s infinite;
-}
-
-@keyframes pulseWarning {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.04); }
-}
-
-/* Self-Audit Rubric */
-.rubric-stage-card {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.module-score-banner {
-  display: flex;
-  justify-content: space-around;
-  background-color: var(--bg-surface-elevated);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-  margin-bottom: 2rem;
-}
-
-.score-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.score-value {
-  font-size: 1.5rem;
-  font-weight: 800;
-}
-
-.score-value.green { color: var(--status-mastered); }
-.score-value.amber { color: var(--status-practicing); }
-
-.rubric-prompts-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.rubric-row {
-  background-color: var(--bg-surface-elevated);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-}
-
-.rubric-prompt-text {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-}
-
-.rubric-rating-radios {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.rubric-rating-radios label {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  cursor: pointer;
-}
-
-/* =========================================================================
-   13. ESL INTERACTIVE VOCABULARY GLOSS POPOVER
-   ========================================================================= */
-.esl-gloss-term {
-  position: relative;
-  text-decoration: underline dotted var(--accent-secondary);
-  text-underline-offset: 4px;
-  cursor: help;
-  color: var(--text-main);
-  transition: color var(--transition-fast);
-}
-
-.esl-gloss-term:hover {
-  color: var(--accent-secondary);
-}
-
-.esl-gloss-popover {
-  visibility: hidden;
-  opacity: 0;
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #0f172a;
-  color: #f8fafc;
-  border: 1px solid var(--accent-secondary);
-  border-radius: var(--radius-md);
-  padding: 0.6rem 0.9rem;
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  line-height: 1.4;
-  white-space: normal;
-  width: max-content;
-  max-width: 260px;
-  box-shadow: var(--shadow-lg);
-  z-index: 1000;
-  transition: opacity var(--transition-fast), visibility var(--transition-fast);
-  pointer-events: none;
-}
-
-.esl-gloss-term:hover .esl-gloss-popover,
-.esl-gloss-term:focus .esl-gloss-popover {
-  visibility: visible;
-  opacity: 1;
-}
-
-body.esl-disabled .esl-gloss-term {
-  text-decoration: none;
-  cursor: default;
-}
-
-body.esl-disabled .esl-gloss-popover {
-  display: none !important;
-}
-
-/* SAT Tables */
-.sat-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-}
-
-.sat-table th, .sat-table td {
-  border: 1px solid var(--border-default);
-  padding: 0.6rem 0.8rem;
-  text-align: left;
-}
-
-.sat-table th {
-  background-color: var(--bg-surface-elevated);
-  font-weight: 700;
-}
-
-/* =========================================================================
-   14. VIEW 3: DASHBOARD & PURE SVG CHARTS
-   ========================================================================= */
-.dashboard-hero-grid {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.dashboard-charts-grid {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.dashboard-card {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  box-shadow: var(--shadow-sm);
-}
-
-.card-header-with-tag {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.25rem;
-}
-
-.subtag {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.gauge-wrapper {
-  display: flex;
-  justify-content: center;
-  padding: 1rem 0;
-}
-
-.gauge-pct-text {
-  font-size: 2.2rem;
-  font-weight: 800;
-  fill: var(--text-main);
-}
-
-.gauge-label-text {
-  font-size: 0.8rem;
-  fill: var(--text-muted);
-}
-
-.gauge-subcaption {
-  text-align: center;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.coaching-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-
-.coaching-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.coaching-icon {
-  font-size: 2rem;
-}
-
-.coaching-tag {
+.hint-badge {
   font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--accent-primary);
-  letter-spacing: 0.05em;
-}
-
-.coaching-advice {
-  font-size: 0.95rem;
-  color: var(--text-main);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-/* SVG Bar Chart */
-.chart-row-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  fill: var(--text-muted);
-}
-
-.chart-bar-bg {
-  fill: var(--bg-surface-elevated);
-}
-
-.chart-row-value {
-  font-size: 0.8rem;
-  font-weight: 700;
-  fill: var(--text-main);
-}
-
-/* Trap Donut */
-.trap-donut-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 1.5rem;
-}
-
-.donut-center-number {
-  font-size: 2.2rem;
-  font-weight: 800;
-  fill: var(--text-main);
-}
-
-.donut-center-label {
-  font-size: 0.8rem;
-  fill: var(--text-muted);
-}
-
-.trap-donut-legend {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-}
-
-.legend-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.legend-count {
-  margin-left: auto;
-  font-weight: 700;
-  color: var(--text-muted);
-}
-
-/* Progress Matrix Table */
-.sat-matrix-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-}
-
-.sat-matrix-table th, .sat-matrix-table td {
-  padding: 0.85rem 1rem;
-  border-bottom: 1px solid var(--border-subtle);
-  text-align: left;
-}
-
-.sat-matrix-table th {
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  text-transform: uppercase;
-}
-
-/* =========================================================================
-   15. METHOD CARD MODAL
-   ========================================================================= */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-  padding: 1.5rem;
-}
-
-.modal-overlay.open {
-  display: flex;
-}
-
-.modal-dialog {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-lg);
-  max-width: 680px;
-  width: 100%;
-  max-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  box-shadow: var(--shadow-lg);
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.modal-title-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.modal-title-wrap h3 {
-  font-size: 1.25rem;
-  font-weight: 800;
-}
-
-.modal-close-btn {
-  font-size: 1.2rem;
-  color: var(--text-muted);
-}
-
-.modal-body {
-  padding: 1.5rem;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.method-modal-step {
-  display: flex;
-  gap: 1rem;
-  background-color: var(--bg-surface-elevated);
-  border-radius: var(--radius-md);
-  padding: 1rem;
-}
-
-.modal-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  border-top: 1px solid var(--border-subtle);
-}
-
-.modal-shortcut-tip {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* =========================================================================
-   16. ANIMATIONS
-   ========================================================================= */
-.animate-fade-in {
-  animation: fadeIn 0.3s ease-out;
-}
-
-.animate-slide-up {
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* =========================================================================
-   17. ENHANCED STRATEGY NOTES, PACING & DETAILED EXPLANATIONS
-   ========================================================================= */
-
-/* Strategy Heuristic Banner */
-.strategy-heuristic-banner {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(6, 182, 212, 0.08));
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  border-left: 4px solid var(--accent-primary);
-  border-radius: var(--radius-md);
-  padding: 0.85rem 1.15rem;
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-}
-
-.heuristic-icon {
-  font-size: 1.25rem;
-  line-height: 1;
-}
-
-.heuristic-content {
-  flex-grow: 1;
-}
-
-.heuristic-title {
-  font-size: 0.8rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--accent-secondary);
+  color: #f59e0b;
+  display: block;
   margin-bottom: 0.2rem;
 }
 
-.heuristic-text {
-  font-size: 0.9rem;
+.hint-text {
+  font-size: 0.85rem;
   color: var(--text-main);
   line-height: 1.45;
 }
 
-/* Golden Rules in Stage 1 */
-.golden-rules-section {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.section-subtitle-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #f59e0b;
-  margin-bottom: 0.75rem;
-}
-
-.golden-rules-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
-}
-
-.golden-rule-card {
-  background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 1rem 1.15rem;
-  display: flex;
-  gap: 0.75rem;
-}
-
-.rule-number-pill {
-  width: 28px;
-  height: 28px;
-  border-radius: var(--radius-sm);
-  background-color: #f59e0b;
-  color: #000;
-  font-weight: 800;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.rule-card-body h4 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 0.25rem;
-}
-
-.rule-card-body p {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  line-height: 1.45;
-}
-
-/* Pacing Timeline */
-.pacing-timeline-box {
-  background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-  margin-bottom: 1.5rem;
-}
-
-.pacing-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.85rem;
-}
-
-.pacing-header h3 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--accent-primary);
-}
-
-.pacing-total {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  background-color: var(--bg-surface-subtle);
-  padding: 0.2rem 0.5rem;
-  border-radius: var(--radius-sm);
-}
-
-.pacing-steps-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
-}
-
-.pacing-step {
-  background-color: var(--bg-surface-subtle);
-  border-radius: var(--radius-sm);
-  padding: 0.65rem 0.75rem;
-  text-align: center;
-}
-
-.pacing-time {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--accent-secondary);
-  display: block;
-}
-
-.pacing-action {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin: 0.15rem 0;
-}
-
-.pacing-subtext {
-  font-size: 0.7rem;
-  color: var(--text-muted);
-}
-
-/* Common Pitfalls */
-.pitfalls-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.pitfall-card {
-  background-color: rgba(239, 68, 68, 0.05);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  border-radius: var(--radius-md);
-  padding: 1rem;
-}
-
-.pitfall-card h4 {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--status-error);
-  margin-bottom: 0.35rem;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.pitfall-card p {
-  font-size: 0.85rem;
-  color: var(--text-main);
-  line-height: 1.4;
-}
-
-/* Structured Deep Explanations */
-.structured-explanation-card {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+/* =========================================================================
+   13. DEEP STRUCTURED EXPLANATIONS & AUTOPSIES
+   ========================================================================= */
+.explanation-card {
   background-color: var(--bg-surface-elevated);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
 }
 
-.expl-section {
-  border-radius: var(--radius-md);
-  padding: 1rem 1.15rem;
+.explanation-card.explanation-correct {
+  border-color: var(--status-mastered);
 }
 
-.expl-section.correct-bridge {
-  background-color: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  border-left: 4px solid var(--status-mastered);
+.explanation-card.explanation-incorrect {
+  border-color: var(--status-error);
 }
 
-.expl-section.correct-bridge h4 {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--status-mastered);
-  margin-bottom: 0.4rem;
+.explanation-status-banner {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-.expl-section.correct-bridge p {
-  font-size: 0.9rem;
-  color: var(--text-main);
-  line-height: 1.55;
-}
-
-.expl-section.strategy-takeaway {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(6, 182, 212, 0.08));
-  border: 1px solid rgba(99, 102, 241, 0.25);
-  border-left: 4px solid var(--accent-secondary);
-}
-
-.expl-section.strategy-takeaway h4 {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--accent-secondary);
-  margin-bottom: 0.4rem;
+.status-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #fff;
+  flex-shrink: 0;
 }
 
-.expl-section.strategy-takeaway p {
-  font-size: 0.9rem;
+.explanation-correct .status-icon {
+  background-color: var(--status-mastered);
+}
+
+.explanation-incorrect .status-icon {
+  background-color: var(--status-error);
+}
+
+.status-headline {
+  font-size: 1.1rem;
+  font-weight: 800;
   color: var(--text-main);
-  line-height: 1.55;
 }
 
-.expl-section.choice-autopsy {
-  background-color: var(--bg-surface-subtle);
-  border: 1px solid var(--border-subtle);
-}
-
-.expl-section.choice-autopsy h4 {
+.correct-answer-pill {
   font-size: 0.85rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   color: var(--text-muted);
-  margin-bottom: 0.75rem;
+}
+
+.explanation-body-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.explanation-block {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+}
+
+.block-title {
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.block-title h4 {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.explanation-block p {
+  font-size: 0.85rem;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+/* Distractor Autopsies */
+.distractor-autopsy-section {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+
+.autopsy-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.85rem;
+}
+
+.autopsy-section-title h4 {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-main);
 }
 
 .autopsy-list {
@@ -2178,52 +1741,81 @@ body.esl-disabled .esl-gloss-popover {
   border-radius: var(--radius-sm);
 }
 
+.autopsy-trap-badge.badge-correct {
+  background-color: var(--status-mastered-bg);
+  color: var(--status-mastered);
+}
+
+.autopsy-trap-badge.badge-trap {
+  background-color: var(--status-error-bg);
+  color: var(--status-error);
+}
+
 .autopsy-text {
   font-size: 0.85rem;
   color: var(--text-main);
   line-height: 1.45;
 }
 
-/* Teacher Mode Notes Panel */
-.teacher-notes-panel {
-  display: none;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(217, 119, 6, 0.08));
-  border: 1px solid #f59e0b;
-  border-radius: var(--radius-md);
-  padding: 1rem 1.25rem;
-  margin-bottom: 1.25rem;
-}
-
-body.teacher-mode-active .teacher-notes-panel {
-  display: block;
-}
-
-.teacher-notes-header {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: #f59e0b;
-  text-transform: uppercase;
-  margin-bottom: 0.35rem;
-}
-
-.teacher-notes-body {
-  font-size: 0.85rem;
-  color: var(--text-main);
-  line-height: 1.5;
-}
-
 /* =========================================================================
-   18. TURKISH SAT SCAFFOLDS, MODAL & BILINGUAL GLOSSES (🇹🇷)
+   14. ESL INTERACTIVE VOCABULARY GLOSS POPOVER (BILINGUAL)
    ========================================================================= */
+.esl-gloss-term {
+  position: relative;
+  text-decoration: underline dotted var(--accent-secondary);
+  text-underline-offset: 4px;
+  cursor: help;
+  color: var(--text-main);
+  transition: color var(--transition-fast);
+}
 
-/* Bilingual Gloss Popovers */
+.esl-gloss-term:hover {
+  color: var(--accent-secondary);
+}
+
+.esl-gloss-popover {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0f172a;
+  color: #f8fafc;
+  border: 1px solid var(--accent-secondary);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.9rem;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  white-space: normal;
+  width: max-content;
+  max-width: 280px;
+  box-shadow: var(--shadow-xl);
+  z-index: 1000;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+  pointer-events: none;
+}
+
+.esl-gloss-term:hover .esl-gloss-popover,
+.esl-gloss-term:focus .esl-gloss-popover {
+  visibility: visible;
+  opacity: 1;
+}
+
+body.esl-disabled .esl-gloss-term {
+  text-decoration: none;
+  cursor: default;
+}
+
+body.esl-disabled .esl-gloss-popover {
+  display: none !important;
+}
+
 .gloss-en-part {
   display: block;
   font-size: 0.85rem;
-  color: var(--text-main);
+  color: #f8fafc;
   margin-bottom: 0.35rem;
 }
 
@@ -2231,130 +1823,110 @@ body.teacher-mode-active .teacher-notes-panel {
   display: block;
   font-size: 0.85rem;
   color: #fbbf24;
-  background-color: rgba(245, 158, 11, 0.1);
+  background-color: rgba(245, 158, 11, 0.15);
   padding: 0.35rem 0.5rem;
   border-radius: var(--radius-sm);
   border-left: 3px solid #e11d48;
 }
 
-.gloss-tr-part .tr-flag {
-  margin-right: 0.25rem;
+/* =========================================================================
+   15. MODALS & DRAWERS (FIXED POSITIONING OVERLAYS)
+   ========================================================================= */
+.modal-backdrop, .modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  padding: 1.5rem;
 }
 
-/* Turkish Scaffold Card in Stage 1 */
-.turkish-scaffold-card {
-  background: linear-gradient(135deg, rgba(225, 29, 72, 0.08), rgba(245, 158, 11, 0.08));
-  border: 1px solid rgba(225, 29, 72, 0.3);
-  border-left: 4px solid #e11d48;
-  border-radius: var(--radius-md);
-  padding: 1.25rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+.modal-backdrop.open, .modal-overlay.open {
+  display: flex !important;
 }
 
-.turkish-card-header {
+.modal-card, .modal-dialog {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  max-width: 720px;
+  width: 100%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.85rem;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface-elevated);
 }
 
-.turkish-flag-title {
+.modal-title-wrap {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.turkish-flag-title h3 {
-  font-size: 1.05rem;
+.modal-title-wrap h3 {
+  font-size: 1.2rem;
   font-weight: 800;
   color: var(--text-main);
 }
 
-.turkish-open-vault-btn {
-  background-color: #e11d48;
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: 0.35rem 0.75rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.turkish-open-vault-btn:hover {
-  background-color: #be123c;
-  transform: translateY(-1px);
-}
-
-.turkish-strategy-tip {
-  font-size: 0.9rem;
-  line-height: 1.55;
-  color: var(--text-main);
-  margin-bottom: 1rem;
-}
-
-.turkish-trap-box {
-  background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 0.85rem 1rem;
-  margin-bottom: 1rem;
-}
-
-.trap-box-label {
-  font-size: 0.8rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #f43f5e;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.turkish-trap-list {
-  margin: 0;
-  padding-left: 1.2rem;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--text-main);
-}
-
-.turkish-vocab-pills {
-  margin-top: 0.75rem;
-}
-
-.vocab-pills-label {
-  font-size: 0.8rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--accent-secondary);
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.pills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0.5rem;
-}
-
-.tr-vocab-pill {
-  background-color: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 0.45rem 0.65rem;
-  font-size: 0.8rem;
-  color: var(--text-main);
-}
-
-.tr-pos {
+.modal-close-btn {
+  font-size: 1.2rem;
   color: var(--text-muted);
-  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.modal-body-scroll, .modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.method-modal-step {
+  display: flex;
+  gap: 1rem;
+  background-color: var(--bg-surface-elevated);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.method-modal-step .step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface-elevated);
 }
 
 /* Turkish Guide Modal */
@@ -2362,8 +1934,6 @@ body.teacher-mode-active .teacher-notes-panel {
   max-width: 900px;
   width: 95%;
   max-height: 90vh;
-  display: flex;
-  flex-direction: column;
 }
 
 .turkish-modal-tabs {
@@ -2402,7 +1972,7 @@ body.teacher-mode-active .teacher-notes-panel {
 .turkish-modal-body-scroll {
   padding: 1.5rem;
   overflow-y: auto;
-  max-height: calc(90vh - 200px);
+  max-height: calc(90vh - 180px);
 }
 
 .turkish-search-bar {
@@ -2482,6 +2052,10 @@ body.teacher-mode-active .teacher-notes-panel {
   align-items: baseline;
   gap: 0.35rem;
   color: #fbbf24;
+}
+
+[data-theme="light"] .tr-meaning-line {
+  color: #b45309;
 }
 
 .tr-translation {
@@ -2706,17 +2280,186 @@ body.teacher-mode-active .teacher-notes-panel {
   margin-bottom: 0.2rem;
 }
 
+.strategy-tag {
+  color: #f59e0b;
+}
+
 .stem-tr-box p, .stem-strategy-box p {
   font-size: 0.85rem;
   color: var(--text-main);
   line-height: 1.45;
 }
 
-/* =========================================================================
-   19. STUDENT STUDY TOOLS (HIGHLIGHTING, UNDERLINING, NOTEPAD DRAWER)
-   ========================================================================= */
+/* Turkish Scaffold Card in Stage 1 */
+.turkish-scaffold-card {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.08), rgba(245, 158, 11, 0.08));
+  border: 1px solid rgba(225, 29, 72, 0.3);
+  border-left: 4px solid #e11d48;
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
 
-/* Text Highlighting & Annotations */
+.turkish-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.turkish-flag-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.turkish-flag-title h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.turkish-open-vault-btn {
+  background-color: #e11d48;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.turkish-open-vault-btn:hover {
+  background-color: #be123c;
+  transform: translateY(-1px);
+}
+
+.turkish-strategy-tip {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.turkish-trap-box {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.trap-box-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #f43f5e;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.turkish-trap-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-main);
+}
+
+.turkish-vocab-pills {
+  margin-top: 0.75rem;
+}
+
+.vocab-pills-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-secondary);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.pills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.5rem;
+}
+
+.tr-vocab-pill {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.65rem;
+  font-size: 0.8rem;
+  color: var(--text-main);
+}
+
+.tr-pos {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+/* Turkish Step-by-Step Solver Card */
+.turkish-solver-card {
+  background: linear-gradient(135deg, rgba(225, 29, 72, 0.06), rgba(245, 158, 11, 0.06));
+  border: 1px solid rgba(225, 29, 72, 0.25);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.15rem;
+  margin-top: 1.25rem;
+}
+
+.solver-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.solver-card-header h4 {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.solver-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.solver-step-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--text-main);
+}
+
+.solver-step-item .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #e11d48;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* =========================================================================
+   16. STUDENT STUDY TOOLS (HIGHLIGHTING, UNDERLINING, NOTEPAD DRAWER)
+   ========================================================================= */
 .highlight-yellow {
   background-color: rgba(234, 179, 8, 0.35);
   color: inherit;
@@ -2756,15 +2499,15 @@ body.teacher-mode-active .teacher-notes-panel {
   gap: 0.35rem;
   background-color: var(--bg-surface-elevated);
   border: 1px solid var(--border-default);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
   border-radius: var(--radius-md);
   padding: 0.35rem 0.5rem;
-  z-index: 1000;
+  z-index: 1050;
   animation: fadeIn 0.15s ease;
 }
 
 .student-floating-toolbar.show {
-  display: flex;
+  display: flex !important;
 }
 
 .student-floating-toolbar .tool-btn {
@@ -2815,7 +2558,7 @@ body.teacher-mode-active .teacher-notes-panel {
 }
 
 .student-notepad-drawer.open {
-  right: 0;
+  right: 0 !important;
 }
 
 .notepad-header {
@@ -2947,60 +2690,7 @@ body.teacher-mode-active .teacher-notes-panel {
 }
 
 /* =========================================================================
-   20. TURKISH STEP-BY-STEP SOLVER CARD ("Nasıl Çözülür?")
-   ========================================================================= */
-.turkish-solver-card {
-  background: linear-gradient(135deg, rgba(225, 29, 72, 0.06), rgba(245, 158, 11, 0.06));
-  border: 1px solid rgba(225, 29, 72, 0.25);
-  border-radius: var(--radius-md);
-  padding: 1rem 1.15rem;
-  margin-top: 1.25rem;
-}
-
-.solver-card-header {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-bottom: 0.75rem;
-}
-
-.solver-card-header h4 {
-  font-size: 0.9rem;
-  font-weight: 800;
-  color: var(--text-main);
-}
-
-.solver-steps-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.solver-step-item {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  font-size: 0.8rem;
-  line-height: 1.4;
-  color: var(--text-main);
-}
-
-.solver-step-item .step-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background-color: #e11d48;
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 800;
-  flex-shrink: 0;
-}
-
-/* =========================================================================
-   21. GRAMMAR ACADEMY STYLES
+   17. GRAMMAR ACADEMY STYLES
    ========================================================================= */
 .grammar-dashboard {
   display: flex;
@@ -3075,6 +2765,10 @@ body.teacher-mode-active .teacher-notes-panel {
   color: #fbbf24;
 }
 
+[data-theme="light"] .gmod-tr-title {
+  color: #b45309;
+}
+
 .gmod-desc {
   font-size: 0.8rem;
   color: var(--text-muted);
@@ -3131,6 +2825,10 @@ body.teacher-mode-active .teacher-notes-panel {
   line-height: 1.5;
 }
 
+[data-theme="light"] .formula-pre-box {
+  color: #0369a1;
+}
+
 .grammar-passage-box {
   background-color: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
@@ -3142,7 +2840,7 @@ body.teacher-mode-active .teacher-notes-panel {
 }
 
 /* =========================================================================
-   22. 30-DAY DAILY VOCABULARY & FLIPCARDS
+   18. 30-DAY DAILY VOCABULARY & FLIPCARDS
    ========================================================================= */
 .daily-vocab-view {
   display: flex;
@@ -3197,7 +2895,7 @@ body.teacher-mode-active .teacher-notes-panel {
 .vocab-flip-card {
   background-color: transparent;
   perspective: 1000px;
-  height: 220px;
+  min-height: 230px;
   cursor: pointer;
 }
 
@@ -3270,6 +2968,10 @@ body.teacher-mode-active .teacher-notes-panel {
 .fc-tr-line {
   font-size: 0.95rem;
   color: #fbbf24;
+}
+
+[data-theme="light"] .fc-tr-line {
+  color: #b45309;
 }
 
 .fc-en-def {
@@ -3354,7 +3056,7 @@ body.teacher-mode-active .teacher-notes-panel {
 }
 
 /* =========================================================================
-   23. AUTOMATIC ERROR LOG (HATA DEFTERİ) STYLES
+   19. AUTOMATIC ERROR LOG (HATA DEFTERİ) STYLES
    ========================================================================= */
 .error-log-view {
   display: flex;
@@ -3543,5 +3245,213 @@ body.teacher-mode-active .teacher-notes-panel {
   outline: none;
 }
 
+/* =========================================================================
+   20. ANALYTICS & DIAGNOSTIC DASHBOARD
+   ========================================================================= */
+.coaching-callout-card {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(6, 182, 212, 0.08));
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+}
 
+.rec-headline-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin-bottom: 0.35rem;
+}
 
+.rec-headline-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.rec-rationale {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+}
+
+.analytics-charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.chart-panel-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.chart-panel-card.full-width {
+  grid-column: 1 / -1;
+  margin-bottom: 1.5rem;
+}
+
+.chart-panel-header {
+  margin-bottom: 1.25rem;
+}
+
+.chart-panel-header h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.chart-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.gauge-wrapper, .donut-wrapper, .barchart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  overflow-x: auto;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.analytics-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.analytics-table th, .analytics-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: left;
+}
+
+.analytics-table th {
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+/* =========================================================================
+   21. BUTTONS, BADGES, ANIMATIONS & UTILITIES
+   ========================================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.15rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: #fff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  color: var(--text-main);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--bg-surface-subtle);
+  border-color: var(--border-focus);
+}
+
+.btn-accent {
+  background-color: var(--accent-secondary);
+  color: #fff;
+}
+
+.btn-accent:hover:not(:disabled) {
+  background-color: var(--accent-secondary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-small {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+.btn-large {
+  padding: 0.85rem 1.75rem;
+  font-size: 1.05rem;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.status-mastered { background: var(--status-mastered-bg); color: var(--status-mastered); }
+.status-practicing { background: var(--status-practicing-bg); color: var(--status-practicing); }
+.status-learning { background: var(--status-learning-bg); color: var(--status-learning); }
+.status-not-started { background: var(--status-not-started-bg); color: var(--status-not-started); }
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}

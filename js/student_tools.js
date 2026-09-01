@@ -1,7 +1,7 @@
 /**
- * SAT READING SKILLS ACADEMY - Student Interactive Tools
+ * SAT READING & WRITING SKILLS ACADEMY - Student Interactive Tools
  * Highlighting (Yellow, Green, Cyan), Underlining, Text Selection Toolbar,
- * and Slide-out Student Scratchpad / Notepad.
+ * Font Zoom Controls, Note Export, and Slide-out Student Scratchpad / Notepad.
  */
 
 const StudentTools = (function() {
@@ -9,6 +9,8 @@ const StudentTools = (function() {
   let activePassageKey = null;
   let floatingToolbarEl = null;
   let currentSelectionRange = null;
+  let activeTagFilter = "ALL";
+  let passageFontSize = 1.05; // rem
 
   /**
    * Initializes student study tools listeners
@@ -117,7 +119,6 @@ const StudentTools = (function() {
       hideFloatingToolbar();
       saveCurrentPassageAnnotations();
     } catch (e) {
-      // If selection spans multiple block elements
       console.warn("Complex selection highlighting simplified:", e);
     }
   }
@@ -160,16 +161,27 @@ const StudentTools = (function() {
     activePassageKey = passageKey;
     const savedHTML = StorageManager.getAnnotations(passageKey);
     const pane = document.querySelector(".passage-body, .grammar-passage-box");
-    if (pane && savedHTML && savedHTML.length > 0) {
-      pane.innerHTML = savedHTML;
+    if (pane) {
+      if (savedHTML && savedHTML.length > 0) {
+        pane.innerHTML = savedHTML;
+      }
+      pane.style.fontSize = `${passageFontSize}rem`;
     }
+  }
+
+  /**
+   * Passage Zoom Controls
+   */
+  function adjustPassageFont(delta) {
+    passageFontSize = Math.max(0.85, Math.min(1.45, passageFontSize + delta));
+    const panes = document.querySelectorAll(".passage-body, .grammar-passage-box");
+    panes.forEach(p => p.style.fontSize = `${passageFontSize}rem`);
   }
 
   /**
    * Notepad / Scratchpad Drawer UI
    */
   function setupNotepadDrawer() {
-    // Check if drawer already exists
     if (document.getElementById("student-notepad-drawer")) return;
 
     const drawer = document.createElement("div");
@@ -181,7 +193,10 @@ const StudentTools = (function() {
           <span>📝</span>
           <h3>Öğrenci Çalışma Notları (Scratchpad)</h3>
         </div>
-        <button class="notepad-close-btn" onclick="StudentTools.closeNotepadDrawer()">✕</button>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <button class="btn btn-secondary btn-small" title="Notları İndir (Export)" onclick="StudentTools.exportNotesMarkdown()">📥 İndir</button>
+          <button class="notepad-close-btn" onclick="StudentTools.closeNotepadDrawer()">✕</button>
+        </div>
       </div>
 
       <div class="notepad-new-note-box">
@@ -200,11 +215,23 @@ const StudentTools = (function() {
         </div>
       </div>
 
-      <div class="notepad-notes-list" id="notepad-notes-container">
-        <!-- Rendered dynamically -->
+      <div style="display: flex; gap: 0.35rem; padding: 0.75rem 1.25rem 0; overflow-x: auto;">
+        <button class="filter-pill ${activeTagFilter === 'ALL' ? 'active' : ''}" onclick="StudentTools.filterNotes('ALL')">Tümü</button>
+        <button class="filter-pill ${activeTagFilter === 'General' ? 'active' : ''}" onclick="StudentTools.filterNotes('General')">Strateji</button>
+        <button class="filter-pill ${activeTagFilter === 'Vocabulary' ? 'active' : ''}" onclick="StudentTools.filterNotes('Vocabulary')">Kelime</button>
+        <button class="filter-pill ${activeTagFilter === 'Grammar' ? 'active' : ''}" onclick="StudentTools.filterNotes('Grammar')">Dilbilgisi</button>
+        <button class="filter-pill ${activeTagFilter === 'Traps' ? 'active' : ''}" onclick="StudentTools.filterNotes('Traps')">Tuzaklar</button>
       </div>
+
+      <div class="notepad-notes-list" id="notepad-notes-container"></div>
     `;
     document.body.appendChild(drawer);
+  }
+
+  function filterNotes(tag) {
+    activeTagFilter = tag;
+    setupNotepadDrawer();
+    renderNotesList();
   }
 
   function openNotepadDrawer() {
@@ -252,7 +279,11 @@ const StudentTools = (function() {
     const container = document.getElementById("notepad-notes-container");
     if (!container) return;
 
-    const notes = StorageManager.getNotes();
+    let notes = StorageManager.getNotes();
+    if (activeTagFilter !== "ALL") {
+      notes = notes.filter(n => n.tag === activeTagFilter);
+    }
+
     if (notes.length === 0) {
       container.innerHTML = `
         <div class="notepad-empty-state">
@@ -281,6 +312,29 @@ const StudentTools = (function() {
     renderNotesList();
   }
 
+  function exportNotesMarkdown() {
+    const notes = StorageManager.getNotes();
+    if (notes.length === 0) {
+      alert("Dışa aktarılacak kayıtlı çalışma notu bulunamadı.");
+      return;
+    }
+
+    let md = `# SAT Reading & Writing Academy — Öğrenci Çalışma Notları\nOluşturulma Tarihi: ${new Date().toLocaleDateString('tr-TR')}\n\n`;
+    notes.forEach((n, idx) => {
+      md += `### ${idx + 1}. [${n.tag}] ${n.title}\n*Tarih: ${new Date(n.updatedAt).toLocaleString('tr-TR')}*\n\n${n.content}\n\n---\n\n`;
+    });
+
+    const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `SAT_Calisma_Notlari_${new Date().toISOString().slice(0, 10)}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
   return {
     init,
     applyHighlight,
@@ -288,10 +342,13 @@ const StudentTools = (function() {
     attachNoteToSelection,
     restorePassageAnnotations,
     saveCurrentPassageAnnotations,
+    adjustPassageFont,
     openNotepadDrawer,
     closeNotepadDrawer,
     toggleNotepadDrawer,
     saveNewNote,
-    deleteNote
+    deleteNote,
+    filterNotes,
+    exportNotesMarkdown
   };
 })();

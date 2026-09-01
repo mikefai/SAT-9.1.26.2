@@ -1301,10 +1301,10 @@ const Engine = (function() {
         <div class="daily-vocab-header flex-between">
           <div>
             <div class="stage-pill">30-Day SAT Vocabulary Challenge</div>
-            <h2>📅 Day ${dayData.day}: ${dayData.theme}</h2>
+            <h2>📅 ${dayData.title || dayData.theme || ('Day ' + dayData.day)}</h2>
           </div>
           <button class="btn btn-secondary" onclick="App.openTurkishModal('vocab')">
-            📖 100 Kelimelik Sözlüğü Aç
+            📖 150+ Kelimelik SAT Sözlüğünü Aç
           </button>
         </div>
 
@@ -1322,7 +1322,7 @@ const Engine = (function() {
             <span>⚡</span>
             <h3>Günün Alıştırması (Daily Sentence Completion Quiz)</h3>
           </div>
-          <p class="quiz-question-text">${dayData.quiz.question}</p>
+          <p class="quiz-question-text">${dayData.quiz.sentence || dayData.quiz.question || ''}</p>
           <div class="quiz-options-grid">
             ${dayData.quiz.options.map(opt => {
               const letter = opt.substring(0, 1);
@@ -1355,9 +1355,9 @@ const Engine = (function() {
       StorageManager.logMistake({
         id: `ERR-VOCAB-D${dayNumber}`,
         moduleId: `Day-${dayNumber}`,
-        moduleTitle: `Daily Vocab: ${dayData.theme}`,
+        moduleTitle: `Daily Vocab: Day ${dayNumber}`,
         type: "Vocab",
-        question: dayData.quiz.question,
+        question: dayData.quiz.sentence || dayData.quiz.question,
         passage: "Daily Vocabulary Practice",
         selected: selectedChoice,
         answer: correctAnswer,

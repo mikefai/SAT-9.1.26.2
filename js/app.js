@@ -521,15 +521,15 @@ const App = (function() {
                 <div class="ff-comparison-grid">
                   <div class="ff-wrong-box">
                     <span class="ff-box-label">❌ Türkçedeki Yanıltıcı Algı:</span>
-                    <p>${ff.wrongConcept}</p>
+                    <p>${ff.wrongTurkishThinking || ff.wrongConcept || ''}</p>
                   </div>
                   <div class="ff-correct-box">
                     <span class="ff-box-label">✓ SAT'deki Gerçek Akademik Anlam:</span>
-                    <p><strong>${ff.correctConcept}</strong></p>
+                    <p><strong>${ff.satRealMeaning || ff.correctConcept || ''}</strong></p>
                   </div>
                 </div>
                 <div class="ff-example-box">
-                  <strong>Örnek Cümle:</strong> <em>"${ff.example}"</em>
+                  <strong>Örnek Cümle:</strong> <em>${ff.example || ''}</em>
                 </div>
               </div>
             `).join('')}
