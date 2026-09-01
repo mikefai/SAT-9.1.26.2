@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAT Reading Skills Academy — Master Digital SAT Reading</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body class="esl-enabled">
+
+  <!-- =========================================================================
+       APP HEADER & NAVIGATION
+       ========================================================================= -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="header-brand" onclick="App.navigateToSkillMap()">
+        <span class="brand-icon">🏛️</span>
+        <div class="brand-text">
+          <h1 class="brand-title">SAT Reading Skills Academy</h1>
+          <span class="brand-tagline">Metacognition & Strategy for Digital SAT Reading</span>
+        </div>
+      </div>
+
+      <nav class="header-nav">
+        <button id="nav-link-map" class="nav-link active" onclick="App.navigateToSkillMap()">
+          <span>🗺️</span> Skill Map
+        </button>
+        <button id="nav-link-dashboard" class="nav-link" onclick="App.navigateToDashboard()">
+          <span>📊</span> Analytics & Mastery
+        </button>
+      </nav>
+
+      <div class="header-controls">
+        <button id="teacher-mode-btn" class="control-btn" title="Toggle Teacher Mode (Shortcut: T)" onclick="App.toggleTeacherMode()">
+          <span>👩‍🏫</span> Teacher Mode: <strong>OFF</strong>
+        </button>
+        <button id="esl-toggle-btn" class="control-btn active" title="Toggle ESL vocabulary glosses" onclick="App.toggleEsl()">
+          <span>📖</span> ESL Glosses: <strong>ON</strong>
+        </button>
+        <button id="theme-toggle-btn" class="control-btn icon-only" title="Toggle Dark / Light Theme" onclick="App.toggleTheme()">
+          <span>☀️</span> Light Mode
+        </button>
+        <div class="dropdown-container">
+          <button class="control-btn" id="data-menu-btn" onclick="document.getElementById('data-dropdown').classList.toggle('show')">
+            <span>⚙️</span> Data
+          </button>
+          <div id="data-dropdown" class="dropdown-menu">
+            <button onclick="App.exportDataFile()">📥 Export Progress (JSON)</button>
+            <button onclick="App.triggerImportDialog()">📤 Import Progress (JSON)</button>
+            <hr class="dropdown-divider" />
+            <button class="text-danger" onclick="App.confirmResetProgress()">⚠️ Reset All Progress</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       TEACHER MODE NOTIFICATION BANNER
+       ========================================================================= -->
+  <div id="teacher-mode-banner" class="teacher-banner" style="display: none;">
+    <div class="banner-inner">
+      <span>👩‍🏫 <strong>TEACHER MODE ACTIVE:</strong> All correct answers, distractor trap taxonomy classifications, hint tiers, and pedagogical think-aloud notes are displayed up front for classroom instruction and lesson planning.</span>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MAIN VIEW CONTAINER
+       ========================================================================= -->
+  <main class="app-main">
+
+    <!-- VIEW 1: SKILL MAP (HOME) -->
+    <section id="skill-map-view" class="view-section animate-fade-in">
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2>Mastery Curriculum Map</h2>
+          <p class="view-description">Master all 6 Digital SAT Reading question types plus core foundational habits. Achieve ≥80% on independent practice with ≤1 hint to unlock Mastered status.</p>
+        </div>
+      </div>
+
+      <!-- Global Mastery Summary Bar -->
+      <div id="global-mastery-bar" class="global-summary-container"></div>
+
+      <!-- Module Cards Grid -->
+      <div id="modules-grid" class="modules-grid"></div>
+    </section>
+
+
+    <!-- VIEW 2: MODULE ENGINE (STAGES 1 - 6) -->
+    <section id="module-view" class="view-section" style="display: none;">
+      <!-- Module Header & Method Trigger -->
+      <div class="module-header-bar">
+        <div class="module-meta-info">
+          <span id="module-banner-domain" class="module-domain-pill">Domain</span>
+          <h2 id="module-banner-title" class="module-banner-title">Module Title</h2>
+        </div>
+        <div class="module-header-actions">
+          <button id="module-banner-method-btn" class="btn btn-secondary">
+            <span>📜</span> Strategy Card <kbd>M</kbd>
+          </button>
+          <button class="btn btn-secondary btn-icon-only" title="Return to Skill Map" onclick="App.navigateToSkillMap()">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Stage Navigation Stepper (1 through 6) -->
+      <nav id="stage-stepper" class="stage-stepper" aria-label="Module Stages"></nav>
+
+      <!-- Stage Dynamic Canvas -->
+      <div id="stage-canvas" class="stage-canvas-area"></div>
+    </section>
+
+
+    <!-- VIEW 3: ANALYTICS & DIAGNOSTIC DASHBOARD -->
+    <section id="dashboard-view" class="view-section" style="display: none;">
+      <div class="view-header">
+        <div class="view-title-group">
+          <h2>Metacognitive Diagnostic Dashboard</h2>
+          <p class="view-description">Track question-type accuracy, hint dependency, and your personal distractor trap vulnerability profile.</p>
+        </div>
+      </div>
+
+      <!-- Top Dashboard Grid: Radial Gauge + AI Coaching Recommendation -->
+      <div class="dashboard-hero-grid">
+        <div class="dashboard-card gauge-card">
+          <h3>Overall Mastery Progress</h3>
+          <div id="analytics-radial-gauge" class="gauge-wrapper"></div>
+          <p class="gauge-subcaption">Calculated from 80%+ independent mastery threshold.</p>
+        </div>
+
+        <div class="dashboard-card coaching-card-wrapper" id="analytics-coaching-rec">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Mid Dashboard Grid: Accuracy Bar Chart + Distractor Trap Donut Chart -->
+      <div class="dashboard-charts-grid">
+        <div class="dashboard-card">
+          <div class="card-header-with-tag">
+            <h3>Question-Type Accuracy Breakdown</h3>
+            <span class="subtag">Independent Exam Pace</span>
+          </div>
+          <div id="analytics-barchart-container" class="chart-container"></div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header-with-tag">
+            <h3>Trap Type Vulnerability Profile</h3>
+            <span class="subtag">Distractors You Fall For</span>
+          </div>
+          <div id="analytics-donut-container" class="chart-container"></div>
+        </div>
+      </div>
+
+      <!-- Detailed Breakdown Table -->
+      <div class="dashboard-card table-card">
+        <h3>Comprehensive Skill Progress Matrix</h3>
+        <div class="table-responsive">
+          <table class="sat-matrix-table">
+            <thead>
+              <tr>
+                <th>Skill / Question Type</th>
+                <th>Mastery Status</th>
+                <th>Guided Accuracy</th>
+                <th>Avg Hints Used</th>
+                <th>Independent Accuracy</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="analytics-table-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       PERSISTENT METHOD CARD MODAL / DRAWER (KEY: M)
+       ========================================================================= -->
+  <div id="method-modal" class="modal-overlay" onclick="if(event.target === this) App.closeMethodModal()">
+    <div class="modal-dialog modal-method-card animate-slide-up">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">📜</span>
+          <h3 id="method-modal-title">Method Strategy Reference Card</h3>
+        </div>
+        <button class="modal-close-btn" onclick="App.closeMethodModal()">✕</button>
+      </div>
+
+      <div id="method-modal-body" class="modal-body method-steps-flow">
+        <!-- Injected by Engine -->
+      </div>
+
+      <div class="modal-footer">
+        <span class="modal-shortcut-tip">Press <kbd>M</kbd> or <kbd>Esc</kbd> to dismiss this card.</span>
+        <button class="btn btn-primary" onclick="App.closeMethodModal()">Return to Practice</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Close dropdowns when clicking outside -->
+  <script>
+    window.addEventListener('click', function(e) {
+      if (!e.target.closest('.dropdown-container')) {
+        const dd = document.getElementById('data-dropdown');
+        if (dd) dd.classList.remove('show');
+      }
+    });
+  </script>
+
+  <!-- App Script Dependencies -->
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
