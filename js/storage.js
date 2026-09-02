@@ -463,6 +463,49 @@ const StorageManager = (function() {
     return state.grammar[moduleId] || null;
   }
 
+  function clearGrammarItem(moduleId, questionId) {
+    const state = getState();
+    if (state.grammar[moduleId]?.items?.[questionId]) {
+      delete state.grammar[moduleId].items[questionId];
+      const gmod = state.grammar[moduleId];
+      gmod.completedCount = Object.keys(gmod.items).length;
+      gmod.correctCount = Object.values(gmod.items).filter(i => i.isCorrect).length;
+      gmod.status = gmod.completedCount >= 4 ? (gmod.correctCount >= 3 ? CONFIG.STATUS_LABELS.MASTERED : CONFIG.STATUS_LABELS.PRACTICING) : (gmod.completedCount > 0 ? CONFIG.STATUS_LABELS.LEARNING : "Not Started");
+      saveState(state);
+    }
+  }
+
+  function resetGrammarModule(moduleId) {
+    const state = getState();
+    if (state.grammar[moduleId]) {
+      state.grammar[moduleId] = { id: moduleId, status: "Not Started", completedCount: 0, correctCount: 0, items: {} };
+      saveState(state);
+    }
+  }
+
+  function clearGuidedItem(moduleId, itemId) {
+    const state = getState();
+    const mod = state.modules[moduleId];
+    if (mod?.guided?.items?.[itemId]) {
+      delete mod.guided.items[itemId];
+      mod.guided.completedCount = Object.keys(mod.guided.items).length;
+      updateModuleStatus(mod);
+      saveState(state);
+    }
+  }
+
+  function clearIndependentItem(moduleId, itemId) {
+    const state = getState();
+    const mod = state.modules[moduleId];
+    if (mod?.independent?.items?.[itemId]) {
+      delete mod.independent.items[itemId];
+      mod.independent.completedCount = Object.keys(mod.independent.items).length;
+      mod.independent.correctCount = Object.values(mod.independent.items).filter(i => i.isCorrect).length;
+      updateModuleStatus(mod);
+      saveState(state);
+    }
+  }
+
   /**
    * =========================================================================
    * DAILY VOCABULARY PROGRESS METHODS
@@ -652,6 +695,10 @@ const StorageManager = (function() {
     clearAnnotations,
     recordGrammarAnswer,
     getGrammarState,
+    clearGrammarItem,
+    resetGrammarModule,
+    clearGuidedItem,
+    clearIndependentItem,
     recordDailyVocabCompletion,
     getDailyVocabProgress,
     exportData,

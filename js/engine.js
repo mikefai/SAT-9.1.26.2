@@ -366,7 +366,7 @@ const Engine = (function() {
             <h2 class="stage-title">Example ${itemIdx + 1} of ${totalItems}</h2>
           </div>
           <div class="item-progress-pills">
-            ${examples.map((_, i) => `<span class="item-dot ${i === itemIdx ? 'active' : 'completed'}"></span>`).join('')}
+            ${examples.map((_, i) => `<span class="item-dot ${i === itemIdx ? 'active' : (i < itemIdx ? 'completed' : '')}"></span>`).join('')}
           </div>
         </div>
 
@@ -455,54 +455,59 @@ const Engine = (function() {
   }
 
   function revealNextThought(moduleId, itemIdx) {
-    currentThinkAloudStep++;
-    renderStage3WorkedExamples(document.getElementById("stage-canvas"), ACADEMY_CONTENT[moduleId].stage3_workedExamples, moduleId, itemIdx);
+    const examples = ACADEMY_CONTENT[moduleId].stage3_workedExamples;
+    if (currentThinkAloudStep < examples[itemIdx].thinkAloud.length - 1) {
+      currentThinkAloudStep++;
+      renderStage3WorkedExamples(document.getElementById("stage-canvas"), examples, moduleId, itemIdx);
+    }
   }
 
   /**
    * Stage 4: Trap Lab ("Know the Enemy")
    */
-  function renderStage4TrapLab(container, trapDrills, moduleId, itemIdx) {
-    const drill = trapDrills[itemIdx] || trapDrills[0];
-    const totalDrills = trapDrills.length;
+  function renderStage4TrapLab(container, drills, moduleId, itemIdx = 0) {
+    const drill = drills[itemIdx] || drills[0];
+    const totalDrills = drills.length;
     const isLastDrill = itemIdx >= totalDrills - 1;
-    const modState = StorageManager.getModuleState(moduleId);
+
+    const modState = StorageManager.getState().modules[moduleId];
     const prevAttempt = modState?.trapLab?.attempts?.[drill.id];
     const isAnswered = !!prevAttempt;
-    if (isAnswered) {
-      selectedChoiceKey = prevAttempt.selectedTrap;
-    } else {
+    
+    // Reset selectedChoiceKey if unanswered
+    if (!isAnswered) {
       selectedChoiceKey = null;
     }
 
     let optionsPillsHTML = "";
-    drill.options.forEach(opt => {
-      const isSelected = isAnswered && (prevAttempt?.selectedTrap === opt);
-      const isCorrectOption = opt === drill.correctTrap;
-      let buttonClass = "trap-select-btn";
-      
+    Object.keys(TRAP_TAXONOMY).forEach(trapKey => {
+      const isSelected = selectedChoiceKey === trapKey;
+      let btnClass = "trap-select-pill";
+      if (isSelected) btnClass += " selected";
       if (isAnswered) {
-        if (isCorrectOption) buttonClass += " trap-btn-correct";
-        else if (isSelected && !isCorrectOption) buttonClass += " trap-btn-wrong";
+        if (trapKey === drill.correctTrap) btnClass += " correct-trap";
+        else if (isSelected && trapKey !== drill.correctTrap) btnClass += " wrong-trap";
       }
 
       optionsPillsHTML += `
-        <button class="${buttonClass}" onclick="Engine.submitTrapAnswer('${moduleId}', '${drill.id}', '${opt}', '${drill.correctTrap}', ${itemIdx})" ${isAnswered ? 'disabled' : ''}>
-          <span class="trap-opt-icon">${TRAP_TAXONOMY[opt]?.icon || '⚠️'}</span>
-          <span class="trap-opt-text">${opt}</span>
+        <button class="${btnClass}" onclick="Engine.selectTrapChoice('${trapKey}')" ${isAnswered ? 'disabled' : ''}>
+          ${TRAP_TAXONOMY[trapKey].badge} ${trapKey}
         </button>
       `;
     });
 
     container.innerHTML = `
-      <div class="stage-card traplab-stage-card animate-fade-in">
+      <div class="stage-card traplab-card animate-fade-in">
         <div class="stage-card-header flex-between">
           <div>
             <div class="stage-pill">Stage 4 of 6: Trap Lab</div>
             <h2 class="stage-title">Distractor Diagnosis Drill (${itemIdx + 1} of ${totalDrills})</h2>
           </div>
           <div class="item-progress-pills">
-            ${trapDrills.map((_, i) => `<span class="item-dot ${i === itemIdx ? 'active' : 'completed'}"></span>`).join('')}
+            ${drills.map((d, i) => {
+              const isDone = !!modState?.trapLab?.attempts?.[d.id];
+              return `<span class="item-dot ${i === itemIdx ? 'active' : (isDone ? 'completed' : '')}"></span>`;
+            }).join('')}
           </div>
         </div>
 
@@ -683,7 +688,10 @@ const Engine = (function() {
             <h2 class="stage-title">Practice Item ${itemIdx + 1} of ${totalItems}</h2>
           </div>
           <div class="item-progress-pills">
-            ${practiceItems.map((_, i) => `<span class="item-dot ${i === itemIdx ? 'active' : 'completed'}"></span>`).join('')}
+            ${practiceItems.map((d, i) => {
+              const isDone = !!modState?.guided?.items?.[d.id];
+              return `<span class="item-dot ${i === itemIdx ? 'active' : (isDone ? 'completed' : '')}"></span>`;
+            }).join('')}
           </div>
         </div>
 
@@ -711,7 +719,7 @@ const Engine = (function() {
             <div class="passage-body">
               ${injectGlosses(item.passage, item.glosses)}
             </div>
-            ${item.turkishSolverGuide ? renderTurkishSolverCard(item.turkishSolverGuide) : ""}
+            ${(isSubmitted && item.turkishSolverGuide) ? renderTurkishSolverCard(item.turkishSolverGuide) : ""}
           </div>
 
           <!-- Right: Question, Choices, Hint Ladder -->
@@ -749,8 +757,11 @@ const Engine = (function() {
 
         <div class="stage-actions-footer">
           <button class="btn btn-secondary" onclick="App.navigateToStage('${moduleId}', 4)">← Back to Trap Lab</button>
-          ${isSubmitted ? (
-            !isLastItem ? `
+          ${isSubmitted ? `
+            <button class="btn btn-secondary" onclick="Engine.retakeGuidedQuestion('${moduleId}', '${item.id}', ${itemIdx})">
+              🔄 Retake Item
+            </button>
+            ${!isLastItem ? `
               <button class="btn btn-primary" onclick="App.navigateToStage('${moduleId}', 5, ${itemIdx + 1})">
                 Next Guided Item (${itemIdx + 2}/${totalItems}) →
               </button>
@@ -758,8 +769,8 @@ const Engine = (function() {
               <button class="btn btn-primary btn-large" onclick="Engine.advanceStage()">
                 Proceed to Independent Practice (Stage 6) →
               </button>
-            `
-          ) : ""}
+            `}
+          ` : ""}
         </div>
       </div>
     `;
@@ -890,7 +901,7 @@ const Engine = (function() {
             <div class="passage-body">
               ${injectGlosses(item.passage, item.glosses)}
             </div>
-            ${item.turkishSolverGuide ? renderTurkishSolverCard(item.turkishSolverGuide) : ""}
+            ${(isSubmitted && item.turkishSolverGuide) ? renderTurkishSolverCard(item.turkishSolverGuide) : ""}
           </div>
 
           <!-- Right: Question & Choices -->
@@ -914,6 +925,9 @@ const Engine = (function() {
         <div class="stage-actions-footer">
           <button class="btn btn-secondary" onclick="App.navigateToStage('${moduleId}', 5)">← Back to Guided</button>
           ${isSubmitted ? `
+            <button class="btn btn-secondary" onclick="Engine.retakeIndependentQuestion('${moduleId}', '${item.id}', ${itemIdx})">
+              🔄 Retake Item
+            </button>
             <button class="btn btn-primary" onclick="App.navigateToStage('${moduleId}', 6, ${itemIdx + 1})">
               ${itemIdx + 1 < totalItems ? `Next Question (${itemIdx + 2}/${totalItems}) →` : "Proceed to Self-Audit Rubric →"}
             </button>
@@ -1224,11 +1238,17 @@ const Engine = (function() {
       <div class="grammar-lesson-view animate-fade-in">
         <div class="grammar-header-row flex-between">
           <div>
-            <button class="btn btn-secondary btn-small" onclick="App.navigateToGrammarHome()">← Back to Grammar Academy</button>
+            <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.35rem;">
+              <button class="btn btn-secondary btn-small" onclick="App.navigateToGrammarHome()">← Back to Grammar Academy</button>
+              <button class="btn btn-secondary btn-small" onclick="Engine.resetGrammarModuleDrills('${moduleId}')" title="Reset all drills in this module">🔄 Reset All Drills</button>
+            </div>
             <h2 class="grammar-title">${modConfig.icon} ${modConfig.title} (🇹🇷 ${modConfig.turkishTitle})</h2>
           </div>
           <div class="item-progress-pills">
-            ${drills.map((_, i) => `<span class="item-dot ${i === itemIdx ? 'active' : 'completed'}"></span>`).join('')}
+            ${drills.map((d, i) => {
+              const isDone = !!gState.items?.[d.id];
+              return `<span class="item-dot ${i === itemIdx ? 'active' : (isDone ? 'completed' : '')}"></span>`;
+            }).join('')}
           </div>
         </div>
 
@@ -1257,7 +1277,7 @@ const Engine = (function() {
             <div class="grammar-passage-box">
               <p class="grammar-sentence-text">${item.passage}</p>
             </div>
-            ${item.turkishSolverGuide ? renderTurkishSolverCard(item.turkishSolverGuide) : ""}
+            ${(isSubmitted && item.turkishSolverGuide) ? renderTurkishSolverCard(item.turkishSolverGuide) : ""}
           </div>
 
           <div class="sat-question-pane">
@@ -1278,6 +1298,9 @@ const Engine = (function() {
 
         <div class="stage-actions-footer">
           ${isSubmitted ? `
+            <button class="btn btn-secondary" onclick="Engine.retakeGrammarQuestion('${moduleId}', '${item.id}', ${itemIdx})">
+              🔄 Retake This Question
+            </button>
             <button class="btn btn-primary" onclick="App.navigateToGrammarModule('${moduleId}', ${isLastDrill ? 0 : itemIdx + 1})">
               ${!isLastDrill ? `Next Grammar Question (${itemIdx + 2}/${totalDrills}) →` : "Complete Grammar Module ✓"}
             </button>
@@ -1331,6 +1354,35 @@ const Engine = (function() {
     }
 
     renderGrammarModule(null, moduleId, itemIdx);
+  }
+
+  function retakeGrammarQuestion(moduleId, questionId, itemIdx) {
+    StorageManager.clearGrammarItem(moduleId, questionId);
+    selectedChoiceKey = null;
+    renderGrammarModule(null, moduleId, itemIdx);
+  }
+
+  function resetGrammarModuleDrills(moduleId) {
+    if (confirm("Reset all drill progress in this module to practice again?")) {
+      StorageManager.resetGrammarModule(moduleId);
+      selectedChoiceKey = null;
+      renderGrammarModule(null, moduleId, 0);
+    }
+  }
+
+  function retakeGuidedQuestion(moduleId, itemId, itemIdx) {
+    StorageManager.clearGuidedItem(moduleId, itemId);
+    selectedChoiceKey = null;
+    currentHintIndex = 0;
+    const items = ACADEMY_CONTENT[moduleId].stage5_guidedPractice;
+    renderStage5GuidedPractice(document.getElementById("stage-canvas"), items, moduleId, itemIdx);
+  }
+
+  function retakeIndependentQuestion(moduleId, itemId, itemIdx) {
+    StorageManager.clearIndependentItem(moduleId, itemId);
+    selectedChoiceKey = null;
+    const items = ACADEMY_CONTENT[moduleId].stage6_independentPractice;
+    renderStage6IndependentPractice(document.getElementById("stage-canvas"), items, moduleId, itemIdx);
   }
 
   /**
@@ -1761,6 +1813,10 @@ const Engine = (function() {
     renderGrammarModule,
     handleGrammarChoice,
     submitGrammarAnswer,
+    retakeGrammarQuestion,
+    resetGrammarModuleDrills,
+    retakeGuidedQuestion,
+    retakeIndependentQuestion,
     renderDailyVocabDashboard,
     toggleVocabMastery,
     submitDailyVocabQuiz,
