@@ -108,8 +108,11 @@ const Analytics = (function() {
         type: "START",
         moduleId: "MOD-0",
         moduleTitle: "Reading Like the SAT Wants",
+        badge: "🎯 Step 1: Foundations",
         headline: "Begin with Foundational Active Reading",
+        rationale: "Start by completing Module 0 to master pivot transitions, extreme distractor elimination, and claim-evidence architecture before tackling specific question types.",
         advice: "Start by completing Module 0 to master pivot transitions, extreme distractor elimination, and claim-evidence architecture before tackling specific question types.",
+        actionText: "Launch Foundation Module",
         actionUrl: "#module/MOD-0/1"
       };
     }
@@ -141,17 +144,59 @@ const Analytics = (function() {
     let trapAdvice = "";
     if (topTrap && maxTrapCount > 0) {
       const trapInfo = TRAP_TAXONOMY[topTrap];
-      trapAdvice = `You frequently get caught by <strong>${topTrap}</strong> distractors (${maxTrapCount} times). Counter-strategy: ${trapInfo.howToDefeat}`;
+      trapAdvice = `You frequently get caught by <strong>${topTrap}</strong> distractors (${maxTrapCount} times). Counter-strategy: ${trapInfo?.howToDefeat || 'Carefully verify textual qualifiers.'}`;
     }
+
+    const recText = `Your current accuracy is ${Math.round(weakest.indAccuracy * 100)}% with an average of ${weakest.avgHints} hints per guided question. ${trapAdvice}`;
 
     return {
       type: "PRACTICE_WEAKEST",
       moduleId: weakest.id,
       moduleTitle: weakest.title,
+      badge: "⚠️ Priority Weakness Drill",
       headline: `Priority Focus: ${weakest.title}`,
-      advice: `Your current accuracy is ${Math.round(weakest.indAccuracy * 100)}% with an average of ${weakest.avgHints} hints per guided question. ${trapAdvice}`,
+      rationale: recText,
+      advice: recText,
+      actionText: `Practice ${weakest.title}`,
       actionUrl: `#module/${weakest.id}/5`
     };
+  }
+
+  /**
+   * Generates a downloadable Personal Diagnostic & Strategy Report (Markdown)
+   */
+  function generatePersonalStudyReport(state) {
+    const global = getGlobalSummary(state);
+    const score = StorageManager.calculateProjectedScore();
+    const mistakes = StorageManager.getMistakes();
+    const streak = state.studyStreak || { current: 1 };
+    const masteredVocab = Object.keys(state.masteredVocabWords || {}).length;
+
+    let md = `# SAT Reading & Writing Academy — Kişisel Gelişim & Strateji Raporu\n`;
+    md += `*Tarih: ${new Date().toLocaleDateString('tr-TR')} | Çalışma Serisi: ${streak.current} Gün*\n\n`;
+    md += `## 🎯 Tahmini Digital SAT Reading & Writing Puan Aralığı: **${score.bandLow} – ${score.bandHigh} / 800**\n`;
+    md += `- **Genel Doğruluk Oranı:** %${Math.round(global.overallAccuracy * 100)}\n`;
+    md += `- **Müfredat Tamamlama:** %${global.overallMasteryPct} (${global.totalMastered}/7 Modül Master Seviyesinde)\n`;
+    md += `- **Ezberlenen Kritik SAT Kelimeleri:** ${masteredVocab} Kelime\n`;
+    md += `- **Hata Defterindeki Toplam Soru:** ${mistakes.length} (${mistakes.filter(m => m.resolved).length} Çözüldü)\n\n`;
+
+    md += `## 📊 Modül Bazında Performans Tablosu\n\n`;
+    md += `| Modül | Durum | Guided İpuçları | Independent Doğruluk |\n`;
+    md += `|---|---|---|---|\n`;
+    global.modulesSummary.forEach(m => {
+      md += `| ${m.title} | ${m.status} | ${m.guidedCount} soru (${m.avgHints} ipucu/soru) | %${Math.round(m.indAccuracy * 100)} (${m.indCorrect}/${m.indCount}) |\n`;
+    });
+
+    md += `\n## ⚠️ Düşülen SAT Tuzakları Dağılımı\n\n`;
+    const trapErrors = state.trapErrors || {};
+    Object.entries(trapErrors).forEach(([trap, count]) => {
+      if (count > 0) {
+        md += `- **${trap}:** ${count} kez düşüldü -> *Savunma:* ${TRAP_TAXONOMY[trap]?.howToDefeat || ''}\n`;
+      }
+    });
+
+    md += `\n---\n*SAT Reading & Writing Academy ile düzenli çalışarak eksiklerinizi hızla kapatabilirsiniz.*\n`;
+    return md;
   }
 
   /**
@@ -290,6 +335,7 @@ const Analytics = (function() {
     getModuleSummary,
     getGlobalSummary,
     getPersonalizedRecommendation,
+    generatePersonalStudyReport,
     renderRadialGaugeSVG,
     renderAccuracyBarChartSVG,
     renderTrapDonutSVG

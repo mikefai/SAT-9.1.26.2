@@ -100,33 +100,33 @@ const MODULES_CONFIG = [
     estimatedMinutes: 25,
     icon: "📚",
     subtitle: "Contextual vocabulary, tone matching, secondary meanings & blanking strategies",
-    methodName: "The Blank-and-Predict Protocol",
+    methodName: "The BLANK Method",
     stagesCount: 6
   },
   {
     id: "MOD-2",
-    slug: "cross-text-connections",
-    number: 2,
-    title: "Cross-Text Connections",
-    domain: "Craft & Structure",
-    domainTag: "Craft & Structure",
-    estimatedMinutes: 30,
-    icon: "⚖️",
-    subtitle: "Synthesizing paired perspectives, tracking author agreements and disagreements",
-    methodName: "The Two-Pass Perspective Matrix",
-    stagesCount: 6
-  },
-  {
-    id: "MOD-3",
     slug: "text-structure-and-purpose",
-    number: 3,
+    number: 2,
     title: "Text Structure & Purpose",
     domain: "Craft & Structure",
     domainTag: "Craft & Structure",
     estimatedMinutes: 25,
     icon: "🏗️",
     subtitle: "Rhetorical roles, paragraph function, and overall passage architecture",
-    methodName: "The Structural Verb Filter",
+    methodName: "The Blueprint Technique",
+    stagesCount: 6
+  },
+  {
+    id: "MOD-3",
+    slug: "cross-text-connections",
+    number: 3,
+    title: "Cross-Text Connections",
+    domain: "Craft & Structure",
+    domainTag: "Craft & Structure",
+    estimatedMinutes: 30,
+    icon: "⚖️",
+    subtitle: "Synthesizing paired perspectives, tracking author agreements and disagreements",
+    methodName: "The Venn Bridge Protocol",
     stagesCount: 6
   },
   {
@@ -139,7 +139,7 @@ const MODULES_CONFIG = [
     estimatedMinutes: 25,
     icon: "🎯",
     subtitle: "Isolating the primary thesis, filtering secondary illustrations, and strict textual fidelity",
-    methodName: "The Scope-Match Sieve",
+    methodName: "The Umbrella Test",
     stagesCount: 6
   },
   {

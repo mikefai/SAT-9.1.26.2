@@ -261,7 +261,7 @@ const App = (function() {
   }
 
   /**
-   * Renders the Skill Map Grid
+   * Renders the Skill Map Grid with Personal Study Dashboard Bar
    */
   function renderSkillMap() {
     const container = document.getElementById("modules-grid");
@@ -270,10 +270,62 @@ const App = (function() {
     const state = StorageManager.getState();
     const globalSummary = Analytics.getGlobalSummary(state);
     const recommendation = Analytics.getPersonalizedRecommendation(state);
+    const score = StorageManager.calculateProjectedScore();
+    const streak = state.studyStreak || { current: 1, best: 1, minutesToday: 5, targetMinutes: 20 };
+    const masteredVocabCount = Object.keys(state.masteredVocabWords || {}).length;
+    const unresolvedMistakes = (state.errorLog || []).filter(m => !m.resolved).length;
 
     const globalBar = document.getElementById("global-mastery-bar");
     if (globalBar) {
       globalBar.innerHTML = `
+        <!-- Personal Study Header Bar -->
+        <div class="personal-study-bar animate-fade-in">
+          <div class="study-bar-left">
+            <div class="student-avatar-pill">
+              <span class="avatar-icon">🎓</span>
+              <div class="avatar-info">
+                <span class="student-name">SAT Aspirant Study Hub</span>
+                <span class="study-level">${CONFIG.STUDENT_LEVEL}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="study-bar-metrics">
+            <div class="study-stat-box streak-stat" title="Günlük Çalışma Serisi">
+              <span class="stat-icon">🔥</span>
+              <div class="stat-meta">
+                <span class="stat-value">${streak.current} Gün</span>
+                <span class="stat-label">Çalışma Serisi</span>
+              </div>
+            </div>
+
+            <div class="study-stat-box score-stat" title="Mevcut performansa göre tahmini SAT Reading & Writing puanı">
+              <span class="stat-icon">🎯</span>
+              <div class="stat-meta">
+                <span class="stat-value">${score.bandLow} – ${score.bandHigh}</span>
+                <span class="stat-label">Tahmini SAT Puanı</span>
+              </div>
+            </div>
+
+            <div class="study-stat-box vocab-stat" onclick="App.navigateToDailyVocab(1)" title="Ezberlenen SAT Kelimeleri">
+              <span class="stat-icon">⭐</span>
+              <div class="stat-meta">
+                <span class="stat-value">${masteredVocabCount} Kelime</span>
+                <span class="stat-label">Ezberlendi</span>
+              </div>
+            </div>
+
+            <div class="study-stat-box error-stat" onclick="App.navigateToErrorLog()" title="Hata Defterinde Bekleyen Yanlışlar">
+              <span class="stat-icon">📓</span>
+              <div class="stat-meta">
+                <span class="stat-value">${unresolvedMistakes} Soru</span>
+                <span class="stat-label">Tekrar Edilecek</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Global Mastery Overview Card -->
         <div class="global-overview-card animate-fade-in">
           <div class="overview-metric">
             <span class="metric-num">${globalSummary.overallMasteryPct}%</span>
@@ -288,9 +340,9 @@ const App = (function() {
             <span class="metric-label">Exam Pace Accuracy</span>
           </div>
           <div class="overview-recommendation-box">
-            <div class="rec-badge">Recommended Next Step</div>
+            <div class="rec-badge">${recommendation.badge}</div>
             <div class="rec-title">${recommendation.headline}</div>
-            <a href="${recommendation.actionUrl}" class="btn btn-accent btn-small">Launch Step →</a>
+            <a href="${recommendation.actionUrl}" class="btn btn-accent btn-small">${recommendation.actionText || 'Launch Step'} →</a>
           </div>
         </div>
       `;
@@ -347,6 +399,7 @@ const App = (function() {
     const state = StorageManager.getState();
     const global = Analytics.getGlobalSummary(state);
     const recommendation = Analytics.getPersonalizedRecommendation(state);
+    const score = StorageManager.calculateProjectedScore();
 
     const gaugeContainer = document.getElementById("analytics-radial-gauge");
     const barChartContainer = document.getElementById("analytics-barchart-container");
@@ -368,11 +421,19 @@ const App = (function() {
 
     if (recContainer) {
       recContainer.innerHTML = `
-        <div class="rec-headline-badge">${recommendation.badge}</div>
+        <div class="coaching-top-row flex-between">
+          <div class="rec-headline-badge">${recommendation.badge}</div>
+          <div class="score-projection-pill">
+            <span>🎯 Tahmini Puan: <strong>${score.bandLow} – ${score.bandHigh}</strong> / 800</span>
+          </div>
+        </div>
         <h3 class="rec-headline-title">${recommendation.headline}</h3>
-        <p class="rec-rationale">${recommendation.rationale}</p>
-        <div class="rec-button-wrap">
+        <p class="rec-rationale">${recommendation.rationale || recommendation.advice}</p>
+        <div class="rec-button-wrap flex-between">
           <a href="${recommendation.actionUrl}" class="btn btn-primary">${recommendation.actionText} →</a>
+          <button class="btn btn-secondary" onclick="App.downloadPersonalStudyReport()">
+            📥 Kişisel Gelişim Raporunu İndir (.md)
+          </button>
         </div>
       `;
     }
@@ -394,6 +455,20 @@ const App = (function() {
         `;
       }).join('');
     }
+  }
+
+  function downloadPersonalStudyReport() {
+    const state = StorageManager.getState();
+    const md = Analytics.generatePersonalStudyReport(state);
+    const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `SAT_Kisisel_Gelisim_Raporu_${new Date().toISOString().slice(0, 10)}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   /**
@@ -496,7 +571,7 @@ const App = (function() {
                   <strong>🇹🇷</strong> <span class="tr-translation">${v.tr}</span>
                 </div>
                 <p class="tr-en-definition">${v.en}</p>
-                <div class="tr-sat-tip"><span class="tip-spark">💡 SAT İpucu:</span> ${v.tip}</div>
+                <div class="tr-sat-tip"><span class="tip-spark">💡 SAT İpucu:</span> ${v.satTip || v.tip || ''}</div>
               </div>
             `).join('')}
           </div>
@@ -679,6 +754,22 @@ const App = (function() {
         if (typeof StudentTools !== "undefined") {
           StudentTools.toggleNotepadDrawer();
         }
+      } else if (key === "Enter") {
+        const submitBtn = document.querySelector(".question-submit-area button:not([disabled])");
+        if (submitBtn) {
+          submitBtn.click();
+          return;
+        }
+        const nextBtn = document.querySelector(".stage-actions-footer button.btn-primary:not([disabled])");
+        if (nextBtn) {
+          nextBtn.click();
+          return;
+        }
+        const thinkNextBtn = document.querySelector(".think-aloud-nav button.btn-primary:not([disabled])");
+        if (thinkNextBtn) {
+          thinkNextBtn.click();
+          return;
+        }
       }
     });
   }
@@ -702,6 +793,7 @@ const App = (function() {
     closeTurkishModal,
     switchTurkishTab,
     filterTurkishVocab,
+    downloadPersonalStudyReport,
     exportDataFile,
     triggerImportDialog,
     confirmResetProgress

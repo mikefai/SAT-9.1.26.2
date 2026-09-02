@@ -36,6 +36,48 @@ const Engine = (function() {
       return;
     }
 
+    // Update module header bar
+    const modConfig = MODULES_CONFIG.find(m => m.id === moduleId) || MODULES_CONFIG[0];
+    const domainEl = document.getElementById("module-banner-domain");
+    const titleEl = document.getElementById("module-banner-title");
+    const methodBtn = document.getElementById("module-banner-method-btn");
+
+    if (domainEl) domainEl.textContent = modConfig.domainTag || modConfig.domain;
+    if (titleEl) titleEl.textContent = `${modConfig.number === 0 ? "Foundation" : "Module " + modConfig.number}: ${modConfig.title}`;
+    if (methodBtn) {
+      methodBtn.onclick = () => App.openMethodModal(moduleId);
+      methodBtn.title = `View ${modConfig.methodName} (Shortcut: M)`;
+    }
+
+    // Render interactive stage stepper (Stages 1 through 6)
+    const stepper = document.getElementById("stage-stepper");
+    if (stepper) {
+      const stageMeta = [
+        { num: 1, name: "The Skill", icon: "🎯" },
+        { num: 2, name: "The Method", icon: "📜" },
+        { num: 3, name: "Worked Ex.", icon: "🧠" },
+        { num: 4, name: "Trap Lab", icon: "⚠️" },
+        { num: 5, name: "Guided", icon: "🤝" },
+        { num: 6, name: "Independent", icon: "⏱️" }
+      ];
+      const modState = StorageManager.getModuleState(moduleId);
+      const completedStages = modState?.stagesCompleted || [];
+
+      stepper.innerHTML = stageMeta.map(s => {
+        const isDone = completedStages.includes(s.num);
+        const isActive = s.num === stageNum;
+        return `
+          <button class="stage-step-btn ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}" onclick="App.navigateToStage('${moduleId}', ${s.num}, 0)">
+            <span class="step-btn-num">Stage ${s.num} ${isDone ? '<span class="step-done-check">✓</span>' : ''}</span>
+            <span class="step-btn-name">${s.icon} ${s.name}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    // Record 2 minutes of active study session
+    StorageManager.recordStudyTime(2);
+
     switch (stageNum) {
       case 1:
         renderStage1Skill(container, modContent.stage1_skill, moduleId);
@@ -426,27 +468,31 @@ const Engine = (function() {
     const isLastDrill = itemIdx >= totalDrills - 1;
     const modState = StorageManager.getModuleState(moduleId);
     const prevAttempt = modState?.trapLab?.attempts?.[drill.id];
+    const isAnswered = !!prevAttempt;
+    if (isAnswered) {
+      selectedChoiceKey = prevAttempt.selectedTrap;
+    } else {
+      selectedChoiceKey = null;
+    }
 
     let optionsPillsHTML = "";
     drill.options.forEach(opt => {
-      const isSelected = selectedChoiceKey === opt || prevAttempt?.selectedTrap === opt;
+      const isSelected = isAnswered && (prevAttempt?.selectedTrap === opt);
       const isCorrectOption = opt === drill.correctTrap;
       let buttonClass = "trap-select-btn";
       
-      if (prevAttempt || selectedChoiceKey) {
+      if (isAnswered) {
         if (isCorrectOption) buttonClass += " trap-btn-correct";
         else if (isSelected && !isCorrectOption) buttonClass += " trap-btn-wrong";
       }
 
       optionsPillsHTML += `
-        <button class="${buttonClass}" onclick="Engine.submitTrapAnswer('${moduleId}', '${drill.id}', '${opt}', '${drill.correctTrap}', ${itemIdx})">
+        <button class="${buttonClass}" onclick="Engine.submitTrapAnswer('${moduleId}', '${drill.id}', '${opt}', '${drill.correctTrap}', ${itemIdx})" ${isAnswered ? 'disabled' : ''}>
           <span class="trap-opt-icon">${TRAP_TAXONOMY[opt]?.icon || '⚠️'}</span>
           <span class="trap-opt-text">${opt}</span>
         </button>
       `;
     });
-
-    const isAnswered = !!prevAttempt || selectedChoiceKey !== null;
 
     container.innerHTML = `
       <div class="stage-card traplab-stage-card animate-fade-in">
@@ -481,8 +527,8 @@ const Engine = (function() {
           ${isAnswered ? `
             <div class="traplab-feedback-card animate-fade-in">
               <div class="feedback-header">
-                <span class="feedback-icon">${(prevAttempt?.isCorrect || selectedChoiceKey === drill.correctTrap) ? '🎯' : '⚠️'}</span>
-                <h4>${(prevAttempt?.isCorrect || selectedChoiceKey === drill.correctTrap) ? 'Accurate Diagnosis!' : 'Trap Misidentified'}</h4>
+                <span class="feedback-icon">${prevAttempt?.isCorrect ? '🎯' : '⚠️'}</span>
+                <h4>${prevAttempt?.isCorrect ? 'Accurate Diagnosis!' : 'Trap Misidentified'}</h4>
               </div>
               <p><strong>Correct Trap:</strong> ${drill.correctTrap}</p>
               <p class="feedback-rationale">${drill.rationale}</p>
@@ -582,13 +628,16 @@ const Engine = (function() {
     const isLastItem = itemIdx >= totalItems - 1;
     const modState = StorageManager.getModuleState(moduleId);
     const existingRecord = modState?.guided?.items?.[item.id];
-    const isSubmitted = !!existingRecord || selectedChoiceKey !== null;
+    const isSubmitted = !!existingRecord;
+    if (isSubmitted) {
+      selectedChoiceKey = existingRecord.selected;
+    }
 
     let choicesHTML = "";
     item.choices.forEach(choiceText => {
       const letter = choiceText.substring(0, 1);
       const isEliminated = eliminatedChoices.has(letter);
-      const isSelected = (existingRecord?.selected === letter) || (selectedChoiceKey === letter);
+      const isSelected = isSubmitted ? (existingRecord?.selected === letter) : (selectedChoiceKey === letter);
       const isCorrect = letter === item.answer;
 
       let btnClass = "sat-choice-button";
@@ -768,13 +817,16 @@ const Engine = (function() {
     const totalItems = practiceItems.length;
     const modState = StorageManager.getModuleState(moduleId);
     const existingRecord = modState?.independent?.items?.[item.id];
-    const isSubmitted = !!existingRecord || selectedChoiceKey !== null;
+    const isSubmitted = !!existingRecord;
+    if (isSubmitted) {
+      selectedChoiceKey = existingRecord.selected;
+    }
 
     let choicesHTML = "";
     item.choices.forEach(choiceText => {
       const letter = choiceText.substring(0, 1);
       const isEliminated = eliminatedChoices.has(letter);
-      const isSelected = (existingRecord?.selected === letter) || (selectedChoiceKey === letter);
+      const isSelected = isSubmitted ? (existingRecord?.selected === letter) : (selectedChoiceKey === letter);
       const isCorrect = letter === item.answer;
 
       let btnClass = "sat-choice-button";
@@ -1139,12 +1191,18 @@ const Engine = (function() {
     const state = StorageManager.getState();
     const gState = state.grammar?.[moduleId] || { items: {} };
     const prevRecord = gState.items?.[item.id];
-    const isSubmitted = !!prevRecord || selectedChoiceKey !== null;
+    const isSubmitted = !!prevRecord;
+
+    if (isSubmitted) {
+      selectedChoiceKey = prevRecord.selected;
+    } else {
+      selectedChoiceKey = null;
+    }
 
     let choicesHTML = "";
     item.choices.forEach(ch => {
       const letter = ch.substring(0, 1);
-      const isSelected = (prevRecord?.selected === letter) || (selectedChoiceKey === letter);
+      const isSelected = isSubmitted ? (prevRecord?.selected === letter) : (selectedChoiceKey === letter);
       const isCorrect = letter === item.answer;
 
       let btnClass = "sat-choice-button";
@@ -1286,6 +1344,7 @@ const Engine = (function() {
     const sets = DAILY_VOCAB_SETS || [];
     const dayData = sets.find(s => s.day === selectedDay) || sets[0];
     const progress = StorageManager.getDailyVocabProgress();
+    const masteredList = StorageManager.getMasteredVocabWordsList();
 
     let dayPillsHTML = "";
     sets.forEach(s => {
@@ -1300,11 +1359,17 @@ const Engine = (function() {
 
     let flashcardsHTML = "";
     dayData.words.forEach(w => {
+      const isMastered = StorageManager.isVocabWordMastered(w.word);
       flashcardsHTML += `
-        <div class="vocab-flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="vocab-flip-card ${isMastered ? 'card-mastered' : ''}" onclick="this.classList.toggle('flipped')">
           <div class="flip-card-inner">
             <div class="flip-card-front">
-              <span class="fc-pos">${w.pos}</span>
+              <div class="fc-top-bar">
+                <span class="fc-pos">${w.pos}</span>
+                <button class="fc-master-btn ${isMastered ? 'active' : ''}" title="${isMastered ? 'Öğrenildi olarak işaretlendi' : 'Öğrendim olarak işaretle'}" onclick="event.stopPropagation(); Engine.toggleVocabMastery('${w.word}', ${selectedDay})">
+                  ${isMastered ? '⭐ Öğrenildi' : '☆ Öğrendim'}
+                </button>
+              </div>
               <h3 class="fc-word">${w.word}</h3>
               <span class="fc-prompt">🔄 Tıkla / Çevir (Türkçe & İpucu)</span>
             </div>
@@ -1313,6 +1378,9 @@ const Engine = (function() {
               <p class="fc-en-def">${w.en}</p>
               <div class="fc-example"><em>"${w.ex}"</em></div>
               <div class="fc-mnemonic">💡 ${w.mnemonic}</div>
+              <button class="fc-master-btn back-btn ${isMastered ? 'active' : ''}" onclick="event.stopPropagation(); Engine.toggleVocabMastery('${w.word}', ${selectedDay})">
+                ${isMastered ? '⭐ Ezberlendi' : '☆ Ezberledim Olarak İşaretle'}
+              </button>
             </div>
           </div>
         </div>
@@ -1329,9 +1397,12 @@ const Engine = (function() {
             <div class="stage-pill">30-Day SAT Vocabulary Challenge</div>
             <h2>📅 ${dayData.title || dayData.theme || ('Day ' + dayData.day)}</h2>
           </div>
-          <button class="btn btn-secondary" onclick="App.openTurkishModal('vocab')">
-            📖 150+ Kelimelik SAT Sözlüğünü Aç
-          </button>
+          <div class="vocab-header-actions" style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+            <span class="vocab-mastered-pill">⭐ ${masteredList.length} Kelime Ezberlendi</span>
+            <button class="btn btn-secondary" onclick="App.openTurkishModal('vocab')">
+              📖 150+ Kelimelik SAT Sözlüğü
+            </button>
+          </div>
         </div>
 
         <div class="day-pills-scroll-row">
@@ -1352,7 +1423,6 @@ const Engine = (function() {
           <div class="quiz-options-grid">
             ${dayData.quiz.options.map(opt => {
               const letter = opt.substring(0, 1);
-              const isCorrectOpt = letter === dayData.quiz.answer;
               return `
                 <button class="quiz-choice-btn" onclick="Engine.submitDailyVocabQuiz(${dayData.day}, '${letter}', '${dayData.quiz.answer}')">
                   ${opt}
@@ -1362,12 +1432,17 @@ const Engine = (function() {
           </div>
           ${isQuizDone ? `
             <div class="quiz-feedback-box animate-fade-in">
-              <p><strong>Sonuç:</strong> ${dayData.quiz.explanation}</p>
+              <p><strong>Sonuç & Açıklama:</strong> ${dayData.quiz.explanation}</p>
             </div>
           ` : ""}
         </div>
       </div>
     `;
+  }
+
+  function toggleVocabMastery(word, currentDay) {
+    StorageManager.toggleVocabWordMastery(word);
+    renderDailyVocabDashboard(null, currentDay);
   }
 
   function submitDailyVocabQuiz(dayNumber, selectedChoice, correctAnswer) {
@@ -1387,7 +1462,7 @@ const Engine = (function() {
         passage: "Daily Vocabulary Practice",
         selected: selectedChoice,
         answer: correctAnswer,
-        trapType: "Vocabulary Meaning Error",
+        trapType: "Wrong Meaning",
         explanation: dayData.quiz.explanation
       });
     }
@@ -1397,9 +1472,11 @@ const Engine = (function() {
 
   /**
    * =========================================================================
-   * AUTOMATIC ERROR LOG (OTOMATİK HATA DEFTERİ) ENGINE
+   * AUTOMATIC ERROR LOG (OTOMATİK HATA DEFTERİ) & INTERACTIVE RETEST ENGINE
    * =========================================================================
    */
+  let activeRetestMistakeId = null;
+
   function renderErrorLogView(container, filterType = "ALL") {
     const target = container || document.getElementById("error-log-canvas") || document.getElementById("stage-canvas");
     if (!target) return;
@@ -1427,9 +1504,12 @@ const Engine = (function() {
               <span class="mistake-trap-pill">⚠️ ${m.trapType}</span>
             </div>
             <div class="mistake-actions">
+              <button class="btn btn-small btn-primary" onclick="Engine.openMistakeRetest('${m.id}')">
+                🔄 Tekrar Çöz
+              </button>
               ${m.resolved ? '<span class="resolved-tag">✓ Çözüldü</span>' : `
                 <button class="btn btn-small btn-accent" onclick="Engine.resolveMistakeItem('${m.id}')">
-                  ✓ Öğrenildi Olarak İşaretle
+                  ✓ Öğrenildi İşaretle
                 </button>
               `}
               <button class="btn-icon-delete" onclick="Engine.deleteMistakeItem('${m.id}')" title="Kayıttan Sil">✕</button>
@@ -1447,6 +1527,8 @@ const Engine = (function() {
 
             <p class="mistake-explanation-text">💡 ${m.explanation}</p>
 
+            ${m.retryCount ? `<div class="retest-count-badge">🔄 ${m.retryCount} kez tekrar denendi</div>` : ''}
+
             <div class="mistake-reflection-box">
               <label>📝 Kendi Notunuz (Neden bu tuzağa düştünüz?):</label>
               <div class="reflection-input-row">
@@ -1459,13 +1541,15 @@ const Engine = (function() {
       `).join('');
     }
 
+    const unresolvedCount = StorageManager.getMistakes().filter(m => !m.resolved).length;
+
     target.innerHTML = `
       <div class="error-log-view animate-fade-in">
         <div class="error-log-header flex-between">
           <div>
             <div class="stage-pill">Kişiselleştirilmiş Hata Defteri</div>
             <h2>📓 Otomatik Hata Defteri & Tuzak Analizi</h2>
-            <p>Yanlış yaptığınız her soru buraya kaydedilir. Tuzakları inceleyin ve notlar alarak pekiştirin.</p>
+            <p>Yanlış yaptığınız her soru buraya kaydedilir. Soruları tekrar çözün, tuzakları kavrayın ve zayıf noktalarınızı pekiştirin.</p>
           </div>
           <div class="error-log-filter-pills">
             <button class="filter-pill ${filterType === 'ALL' ? 'active' : ''}" onclick="Engine.renderErrorLogView(null, 'ALL')">Tümü (${StorageManager.getMistakes().length})</button>
@@ -1480,6 +1564,90 @@ const Engine = (function() {
         </div>
       </div>
     `;
+  }
+
+  function openMistakeRetest(mistakeId) {
+    const mistake = StorageManager.getMistakes().find(m => m.id === mistakeId);
+    if (!mistake) return;
+
+    const modal = document.createElement("div");
+    modal.id = "mistake-retest-modal";
+    modal.className = "modal-backdrop open";
+    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+
+    modal.innerHTML = `
+      <div class="modal-card mistake-retest-card animate-slide-up">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <span class="modal-icon">🔄</span>
+            <h3>Yanlış Soruyu Tekrar Çöz: ${mistake.moduleTitle}</h3>
+          </div>
+          <button class="modal-close-btn" onclick="document.getElementById('mistake-retest-modal').remove()">✕</button>
+        </div>
+        <div class="modal-body-scroll">
+          <div class="retest-trap-alert">
+            <span>⚠️ <strong>Dikkat:</strong> Bu soruda daha önce <em>"${mistake.trapType}"</em> tuzağına düşmüştünüz.</span>
+          </div>
+          ${mistake.passage ? `<div class="retest-passage-box"><p>${mistake.passage}</p></div>` : ''}
+          <div class="retest-question-box"><h4>${mistake.question}</h4></div>
+          <div class="retest-options-list">
+            ${["A", "B", "C", "D"].map(opt => `
+              <button class="retest-option-btn" id="retest-opt-${opt}" onclick="Engine.submitMistakeRetest('${mistake.id}', '${opt}', '${mistake.answer}')">
+                <span class="choice-letter">${opt}</span>
+                <span class="choice-text-content">Seçenek ${opt}</span>
+              </button>
+            `).join('')}
+          </div>
+          <div id="retest-feedback-area" class="retest-feedback-box" style="display: none;"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="document.getElementById('mistake-retest-modal').remove()">Kapat</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+  }
+
+  function submitMistakeRetest(mistakeId, chosenOption, correctAnswer) {
+    const isCorrect = chosenOption.toUpperCase() === correctAnswer.toUpperCase();
+    const feedbackArea = document.getElementById("retest-feedback-area");
+    
+    // Highlight options
+    ["A", "B", "C", "D"].forEach(opt => {
+      const btn = document.getElementById(`retest-opt-${opt}`);
+      if (btn) {
+        btn.disabled = true;
+        if (opt.toUpperCase() === correctAnswer.toUpperCase()) {
+          btn.classList.add("choice-confirmed-correct");
+        } else if (opt.toUpperCase() === chosenOption.toUpperCase() && !isCorrect) {
+          btn.classList.add("choice-confirmed-wrong");
+        }
+      }
+    });
+
+    StorageManager.recordMistakeRetest(mistakeId, isCorrect);
+
+    if (feedbackArea) {
+      feedbackArea.style.display = "block";
+      if (isCorrect) {
+        feedbackArea.className = "retest-feedback-box retest-success animate-fade-in";
+        feedbackArea.innerHTML = `
+          <h4>🎉 Harika! Soruyu Doğru Çözdünüz!</h4>
+          <p>Tuzaktan başarıyla kurtuldunuz. Soru otomatik olarak <strong>Öğrenildi (Resolved)</strong> olarak güncellendi.</p>
+        `;
+      } else {
+        feedbackArea.className = "retest-feedback-box retest-failure animate-fade-in";
+        feedbackArea.innerHTML = `
+          <h4>⚠️ Yanlış Seçim.</h4>
+          <p>Doğru cevap <strong>Seçenek ${correctAnswer}</strong> olmalıdır. Açıklamayı tekrar gözden geçirin.</p>
+        `;
+      }
+    }
+
+    setTimeout(() => {
+      renderErrorLogView(null);
+    }, 1200);
   }
 
   function resolveMistakeItem(mistakeId) {
@@ -1594,8 +1762,11 @@ const Engine = (function() {
     handleGrammarChoice,
     submitGrammarAnswer,
     renderDailyVocabDashboard,
+    toggleVocabMastery,
     submitDailyVocabQuiz,
     renderErrorLogView,
+    openMistakeRetest,
+    submitMistakeRetest,
     resolveMistakeItem,
     deleteMistakeItem,
     saveMistakeReflection

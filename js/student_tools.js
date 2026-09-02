@@ -178,6 +178,8 @@ const StudentTools = (function() {
     panes.forEach(p => p.style.fontSize = `${passageFontSize}rem`);
   }
 
+  let searchQuery = "";
+
   /**
    * Notepad / Scratchpad Drawer UI
    */
@@ -199,6 +201,14 @@ const StudentTools = (function() {
         </div>
       </div>
 
+      <!-- Quick Template Inserters -->
+      <div class="notepad-templates-bar">
+        <span class="templates-label">⚡ Şablonlar:</span>
+        <button class="template-pill-btn" onclick="StudentTools.insertTemplate('trap')">⚠️ Tuzak Analizi</button>
+        <button class="template-pill-btn" onclick="StudentTools.insertTemplate('vocab')">📖 Kelime & False Friend</button>
+        <button class="template-pill-btn" onclick="StudentTools.insertTemplate('grammar')">🧱 Dilbilgisi Kuralı</button>
+      </div>
+
       <div class="notepad-new-note-box">
         <input type="text" id="notepad-title-input" placeholder="Not başlığı (örn. Qualify kuralı, FANBOYS formülü)..." />
         <textarea id="notepad-content-input" placeholder="Kendi notlarınızı, düşülen tuzakları ve formülleri buraya yazın..." rows="4"></textarea>
@@ -215,6 +225,10 @@ const StudentTools = (function() {
         </div>
       </div>
 
+      <div class="notepad-search-bar">
+        <input type="text" id="notepad-search-input" placeholder="Notlarda ara..." oninput="StudentTools.searchNotes(this.value)" />
+      </div>
+
       <div class="notepad-filters-row" id="notepad-filters-container">
         <button class="filter-pill ${activeTagFilter === 'ALL' ? 'active' : ''}" data-tag="ALL" onclick="StudentTools.filterNotes('ALL')">Tümü</button>
         <button class="filter-pill ${activeTagFilter === 'General' ? 'active' : ''}" data-tag="General" onclick="StudentTools.filterNotes('General')">Strateji</button>
@@ -226,6 +240,31 @@ const StudentTools = (function() {
       <div class="notepad-notes-list" id="notepad-notes-container"></div>
     `;
     document.body.appendChild(drawer);
+  }
+
+  function insertTemplate(type) {
+    const titleInput = document.getElementById("notepad-title-input");
+    const contentInput = document.getElementById("notepad-content-input");
+    const tagSelect = document.getElementById("notepad-tag-select");
+
+    if (type === "trap") {
+      if (titleInput) titleInput.value = "⚠️ Tuzak Notu: [Tuzak Adı]";
+      if (contentInput) contentInput.value = "Düşülen Hata: \nNeden Düştüm: \nBir Dahaki Sefere Stratejim: Metindeki sınırlayıcı (qualifier) ifadelere odaklan.";
+      if (tagSelect) tagSelect.value = "Traps";
+    } else if (type === "vocab") {
+      if (titleInput) titleInput.value = "📖 SAT Kelimesi: [Kelime]";
+      if (contentInput) contentInput.value = "Kelime: \nTürkçe Anlamı: \nSAT Akademik Anlamı / Yanıltıcı Algı (False Friend): \nÖrnek Cümle: ";
+      if (tagSelect) tagSelect.value = "Vocabulary";
+    } else if (type === "grammar") {
+      if (titleInput) titleInput.value = "🧱 Dilbilgisi Formülü: [Kural]";
+      if (contentInput) contentInput.value = "Kural: \nFormül: [Bağımsız Cümle] + [Noktalı Virgül / FANBOYS] + [Bağımsız Cümle]\nSık Yapılan Hata: ";
+      if (tagSelect) tagSelect.value = "Grammar";
+    }
+  }
+
+  function searchNotes(query) {
+    searchQuery = (query || "").toLowerCase().trim();
+    renderNotesList();
   }
 
   function filterNotes(tag) {
@@ -288,12 +327,19 @@ const StudentTools = (function() {
     if (activeTagFilter !== "ALL") {
       notes = notes.filter(n => n.tag === activeTagFilter);
     }
+    if (searchQuery) {
+      notes = notes.filter(n => 
+        (n.title && n.title.toLowerCase().includes(searchQuery)) ||
+        (n.content && n.content.toLowerCase().includes(searchQuery)) ||
+        (n.tag && n.tag.toLowerCase().includes(searchQuery))
+      );
+    }
 
     if (notes.length === 0) {
       container.innerHTML = `
         <div class="notepad-empty-state">
           <span>🗒️</span>
-          <p>Henüz kayıtlı notunuz yok. Yukarıdaki kutudan soru ipuçları veya kelime notları ekleyin.</p>
+          <p>${searchQuery ? 'Aramanıza uygun not bulunamadı.' : 'Henüz kayıtlı notunuz yok. Yukarıdaki kutudan soru ipuçları veya kelime notları ekleyin.'}</p>
         </div>
       `;
       return;
@@ -354,6 +400,8 @@ const StudentTools = (function() {
     saveNewNote,
     deleteNote,
     filterNotes,
+    searchNotes,
+    insertTemplate,
     exportNotesMarkdown
   };
 })();

@@ -75,13 +75,14 @@ flowchart LR
 
 This application is **100% dependency-free** and requires zero installation, build tools, or network connections:
 
-1. Double-click `sat-reading-academy/index.html` to open directly in any modern browser (`Chrome`, `Edge`, `Firefox`, `Safari`).
-2. Alternatively, run a local web server:
+1. Double-click `index.html` to open directly in any modern browser (`Chrome`, `Edge`, `Firefox`, `Safari`).
+2. Run the dedicated local web service:
    ```bash
-   npx serve sat-reading-academy
+   npm start
    # or
-   python -m http.server 8000 --directory sat-reading-academy
+   node server.js
    ```
+   Open **`http://localhost:3000`** in your browser.
 3. All data persists automatically in your browser's `localStorage`.
 
 ---

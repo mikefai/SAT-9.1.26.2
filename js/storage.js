@@ -22,6 +22,14 @@ const StorageManager = (function() {
       teacherMode: false,
       activeModuleId: "MOD-0",
       activeStageNumber: 1,
+      studyStreak: {
+        current: 1,
+        best: 1,
+        lastStudyDate: new Date().toISOString().slice(0, 10),
+        minutesToday: 5,
+        targetMinutes: 20
+      },
+      masteredVocabWords: {}, // Key: word, Value: ISO timestamp
       modules: {},
       grammar: {},
       errorLog: [], // Automatic Error Log for mistakes
@@ -105,8 +113,33 @@ const StorageManager = (function() {
       if (!parsed.studentNotes) parsed.studentNotes = {};
       if (!parsed.textAnnotations) parsed.textAnnotations = {};
       if (!parsed.dailyVocabProgress) parsed.dailyVocabProgress = {};
+      if (!parsed.masteredVocabWords) parsed.masteredVocabWords = {};
       if (!parsed.grammar) parsed.grammar = {};
       if (parsed.turkishSupport === undefined) parsed.turkishSupport = true;
+      if (!parsed.studyStreak) {
+        parsed.studyStreak = {
+          current: 1,
+          best: 1,
+          lastStudyDate: new Date().toISOString().slice(0, 10),
+          minutesToday: 5,
+          targetMinutes: 20
+        };
+      } else {
+        // Streak day rollover check
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const lastStr = parsed.studyStreak.lastStudyDate || todayStr;
+        if (lastStr !== todayStr) {
+          const diffDays = Math.round((new Date(todayStr) - new Date(lastStr)) / (1000 * 60 * 60 * 24));
+          if (diffDays === 1) {
+            parsed.studyStreak.current = (parsed.studyStreak.current || 1) + 1;
+            parsed.studyStreak.best = Math.max(parsed.studyStreak.best || 1, parsed.studyStreak.current);
+          } else if (diffDays > 1) {
+            parsed.studyStreak.current = 1;
+          }
+          parsed.studyStreak.lastStudyDate = todayStr;
+          parsed.studyStreak.minutesToday = 0;
+        }
+      }
       return parsed;
     } catch (e) {
       console.error("Failed to parse LocalStorage state:", e);
@@ -453,6 +486,112 @@ const StorageManager = (function() {
   }
 
   /**
+   * =========================================================================
+   * PERSONAL STUDY TOOL: WORD MASTERY & RETESTS
+   * =========================================================================
+   */
+  function toggleVocabWordMastery(word) {
+    const state = getState();
+    if (!state.masteredVocabWords) state.masteredVocabWords = {};
+    if (state.masteredVocabWords[word]) {
+      delete state.masteredVocabWords[word];
+    } else {
+      state.masteredVocabWords[word] = new Date().toISOString();
+    }
+    saveState(state);
+    return !!state.masteredVocabWords[word];
+  }
+
+  function isVocabWordMastered(word) {
+    const state = getState();
+    return !!(state.masteredVocabWords && state.masteredVocabWords[word]);
+  }
+
+  function getMasteredVocabWordsList() {
+    const state = getState();
+    return Object.keys(state.masteredVocabWords || {});
+  }
+
+  function recordMistakeRetest(mistakeId, isCorrect) {
+    const state = getState();
+    const mistake = (state.errorLog || []).find(m => m.id === mistakeId);
+    if (mistake) {
+      mistake.retryCount = (mistake.retryCount || 0) + 1;
+      if (isCorrect) {
+        mistake.resolved = true;
+        mistake.resolvedAt = new Date().toISOString();
+      }
+      saveState(state);
+    }
+    return mistake;
+  }
+
+  function recordStudyTime(minutes = 5) {
+    const state = getState();
+    if (!state.studyStreak) {
+      state.studyStreak = { current: 1, best: 1, lastStudyDate: new Date().toISOString().slice(0, 10), minutesToday: 0, targetMinutes: 20 };
+    }
+    state.studyStreak.minutesToday = (state.studyStreak.minutesToday || 0) + minutes;
+    saveState(state);
+  }
+
+  function calculateProjectedScore() {
+    const state = getState();
+    let totalQuestions = 0;
+    let totalCorrect = 0;
+
+    // Reading Modules
+    MODULES_CONFIG.forEach(m => {
+      const mod = state.modules[m.id];
+      if (mod) {
+        const ind = Object.values(mod.independent?.items || {});
+        ind.forEach(i => {
+          totalQuestions++;
+          if (i.isCorrect) totalCorrect++;
+        });
+        const gd = Object.values(mod.guided?.items || {});
+        gd.forEach(g => {
+          totalQuestions += 0.5;
+          if (g.isCorrect) totalCorrect += 0.5;
+        });
+      }
+    });
+
+    // Grammar Modules
+    Object.values(state.grammar || {}).forEach(g => {
+      const items = Object.values(g.items || {});
+      items.forEach(i => {
+        totalQuestions++;
+        if (i.isCorrect) totalCorrect++;
+      });
+    });
+
+    if (totalQuestions < 3) {
+      return {
+        bandLow: 560,
+        bandHigh: 630,
+        accuracy: 0,
+        status: "Diagnostic Pending",
+        totalEvaluated: totalQuestions
+      };
+    }
+
+    const accuracy = totalCorrect / totalQuestions;
+    // Map accuracy 0.0 - 1.0 to 400 - 800 SAT Reading & Writing scale
+    const baseScore = Math.round(400 + (accuracy * 380) + (Math.min(10, Object.keys(state.masteredVocabWords || {}).length) * 2));
+    const roundedLow = Math.max(420, Math.min(780, Math.round((baseScore - 30) / 10) * 10));
+    const roundedHigh = Math.max(460, Math.min(800, Math.round((baseScore + 30) / 10) * 10));
+
+    return {
+      bandLow: roundedLow,
+      bandHigh: roundedHigh,
+      accuracy: Math.round(accuracy * 100),
+      status: accuracy >= 0.85 ? "Competitive 700+" : accuracy >= 0.70 ? "Targeting 650+" : "Building Foundations",
+      totalEvaluated: Math.round(totalQuestions)
+    };
+  }
+
+  /**
    * Export all user progress as JSON text
    */
   function exportData() {
@@ -499,6 +638,12 @@ const StorageManager = (function() {
     resolveMistake,
     deleteMistake,
     saveMistakeNote,
+    recordMistakeRetest,
+    toggleVocabWordMastery,
+    isVocabWordMastered,
+    getMasteredVocabWordsList,
+    recordStudyTime,
+    calculateProjectedScore,
     saveNote,
     getNotes,
     deleteNote,

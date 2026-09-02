@@ -4351,7 +4351,7 @@ const GRAMMAR_CONTENT = {
     "drills": [
       {
         "id": "GRAM-D1-01",
-        "passage": "In 1898, Marie Curie discovered the radioactive elements polonium and radium _______ she received the Nobel Prize in Physics four years later.",
+        "passage": "In 1898, Marie Curie discovered the radioactive elements polonium and _______ she received the Nobel Prize in Physics four years later.",
         "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
         "choices": [
           "A) radium, consequently,",
@@ -4442,9 +4442,9 @@ const GRAMMAR_CONTENT = {
         "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
         "choices": [
           "A) life, and",
-          "B) life, his",
-          "C) life; his",
-          "D) life his"
+          "B) life,",
+          "C) life;",
+          "D) life"
         ],
         "answer": "C",
         "strategyHeuristic": "İki tam bağımsız cümle noktalı virgül (;) ile doğrudan ve en temiz şekilde birleştirilir.",
@@ -4497,7 +4497,7 @@ const GRAMMAR_CONTENT = {
     "drills": [
       {
         "id": "GRAM-D2-01",
-        "passage": "Deep-sea anglerfish utilize a specialized bioluminescent lure known as the esca to attract prey in total darkness _______ the glowing organ contains millions of symbiotic photobacteria.",
+        "passage": "Deep-sea anglerfish utilize a specialized bioluminescent lure known as the esca to attract prey in total _______ the glowing organ contains millions of symbiotic photobacteria.",
         "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
         "choices": [
           "A) darkness:",
@@ -4526,10 +4526,10 @@ const GRAMMAR_CONTENT = {
       },
       {
         "id": "GRAM-D2-02",
-        "passage": "Biochemist Jennifer Doudna and her colleagues developed CRISPR-Cas9 _______ a revolutionary gene-editing technology that allows scientists to alter DNA sequences with unprecedented precision.",
+        "passage": "Biochemist Jennifer Doudna and her colleagues developed _______ a revolutionary gene-editing technology that allows scientists to alter DNA sequences with unprecedented precision.",
         "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
         "choices": [
-          "A) technology—",
+          "A) CRISPR-Cas9 technology—",
           "B) CRISPR-Cas9—",
           "C) CRISPR-Cas9,",
           "D) CRISPR-Cas9:"
@@ -4555,13 +4555,13 @@ const GRAMMAR_CONTENT = {
       },
       {
         "id": "GRAM-D2-03",
-        "passage": "The observatory's high-altitude location in the Atacama Desert _______ exceptional atmospheric clarity, minimal cloud cover, and zero light pollution _______ makes it an ideal site for deep-space infrared astronomy.",
+        "passage": "The observatory's high-altitude location in the Atacama Desert _______ makes it an ideal site for deep-space infrared astronomy.",
         "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
         "choices": [
-          "A) Desert—offering exceptional atmospheric clarity, minimal cloud cover, and zero light pollution—",
-          "B) Desert, offering exceptional atmospheric clarity, minimal cloud cover, and zero light pollution—",
-          "C) Desert—offering exceptional atmospheric clarity, minimal cloud cover, and zero light pollution,",
-          "D) Desert; offering exceptional atmospheric clarity, minimal cloud cover, and zero light pollution;"
+          "A) —offering exceptional atmospheric clarity, minimal cloud cover, and zero light pollution—",
+          "B) , offering exceptional atmospheric clarity, minimal cloud cover, and zero light pollution—",
+          "C) —offering exceptional atmospheric clarity, minimal cloud cover, and zero light pollution,",
+          "D) ; offering exceptional atmospheric clarity, minimal cloud cover, and zero light pollution;"
         ],
         "answer": "A",
         "strategyHeuristic": "Cümle içine giren açıklama tire ile açılmışsa mutlaka tire ile kapatılmalıdır (Punctuation Symmetry).",
