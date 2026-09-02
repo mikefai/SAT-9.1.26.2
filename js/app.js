@@ -446,8 +446,8 @@ const App = (function() {
             <td><strong>${mod.number === 0 ? "Foundation" : "M" + mod.number}: ${mod.title}</strong></td>
             <td><span class="status-badge ${statusClass}">${mod.status}</span></td>
             <td>${mod.stagesCompletedCount}/6</td>
-            <td>${mod.guidedCompleted} items (${mod.hintsUsedTotal} hints)</td>
-            <td>${mod.accuracyPct}% (${mod.independentCorrect}/${mod.independentCompleted})</td>
+            <td>${mod.guidedCompleted || 0} items (${mod.hintsUsedTotal || 0} hints)</td>
+            <td>${mod.independentCompleted > 0 ? `${mod.accuracyPct}% (${mod.independentCorrect}/${mod.independentCompleted})` : 'N/A (0/0)'}</td>
             <td>
               <button class="btn btn-small btn-secondary" onclick="App.navigateToModule('${mod.id}')">Open</button>
             </td>
@@ -800,6 +800,7 @@ const App = (function() {
 
   return {
     init,
+    handleHashRouting,
     toggleTheme,
     toggleEsl,
     toggleTeacherMode,

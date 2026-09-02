@@ -23,6 +23,7 @@ const Engine = (function() {
     currentStageNumber = stageNum;
     eliminatedChoices.clear();
     selectedChoiceKey = null;
+    if (stageNum !== 6) stopTimer();
 
     const container = document.getElementById("stage-canvas");
     if (!container) return;
@@ -896,7 +897,7 @@ const Engine = (function() {
           </div>
           <div style="display: flex; align-items: center; gap: 1rem;">
             <div class="item-progress-pills">
-              ${independentItems.map((d, i) => {
+              ${practiceItems.map((d, i) => {
                 const isDone = !!modState?.independent?.items?.[d.id];
                 const isFlagged = StorageManager.isQuestionFlagged(d.id);
                 let dotClass = "item-dot";
@@ -1459,8 +1460,8 @@ const Engine = (function() {
   function retakeIndependentQuestion(moduleId, itemId, itemIdx) {
     StorageManager.clearIndependentItem(moduleId, itemId);
     selectedChoiceKey = null;
-    const items = ACADEMY_CONTENT[moduleId].stage6_independentPractice;
-    renderStage6IndependentPractice(document.getElementById("stage-canvas"), items, moduleId, itemIdx);
+    const modContent = ACADEMY_CONTENT[moduleId];
+    renderStage6IndependentPractice(document.getElementById("stage-canvas"), modContent.stage6_independentPractice, modContent.selfAssessmentRubric, moduleId, itemIdx);
   }
 
   function toggleItemFlag(itemId, type, moduleId, itemIdx, stageNum = 5) {
@@ -1473,7 +1474,7 @@ const Engine = (function() {
       if (stageNum === 5) {
         renderStage5GuidedPractice(stageCanvas, modContent.stage5_guidedPractice, moduleId, itemIdx);
       } else if (stageNum === 6) {
-        renderStage6IndependentPractice(stageCanvas, modContent.stage6_independentPractice, moduleId, itemIdx);
+        renderStage6IndependentPractice(stageCanvas, modContent.stage6_independentPractice, modContent.selfAssessmentRubric, moduleId, itemIdx);
       }
     }
   }
@@ -1856,11 +1857,16 @@ const Engine = (function() {
     timerInterval = setInterval(() => {
       timerSecondsRemaining--;
       const display = document.getElementById("exam-timer-display");
-      if (display) {
-        display.querySelector(".timer-digits").textContent = formatTime(timerSecondsRemaining);
-        if (timerSecondsRemaining <= 15) {
-          display.classList.add("timer-warning");
-        }
+      if (!display) {
+        stopTimer();
+        return;
+      }
+      const digits = display.querySelector(".timer-digits");
+      if (digits) {
+        digits.textContent = formatTime(timerSecondsRemaining);
+      }
+      if (timerSecondsRemaining <= 15) {
+        display.classList.add("timer-warning");
       }
 
       if (timerSecondsRemaining <= 0) {
@@ -1902,6 +1908,8 @@ const Engine = (function() {
     submitRubric,
     advanceStage,
     injectGlosses,
+    startTimer,
+    stopTimer,
     renderGrammarHome,
     renderGrammarModule,
     handleGrammarChoice,

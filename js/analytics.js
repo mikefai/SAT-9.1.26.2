@@ -33,6 +33,7 @@ const Analytics = (function() {
 
     return {
       id: moduleId,
+      number: modConfig.number,
       title: modConfig.title,
       domain: modConfig.domain,
       status: mod.status,
@@ -40,10 +41,15 @@ const Analytics = (function() {
       stagesCompletedCount,
       totalStages: modConfig.stagesCount,
       guidedCount,
+      guidedCompleted: guidedCount,
       guidedAccuracy,
+      hintsUsedTotal: guidedHintsSum,
       avgHints: parseFloat(avgHints.toFixed(2)),
       indCount,
+      independentCompleted: indCount,
       indCorrect,
+      independentCorrect: indCorrect,
+      accuracyPct: indCount > 0 ? Math.round(indAccuracy * 100) : 0,
       indAccuracy: parseFloat(indAccuracy.toFixed(2)),
       isMastered,
       selfAssessment: mod.selfAssessment

@@ -429,6 +429,986 @@ const DAILY_VOCAB_SETS = [
       answer: "A",
       explanation: "Eskiden sadece büyük şehirlere 'circumscribed' (sınırlandırılmış) iken, yeni projelerle kırsalda bile 'ubiquitous' (her yerde bulunur) hale gelmiştir."
     }
+  },
+  {
+    "day": 11,
+    "title": "Day 11: Contrast, Paradox & Juxtaposition",
+    "words": [
+      {
+        "word": "Juxtapose",
+        "pos": "verb",
+        "en": "To place close together or side by side for comparison or contrast",
+        "tr": "Yan yana koymak (karşılaştırmak için)",
+        "ex": "The exhibition juxtaposes classical marble sculptures with contemporary digital installations.",
+        "mnemonic": "Juxta (yanında) + pose (poz vermek) -> kıyaslamak için yan yana koymak."
+      },
+      {
+        "word": "Anachronistic",
+        "pos": "adj",
+        "en": "Belonging to a period other than that in which it exists; chronologically out of place",
+        "tr": "Çağdışı, kronolojik olarak ait olmadığı zamana ait",
+        "ex": "Using mechanical typewriters in a high-tech data laboratory seemed completely anachronistic.",
+        "mnemonic": "Ana- (ters) + chrono (zaman) -> zaman hatası içeren."
+      },
+      {
+        "word": "Incongruous",
+        "pos": "adj",
+        "en": "Not in harmony or keeping with the surroundings; out of place",
+        "tr": "Uyumsuz, yersiz, ortama uymayan",
+        "ex": "The ornate Victorian chandelier was strikingly incongruous with the minimalist industrial concrete warehouse.",
+        "mnemonic": "In- (olumsuz) + congruent (uyumlu) -> ahenksiz."
+      },
+      {
+        "word": "Paradoxical",
+        "pos": "adj",
+        "en": "Seemingly absurd or contradictory but in reality expressing a possible truth",
+        "tr": "Çelişkili görünen ama doğru olan, paradoksal",
+        "ex": "It is paradoxical that increased automation has sometimes resulted in longer working hours for software engineers.",
+        "mnemonic": "Paradox -> zıtlıktan doğan şaşırtıcı gerçek."
+      }
+    ],
+    "quiz": {
+      "sentence": "By placing traditional acoustic folk instruments alongside synthesized electronic rhythms, the composer created an _______ sonic landscape that _______ listeners' conventional notions of genre boundaries.",
+      "options": [
+        "A) anachronistic ... confirmed",
+        "B) incongruous ... challenged",
+        "C) obsolete ... bolstered",
+        "D) dogmatic ... substantiated"
+      ],
+      "answer": "B",
+      "explanation": "Zıt enstrümanları yan yana koymak 'incongruous' (şaşırtıcı ve uyumsuz) bir ses atmosferi üretir ve dinleyicilerin tür sınırları algısına meydan okur ('challenged')."
+    }
+  },
+  {
+    "day": 12,
+    "title": "Day 12: Explicitness, Clarity & Ambiguity",
+    "words": [
+      {
+        "word": "Unequivocal",
+        "pos": "adj",
+        "en": "Leaving no doubt; clear, unambiguous, and unmistakable",
+        "tr": "Kesin, şüpheye yer bırakmayan, sarih",
+        "ex": "The Supreme Court delivered an unequivocal ruling protecting investigative journalism.",
+        "mnemonic": "Un- (olumsuz) + equivocal (muğlak) -> hiçbir şüpheye yer bırakmayan kesinlik."
+      },
+      {
+        "word": "Ambiguous",
+        "pos": "adj",
+        "en": "Open to more than one interpretation; having a double meaning; unclear",
+        "tr": "Belirsiz, iki anlama gelebilen",
+        "ex": "The treaty's ambiguous wording regarding territorial waters caused renewed diplomatic friction.",
+        "mnemonic": "Ambi- (her iki yön) -> net olmayan."
+      },
+      {
+        "word": "Conspicuous",
+        "pos": "adj",
+        "en": "Standing out so as to be clearly visible; attracting notice or attention",
+        "tr": "Göze çarpan, belirgin, dikkat çekici",
+        "ex": "Her bright yellow coat made her conspicuous among the sea of dark suits.",
+        "mnemonic": "Conspicuous -> 'Con-spect' (herkesin gözünün baktığı)."
+      },
+      {
+        "word": "Opaque",
+        "pos": "adj (SAT special)",
+        "en": "Not transparent; difficult or impossible to understand",
+        "tr": "Anlaşılması güç, karmaşık, kapalı",
+        "ex": "The bureaucrat's opaque prose disguised the fact that funding had been halved.",
+        "mnemonic": "Opaque SAT'de opak bardak değil, 'anlaşılmaz, karanlık metin' anlamında test edilir."
+      }
+    ],
+    "quiz": {
+      "sentence": "While the initial press release was intentionally _______ and left room for multiple interpretations, the formal committee report offered an _______ timeline for completion.",
+      "options": [
+        "A) ambiguous ... unequivocal",
+        "B) unequivocal ... ambiguous",
+        "C) candid ... opaque",
+        "D) dogmatic ... tenuous"
+      ],
+      "answer": "A",
+      "explanation": "'While' zıtlığı: İlk açıklama birden fazla yoruma açık ('ambiguous') iken, resmi rapor net ve kesin ('unequivocal') bir takvim sunmuştur."
+    }
+  },
+  {
+    "day": 13,
+    "title": "Day 13: Authority, Orthodoxy & Nonconformity",
+    "words": [
+      {
+        "word": "Orthodox",
+        "pos": "adj",
+        "en": "Conforming to what is generally or traditionally accepted as right or true",
+        "tr": "Geleneksel, yerleşik kurallara uyan",
+        "ex": "He challenged orthodox macroeconomic theories by emphasizing behavioral irrationality.",
+        "mnemonic": "Ortho (düzgün/standart) + dox (inanç) -> ana akım inanç."
+      },
+      {
+        "word": "Heterodox",
+        "pos": "adj",
+        "en": "Not conforming with accepted or orthodox standards or beliefs",
+        "tr": "Alışılagelmişin dışında, aykırı, gelenekdışı",
+        "ex": "The economist’s heterodox monetary proposals were initially dismissed by central bankers.",
+        "mnemonic": "Hetero (farklı) + dox (inanç) -> ana akıma uymayan görüş."
+      },
+      {
+        "word": "Iconoclast",
+        "pos": "noun",
+        "en": "A person who attacks cherished beliefs or established institutions",
+        "tr": "Yerleşik inanç ve tabuları yıkan kimse",
+        "ex": "Steve Jobs was renowned as an iconoclast who upended the traditional personal computing industry.",
+        "mnemonic": "Icon (kutsal tasvir) + clast (kıran) -> tabu yıkıcı."
+      },
+      {
+        "word": "Dogma",
+        "pos": "noun",
+        "en": "A principle or set of principles laid down by an authority as incontrovertibly true",
+        "tr": "Dogma, sorgulanmadan kabul edilen öğreti",
+        "ex": "Scientific inquiry thrives only when researchers are willing to discard outdated dogma.",
+        "mnemonic": "Dogma -> sorgulanması yasaklanmış inanç."
+      }
+    ],
+    "quiz": {
+      "sentence": "Celebrated as an intellectual _______, the physicist refused to adhere to established scientific _______, developing instead a radically new theory of cosmic expansion.",
+      "options": [
+        "A) iconoclast ... dogma",
+        "B) partisan ... evidence",
+        "C) conformist ... hypothesis",
+        "D) spectator ... ambiguity"
+      ],
+      "answer": "A",
+      "explanation": "Kurallara uymayan fizikçi 'iconoclast' (tabu yıkıcı) olarak nitelenir ve yerleşik dogmalara ('dogma') boyun eğmeyi reddeder."
+    }
+  },
+  {
+    "day": 14,
+    "title": "Day 14: Restraint, Moderation & Austerity",
+    "words": [
+      {
+        "word": "Temper",
+        "pos": "verb (SAT special)",
+        "en": "To act as a neutralizing or moderating force to; mitigate; soften",
+        "tr": "Yumuşatmak, hafifletmek, dengelemek",
+        "ex": "The finance minister tempered his optimism with warnings about rising inflation.",
+        "mnemonic": "Temper SAT'de 'öfke' değil, 'aşırılığı törpülemek, dengelemek' anlamındadır."
+      },
+      {
+        "word": "Ascetic",
+        "pos": "adj",
+        "en": "Characterized by severe self-discipline and abstention from all forms of indulgence",
+        "tr": "Çileci, zevkten arınmış, aşırı sade",
+        "ex": "The monk lived an ascetic existence in a remote stone hermitage.",
+        "mnemonic": "Ascetic -> 'Asil sadelik' içinde dünyevi zevkleri reddetmek."
+      },
+      {
+        "word": "Abstain",
+        "pos": "verb",
+        "en": "Restrain oneself from doing or enjoying something; formally decline to vote",
+        "tr": "Kaçınmak, uzak durmak, çekimser kalmak",
+        "ex": "During negotiations, several delegates chose to abstain from voting on the controversial amendment.",
+        "mnemonic": "Ab- (uzak) + stain -> lekelenmemek için uzak durmak."
+      },
+      {
+        "word": "Moderate",
+        "pos": "verb",
+        "en": "To make or become less extreme, intense, or violent",
+        "tr": "Ilıımlılaştırmak, yatıştırmak",
+        "ex": "The presence of large ocean bodies moderates coastal seasonal temperatures.",
+        "mnemonic": "Moderate -> aşırılıkları dengeye çekmek."
+      }
+    ],
+    "quiz": {
+      "sentence": "Although the quarterly corporate earnings report showed historic revenue growth, the CEO wisely _______ her enthusiasm by highlighting potential supply chain bottlenecks in the coming fiscal year.",
+      "options": [
+        "A) tempered",
+        "B) exacerbated",
+        "C) repudiated",
+        "D) augmented"
+      ],
+      "answer": "A",
+      "explanation": "'Although' yapısı: Gelir rekor kırsa da CEO heyecanını riskleri belirterek dengelemiş / yumuşatmıştır ('tempered')."
+    }
+  },
+  {
+    "day": 15,
+    "title": "Day 15: Severity, Criticism & Harshness",
+    "words": [
+      {
+        "word": "Acerbic",
+        "pos": "adj",
+        "en": "Sharp and forthright; tasting sour or bitter (metaphorically biting)",
+        "tr": "İğneleyici, zehir zemberek, keskin dilli",
+        "ex": "The theater critic was infamous for her acerbic reviews of poorly staged Broadway revivals.",
+        "mnemonic": "Acerbic -> 'Asit gibi yakıcı' eleştiri üslubu."
+      },
+      {
+        "word": "Caustic",
+        "pos": "adj",
+        "en": "Sarcastic in a scathing and bitter way; able to burn or corrode",
+        "tr": "Yakıcı, aşındırıcı, iğneleyici",
+        "ex": "His caustic remarks in the boardroom created lasting resentment among junior partners.",
+        "mnemonic": "Caustic -> 'Kostik soda' gibi temas ettiği yeri yakan alaycı tavır."
+      },
+      {
+        "word": "Castigate",
+        "pos": "verb",
+        "en": "To reprimand someone severely; punish",
+        "tr": "Ağır şekilde cezalandırmak/paylamak",
+        "ex": "The ethics committee castigated the executive for withholding internal financial audits.",
+        "mnemonic": "Castigate -> 'Kasıtlı hatayı' sertçe paylamak."
+      },
+      {
+        "word": "Astringent",
+        "pos": "adj",
+        "en": "Sharp or severe in manner or style; causing the contraction of body tissues",
+        "tr": "Sert, tavizsiz, keskin",
+        "ex": "Her astringent prose eliminated all sentimentality from the wartime memoirs.",
+        "mnemonic": "Astringent -> cildi gerip sıkılaştıran gibi sert ve süssüz stil."
+      }
+    ],
+    "quiz": {
+      "sentence": "Known for her _______ wit and refusal to indulge flattering platitudes, the columnist wrote a review that _______ the political candidate for his inconsistent voting record.",
+      "options": [
+        "A) acerbic ... castigated",
+        "B) lucid ... championed",
+        "C) flattering ... scrutinized",
+        "D) tenuous ... corroborated"
+      ],
+      "answer": "A",
+      "explanation": "Yaltaklanmayı sevmeyen yazarın keskin/iğneleyici ('acerbic') üslubu adayı tutarsızlığı nedeniyle ağır biçimde eleştirmiştir ('castigated')."
+    }
+  },
+  {
+    "day": 16,
+    "title": "Day 16: Tenacity, Persistence & Permanence",
+    "words": [
+      {
+        "word": "Tenacious",
+        "pos": "adj",
+        "en": "Tending to keep a firm hold of something; clinging or adhering closely; persistent",
+        "tr": "İnatçı, sımsıkı sarılan, vazgeçmeyen",
+        "ex": "Through tenacious investigative reporting, the journalist uncovered the offshore fraud network.",
+        "mnemonic": "Tenacious -> 'Teneke gibi sağlam' ve bırakmayan."
+      },
+      {
+        "word": "Perennial",
+        "pos": "adj",
+        "en": "Lasting or existing for a long or apparently infinite time; continually recurring",
+        "tr": "Kalıcı, çok yıllık, her daim yinelenen",
+        "ex": "Traffic congestion remains a perennial problem for expanding metropolitan transit planners.",
+        "mnemonic": "Perennial -> 'Yıllar boyu (per-annual)' sürüp giden."
+      },
+      {
+        "word": "Inveterate",
+        "pos": "adj",
+        "en": "Having a particular habit, activity, or interest that is long-established and unlikely to change",
+        "tr": "Müzmin, kökleşmiş, iflah olmaz",
+        "ex": "An inveterate skeptic, the historian demanded primary archival proof before accepting the oral myth.",
+        "mnemonic": "In- + veteran (kıdemli) -> alışkanlığı kökleşmiş."
+      },
+      {
+        "word": "Obstinate",
+        "pos": "adj",
+        "en": "Stubbornly refusing to change one's opinion or chosen course of action",
+        "tr": "İnatçı, dik kafalı",
+        "ex": "Despite overwhelming archaeological evidence, the obstinate collector insisted his artifact was authentic.",
+        "mnemonic": "Obstinate -> 'Obstacle' (engel) gibi yerinden kıpırdamayan inatçılık."
+      }
+    ],
+    "quiz": {
+      "sentence": "Urban water scarcity in the arid Southwest is not a temporary crisis but a _______ challenge that will require _______ conservation policies across multiple generations.",
+      "options": [
+        "A) perennial ... tenacious",
+        "B) transient ... dogmatic",
+        "C) novel ... speculative",
+        "D) circumscribed ... candid"
+      ],
+      "answer": "A",
+      "explanation": "Geçici olmayan bir kriz 'perennial' (sürekli/kökleşmiş) bir sorundur ve kararlı/azimle sürdürülen ('tenacious') politikalar gerektirir."
+    }
+  },
+  {
+    "day": 17,
+    "title": "Day 17: Transience, Brevity & Fleetingness",
+    "words": [
+      {
+        "word": "Ephemeral",
+        "pos": "adj",
+        "en": "Lasting for a very short time; transitory",
+        "tr": "Geçici, kısa ömürlü, fani",
+        "ex": "Cherry blossoms create an ephemeral display of beauty that lasts barely two weeks each spring.",
+        "mnemonic": "Ephemeral -> 'Efervesan tablet' gibi suya atınca çabucak kaybolan."
+      },
+      {
+        "word": "Evanescent",
+        "pos": "adj",
+        "en": "Soon passing out of sight, memory, or existence; quickly fading or disappearing",
+        "tr": "Uçucu, kaybolup giden, silik",
+        "ex": "The rainbow was an evanescent phenomenon that dissolved as the storm clouds cleared.",
+        "mnemonic": "Evanescent -> buharlaşan (evaporate) gibi uçup giden."
+      },
+      {
+        "word": "Transient",
+        "pos": "adj",
+        "en": "Lasting only for a short time; impermanent; staying only briefly",
+        "tr": "Geçici, süreksiz, konup göçen",
+        "ex": "Migratory songbirds are transient visitors to the suburban nature preserve.",
+        "mnemonic": "Transient -> 'Transit yolcu' gibi kalıcı olmayan."
+      },
+      {
+        "word": "Fleeting",
+        "pos": "adj",
+        "en": "Lasting for a very short time; brief",
+        "tr": "Göz açıp kapayıncaya kadar süren, anlık",
+        "ex": "He caught only a fleeting glimpse of the snow leopard before it vanished into the crags.",
+        "mnemonic": "Fleet (hızlı kaçan) -> hemen biten."
+      }
+    ],
+    "quiz": {
+      "sentence": "Unlike stone monuments built to withstand millennia of environmental weathering, ice sculptures are inherently _______, melting away after only a few _______ hours in the sunlight.",
+      "options": [
+        "A) ephemeral ... fleeting",
+        "B) durable ... perpetual",
+        "C) ubiquitous ... comprehensive",
+        "D) fastidious ... deliberate"
+      ],
+      "answer": "A",
+      "explanation": "Taş anıtların aksine buz heykelleri doğası gereği geçicidir ('ephemeral') ve birkaç anlık/kısa saatte ('fleeting') erir."
+    }
+  },
+  {
+    "day": 18,
+    "title": "Day 18: Skill, Ingenuity & Artifice",
+    "words": [
+      {
+        "word": "Deft",
+        "pos": "adj",
+        "en": "Neatly skillful and quick in one's movements; demonstrating skill and cleverness",
+        "tr": "Usta, maharetli, çevik",
+        "ex": "With a deft motion of her scalpel, the surgeon removed the benign tumor without damaging nerves.",
+        "mnemonic": "Deft -> 'Defteri ustalıkla dolduran usta el'."
+      },
+      {
+        "word": "Adroit",
+        "pos": "adj",
+        "en": "Clever or skillful in using the hands or mind",
+        "tr": "Becerikli, hünerli, iş bitirici",
+        "ex": "The diplomat was adroit at defusing tense negotiations without conceding essential territory.",
+        "mnemonic": "Adroit -> Fransızca 'droit' (sağ el) -> hünerli."
+      },
+      {
+        "word": "Artless",
+        "pos": "adj (SAT special)",
+        "en": "Without guile or deception; natural and innocent; simple",
+        "tr": "Hilesiz, doğal, içten, samimi",
+        "ex": "The child's artless honesty disarmed the skeptical interrogators.",
+        "mnemonic": "Artless SAT'de 'sanatsız' değil, 'hile ve yapmacıklıktan uzak, saf' demektir."
+      },
+      {
+        "word": "Ingenuous",
+        "pos": "adj",
+        "en": "Innocent and unsuspecting; naive; sincere",
+        "tr": "Saf, iyi niyetli, dolambaçsız",
+        "ex": "He was too ingenuous to recognize the deceptive fine print in the commercial contract.",
+        "mnemonic": "Ingenuous (saf) vs Ingenious (dahi) -> dikkat: 'u' harfi masumiyeti simgeler."
+      }
+    ],
+    "quiz": {
+      "sentence": "Through _______ diplomatic maneuvering, the ambassador prevented an armed escalation while presenting an _______ persona that won the trust of both rival factions.",
+      "options": [
+        "A) adroit ... artless",
+        "B) artless ... polemical",
+        "C) dogmatic ... deft",
+        "D) tenuous ... disingenuous"
+      ],
+      "answer": "A",
+      "explanation": "Krizi önlemek ustaca ('adroit') diplomasi gerektirir, güven kazanmak ise hilesiz ve içten ('artless') bir tavırla mümkündür."
+    }
+  },
+  {
+    "day": 19,
+    "title": "Day 19: Praise, Acclaim & Veneration",
+    "words": [
+      {
+        "word": "Extol",
+        "pos": "verb",
+        "en": "Praise enthusiastically and lavishly",
+        "tr": "Öve öve bitirememek, göklere çıkarmak",
+        "ex": "Critics extolled the young cellist’s technical precision and emotional maturity.",
+        "mnemonic": "Extol -> 'Extra tall' (boyunu aşacak kadar övmek)."
+      },
+      {
+        "word": "Laud",
+        "pos": "verb",
+        "en": "Praise highly, especially in a public context",
+        "tr": "Övmek, takdirle anmak",
+        "ex": "The city council lauded the firefighters for their heroism during the waterfront warehouse blaze.",
+        "mnemonic": "Laud -> 'Applaud' (alkışlamakla övmek)."
+      },
+      {
+        "word": "Revere",
+        "pos": "verb",
+        "en": "Feel deep respect or admiration for something or someone",
+        "tr": "Derin saygı duymak, hürmet etmek",
+        "ex": "Theoretical physicists revere Albert Einstein for fundamentally reshaping humanity's grasp of spacetime.",
+        "mnemonic": "Revere -> 'Reverans' yaparak saygı göstermek."
+      },
+      {
+        "word": "Exalt",
+        "pos": "verb",
+        "en": "Hold in very high regard; think or speak very highly of; elevate to higher rank",
+        "tr": "Yüceltmek, rütbesini/makamını yükseltmek",
+        "ex": "Romantic poetry often exalts wild nature over mechanical industrial civilization.",
+        "mnemonic": "Exalt -> 'Altitude' (yükseğe) çıkarmak."
+      }
+    ],
+    "quiz": {
+      "sentence": "Rather than condemning the novel's unconventional prose rhythms, literary critics across the globe _______ the author for her stylistic audacity and _______ her as a pioneer of postmodern fiction.",
+      "options": [
+        "A) extolled ... lauded",
+        "B) castigated ... repudiated",
+        "C) undermined ... curtailed",
+        "D) mitigated ... moderated"
+      ],
+      "answer": "A",
+      "explanation": "Kınamak yerine yazarı cesaretinden ötürü göklere çıkardılar ('extolled') ve öncü olarak övdüler ('lauded')."
+    }
+  },
+  {
+    "day": 20,
+    "title": "Day 20: Criticism, Censure & Reproach",
+    "words": [
+      {
+        "word": "Censure",
+        "pos": "verb (SAT special)",
+        "en": "Express severe disapproval of someone or something, especially in a formal statement",
+        "tr": "Kınamak, resmi olarak ayıplamak",
+        "ex": "The regulatory body censured the accounting firm for failing to flag inflated corporate balance sheets.",
+        "mnemonic": "Censure 'Sansür' (censor) değildir! Censure 'resmi kınama'dır."
+      },
+      {
+        "word": "Denounce",
+        "pos": "verb",
+        "en": "Publicly declare to be wrong or evil",
+        "tr": "Açıkça suçlamak, kınamak, ihbar etmek",
+        "ex": "The international coalition denounced the unauthorized nuclear tests as a violation of sovereignty.",
+        "mnemonic": "Denounce -> 'De-announce' (halka suç olduğunu haykırmak)."
+      },
+      {
+        "word": "Rebuke",
+        "pos": "verb",
+        "en": "Express sharp disapproval or criticism of someone because of their behavior or actions",
+        "tr": "Azarlamak, terslemek, çıkışmak",
+        "ex": "The judge issued a stinging rebuke to the defense attorney for badgering the vulnerable witness.",
+        "mnemonic": "Rebuke -> 'Rica bitti' diyerek terslemek."
+      },
+      {
+        "word": "Disparage",
+        "pos": "verb",
+        "en": "Regard or represent as being of little worth; belittle",
+        "tr": "Kötülemek, küçük düşürmek, kıymet vermemek",
+        "ex": "Snobbish purists often disparaged popular science writing as an oversimplification of academic research.",
+        "mnemonic": "Disparage -> 'Dis-par' (eşit görmeyip aşağılamak)."
+      }
+    ],
+    "quiz": {
+      "sentence": "When the pharmaceutical company concealed adverse clinical trial results, medical ethicists immediately _______ the deception and urged licensing boards to formally _______ the executives.",
+      "options": [
+        "A) denounced ... censure",
+        "B) lauded ... revere",
+        "C) substantiated ... corroborate",
+        "D) augmented ... qualify"
+      ],
+      "answer": "A",
+      "explanation": "Gizlenen sonuçları etik uzmanları açıkça suçlamış/kınamış ('denounced') ve kurullardan yöneticileri resmi olarak ayıplamalarını ('censure') talep etmiştir."
+    }
+  },
+  {
+    "day": 21,
+    "title": "Day 21: Energy, Passion & Apathy",
+    "words": [
+      {
+        "word": "Zealous",
+        "pos": "adj",
+        "en": "Having or showing passion and devotion; fervent",
+        "tr": "Aşırı gayretli, şevkli, tutkulu",
+        "ex": "The zealous environmental activist rallied thousands of university students to clean the riverbanks.",
+        "mnemonic": "Zealous -> 'Zil çalarak coşkuyla koşan'."
+      },
+      {
+        "word": "Fervent",
+        "pos": "adj",
+        "en": "Having or displaying a passionate intensity",
+        "tr": "Coşkulu, ateşli, candan",
+        "ex": "Her fervent belief in equal educational access motivated her twenty-year literacy campaign.",
+        "mnemonic": "Fervent -> 'Fever' (ateş) gibi sıcak ve tutkulu."
+      },
+      {
+        "word": "Apathetic",
+        "pos": "adj",
+        "en": "Showing or feeling no interest, enthusiasm, or concern",
+        "tr": "Kayıtsız, umursamaz, bezgin",
+        "ex": "Voter turnout dropped sharply as citizens became increasingly apathetic toward political promises.",
+        "mnemonic": "A- (yokluk) + pathos (duygu) -> tamamen duygusuz/ilgisiz."
+      },
+      {
+        "word": "Lethargic",
+        "pos": "adj",
+        "en": "Affected by lethargy; sluggish and apathetic; lacking vitality",
+        "tr": "Uyuşuk, miskin, enerjisiz",
+        "ex": "The extreme summer humidity left the hikers feeling completely lethargic.",
+        "mnemonic": "Lethargic -> kolunu kaldıracak hali olmayan uyuşukluk."
+      }
+    ],
+    "quiz": {
+      "sentence": "While grassroots organizers were _______ in their door-to-door campaigning, the general electorate remained stubbornly _______, resulting in historically low ballot participation.",
+      "options": [
+        "A) zealous ... apathetic",
+        "B) apathetic ... zealous",
+        "C) fastidious ... resilient",
+        "D) circumscribed ... candid"
+      ],
+      "answer": "A",
+      "explanation": "'While' zıtlığı: Organizatörler aşırı gayretli ve tutkulu ('zealous') iken, seçmen kitlesi duyarsız ve kayıtsız ('apathetic') kalmıştır."
+    }
+  },
+  {
+    "day": 22,
+    "title": "Day 22: Generosity, Frugality & Wealth",
+    "words": [
+      {
+        "word": "Munificent",
+        "pos": "adj",
+        "en": "Characterized by or displaying great generosity; lavish",
+        "tr": "Son derece cömert, eli açık",
+        "ex": "A munificent endowment from an anonymous alumna funded ten full university scholarships.",
+        "mnemonic": "Munificent -> 'Muazzam nafaka' gibi bolca bağış yapan."
+      },
+      {
+        "word": "Parsimonious",
+        "pos": "adj",
+        "en": "Unwilling to spend money or use resources; stingy or frugal",
+        "tr": "Aşırı tutumlu, eli sıkı, cimri",
+        "ex": "The parsimonious landlord refused to replace the broken water boiler during sub-freezing weather.",
+        "mnemonic": "Parsimonious -> 'Parasını tutumlu kuruş kuruş sayan'."
+      },
+      {
+        "word": "Magnanimous",
+        "pos": "adj",
+        "en": "Generous or forgiving, especially toward a rival or less powerful person",
+        "tr": "Alçakgönüllü, yüce gönüllü, affedici",
+        "ex": "In a magnanimous victory speech, the newly elected governor praised her opponent’s dedicated public service.",
+        "mnemonic": "Magna (büyük) + animus (ruh) -> büyük ruhlu, affedici."
+      },
+      {
+        "word": "Paucity",
+        "pos": "noun",
+        "en": "The presence of something only in small or insufficient quantities or amounts; scarcity",
+        "tr": "Kıtlık, azlık, yetersizlik",
+        "ex": "The paucity of historical documentation regarding the Olmec civilization hinders archaeological consensus.",
+        "mnemonic": "Paucity -> 'Pauper' (yoksul) gibi elinde çok az şey bulunması."
+      }
+    ],
+    "quiz": {
+      "sentence": "Rather than maintaining a _______ posture that restricted research grants, the philanthropic trust made a _______ multi-million dollar donation to the university oncology laboratory.",
+      "options": [
+        "A) parsimonious ... munificent",
+        "B) munificent ... parsimonious",
+        "C) dogmatic ... tenuous",
+        "D) polemical ... lucid"
+      ],
+      "answer": "A",
+      "explanation": "Araştırma burslarını kısan cimri ('parsimonious') bir tutum yerine vakıf son derece cömert ('munificent') bir bağışta bulunmuştur."
+    }
+  },
+  {
+    "day": 23,
+    "title": "Day 23: Deception, Guile & Pretense",
+    "words": [
+      {
+        "word": "Disingenuous",
+        "pos": "adj",
+        "en": "Not candid or sincere, typically by pretending that one knows less about something than one really does",
+        "tr": "Samimiyetsiz, sinsi, bilmezden gelen",
+        "ex": "It was disingenuous of the lobbyist to claim he had never read the disputed environmental bill.",
+        "mnemonic": "Dis- (olumsuz) + ingenuous (saf) -> saf numarası yapan kurnaz."
+      },
+      {
+        "word": "Specious",
+        "pos": "adj",
+        "en": "Superficially plausible, but actually wrong; misleading in appearance",
+        "tr": "İlk bakışta doğru görünen ama aldatıcı/asılsız",
+        "ex": "The defense attorney built her closing argument on specious analogies that collapsed under empirical scrutiny.",
+        "mnemonic": "Specious -> 'Species' gibi sadece dış görünüşü ikna edici ama içi boş."
+      },
+      {
+        "word": "Duplicity",
+        "pos": "noun",
+        "en": "Deceitfulness; double-dealing",
+        "tr": "İki yüzlülük, hilekarlık",
+        "ex": "The undercover agent revealed the politician's financial duplicity to federal investigators.",
+        "mnemonic": "Duplicity -> 'Duplicate' (iki farklı yüze sahip olma)."
+      },
+      {
+        "word": "Frankness",
+        "pos": "noun",
+        "en": "The quality of being open, honest, and direct in speech or writing",
+        "tr": "Açık sözlülük, dobralık",
+        "ex": "Foreign correspondents appreciated the diplomat's unusual frankness during the private briefing.",
+        "mnemonic": "Frank -> dosdoğru ve dürüst konuşma."
+      }
+    ],
+    "quiz": {
+      "sentence": "The marketing team's defense of the product's safety was ultimately _______; what initially appeared to be sound clinical evidence was revealed under federal investigation to be complete _______.",
+      "options": [
+        "A) specious ... duplicity",
+        "B) unequivocal ... frankness",
+        "C) fastidious ... tenacity",
+        "D) durable ... paucity"
+      ],
+      "answer": "A",
+      "explanation": "İlk başta doğru gibi görünen savunma aslında aldatıcıdır ('specious') ve sağlam kanıt sanılan şey tam bir iki yüzlülüktür ('duplicity')."
+    }
+  },
+  {
+    "day": 24,
+    "title": "Day 24: Abundance, Variety & Scarcity",
+    "words": [
+      {
+        "word": "Copious",
+        "pos": "adj",
+        "en": "Abundant in supply or quantity; profuse",
+        "tr": "Bol, bereketli, çok sayıda",
+        "ex": "The botanist took copious notes throughout her six-month expedition in the tropical cloud forest.",
+        "mnemonic": "Copious -> 'Cornucopia' (bereket boynuzu) gibi bol bol."
+      },
+      {
+        "word": "Myriad",
+        "pos": "adj / noun",
+        "en": "A countless or extremely great number; innumerably diverse",
+        "tr": "Sayısız, pek çok, envaiçeşit",
+        "ex": "Coral atolls shelter myriad invertebrate species that cannot survive in open pelagic waters.",
+        "mnemonic": "Myriad -> 'Milyarlarca' çeşit barındıran."
+      },
+      {
+        "word": "Dearth",
+        "pos": "noun",
+        "en": "A scarcity or lack of something",
+        "tr": "Kıtlık, yokluk, eksiklik",
+        "ex": "A dearth of qualified math instructors led the school district to launch an emergency recruitment drive.",
+        "mnemonic": "Dearth -> 'Dert' (yokluğundan dert çekilen kıtlık)."
+      },
+      {
+        "word": "Plethora",
+        "pos": "noun",
+        "en": "A large or excessive amount of something",
+        "tr": "Aşırı bolluk, gereğinden fazla miktar",
+        "ex": "The library offers a plethora of databases, which sometimes overwhelms first-year undergraduates.",
+        "mnemonic": "Plethora -> 'Plenty' kelimesinin akademik ve aşırı fazlalık hali."
+      }
+    ],
+    "quiz": {
+      "sentence": "Despite the _______ of historical artifacts recovered from the royal tomb, researchers suffered from a frustrating _______ of written scrolls detailing the monarch's daily life.",
+      "options": [
+        "A) plethora ... dearth",
+        "B) dearth ... plethora",
+        "C) paucity ... copious",
+        "D) tenuous ... myriad"
+      ],
+      "answer": "A",
+      "explanation": "'Despite' zıtlığı: Mezardan bolca ('plethora') eşya çıkmasına rağmen, yazılı papirüslerin kıtlığı / yokluğu ('dearth') araştırmacıları zorlamıştır."
+    }
+  },
+  {
+    "day": 25,
+    "title": "Day 25: Harmony, Discord & Amity",
+    "words": [
+      {
+        "word": "Congruent",
+        "pos": "adj",
+        "en": "In agreement or harmony; identical in form",
+        "tr": "Uyumlu, örtüşen, birbirine tam denk",
+        "ex": "Her field observations were completely congruent with the theoretical climate model predictions.",
+        "mnemonic": "Congruent -> geometriden 'eş' üçgenler gibi birebir örtüşen."
+      },
+      {
+        "word": "Discordant",
+        "pos": "adj",
+        "en": "Disagreeing or incongruous; characterized by quarreling or conflict",
+        "tr": "Uyumsuz, ahenksiz, kulağı tırmalayan",
+        "ex": "The harsh industrial horns introduced a discordant element into the serene classical symphony.",
+        "mnemonic": "Dis- (olumsuz) + accord (uyum) -> ahenksizlik."
+      },
+      {
+        "word": "Amicable",
+        "pos": "adj",
+        "en": "Characterized by friendliness and absence of discord; peaceful",
+        "tr": "Dostane, barışçıl, uzlaşmacı",
+        "ex": "After months of negotiations, the co-founders reached an amicable financial settlement.",
+        "mnemonic": "Amicable -> 'Amigo' (dostça) yapılan anlaşma."
+      },
+      {
+        "word": "Belligerent",
+        "pos": "adj",
+        "en": "Hostile and aggressive; engaged in war or conflict",
+        "tr": "Kavgacı, saldırgan, savaşçı",
+        "ex": "The belligerent general rejected all international diplomatic ceasefire proposals.",
+        "mnemonic": "Bell- (savaş, bellicose) -> saldırgan ve kavgacı."
+      }
+    ],
+    "quiz": {
+      "sentence": "While the boundary dispute threatened to provoke _______ military posturing, the mediation team steered both nations toward an _______ diplomatic resolution.",
+      "options": [
+        "A) belligerent ... amicable",
+        "B) amicable ... belligerent",
+        "C) congruent ... discordant",
+        "D) opaque ... candid"
+      ],
+      "answer": "A",
+      "explanation": "'While' zıtlığı: Sınır gerginliği saldırgan/savaşçı ('belligerent') bir tavrı körükleme riski taşırken, arabulucular dostane ('amicable') bir barış sağlamıştır."
+    }
+  },
+  {
+    "day": 26,
+    "title": "Day 26: Complexity, Intricacy & Convolutedness",
+    "words": [
+      {
+        "word": "Convoluted",
+        "pos": "adj",
+        "en": "Extremely complex and difficult to follow; intricately folded or twisted",
+        "tr": "Çetrefilli, dolambaçlı, karmaşık",
+        "ex": "The legal code was so convoluted that even seasoned corporate tax attorneys disagreed on its interpretation.",
+        "mnemonic": "Convoluted -> 'Kıvrım kıvrım' bükülmüş, içinden çıkılmaz labirent."
+      },
+      {
+        "word": "Byzantine",
+        "pos": "adj",
+        "en": "Excessively complicated, and typically involving a great deal of administrative detail",
+        "tr": "Aşırı karmaşık, bürokratik labirent gibi",
+        "ex": "Navigating the municipal permit process required surviving a byzantine network of regulatory committees.",
+        "mnemonic": "Byzantine -> Bizans saray entrikaları gibi karmaşık bürokrasi."
+      },
+      {
+        "word": "Nuanced",
+        "pos": "adj",
+        "en": "Characterized by subtle distinctions or variations in meaning, sound, or color",
+        "tr": "Hassas ayrıntıları gözeten, nüanslı",
+        "ex": "The historian offered a nuanced analysis of the cold war, avoiding simplistic hero-villain narratives.",
+        "mnemonic": "Nuanced -> her ince detayı ve gri tonu hesaba katan."
+      },
+      {
+        "word": "Labyrinthine",
+        "pos": "adj",
+        "en": "Like a labyrinth; irregular and twisting; extremely intricate",
+        "tr": "Labirent gibi, karmaşık ve dolambaçlı",
+        "ex": "The medieval fortress was ringed with labyrinthine subterranean tunnels.",
+        "mnemonic": "Labyrinth -> labirentin içinde kaybolmuş gibi."
+      }
+    ],
+    "quiz": {
+      "sentence": "Rather than providing a simplistic explanation, the sociologist offered a _______ argument that accounted for the _______ network of economic and cultural pressures shaping modern urban migrations.",
+      "options": [
+        "A) nuanced ... byzantine",
+        "B) byzantine ... nuanced",
+        "C) dogmatic ... superficial",
+        "D) candid ... obsolete"
+      ],
+      "answer": "A",
+      "explanation": "Basit anlatımın aksine ince ayrıntıları içeren ('nuanced') bir analiz yapılmış ve karmaşık bürokratik ('byzantine') ağ açıklanmıştır."
+    }
+  },
+  {
+    "day": 27,
+    "title": "Day 27: Certainty, Proof & Inevitability",
+    "words": [
+      {
+        "word": "Incontrovertible",
+        "pos": "adj",
+        "en": "Not able to be denied or disputed; indisputable",
+        "tr": "Tartışmasız, reddedilemez, kesin",
+        "ex": "Genetic profiling provided incontrovertible evidence identifying the rightful heir.",
+        "mnemonic": "In- (olumsuz) + controversy (tartışma) -> karşı çıkılamaz gerçek."
+      },
+      {
+        "word": "Ineluctable",
+        "pos": "adj",
+        "en": "Unable to be resisted or avoided; inescapable",
+        "tr": "Kaçınılmaz, önüne geçilemez",
+        "ex": "Aging and cellular senescence remain an ineluctable reality of multicellular biology.",
+        "mnemonic": "Ineluctable -> 'Elinden kaçılamayan' zorunluluk."
+      },
+      {
+        "word": "Contingent",
+        "pos": "adj",
+        "en": "Subject to chance; dependent on something else that might or might not happen",
+        "tr": "Şarta bağlı, tesadüfi, bağımlı",
+        "ex": "Approval of the commercial loan was strictly contingent on a clean environmental soil audit.",
+        "mnemonic": "Contingent -> 'Continue on Condition' (şarta bağlı olarak ilerleyen)."
+      },
+      {
+        "word": "Provisional",
+        "pos": "adj",
+        "en": "Arranged or existing for the present, possibly to be changed later; tentative",
+        "tr": "Geçici, nihai olmayan, şartlı",
+        "ex": "The election council declared a provisional winner pending the manual recount of mail-in ballots.",
+        "mnemonic": "Provisional -> son hali kesinleşene kadar 'geçici' tutulan."
+      }
+    ],
+    "quiz": {
+      "sentence": "Although the physical fossil evidence is _______ and definitively proves the species existed, any reconstruction of its soft tissue coloration must remain entirely _______.",
+      "options": [
+        "A) incontrovertible ... provisional",
+        "B) provisional ... incontrovertible",
+        "C) tenuous ... unassailable",
+        "D) dogmatic ... immutable"
+      ],
+      "answer": "A",
+      "explanation": "'Although' yapısı: Kemik kanıtı tartışmasız ('incontrovertible') ve kesin iken, renk tahmini şimdilik geçici ('provisional') olmak zorundadır."
+    }
+  },
+  {
+    "day": 28,
+    "title": "Day 28: Boldness, Courage & Timidity",
+    "words": [
+      {
+        "word": "Audacious",
+        "pos": "adj",
+        "en": "Showing a willingness to take surprisingly bold risks; daring",
+        "tr": "Cüretkar, gözü pek, cesur",
+        "ex": "The architectural firm proposed an audacious design featuring a cantilevered pool over the city skyline.",
+        "mnemonic": "Audacious -> 'O cesur' (audacity sahibi)."
+      },
+      {
+        "word": "Intrepid",
+        "pos": "adj",
+        "en": "Fearless; adventurous (often used for humorous effect)",
+        "tr": "Yılmayan, korkusuz, cesur",
+        "ex": "The intrepid polar explorers trekked across Antarctic pack ice in sub-zero whiteout blizzards.",
+        "mnemonic": "In- (olumsuz) + trepidation (korku/kaygı) -> hiç korkmayan."
+      },
+      {
+        "word": "Timorous",
+        "pos": "adj",
+        "en": "Showing or suffering from nervousness or a lack of confidence",
+        "tr": "Ürkek, çekingen, korkak",
+        "ex": "The timorous junior clerk hesitated for ten minutes before knocking on the director’s door.",
+        "mnemonic": "Timorous -> 'Timid' (ürkek) kelimesinin edebî hali."
+      },
+      {
+        "word": "Diffident",
+        "pos": "adj",
+        "en": "Modest or shy because of a lack of self-confidence",
+        "tr": "Çekingen, kendine güveni az, mahcup",
+        "ex": "Despite her brilliant intellectual insights, she remained diffident in large conference panels.",
+        "mnemonic": "Diffident -> 'Fiducia' (özgüven) eksikliğinden utangaç kalan."
+      }
+    ],
+    "quiz": {
+      "sentence": "While her colleagues took a cautious and _______ stance during the corporate audit, the junior accountant made an _______ move by presenting the hidden discrepancies directly to the board.",
+      "options": [
+        "A) timorous ... audacious",
+        "B) audacious ... timorous",
+        "C) fastidious ... tenacious",
+        "D) polemical ... lucid"
+      ],
+      "answer": "A",
+      "explanation": "Meslektaşları çekingen/korkak ('timorous') bir tavır takınırken, genç muhasebeci cesur ve cüretkar ('audacious') bir hamle yapmıştır."
+    }
+  },
+  {
+    "day": 29,
+    "title": "Day 29: Scholarly Intellect, Pedantry & Esotericism",
+    "words": [
+      {
+        "word": "Erudite",
+        "pos": "adj",
+        "en": "Having or showing great knowledge or learning; scholarly",
+        "tr": "Bilge, çok okumuş, derin ilim sahibi",
+        "ex": "The professor’s erudite lecture cited primary medieval texts in both Latin and Old Norse.",
+        "mnemonic": "Erudite -> 'Erozyona uğramayan bilgi hazinesi'."
+      },
+      {
+        "word": "Pedantic",
+        "pos": "adj",
+        "en": "Excessively concerned with minor details or rules; overly scholarly",
+        "tr": "Aşırı kuralcı, lüzumsuz ayrıntıya takılan, ukala",
+        "ex": "Her pedantic insistence on correcting minor typographical errors derailed the broad strategy discussion.",
+        "mnemonic": "Pedantic -> 'Pedal çevirir gibi kuralları tek tek sayan' dar bakışlı."
+      },
+      {
+        "word": "Esoteric",
+        "pos": "adj",
+        "en": "Intended for or likely to be understood by only a small number of people with a specialized knowledge",
+        "tr": "Sadece uzmanların anlayabileceği, ezoterik",
+        "ex": "The seminar explored esoteric algorithms for quantum error correction.",
+        "mnemonic": "Esoteric -> 'Ender zekaların' anladığı gizemli bilgi."
+      },
+      {
+        "word": "Arcane",
+        "pos": "adj",
+        "en": "Understood by few; mysterious or secret",
+        "tr": "Gizemli, sır dolu, anlaşılması zor",
+        "ex": "Ancient alchemical manuscripts were written in arcane symbols to prevent unauthorized replication.",
+        "mnemonic": "Arcane -> 'Arka odanın sırrı' gibi herkese kapalı bilgi."
+      }
+    ],
+    "quiz": {
+      "sentence": "Rather than becoming bogged down in _______ debates over minor grammatical punctuation, the symposium keynote delivered an _______ overview of classical philosophy that inspired the entire audience.",
+      "options": [
+        "A) pedantic ... erudite",
+        "B) erudite ... pedantic",
+        "C) dogmatic ... opaque",
+        "D) candid ... tenuous"
+      ],
+      "answer": "A",
+      "explanation": "Ayrıntıya takılan ukalaca ('pedantic') tartışmalar yerine, salondakilere ilham veren engin bilgili ve bilgece ('erudite') bir sunum yapılmıştır."
+    }
+  },
+  {
+    "day": 30,
+    "title": "Day 30: Grandeur, Mastery & The Apex",
+    "words": [
+      {
+        "word": "Sublime",
+        "pos": "adj",
+        "en": "Of such excellence, grandeur, or beauty as to inspire great admiration or awe",
+        "tr": "Yüce, hayranlık uyandıran, muhteşem",
+        "ex": "The alpine view from the mountain summit was a sublime spectacle of light and granite.",
+        "mnemonic": "Sublime -> 'Süblim' (ulaşılabilecek en üstün seviye)."
+      },
+      {
+        "word": "Quintessential",
+        "pos": "adj",
+        "en": "Representing the most perfect or typical example of a quality or class",
+        "tr": "Tam anlamıyla mükemmel bir örnek teşkil eden, tipik",
+        "ex": "Her calm composure during the crisis made her the quintessential model of effective leadership.",
+        "mnemonic": "Quint-essence -> işin 'beşinci özü', yani saf prototipi."
+      },
+      {
+        "word": "Paradigm",
+        "pos": "noun",
+        "en": "A typical example or pattern of something; a model or world-view",
+        "tr": "Paradigma, temel model, dünya görüşü",
+        "ex": "The discovery of plate tectonics created a complete paradigm shift in the geosciences.",
+        "mnemonic": "Paradigm -> bilimin düşünce kalıbı."
+      },
+      {
+        "word": "Apex",
+        "pos": "noun",
+        "en": "The top or highest part of something, especially one forming a point; peak",
+        "tr": "Zirve, doruk noktası",
+        "ex": "Winning the Nobel Prize marked the absolute apex of her illustrious research career.",
+        "mnemonic": "Apex -> en tepedeki sivri zirve noktası."
+      }
+    ],
+    "quiz": {
+      "sentence": "The publication of the groundbreaking treaty represented the _______ of the diplomat's career, establishing her as the _______ statesman of her generation.",
+      "options": [
+        "A) apex ... quintessential",
+        "B) paucity ... dogmatic",
+        "C) dearth ... polemical",
+        "D) anachronism ... transient"
+      ],
+      "answer": "A",
+      "explanation": "Çığır açan anlaşma kariyerin zirvesini ('apex') simgeler ve onu kuşağının kusursuz prototipi ('quintessential') olan devlet insanı konumuna getirir."
+    }
   }
 ];
 
