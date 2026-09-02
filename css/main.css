@@ -679,22 +679,135 @@ kbd {
   display: flex;
   gap: 6px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .item-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  position: relative;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  border-radius: var(--radius-sm);
   background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-family: var(--font-family-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.item-dot:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+  transform: translateY(-1px);
 }
 
 .item-dot.active {
   background-color: var(--accent-primary);
-  transform: scale(1.2);
+  border-color: var(--accent-primary);
+  color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  font-weight: 700;
 }
 
 .item-dot.completed {
+  background-color: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: var(--status-mastered);
+}
+
+.item-dot.completed.active {
   background-color: var(--status-mastered);
+  border-color: var(--status-mastered);
+  color: #ffffff;
+}
+
+.item-dot.flagged {
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 0 1px #f59e0b;
+}
+
+.item-dot .dot-flag-icon {
+  position: absolute;
+  top: -7px;
+  right: -5px;
+  font-size: 0.65rem;
+  line-height: 1;
+}
+
+/* Question Flag Row & Bluebook Controls */
+.question-flag-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.question-pane-badge {
+  font-family: var(--font-family-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.btn-flag-toggle {
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+}
+
+.btn-flag-toggle:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: #f59e0b;
+}
+
+.btn-flag-toggle.flagged {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: #f59e0b;
+  color: #d97706;
+  font-weight: 600;
+}
+
+.btn-flag-toggle kbd {
+  font-size: 0.7rem;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+}
+
+.stage-actions-footer.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stage-actions-footer .footer-nav-left,
+.stage-actions-footer .footer-nav-right {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 /* Strategy Heuristic Banner */

@@ -754,13 +754,37 @@ const App = (function() {
         if (typeof StudentTools !== "undefined") {
           StudentTools.toggleNotepadDrawer();
         }
+      } else if (key === "f" || key === "F") {
+        const flagBtn = document.querySelector(".btn-flag-toggle");
+        if (flagBtn) {
+          flagBtn.click();
+          return;
+        }
+      } else if (key === "p" || key === "P" || key === "ArrowLeft") {
+        const prevBtn = document.querySelector(".stage-actions-footer .footer-nav-left button:not([disabled])");
+        if (prevBtn) {
+          prevBtn.click();
+          return;
+        }
+      } else if (key === "r" || key === "R") {
+        const retakeBtn = document.querySelector(".stage-actions-footer button[onclick*='retake']");
+        if (retakeBtn) {
+          retakeBtn.click();
+          return;
+        }
+      } else if (key === "ArrowRight") {
+        const nextBtn = document.querySelector(".stage-actions-footer .footer-nav-right button.btn-primary:not([disabled])");
+        if (nextBtn) {
+          nextBtn.click();
+          return;
+        }
       } else if (key === "Enter") {
         const submitBtn = document.querySelector(".question-submit-area button:not([disabled])");
         if (submitBtn) {
           submitBtn.click();
           return;
         }
-        const nextBtn = document.querySelector(".stage-actions-footer button.btn-primary:not([disabled])");
+        const nextBtn = document.querySelector(".stage-actions-footer .footer-nav-right button.btn-primary:not([disabled])") || document.querySelector(".stage-actions-footer button.btn-primary:not([disabled])");
         if (nextBtn) {
           nextBtn.click();
           return;

@@ -30,6 +30,7 @@ const StorageManager = (function() {
         targetMinutes: 20
       },
       masteredVocabWords: {}, // Key: word, Value: ISO timestamp
+      flaggedQuestions: {}, // Key: questionId, Value: boolean
       modules: {},
       grammar: {},
       errorLog: [], // Automatic Error Log for mistakes
@@ -506,6 +507,28 @@ const StorageManager = (function() {
     }
   }
 
+  function toggleQuestionFlag(questionId) {
+    const state = getState();
+    if (!state.flaggedQuestions) state.flaggedQuestions = {};
+    if (state.flaggedQuestions[questionId]) {
+      delete state.flaggedQuestions[questionId];
+    } else {
+      state.flaggedQuestions[questionId] = true;
+    }
+    saveState(state);
+    return !!state.flaggedQuestions[questionId];
+  }
+
+  function isQuestionFlagged(questionId) {
+    const state = getState();
+    return !!(state.flaggedQuestions && state.flaggedQuestions[questionId]);
+  }
+
+  function getFlaggedQuestions() {
+    const state = getState();
+    return Object.keys(state.flaggedQuestions || {});
+  }
+
   /**
    * =========================================================================
    * DAILY VOCABULARY PROGRESS METHODS
@@ -699,6 +722,9 @@ const StorageManager = (function() {
     resetGrammarModule,
     clearGuidedItem,
     clearIndependentItem,
+    toggleQuestionFlag,
+    isQuestionFlagged,
+    getFlaggedQuestions,
     recordDailyVocabCompletion,
     getDailyVocabProgress,
     exportData,

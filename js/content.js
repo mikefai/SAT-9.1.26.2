@@ -1092,6 +1092,88 @@ const ACADEMY_CONTENT = {
           "ingenuity": "(noun) the quality of being clever, inventive, and original • 🇹🇷 Yaratıcılık, ustalık, pratik zeka",
           "obsolete": "(adj.) no longer produced or used; out of date • 🇹🇷 Kullanımdan kalkmış, modası geçmiş, köhnemiş"
         }
+      },
+      {
+        "id": "WIC-G-05",
+        "type": "words-in-context",
+        "stage": "guided",
+        "difficulty": "Hard",
+        "strategyHeuristic": "Look for the financial evidence after the semicolon: 'costs exceeded municipal bond revenue estimates by more than eighty million dollars.'",
+        "passage": "The city council's oversight committee on urban renewal found that the ambitious downtown revitalization plan was financially _______; projected construction costs exceeded municipal bond revenue estimates by more than eighty million dollars.",
+        "question": "Which choice completes the text with the most logical and precise word or phrase?",
+        "choices": [
+          "A) untenable",
+          "B) lucrative",
+          "C) unprecedented",
+          "D) rudimentary"
+        ],
+        "answer": "A",
+        "hints": [
+          "Hint 1 (Nudge): Look at the financial discrepancy after the semicolon: costs exceed revenue estimates by $80 million.",
+          "Hint 2 (Strategy Reminder): What word describes an economic plan that cannot be supported or maintained in reality?",
+          "Hint 3 (Partial Solution): 'Untenable' means incapable of being defended or sustained. 'Lucrative' means profitable (Opposite)."
+        ],
+        "trapTypes": {
+          "B": "Opposite",
+          "C": "Out of Scope",
+          "D": "Wrong Meaning"
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. 'Untenable' means not able to be maintained or defended. A project whose costs exceed revenue projections by eighty million dollars cannot realistically proceed, making it financially untenable.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Accurately reflects a financial position that cannot be sustained or defended.",
+            "B": "Opposite Trap: 'Lucrative' means highly profitable, contradicting the massive deficit.",
+            "C": "Out of Scope Trap: 'Unprecedented' means never done before, which does not address financial viability.",
+            "D": "Wrong Meaning Trap: 'Rudimentary' means basic or undeveloped, not financially insolvent."
+          },
+          "keyTakeaway": "When the context describes an insurmountable shortfall, choose words signifying unsustainable failure ('untenable')."
+        },
+        "glosses": {
+          "untenable": "(adj.) not able to be maintained or defended against objection or difficulty • 🇹🇷 Sürdürülemez, savunulamaz, çıkmazda",
+          "lucrative": "(adj.) producing a great deal of profit • 🇹🇷 Kazançlı, karlı",
+          "rudimentary": "(adj.) involving or limited to basic principles • 🇹🇷 İlkel, başlangıç düzeyinde"
+        }
+      },
+      {
+        "id": "WIC-G-06",
+        "type": "words-in-context",
+        "stage": "guided",
+        "difficulty": "Medium",
+        "strategyHeuristic": "Contrast with 'calculating and cold' using the pivot 'While... correspondence reveals a far more [BLANK] public servant who agonized over humanitarian fallout.'",
+        "passage": "While earlier biographers often portrayed the diplomat as calculating and cold, newly declassified correspondence reveals a far more _______ public servant who frequently agonized over the humanitarian fallout of international sanctions.",
+        "question": "Which choice completes the text with the most logical and precise word or phrase?",
+        "choices": [
+          "A) ruthless",
+          "B) compassionate",
+          "C) detached",
+          "D) devious"
+        ],
+        "answer": "B",
+        "hints": [
+          "Hint 1 (Nudge): Identify the concession pivot 'While earlier... calculating and cold' which contrasts with the new evidence.",
+          "Hint 2 (Strategy Reminder): The target adjective must directly describe someone who 'agonized over humanitarian fallout'.",
+          "Hint 3 (Partial Solution): 'Compassionate' means showing deep sympathy for the suffering of others."
+        ],
+        "trapTypes": {
+          "A": "Opposite",
+          "C": "Opposite",
+          "D": "Opposite"
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. 'Compassionate' means feeling or showing sympathy and concern for others. This directly contrasts with 'calculating and cold' and aligns with 'agonized over the humanitarian fallout'.",
+          "choiceBreakdown": {
+            "A": "Opposite Trap: 'Ruthless' means having no pity, matching the old view rather than the new finding.",
+            "B": "Correct Answer: Directly matches the empathetic, conscience-driven diplomat revealed by the letters.",
+            "C": "Opposite Trap: 'Detached' means aloof or unemotional, reinforcing 'cold' rather than contrasting it.",
+            "D": "Opposite Trap: 'Devious' means deceitful or underhanded, reinforcing 'calculating'."
+          },
+          "keyTakeaway": "Contrast structures ('While earlier... cold, new records show a far more [BLANK]...') require an antonym that matches the positive new evidence."
+        },
+        "glosses": {
+          "compassionate": "(adj.) feeling or showing sympathy and concern for others • 🇹🇷 Şefkatli, merhametli, vicdanlı",
+          "ruthless": "(adj.) having or showing no pity or compassion • 🇹🇷 Acımasız, merhametsiz",
+          "declassified": "(adj.) officially made available to the public after being secret • 🇹🇷 Gizliliği kaldırılmış"
+        }
       }
     ],
     "stage6_independentPractice": [
@@ -1706,6 +1788,88 @@ const ACADEMY_CONTENT = {
           "miasma": "(noun) an oppressive vapor or noxious air formerly thought to cause diseases • 🇹🇷 Miyazma (eski tıpta zehirli kirli hava inancı)",
           "noxious": "(adj.) harmful, poisonous, or highly unpleasant • 🇹🇷 Zararlı, zehirli, sağlığa aykırı",
           "spatial epidemiology": "(noun) the geographical study of disease distribution and spread • 🇹🇷 Mekansal epidemiyoloji (hastalık haritalama)"
+        }
+      },
+      {
+        "id": "TSP-G-05",
+        "type": "text-structure-purpose",
+        "stage": "guided",
+        "difficulty": "Medium",
+        "strategyHeuristic": "Track the shift from a common scientific assumption to experimental counter-evidence demonstrating animal tool sophistication.",
+        "passage": "For decades, primatologists assumed that complex tool manufacture was an exclusively hominid achievement, setting humans and our direct ancestors apart from all other primates. However, field observations of wild New Caledonian crows have upended this consensus. Researchers observed the corvids selecting specific pandanus leaves, cutting uniform serrated hooks using their beaks, and deploying these handcrafted implements to extract beetle larvae from narrow tree hollows—a multi-stage manufacturing sequence previously thought impossible in avian brains.",
+        "question": "Which choice best describes the primary purpose of the text?",
+        "choices": [
+          "A) To establish that New Caledonian crows possess greater cognitive ability than hominids.",
+          "B) To challenge a traditional scientific assumption by presenting evidence of sophisticated tool fabrication in a non-human species.",
+          "C) To argue that pandanus trees are the sole habitat capable of supporting complex avian behavior.",
+          "D) To describe how hominids originally learned toolmaking techniques by observing wild corvids."
+        ],
+        "answer": "B",
+        "hints": [
+          "Hint 1 (Nudge): Look at Sentence 1 ('assumed that complex tool manufacture was exclusively hominid') and Sentence 2 ('However... upended this consensus').",
+          "Hint 2 (Strategy Reminder): What did the crows actually do? They selected leaves, cut serrated hooks, and extracted larvae (multi-stage toolmaking).",
+          "Hint 3 (Partial Solution): Choice B accurately captures challenging the hominid-only assumption using the crow evidence."
+        ],
+        "trapTypes": {
+          "A": "Too Extreme",
+          "C": "Too Extreme",
+          "D": "Opposite"
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. The text begins by outlining the long-held assumption that complex tool manufacture belonged exclusively to hominids, and then shows how observations of New Caledonian crows fabrication sequences challenged that view.",
+          "choiceBreakdown": {
+            "A": "Too Extreme Trap: The passage does not claim crows are smarter than humans, only that toolmaking is not uniquely human.",
+            "B": "Correct Answer: Accurately summarizes challenging a long-held belief with new empirical observations.",
+            "C": "Too Extreme Trap: Pandanus leaves are one material used; the text never claims they are the sole capable habitat.",
+            "D": "Opposite Trap: Reverses chronology; hominids did not learn toolmaking from crows."
+          },
+          "keyTakeaway": "Notice the transition from an orthodox dogma ('For decades, scientists assumed...') through 'However' to empirical counter-evidence."
+        },
+        "glosses": {
+          "hominid": "(noun) a primate of a family that includes humans and their fossil ancestors • 🇹🇷 İnsangiller (hominidler)",
+          "corvids": "(noun) birds of the crow family, renowned for high intelligence • 🇹🇷 Karga familyası üyeleri",
+          "serrated": "(adj.) having or denoting a jagged edge; saw-like • 🇹🇷 Testere dişli, tırtıklı"
+        }
+      },
+      {
+        "id": "TSP-G-06",
+        "type": "text-structure-purpose",
+        "stage": "guided",
+        "difficulty": "Hard",
+        "strategyHeuristic": "Identify how the final sentence qualifies the celebratory findings introduced in the middle of the text.",
+        "passage": "In 2021, geothermal engineers successfully drilled a 4.5-kilometer borehole into the Krafla caldera in Iceland, directly reaching magma chambers with temperatures exceeding 900 degrees Celsius. The breakthrough generated widespread optimism that superhot geothermal energy could provide virtually limitless, zero-carbon baseload electricity to power modern industrial centers. Yet materials scientists emphasize that corrosive volcanic gases and extreme thermal pressures rapidly degrade drilling casings, warning that commercial viability remains decades away until resilient alloy metallurgy advances significantly.",
+        "question": "Which choice best describes the function of the final sentence in the overall context of the text?",
+        "choices": [
+          "A) It offers a practical caution that tempers the enthusiasm generated by the technological milestone described earlier.",
+          "B) It proves that geothermal energy production is fundamentally hazardous and should be halted immediately.",
+          "C) It provides statistical proof that Krafla caldera magma is hotter than magma found in other volcanic systems.",
+          "D) It outlines the specific chemical composition of the resilient alloy casings used during the initial 2021 drilling."
+        ],
+        "answer": "A",
+        "hints": [
+          "Hint 1 (Nudge): Look at the pivot 'Yet' at the start of the last sentence, introducing 'materials scientists emphasize... warning that commercial viability remains decades away'.",
+          "Hint 2 (Strategy Reminder): Sentence 2 describes 'widespread optimism'. How does the final sentence relate to that optimism?",
+          "Hint 3 (Partial Solution): The final sentence tempers or qualifies the optimism by noting technical hurdles (corrosive gases, metallurgy limitations)."
+        ],
+        "trapTypes": {
+          "B": "Too Extreme",
+          "C": "Out of Scope",
+          "D": "Half Right"
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. The passage progresses from a milestone (reaching magma) to optimism (limitless zero-carbon power), but the final sentence introduces practical constraints (corrosive gases, casing degradation) that temper this excitement.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Accurately characterizes the final sentence as a practical caution that balances earlier enthusiasm.",
+            "B": "Too Extreme Trap: The scientists warn about metallurgical hurdles, not that drilling must be halted immediately.",
+            "C": "Out of Scope Trap: The text does not compare Krafla temperatures to other volcanic systems.",
+            "D": "Half Right Trap: It mentions that resilient alloys are still needed, not that they were already used in 2021."
+          },
+          "keyTakeaway": "Look for qualifying sentences ('Yet scientists emphasize that challenges remain...') that temper optimistic breakthroughs."
+        },
+        "glosses": {
+          "caldera": "(noun) a large volcanic crater formed by a major eruption • 🇹🇷 Kaldera (çökmüş yanardağ krateri)",
+          "baseload": "(noun) the permanent minimum load that a power grid must supply • 🇹🇷 Temel yük (kesintisiz elektrik arzı)",
+          "metallurgy": "(noun) the branch of science concerned with the properties of metals and alloys • 🇹🇷 Metalürji (metal bilimi)"
         }
       }
     ],
@@ -3540,6 +3704,88 @@ const ACADEMY_CONTENT = {
           "amyloid plaques": "(noun) protein misfold aggregates in the brains of Alzheimer's patients • 🇹🇷 Amiloid plakları (Alzheimer'a yol açan protein yumakları)",
           "neurodegeneration": "(noun) progressive structural and functional decay of neurons • 🇹🇷 Nörodejenerasyon (sinir hücrelerinin harabiyeti)"
         }
+      },
+      {
+        "id": "COE-G-05",
+        "type": "command-of-evidence",
+        "stage": "guided",
+        "difficulty": "Hard",
+        "strategyHeuristic": "Anchor the hypothesis: 'microplastics reduce photosynthesis in marine phytoplankton'. Look for the choice showing reduced photosynthetic output or chlorophyll.",
+        "passage": "Marine biologist Dr. Elena Rostova hypothesized that exposure to high concentrations of microplastic particles inhibits the photosynthetic efficiency of marine phytoplankton, the primary producers responsible for half of global oxygen output. To test this hypothesis, Rostova cultured identical populations of the diatom *Thalassiosira pseudonana* in sealed aquatic chambers containing varying concentrations of polyethylene microplastic spheres over a fourteen-day period.",
+        "question": "Which finding from Rostova's experiment, if true, would most directly support her hypothesis?",
+        "choices": [
+          "A) Diatoms grown in water with high microplastic concentrations exhibited a 42% decrease in chlorophyll fluorescence and carbon fixation compared to control populations.",
+          "B) Polyethylene microplastic spheres remained suspended in the water column longer than microplastics made from heavier polypropylene polymers.",
+          "C) The diatom *Thalassiosira pseudonana* reproduced at higher rates in warm coastal waters than in colder polar open-ocean waters.",
+          "D) Phytoplankton populations exposed to agricultural fertilizer runoff exhibited rapid algal blooms regardless of water temperature."
+        ],
+        "answer": "A",
+        "hints": [
+          "Hint 1 (Nudge): Identify the specific claim in Rostova's hypothesis: 'exposure to microplastics inhibits photosynthetic efficiency'.",
+          "Hint 2 (Strategy Reminder): You need a choice that links [microplastics present] -> [photosynthesis measured as lower].",
+          "Hint 3 (Partial Solution): Choice A specifically measures 'chlorophyll fluorescence and carbon fixation' (direct proxies for photosynthesis) showing a 42% decrease."
+        ],
+        "trapTypes": {
+          "B": "Out of Scope",
+          "C": "Out of Scope",
+          "D": "Out of Scope"
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. Decreased chlorophyll fluorescence and carbon fixation directly measure a decline in photosynthetic efficiency, confirming the hypothesis that microplastics impair diatoms' energy-producing capacity.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Directly provides quantitative proof of reduced photosynthetic activity in the microplastic-exposed group.",
+            "B": "Out of Scope Trap: Discusses physical buoyancy of polymers, not photosynthetic output.",
+            "C": "Out of Scope Trap: Compares water temperatures without addressing microplastic impact.",
+            "D": "Out of Scope Trap: Focuses on agricultural fertilizer runoff, which is irrelevant to Rostova's hypothesis."
+          },
+          "keyTakeaway": "Anchor the exact dependent variable in the hypothesis (photosynthetic efficiency) and match it to the direct biological measurement in the findings."
+        },
+        "glosses": {
+          "phytoplankton": "(noun) microscopic marine algae that perform photosynthesis • 🇹🇷 Fitoplankton (deniz yosunları)",
+          "diatom": "(noun) a major group of microalgae with cell walls made of silica • 🇹🇷 Diyatom (silis kabuklu mikroskobik alg)",
+          "carbon fixation": "(noun) the conversion process of inorganic carbon into organic compounds by living organisms • 🇹🇷 Karbon tutulumu / fotosentez bağlanması"
+        }
+      },
+      {
+        "id": "COE-G-06",
+        "type": "command-of-evidence",
+        "stage": "guided",
+        "difficulty": "Medium",
+        "strategyHeuristic": "Find the claim: 'urban green roofs mitigate the heat island effect by cooling surface ambient temperatures through evapotranspiration'.",
+        "passage": "Urban climatologist Marcus Vance investigated the cooling benefits of vegetative green roofs in dense downtown districts. Vance asserted that green roofs cool the surrounding urban microclimate primarily through evapotranspiration—the process by which water is transferred from plant foliage to the atmosphere—rather than merely shading rooftop gravel.",
+        "question": "Which finding, if true, would most directly support Vance's assertion?",
+        "choices": [
+          "A) Traditional tar rooftops coated with reflective white paint produced similar surface cooling as vegetative sedum mats during winter months.",
+          "B) Irrigated vegetative green roofs achieved ambient temperature reductions 3.8°C greater than artificial plastic turf mats that provided identical physical shading.",
+          "C) Installation costs for downtown commercial green roofs exceeded initial municipal budget projections by nearly twenty percent.",
+          "D) Urban heat islands were more pronounced in cities with extensive asphalt parking facilities than in cities with subterranean parking garages."
+        ],
+        "answer": "B",
+        "hints": [
+          "Hint 1 (Nudge): Vance asserts that cooling comes from *evapotranspiration* (biological plant water release), *not merely shading*.",
+          "Hint 2 (Strategy Reminder): To isolate evapotranspiration, compare living plants to a non-living material that provides identical shade.",
+          "Hint 3 (Partial Solution): Choice B isolates this variable: living roofs cooled 3.8°C more than artificial turf providing the exact same shade."
+        ],
+        "trapTypes": {
+          "A": "Out of Scope",
+          "C": "Out of Scope",
+          "D": "Out of Scope"
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. By comparing living green roofs to artificial plastic turf that provides identical shade, Choice B controls for the shading effect and proves that the additional 3.8°C cooling is attributable to the biological process of evapotranspiration.",
+          "choiceBreakdown": {
+            "A": "Out of Scope Trap: Compares reflective paint during winter, failing to test evapotranspiration.",
+            "B": "Correct Answer: Cleanly isolates biological evapotranspiration from physical shading with a controlled experimental comparison.",
+            "C": "Out of Scope Trap: Focuses on installation costs rather than thermodynamic cooling mechanisms.",
+            "D": "Out of Scope Trap: Compares parking structures rather than green roof cooling dynamics."
+          },
+          "keyTakeaway": "When an author claims an effect is caused by Process X rather than Process Y, look for data that holds Process Y constant while varying Process X."
+        },
+        "glosses": {
+          "evapotranspiration": "(noun) the combined water loss from soil evaporation and plant transpiration • 🇹🇷 Buharlaşma-terleme (bitki su salınımı)",
+          "ambient": "(adj.) relating to the immediate surrounding atmosphere or temperature • 🇹🇷 Ortam (çevre) sıcaklığı",
+          "sedum": "(noun) a hardy succulent plant commonly used on green roofs • 🇹🇷 Damkoruğu (yeşil çatı sukulenti)"
+        }
       }
     ],
     "stage6_independentPractice": [
@@ -4147,6 +4393,88 @@ const ACADEMY_CONTENT = {
           "immobilize": "(verb) prevent an animal from moving or struggling • 🇹🇷 Hareketsiz kılmak, etkisiz hale getirmek",
           "carnivory": "(noun) the practice of hunting and consuming animal flesh • 🇹🇷 Etoburluk, avlanarak etle beslenme"
         }
+      },
+      {
+        "id": "INF-G-05",
+        "type": "inferences",
+        "stage": "guided",
+        "difficulty": "Hard",
+        "strategyHeuristic": "Combine Premise 1 (coral bleaching occurs when water exceeds 30°C) and Premise 2 (symbiotic clade D zooxanthellae tolerate up to 33°C).",
+        "passage": "Coral bleaching occurs when rising ocean temperatures induce stony corals to expel their symbiotic dinoflagellate algae (zooxanthellae), depriving the coral polyps of their primary photosynthetic nutrient supply. Most shallow-water Acropora corals host clade C zooxanthellae, which denature and trigger bleaching at temperatures exceeding 30.5°C. However, marine biologists have identified that colonies harboring clade D zooxanthellae maintain normal photosynthetic nutrient production up to 33.0°C. If sea surface temperatures in tropical reef systems consistently fluctuate between 31.0°C and 32.5°C during summer warming anomalies, it can reasonably be inferred that _______",
+        "question": "Which choice most logically completes the text?",
+        "choices": [
+          "A) coral colonies harboring clade D zooxanthellae will be significantly more resilient against temperature-induced bleaching than those hosting clade C.",
+          "B) shallow-water Acropora corals will completely cease all calcification and suffer total colony mortality across tropical reefs.",
+          "C) clade C zooxanthellae will rapidly mutate within days to withstand water temperatures exceeding 34.0°C.",
+          "D) coral bleaching anomalies will subside entirely as ocean currents distribute heat evenly to polar regions."
+        ],
+        "answer": "A",
+        "hints": [
+          "Hint 1 (Nudge): The temperature anomaly is 31.0°C to 32.5°C. Check what happens to clade C (fails at 30.5°C) versus clade D (survives up to 33.0°C).",
+          "Hint 2 (Strategy Reminder): A valid inference combines the exact numbers without making unstated catastrophic predictions.",
+          "Hint 3 (Partial Solution): Clade D colonies can survive this temperature range, whereas clade C colonies will bleach. Choice A logically captures this differential resilience."
+        ],
+        "trapTypes": {
+          "B": "Too Extreme",
+          "C": "Out of Scope",
+          "D": "Opposite"
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. The text establishes that clade C triggers bleaching above 30.5°C, while clade D maintains photosynthetic function up to 33.0°C. In waters between 31.0°C and 32.5°C, clade D will survive while clade C will bleach, making clade D colonies significantly more resilient.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Strictly derives from the comparative temperature thresholds provided in the premises.",
+            "B": "Too Extreme Trap: 'Completely cease all calcification and suffer total mortality' ignores that clade D colonies survive up to 33°C.",
+            "C": "Out of Scope Trap: Claims rapid mutation within days, which is unsupported by the text.",
+            "D": "Opposite Trap: Claims bleaching will subside entirely, which contradicts the premises."
+          },
+          "keyTakeaway": "Inference questions with comparative numbers require you to apply the given thresholds to the specified scenario."
+        },
+        "glosses": {
+          "dinoflagellate": "(noun) single-celled marine organisms, including photosynthetic coral symbionts • 🇹🇷 Dinoflagellat (tek hücreli deniz yosunu)",
+          "denature": "(verb) destroy the characteristic properties of a protein or biological system by heat • 🇹🇷 Denatüre olmak (yapısı bozulmak)",
+          "anomalies": "(noun) deviations from what is standard, normal, or expected • 🇹🇷 Anomaliler (olağandışı sapmalar)"
+        }
+      },
+      {
+        "id": "INF-G-06",
+        "type": "inferences",
+        "stage": "guided",
+        "difficulty": "Medium",
+        "strategyHeuristic": "Combine Premise 1 (low nitrogen restricts leaf growth) + Premise 2 (carnivorous pitcher plants produce nitrogen-rich digestive enzymes only when prey is captured).",
+        "passage": "In nutrient-poor peat bogs, low soil nitrogen levels severely restrict the growth rate of native vascular plants. The carnivorous pitcher plant *Sarracenia purpurea* overcomes this limitation by capturing and digesting insects inside water-filled pitfall traps. However, producing the digestive proteases required to dissolve insect exoskeletons demands significant metabolic energy from the plant. In nitrogen-rich experimental greenhouses where soil nutrients are artificially abundant, *Sarracenia purpurea* plants produce significantly smaller carnivorous pitchers and noticeably larger flat photosynthetic leaves, suggesting that _______",
+        "question": "Which choice most logically completes the text?",
+        "choices": [
+          "A) the plant allocates metabolic resources away from costly carnivorous traps when soil nitrogen is directly accessible.",
+          "B) carnivorous plants are incapable of synthesizing chlorophyll when grown in peat bog ecosystems.",
+          "C) insect prey in greenhouse environments contains higher concentrations of nitrogen than prey in natural bogs.",
+          "D) artificial fertilizers permanently eliminate the pitcher plant's genetic capacity to capture insect prey."
+        ],
+        "answer": "A",
+        "hints": [
+          "Hint 1 (Nudge): Compare the plant's behavior in poor soil (produces insect-trapping pitchers) vs rich soil (produces smaller pitchers and larger photosynthetic leaves).",
+          "Hint 2 (Strategy Reminder): Producing digestive proteases costs energy. If soil already has nitrogen, why spend energy on traps?",
+          "Hint 3 (Partial Solution): Choice A matches the economic trade-off: the plant shifts resources away from costly traps when nitrogen is already available in soil."
+        ],
+        "trapTypes": {
+          "B": "Too Extreme",
+          "C": "Out of Scope",
+          "D": "Too Extreme"
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. The text notes that producing carnivorous digestive enzymes requires high metabolic energy. When nitrogen is plentiful in the soil, the plant grows smaller traps and larger leaves, logically indicating that it conserves energy by reducing trap investment when soil nitrogen is readily available.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Accurately synthesizes the resource-allocation trade-off between trap production and soil nutrient availability.",
+            "B": "Too Extreme Trap: The plant obviously photosynthesizes in bogs; it has photosynthetic leaves.",
+            "C": "Out of Scope Trap: The text makes no comparison of insect prey nutrient content.",
+            "D": "Too Extreme Trap: Changes in leaf allocation do not mean permanent genetic elimination of carnivory."
+          },
+          "keyTakeaway": "When an organism scales back a costly adaptation in the presence of an alternative resource, infer a strategic metabolic allocation."
+        },
+        "glosses": {
+          "vascular": "(adj.) relating to plant tissue that conducts water and nutrients • 🇹🇷 Damarlı (iletim demetli bitkiler)",
+          "proteases": "(noun) enzymes that break down proteins and peptides • 🇹🇷 Proteazlar (protein parçalayıcı enzimler)",
+          "pitfall": "(noun) a trap in which prey falls into a hollow cavity • 🇹🇷 Kapan (tuzak çukuru)"
+        }
       }
     ],
     "stage6_independentPractice": [
@@ -4464,6 +4792,64 @@ const GRAMMAR_CONTENT = {
           },
           "keyTakeaway": "A semicolon (;) functions exactly like a period to separate two independent clauses."
         }
+      },
+      {
+        "id": "GRAM-D1-05",
+        "passage": "Paleontologist Mary Anning unearthed some of the most significant marine fossil specimens of the Jurassic _______ her pioneering discoveries transformed early scientific understanding of prehistoric life on Earth.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) period, and",
+          "B) period,",
+          "C) period",
+          "D) period; and"
+        ],
+        "answer": "A",
+        "strategyHeuristic": "İki tam bağımsız cümle virgül + FANBOYS bağlacı (period, and) ile bağlanır.",
+        "turkishSolverGuide": {
+          "step1": "1. Cümle: 'Paleontologist Mary Anning unearthed... Jurassic period' (Tam Bağımsız Cümle).",
+          "step2": "2. Cümle: 'her pioneering discoveries transformed...' (Tam Bağımsız Cümle).",
+          "step3": "İki bağımsız cümleyi bağlamak için: Virgül (,) + and (FANBOYS) kullanılır.",
+          "step4": "B şıkkı Comma Splice hatasıdır. C şıkkı Run-on hatasıdır. D şıkkında noktalı virgül ile 'and' birlikte kullanılamaz. Doğru cevap A."
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. Both clauses are independent. Standard English conventions require a coordinating conjunction preceded by a comma (', and') to link two independent clauses.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Correctly links two independent clauses with a comma and the coordinating conjunction 'and'.",
+            "B": "Comma Splice Trap: Connects two independent clauses with only a comma, violating boundary rules.",
+            "C": "Fused Sentence Trap: Fails to include any punctuation between two independent clauses.",
+            "D": "Punctuation Redundancy: Semicolons should not precede 'and' when joining basic clauses."
+          },
+          "keyTakeaway": "Two independent clauses can be joined by a comma plus a FANBOYS conjunction (for, and, nor, but, or, yet, so)."
+        }
+      },
+      {
+        "id": "GRAM-D1-06",
+        "passage": "The electric grid in many metropolitan regions faces severe strain during summer heat _______ energy providers are increasingly investing in distributed rooftop solar arrays to reduce peak demand.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) waves, consequently,",
+          "B) waves; consequently,",
+          "C) waves consequently,",
+          "D) waves, consequently;"
+        ],
+        "answer": "B",
+        "strategyHeuristic": "Conjunctive adverb (consequently, therefore) iki bağımsız cümleyi bağlarken noktalı virgül ve virgül (;) ... (,) formülü ister.",
+        "turkishSolverGuide": {
+          "step1": "1. Cümle: 'The electric grid... faces severe strain during summer heat waves' (Tam Cümle).",
+          "step2": "2. Cümle: 'energy providers are increasingly investing...' (Tam Cümle).",
+          "step3": "Consequently bir geçiş zarfıdır (conjunctive adverb). İki cümleyi bağlarken [; consequently, ] formülü zorunludur.",
+          "step4": "A şıkkı Comma Splice'tır. C şıkkı Run-on'dır. D şıkkında noktalama ters yerleştirilmiştir. Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. When a conjunctive adverb like 'consequently' connects two independent clauses, it must be preceded by a semicolon and followed by a comma.",
+          "choiceBreakdown": {
+            "A": "Comma Splice Trap: A conjunctive adverb cannot connect two independent clauses with just a comma.",
+            "B": "Correct Answer: Follows the mandatory pattern [Independent Clause] ; consequently , [Independent Clause].",
+            "C": "Fused Sentence Trap: Missing the required preceding semicolon.",
+            "D": "Punctuation Inversion: Reverses the positions of the semicolon and comma."
+          },
+          "keyTakeaway": "Whenever you see 'consequently', 'however', or 'therefore' joining two complete sentences, look for '; [word], '."
+        }
       }
     ]
   },
@@ -4609,6 +4995,64 @@ const GRAMMAR_CONTENT = {
             "D": "Punctuation Error: A comma alone before a list creates a run-on structure."
           },
           "keyTakeaway": "Use a colon (:) after an independent clause to introduce a specific list or catalog of items."
+        }
+      },
+      {
+        "id": "GRAM-D2-05",
+        "passage": "The marine sanctuary encompasses a diverse variety of benthic _______ towering kelp forests, rocky coral outcroppings, and submerged volcanic pinnacles.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) habitats:",
+          "B) habitats,",
+          "C) habitats;",
+          "D) habitats"
+        ],
+        "answer": "A",
+        "strategyHeuristic": "Tam bir bağımsız cümleden sonra gelen 3 maddelik listeyi başlatmak için iki nokta (:) kullanılır.",
+        "turkishSolverGuide": {
+          "step1": "İki noktadan önceki kısım: 'The marine sanctuary encompasses a diverse variety of benthic habitats' (Tam Bağımsız Cümle).",
+          "step2": "Sonraki kısım bir liste: 1) kelp forests, 2) coral outcroppings, 3) volcanic pinnacles.",
+          "step3": "Kural: Bağımsız cümleden sonra liste sunulurken iki nokta (:) kullanılır.",
+          "step4": "B virgül hatasıdır, C noktalı virgül listeyi başlatamaz. Doğru cevap A."
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. The preceding clause is an independent clause, and the subsequent phrase lists specific examples of benthic habitats. A colon correctly introduces this list.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Correctly introduces the illustrative list following a complete independent clause.",
+            "B": "Punctuation Error: A comma alone is insufficient to set off an appositive list after a direct object.",
+            "C": "Punctuation Error: Semicolons cannot introduce an explanatory list.",
+            "D": "Run-on Error: Omits required punctuation between the clause and the list."
+          },
+          "keyTakeaway": "Colons (:) must be preceded by a complete independent clause when introducing an explanatory list."
+        }
+      },
+      {
+        "id": "GRAM-D2-06",
+        "passage": "Architect Maya Lin gained national prominence with her controversial design for the Vietnam Veterans _______ an understated chevron of reflective black granite etched with names of fallen soldiers.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) Memorial—",
+          "B) Memorial;",
+          "C) Memorial,",
+          "D) Memorial"
+        ],
+        "answer": "A",
+        "strategyHeuristic": "Cümle sonunda vurgulu veya açıklayıcı bir appositive eklerken tek bir uzun tire (—) kullanılır.",
+        "turkishSolverGuide": {
+          "step1": "Ana cümle: 'Architect Maya Lin gained national prominence with her controversial design for the Vietnam Veterans Memorial' (Tam Cümle).",
+          "step2": "Sonraki kısım: 'an understated chevron...' (Anıtın nasıl bir yapı olduğunu niteleyen appositive açıklama).",
+          "step3": "Cümle sonundaki çarpıcı, açıklayıcı ifadeleri vurgulamak için tek tire (—) kullanılır.",
+          "step4": "B şıkkında noktalı virgül sonrası tam cümle yoktur. Doğru cevap A."
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. An em dash can be used at the end of an independent clause to set off an emphatic, descriptive appositive phrase ('an understated chevron...').",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Uses an em dash to cleanly set off the descriptive appositive at the end of the sentence.",
+            "B": "Punctuation Error: Semicolons must be followed by an independent clause, not a noun phrase.",
+            "C": "Weak Punctuation: While commas can set off appositives, the dash is standard for emphatic descriptive expansions.",
+            "D": "Fused Error: Leaves no boundary punctuation between the proper noun and its appositive."
+          },
+          "keyTakeaway": "A single em dash (—) functions like a colon or emphatic comma to set off an appositive noun phrase at the end of a sentence."
         }
       }
     ]
@@ -4756,6 +5200,64 @@ const GRAMMAR_CONTENT = {
           },
           "keyTakeaway": "Match plural head nouns with plural verbs (were, are, have), ignoring singular objects inside prepositional phrases."
         }
+      },
+      {
+        "id": "GRAM-D3-05",
+        "passage": "Neither the lead archaeologist nor the museum curators _______ able to definitively establish the provenance of the limestone cylinder seal.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) were",
+          "B) was",
+          "C) is",
+          "D) has been"
+        ],
+        "answer": "A",
+        "strategyHeuristic": "Neither... nor yapısında fiil kendisine en yakın olan özneye (museum curators - çoğul) göre çekimlenir (Proximity Rule).",
+        "turkishSolverGuide": {
+          "step1": "Neither / Nor kalıbına bakın: 'Neither [tekil] nor [çoğul]'.",
+          "step2": "Kural (Proximity Rule): 'Nor' bağlacından hemen sonraki özneye bakılır: 'the museum curators' (Çoğul).",
+          "step3": "Çoğul özne çoğul fiil gerektirir: 'were able'.",
+          "step4": "B, C ve D tekildir. Doğru cevap A."
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. With correlative conjunctions like 'neither... nor', the verb must agree in number with the nearer subject ('the museum curators', plural). The plural past-tense verb 'were' is correct.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Correctly agrees with the plural nearer subject 'curators'.",
+            "B": "Singular Verb Trap: 'was' agrees with the further subject 'archaeologist', violating the proximity rule.",
+            "C": "Singular Verb Trap: 'is' is singular and clashes with the past-tense timeline.",
+            "D": "Singular Verb Trap: 'has been' is singular."
+          },
+          "keyTakeaway": "In 'neither... nor' and 'either... or' constructions, the verb agrees with the subject closest to it."
+        }
+      },
+      {
+        "id": "GRAM-D3-06",
+        "passage": "Beneath the dense canopy of the Amazon basin _______ thousands of previously undocumented earthwork structures built by pre-Columbian societies.",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) lies",
+          "B) lie",
+          "C) is lying",
+          "D) was lying"
+        ],
+        "answer": "B",
+        "strategyHeuristic": "Devrik cümlelerde (Inverted Sentences) özne fiilden sonra gelir: 'thousands of earthwork structures' (çoğul) -> 'lie'.",
+        "turkishSolverGuide": {
+          "step1": "Cümle yer bildiren edat öbeğiyle başlıyor: 'Beneath the dense canopy...' (Devrik Cümle).",
+          "step2": "Fiilden sonraki özneyi bulun: 'thousands of previously undocumented earthwork structures' (Çoğul).",
+          "step3": "Çoğul özne çoğul fiil alır: 'lie' (tekil olsa 'lies' olurdu).",
+          "step4": "A, C, D tekildir. Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. In this inverted sentence, the prepositional phrase precedes the verb, and the plural subject ('thousands of... structures') follows it. The plural verb 'lie' is required.",
+          "choiceBreakdown": {
+            "A": "Singular Verb Trap: 'lies' is singular, erroneously agreeing with 'canopy' or 'basin'.",
+            "B": "Correct Answer: Correctly pairs the plural subject 'thousands of structures' with the plural verb 'lie'.",
+            "C": "Singular Verb Trap: 'is lying' is singular.",
+            "D": "Singular Verb Trap: 'was lying' is singular."
+          },
+          "keyTakeaway": "When a sentence starts with a prepositional phrase of location ('Beneath the tree...'), the true subject is located AFTER the verb."
+        }
       }
     ]
   },
@@ -4902,6 +5404,64 @@ const GRAMMAR_CONTENT = {
           },
           "keyTakeaway": "Watch out for possessive nouns (e.g., 'the scientist's experiments' vs 'the scientist'): only the person can perform human training."
         }
+      },
+      {
+        "id": "GRAM-D4-05",
+        "passage": "Having spent months analyzing spectroscopic data from the James Webb Space Telescope, _______",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) the exoplanet's carbon dioxide atmosphere was characterized by the international team.",
+          "B) an international team of astrophysicists characterized the chemical composition of the exoplanet's atmosphere.",
+          "C) spectroscopic analysis revealed signatures of carbon dioxide in the exoplanet's atmosphere.",
+          "D) characterization of the exoplanet's atmospheric composition was accomplished by the researchers."
+        ],
+        "answer": "B",
+        "strategyHeuristic": "Aylarca verileri analiz eden varlık bilim insanlarıdır ('an international team of astrophysicists'), atmosfer ya da analiz değil!",
+        "turkishSolverGuide": {
+          "step1": "Giriş yan cümleciği: 'Having spent months analyzing spectroscopic data...' (Aylarca analizi yapan kim?).",
+          "step2": "Analizi yapan insan özne: 'an international team of astrophysicists' (astrofizikçiler ekibi).",
+          "step3": "Virgülden hemen sonra analizi yapan özne gelmelidir.",
+          "step4": "A'da atmosfer, C'de analiz, D'de karakterizasyon özne yapılmış. Doğru cevap B."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. The opening participial phrase ('Having spent months analyzing...') logically modifies the astrophysicists who performed the research. Placing 'an international team of astrophysicists' immediately after the comma resolves the dangling modifier.",
+          "choiceBreakdown": {
+            "A": "Dangling Modifier Trap: An atmosphere cannot spend months analyzing data.",
+            "B": "Correct Answer: Accurately places the actual researchers directly after the introductory modifier.",
+            "C": "Dangling Modifier Trap: 'spectroscopic analysis' cannot spend months analyzing data.",
+            "D": "Dangling Modifier Trap: 'characterization' cannot spend months analyzing data."
+          },
+          "keyTakeaway": "Introductory participial modifiers ('Having spent months...') must be immediately followed by the person or entity capable of performing the action."
+        }
+      },
+      {
+        "id": "GRAM-D4-06",
+        "passage": "Unlike traditional synthetic fertilizers that rapidly leach nitrogen into groundwater, _______",
+        "question": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "A) biochar-enhanced compost releases essential plant nutrients gradually over multiple growing seasons.",
+          "B) plant nutrients are released gradually over multiple growing seasons by biochar-enhanced compost.",
+          "C) gradual release of essential plant nutrients occurs when farmers apply biochar-enhanced compost.",
+          "D) farmers using biochar-enhanced compost notice a gradual release of essential plant nutrients."
+        ],
+        "answer": "A",
+        "strategyHeuristic": "Unlike [Geleneksel Gübreler] karşılaştırmasında virgülden sonra karşılaştırılan diğer madde ('biochar-enhanced compost') gelmelidir.",
+        "turkishSolverGuide": {
+          "step1": "Girişte 'Unlike traditional synthetic fertilizers' (Geleneksel gübrelerin aksine) denilerek bir gübre türü ile karşılaştırma başlatılmış.",
+          "step2": "Virgülden sonra geleneksel gübreyle karşılaştırılacak olan diğer madde gelmelidir: 'biochar-enhanced compost'.",
+          "step3": "B'de 'plant nutrients', C'de 'gradual release', D'de 'farmers' karşılaştırılmış (Illogical Comparison).",
+          "step4": "Doğru cevap A."
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. The modifying comparison ('Unlike traditional synthetic fertilizers...') must logically compare fertilizers to another soil amendment ('biochar-enhanced compost'). Choices B, C, and D create illogical comparisons with nutrients, release, or farmers.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Directly and logically compares synthetic fertilizers to biochar-enhanced compost.",
+            "B": "Illogical Comparison Trap: Compares fertilizers to 'plant nutrients'.",
+            "C": "Illogical Comparison Trap: Compares fertilizers to 'gradual release'.",
+            "D": "Illogical Comparison Trap: Compares fertilizers to 'farmers'."
+          },
+          "keyTakeaway": "On comparison questions ('Unlike X...'), the noun directly following the comma must be of the same conceptual category as X."
+        }
       }
     ]
   },
@@ -5047,6 +5607,64 @@ const GRAMMAR_CONTENT = {
             "D": "Wrong Relationship: 'Instead' indicates an alternative replacement, not an additional effect."
           },
           "keyTakeaway": "When listing multiple parallel effects originating from the same cause, use addition transitions (In addition, Furthermore, Moreover)."
+        }
+      },
+      {
+        "id": "GRAM-D5-05",
+        "passage": "During the late nineteenth century, electrical pioneer Nikola Tesla championed alternating current (AC) for long-distance power distribution because high voltages could be stepped down efficiently with transformers. Thomas Edison, _______ fiercely defended direct current (DC), arguing that high-voltage AC posed unacceptable safety risks to the public.",
+        "question": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "A) in contrast,",
+          "B) therefore,",
+          "C) for instance,",
+          "D) furthermore,"
+        ],
+        "answer": "A",
+        "strategyHeuristic": "Tesla AC savunuyor vs Edison DC savunuyor -> İki zıt görüş/figür karşılaştırılıyor -> 'in contrast' (buna karşın / aksine).",
+        "turkishSolverGuide": {
+          "step1": "1. Bölüm: Nikola Tesla AC (alternatif akım) savunuyordu.",
+          "step2": "2. Bölüm: Thomas Edison ise DC (doğru akım) savundu ve AC'nin tehlikeli olduğunu iddia etti.",
+          "step3": "İlişki: Karşıtlık (Contrast) -> 'Buna karşılık / Aksine'.",
+          "step4": "Doğru cevap A (in contrast)."
+        },
+        "explanation": {
+          "correctBridge": "Choice A is correct. The text sets up a direct ideological and commercial contrast between Nikola Tesla's support for alternating current and Thomas Edison's advocacy for direct current. 'In contrast' correctly expresses this opposition.",
+          "choiceBreakdown": {
+            "A": "Correct Answer: Appropriately indicates the contrast between Tesla's and Edison's competing systems.",
+            "B": "Wrong Relationship: 'Therefore' indicates cause-and-effect, but Edison was not caused by Tesla.",
+            "C": "Wrong Relationship: 'For instance' introduces an example, not a competing perspective.",
+            "D": "Wrong Relationship: 'Furthermore' indicates addition, but the two men held mutually exclusive positions."
+          },
+          "keyTakeaway": "When contrasting the beliefs or actions of two distinct individuals, use contrast transitions (in contrast, however, conversely)."
+        }
+      },
+      {
+        "id": "GRAM-D5-06",
+        "passage": "Many desert succulents minimize water evaporation by closing their stomata during the blistering daytime heat. _______ they open their pores exclusively at night to capture carbon dioxide through Crassulacean acid metabolism.",
+        "question": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "A) Similarly,",
+          "B) Instead,",
+          "C) Consequently,",
+          "D) For example,"
+        ],
+        "answer": "B",
+        "strategyHeuristic": "Gündüz gözeneklerini kapatırlar (Eylem yapılmıyor). Bunun yerine gece açarlar (Alternatif eylem yapılıyor) -> 'Instead' (Bunun yerine).",
+        "turkishSolverGuide": {
+          "step1": "1. Cümle: Çöl bitkileri gündüzleri gözeneklerini kapatır (Olumsuz/Yapılmayan eylem).",
+          "step2": "2. Cümle: Karbondioksit yakalamak için gözeneklerini sadece geceleri açarlar (Yerine yapılan eylem).",
+          "step3": "İlişki: İkame / Alternatif -> 'Instead' (Bunun yerine).",
+          "step4": "Doğru cevap B (Instead)."
+        },
+        "explanation": {
+          "correctBridge": "Choice B is correct. Sentence 1 explains an action the plants avoid during the day (keeping stomata closed). Sentence 2 introduces the alternative strategy they perform at night. 'Instead' signals this replacement action.",
+          "choiceBreakdown": {
+            "A": "Wrong Relationship: 'Similarly' signals comparison between two similar cases, not an alternative.",
+            "B": "Correct Answer: Accurately signals that opening stomata at night replaces opening them during the day.",
+            "C": "Wrong Relationship: 'Consequently' signals a result, but nocturnal opening is a deliberate alternative adaptation.",
+            "D": "Wrong Relationship: 'For example' introduces an illustrative instance, not a substituted behavior."
+          },
+          "keyTakeaway": "When Sentence 1 states what does NOT happen and Sentence 2 states what DOES happen in its place, use 'Instead'."
         }
       }
     ]

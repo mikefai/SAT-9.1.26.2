@@ -690,7 +690,16 @@ const Engine = (function() {
           <div class="item-progress-pills">
             ${practiceItems.map((d, i) => {
               const isDone = !!modState?.guided?.items?.[d.id];
-              return `<span class="item-dot ${i === itemIdx ? 'active' : (isDone ? 'completed' : '')}"></span>`;
+              const isFlagged = StorageManager.isQuestionFlagged(d.id);
+              let dotClass = "item-dot";
+              if (i === itemIdx) dotClass += " active";
+              else if (isDone) dotClass += " completed";
+              if (isFlagged) dotClass += " flagged";
+
+              return `<button class="${dotClass}" onclick="App.navigateToStage('${moduleId}', 5, ${i})" title="Practice Item ${i + 1}${isDone ? ' (Completed)' : ''}${isFlagged ? ' (Flagged for Review 🔖)' : ''}">
+                <span class="dot-num">${i + 1}</span>
+                ${isFlagged ? '<span class="dot-flag-icon">🔖</span>' : ''}
+              </button>`;
             }).join('')}
           </div>
         </div>
@@ -724,6 +733,12 @@ const Engine = (function() {
 
           <!-- Right: Question, Choices, Hint Ladder -->
           <div class="sat-question-pane">
+            <div class="question-flag-row flex-between">
+              <span class="question-pane-badge">Item ${itemIdx + 1} of ${totalItems}</span>
+              <button class="btn-flag-toggle ${StorageManager.isQuestionFlagged(item.id) ? 'flagged' : ''}" onclick="Engine.toggleItemFlag('${item.id}', 'stage', '${moduleId}', ${itemIdx}, 5)" title="Mark for Review (Shortcut: F)">
+                <span>${StorageManager.isQuestionFlagged(item.id) ? '🔖 Flagged' : '🏳️ Mark for Review'}</span> <kbd>F</kbd>
+              </button>
+            </div>
             <div class="question-stem">${item.question}</div>
 
             <div class="sat-choices-container">
@@ -755,22 +770,30 @@ const Engine = (function() {
           </div>
         </div>
 
-        <div class="stage-actions-footer">
-          <button class="btn btn-secondary" onclick="App.navigateToStage('${moduleId}', 4)">← Back to Trap Lab</button>
-          ${isSubmitted ? `
-            <button class="btn btn-secondary" onclick="Engine.retakeGuidedQuestion('${moduleId}', '${item.id}', ${itemIdx})">
-              🔄 Retake Item
+        <div class="stage-actions-footer flex-between">
+          <div class="footer-nav-left">
+            <button class="btn btn-secondary" onclick="App.navigateToStage('${moduleId}', 5, ${Math.max(0, itemIdx - 1)})" ${itemIdx === 0 ? 'disabled' : ''}>
+              ← Previous <kbd>P</kbd>
             </button>
-            ${!isLastItem ? `
-              <button class="btn btn-primary" onclick="App.navigateToStage('${moduleId}', 5, ${itemIdx + 1})">
-                Next Guided Item (${itemIdx + 2}/${totalItems}) →
+            ${isSubmitted ? `
+              <button class="btn btn-secondary" onclick="Engine.retakeGuidedQuestion('${moduleId}', '${item.id}', ${itemIdx})">
+                🔄 Retake Item <kbd>R</kbd>
               </button>
-            ` : `
-              <button class="btn btn-primary btn-large" onclick="Engine.advanceStage()">
-                Proceed to Independent Practice (Stage 6) →
-              </button>
-            `}
-          ` : ""}
+            ` : ""}
+          </div>
+          <div class="footer-nav-right">
+            ${isSubmitted ? `
+              ${!isLastItem ? `
+                <button class="btn btn-primary" onclick="App.navigateToStage('${moduleId}', 5, ${itemIdx + 1})">
+                  Next Guided Item (${itemIdx + 2}/${totalItems}) <kbd>→</kbd>
+                </button>
+              ` : `
+                <button class="btn btn-primary btn-large" onclick="Engine.advanceStage()">
+                  Proceed to Independent Practice (Stage 6) →
+                </button>
+              `}
+            ` : ""}
+          </div>
         </div>
       </div>
     `;
@@ -871,9 +894,26 @@ const Engine = (function() {
             <div class="stage-pill">Stage 6 of 6: Independent Practice (Exam Pace)</div>
             <h2 class="stage-title">Item ${itemIdx + 1} of ${totalItems}</h2>
           </div>
-          <div class="sat-timer-box ${timerSecondsRemaining <= 15 ? 'timer-warning' : ''}" id="exam-timer-display">
-            <span class="timer-icon">⏱️</span>
-            <span class="timer-digits">${formatTime(timerSecondsRemaining)}</span>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <div class="item-progress-pills">
+              ${independentItems.map((d, i) => {
+                const isDone = !!modState?.independent?.items?.[d.id];
+                const isFlagged = StorageManager.isQuestionFlagged(d.id);
+                let dotClass = "item-dot";
+                if (i === itemIdx) dotClass += " active";
+                else if (isDone) dotClass += " completed";
+                if (isFlagged) dotClass += " flagged";
+
+                return `<button class="${dotClass}" onclick="App.navigateToStage('${moduleId}', 6, ${i})" title="Exam Item ${i + 1}${isDone ? ' (Answered)' : ''}${isFlagged ? ' (Flagged 🔖)' : ''}">
+                  <span class="dot-num">${i + 1}</span>
+                  ${isFlagged ? '<span class="dot-flag-icon">🔖</span>' : ''}
+                </button>`;
+              }).join('')}
+            </div>
+            <div class="sat-timer-box ${timerSecondsRemaining <= 15 ? 'timer-warning' : ''}" id="exam-timer-display">
+              <span class="timer-icon">⏱️</span>
+              <span class="timer-digits">${formatTime(timerSecondsRemaining)}</span>
+            </div>
           </div>
         </div>
 
@@ -906,6 +946,12 @@ const Engine = (function() {
 
           <!-- Right: Question & Choices -->
           <div class="sat-question-pane">
+            <div class="question-flag-row flex-between">
+              <span class="question-pane-badge">Exam Question ${itemIdx + 1} of ${totalItems}</span>
+              <button class="btn-flag-toggle ${StorageManager.isQuestionFlagged(item.id) ? 'flagged' : ''}" onclick="Engine.toggleItemFlag('${item.id}', 'stage', '${moduleId}', ${itemIdx}, 6)" title="Mark for Review (Shortcut: F)">
+                <span>${StorageManager.isQuestionFlagged(item.id) ? '🔖 Flagged' : '🏳️ Mark for Review'}</span> <kbd>F</kbd>
+              </button>
+            </div>
             <div class="question-stem">${item.question}</div>
 
             <div class="sat-choices-container">
@@ -922,16 +968,24 @@ const Engine = (function() {
           </div>
         </div>
 
-        <div class="stage-actions-footer">
-          <button class="btn btn-secondary" onclick="App.navigateToStage('${moduleId}', 5)">← Back to Guided</button>
-          ${isSubmitted ? `
-            <button class="btn btn-secondary" onclick="Engine.retakeIndependentQuestion('${moduleId}', '${item.id}', ${itemIdx})">
-              🔄 Retake Item
+        <div class="stage-actions-footer flex-between">
+          <div class="footer-nav-left">
+            <button class="btn btn-secondary" onclick="App.navigateToStage('${moduleId}', 6, ${Math.max(0, itemIdx - 1)})" ${itemIdx === 0 ? 'disabled' : ''}>
+              ← Previous <kbd>P</kbd>
             </button>
-            <button class="btn btn-primary" onclick="App.navigateToStage('${moduleId}', 6, ${itemIdx + 1})">
-              ${itemIdx + 1 < totalItems ? `Next Question (${itemIdx + 2}/${totalItems}) →` : "Proceed to Self-Audit Rubric →"}
-            </button>
-          ` : ""}
+            ${isSubmitted ? `
+              <button class="btn btn-secondary" onclick="Engine.retakeIndependentQuestion('${moduleId}', '${item.id}', ${itemIdx})">
+                🔄 Retake Item <kbd>R</kbd>
+              </button>
+            ` : ""}
+          </div>
+          <div class="footer-nav-right">
+            ${isSubmitted ? `
+              <button class="btn btn-primary" onclick="App.navigateToStage('${moduleId}', 6, ${itemIdx + 1})">
+                ${itemIdx + 1 < totalItems ? `Next Question (${itemIdx + 2}/${totalItems}) <kbd>→</kbd>` : "Proceed to Self-Audit Rubric →"}
+              </button>
+            ` : ""}
+          </div>
         </div>
       </div>
     `;
@@ -1247,7 +1301,16 @@ const Engine = (function() {
           <div class="item-progress-pills">
             ${drills.map((d, i) => {
               const isDone = !!gState.items?.[d.id];
-              return `<span class="item-dot ${i === itemIdx ? 'active' : (isDone ? 'completed' : '')}"></span>`;
+              const isFlagged = StorageManager.isQuestionFlagged(d.id);
+              let dotClass = "item-dot";
+              if (i === itemIdx) dotClass += " active";
+              else if (isDone) dotClass += " completed";
+              if (isFlagged) dotClass += " flagged";
+
+              return `<button class="${dotClass}" onclick="App.navigateToGrammarModule('${moduleId}', ${i})" title="Grammar Drill ${i + 1}${isDone ? ' (Completed)' : ''}${isFlagged ? ' (Flagged for Review 🔖)' : ''}">
+                <span class="dot-num">${i + 1}</span>
+                ${isFlagged ? '<span class="dot-flag-icon">🔖</span>' : ''}
+              </button>`;
             }).join('')}
           </div>
         </div>
@@ -1281,6 +1344,12 @@ const Engine = (function() {
           </div>
 
           <div class="sat-question-pane">
+            <div class="question-flag-row flex-between">
+              <span class="question-pane-badge">Drill ${itemIdx + 1} of ${totalDrills}</span>
+              <button class="btn-flag-toggle ${StorageManager.isQuestionFlagged(item.id) ? 'flagged' : ''}" onclick="Engine.toggleItemFlag('${item.id}', 'grammar', '${moduleId}', ${itemIdx})" title="Mark for Review (Shortcut: F)">
+                <span>${StorageManager.isQuestionFlagged(item.id) ? '🔖 Flagged' : '🏳️ Mark for Review'}</span> <kbd>F</kbd>
+              </button>
+            </div>
             <div class="question-stem">${item.question}</div>
             <div class="sat-choices-container">
               ${choicesHTML}
@@ -1296,15 +1365,24 @@ const Engine = (function() {
           </div>
         </div>
 
-        <div class="stage-actions-footer">
-          ${isSubmitted ? `
-            <button class="btn btn-secondary" onclick="Engine.retakeGrammarQuestion('${moduleId}', '${item.id}', ${itemIdx})">
-              🔄 Retake This Question
+        <div class="stage-actions-footer flex-between">
+          <div class="footer-nav-left">
+            <button class="btn btn-secondary" onclick="App.navigateToGrammarModule('${moduleId}', ${Math.max(0, itemIdx - 1)})" ${itemIdx === 0 ? 'disabled' : ''}>
+              ← Previous <kbd>P</kbd>
             </button>
-            <button class="btn btn-primary" onclick="App.navigateToGrammarModule('${moduleId}', ${isLastDrill ? 0 : itemIdx + 1})">
-              ${!isLastDrill ? `Next Grammar Question (${itemIdx + 2}/${totalDrills}) →` : "Complete Grammar Module ✓"}
-            </button>
-          ` : ""}
+            ${isSubmitted ? `
+              <button class="btn btn-secondary" onclick="Engine.retakeGrammarQuestion('${moduleId}', '${item.id}', ${itemIdx})">
+                🔄 Retake This Question <kbd>R</kbd>
+              </button>
+            ` : ""}
+          </div>
+          <div class="footer-nav-right">
+            ${isSubmitted ? `
+              <button class="btn btn-primary" onclick="App.navigateToGrammarModule('${moduleId}', ${isLastDrill ? 0 : itemIdx + 1})">
+                ${!isLastDrill ? `Next Grammar Question (${itemIdx + 2}/${totalDrills}) <kbd>→</kbd>` : "Complete Grammar Module ✓"}
+              </button>
+            ` : ""}
+          </div>
         </div>
       </div>
     `;
@@ -1383,6 +1461,21 @@ const Engine = (function() {
     selectedChoiceKey = null;
     const items = ACADEMY_CONTENT[moduleId].stage6_independentPractice;
     renderStage6IndependentPractice(document.getElementById("stage-canvas"), items, moduleId, itemIdx);
+  }
+
+  function toggleItemFlag(itemId, type, moduleId, itemIdx, stageNum = 5) {
+    StorageManager.toggleQuestionFlag(itemId);
+    if (type === 'grammar') {
+      renderGrammarModule(null, moduleId, itemIdx);
+    } else if (type === 'stage') {
+      const stageCanvas = document.getElementById("stage-canvas");
+      const modContent = ACADEMY_CONTENT[moduleId];
+      if (stageNum === 5) {
+        renderStage5GuidedPractice(stageCanvas, modContent.stage5_guidedPractice, moduleId, itemIdx);
+      } else if (stageNum === 6) {
+        renderStage6IndependentPractice(stageCanvas, modContent.stage6_independentPractice, moduleId, itemIdx);
+      }
+    }
   }
 
   /**
@@ -1817,6 +1910,7 @@ const Engine = (function() {
     resetGrammarModuleDrills,
     retakeGuidedQuestion,
     retakeIndependentQuestion,
+    toggleItemFlag,
     renderDailyVocabDashboard,
     toggleVocabMastery,
     submitDailyVocabQuiz,
