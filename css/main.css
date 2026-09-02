@@ -1938,35 +1938,61 @@ body.esl-disabled .esl-gloss-popover {
 
 .turkish-modal-tabs {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   background-color: var(--bg-surface-subtle);
   border-bottom: 1px solid var(--border-default);
   overflow-x: auto;
+  scrollbar-width: thin;
+  flex-shrink: 0;
 }
 
 .turkish-tab-btn {
-  background: none;
-  border: 1px solid transparent;
-  border-radius: var(--radius-sm);
-  padding: 0.5rem 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.9rem;
+  font-family: var(--font-sans);
   font-size: 0.85rem;
   font-weight: 700;
+  line-height: 1.2;
   color: var(--text-muted);
   cursor: pointer;
   white-space: nowrap;
+  vertical-align: middle;
   transition: all var(--transition-fast);
+  box-sizing: border-box;
 }
 
 .turkish-tab-btn:hover {
   color: var(--text-main);
-  background-color: var(--bg-surface-elevated);
+  background-color: var(--bg-surface);
+  border-color: var(--border-default);
 }
 
 .turkish-tab-btn.active {
-  color: #fff;
-  background-color: #e11d48;
-  border-color: #e11d48;
+  color: #ffffff !important;
+  background-color: #e11d48 !important;
+  border-color: #e11d48 !important;
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.35);
+}
+
+.turkish-tab-btn .tab-icon {
+  font-size: 1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.turkish-tab-btn .tab-label {
+  display: inline-block;
+  line-height: 1.2;
 }
 
 .turkish-modal-body-scroll {
@@ -3078,21 +3104,35 @@ body.esl-disabled .esl-gloss-popover {
 }
 
 .filter-pill {
-  background: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  background-color: var(--bg-surface-elevated);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-sm);
-  padding: 0.35rem 0.75rem;
+  padding: 0.4rem 0.75rem;
   font-size: 0.8rem;
   font-weight: 700;
+  line-height: 1.2;
   color: var(--text-muted);
   cursor: pointer;
+  white-space: nowrap;
+  vertical-align: middle;
   transition: all var(--transition-fast);
 }
 
+.filter-pill:hover {
+  color: var(--text-main);
+  background-color: var(--bg-surface);
+  border-color: var(--border-subtle);
+}
+
 .filter-pill.active {
-  background-color: var(--accent-primary);
-  color: #fff;
-  border-color: var(--accent-primary);
+  background-color: var(--accent-primary) !important;
+  color: #ffffff !important;
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
 }
 
 .mistakes-list-container {

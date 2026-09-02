@@ -241,10 +241,18 @@
       </div>
       
       <div class="turkish-modal-tabs">
-        <button class="turkish-tab-btn active" data-tab="vocab" onclick="App.switchTurkishTab('vocab')">📖 En Sık Çıkan 100 Kelime</button>
-        <button class="turkish-tab-btn" data-tab="false_friends" onclick="App.switchTurkishTab('false_friends')">⚠️ Yalancı Eşdeğerler (Tuzaklar)</button>
-        <button class="turkish-tab-btn" data-tab="transitions" onclick="App.switchTurkishTab('transitions')">🔄 Bağlaçlar & Geçişler</button>
-        <button class="turkish-tab-btn" data-tab="stems" onclick="App.switchTurkishTab('stems')">🎯 Soru Kökleri Kılavuzu</button>
+        <button class="turkish-tab-btn active" data-tab="vocab" onclick="App.switchTurkishTab('vocab')">
+          <span class="tab-icon">📖</span> <span class="tab-label">En Sık Çıkan Kelimeler</span>
+        </button>
+        <button class="turkish-tab-btn" data-tab="false_friends" onclick="App.switchTurkishTab('false_friends')">
+          <span class="tab-icon">⚠️</span> <span class="tab-label">Yalancı Eşdeğerler (Tuzaklar)</span>
+        </button>
+        <button class="turkish-tab-btn" data-tab="transitions" onclick="App.switchTurkishTab('transitions')">
+          <span class="tab-icon">🔄</span> <span class="tab-label">Bağlaçlar & Geçişler</span>
+        </button>
+        <button class="turkish-tab-btn" data-tab="stems" onclick="App.switchTurkishTab('stems')">
+          <span class="tab-icon">🎯</span> <span class="tab-label">Soru Kökleri Kılavuzu</span>
+        </button>
       </div>
 
       <div id="turkish-modal-body" class="turkish-modal-body-scroll"></div>
